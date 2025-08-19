@@ -1,11 +1,11 @@
-# Spreadsheet Functions Documentation
+# Excel and Google Sheets Functions Documentation
 
 [![Obsidian](https://img.shields.io/badge/Obsidian-Vault-purple?logo=obsidian)](https://obsidian.md/)
 [![Functions](https://img.shields.io/badge/Functions-539+-brightgreen)](./Functions/)
 [![Categories](https://img.shields.io/badge/Categories-15-blue)](./Functions/)
 [![Documentation](https://img.shields.io/badge/Documentation-Complete-success)](./README.md)
 
-A comprehensive, standardized documentation system for 539+ Excel and Google Sheets functions with consistent YAML frontmatter and structured markdown optimized for Obsidian and other knowledge management systems.
+A comprehensive, standardized documentation system for 539+ Excel and Google Sheets functions with consistent YAML frontmatter and structured markdown optimized for Obsidian and other knowledge management systems. Every Excel and Sheets function in a handy markdown format, including definitions, explanations, and examples.
 
 ## 🚀 Features
 

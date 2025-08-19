@@ -1,0 +1,67 @@
+---
+categories: spreadsheets
+subCategories: 
+  - excel
+  - sheets
+topics: financial
+subTopics: []
+dateCreated: 2025-06-20
+dateRevised: 2025-08-17
+aliases: []
+tags: []
+---
+
+# COUPDAYSNC
+
+## COUPDAYSNC Description
+
+Calculates days from the settlement date to the next coupon date
+
+> [!f(x)] COUPDAYSNC Syntax
+>
+> ```spreadsheets
+> COUPDAYSNC()
+> ```
+
+> [!f(x)] COUPDAYSNC Example
+>
+> ```spreadsheets
+> COUPDAYSNC() → result
+> ```
+
+## Use Cases
+
+- [[Data analysis]]
+- [[Calculations]]
+- [[Report generation]]
+
+## Related
+
+### Similar Functions
+
+- FUNCTION1
+- FUNCTION2
+- FUNCTION3
+
+### Commonly Used With Functions
+
+- IF
+  - [[Data analysis]]
+  - [[Data validation]]
+  - [[Report generation]]
+- SUM
+  - [[Calculations]]
+  - [[Mathematical operations]]
+  - [[Statistical analysis]]
+- COUNT
+  - [[Report generation]]
+  - [[Conditional logic]]
+  - [[Data processing]]
+- AVERAGE
+  - [[Data aggregation]]
+  - [[Summary reports]]
+  - [[Performance metrics]]
+- TEXT
+  - [[Text processing]]
+  - [[Data formatting]]
+  - [[String manipulation]]

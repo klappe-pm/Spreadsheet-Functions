@@ -1,0 +1,57 @@
+# Spreadsheet Functions Repository - .gitignore
+# Only include Functions/, Diagrams/, and README.md
+
+# Include only what we want - be explicit
+*.py
+*.pyc
+*.pyo
+__pycache__/
+*.tmp
+*.temp
+*.log
+CLAUDE*.md
+*cleanup*.py
+*fix*.py
+*refactor*.py
+MISSING_FUNCTIONS_ANALYSIS.md
+PROJECT_SUMMARY.md
+EXAMPLE_FORMATTED_FUNCTION.md
+CLEANUP_CONFIRMATION.md
+
+# Exclude system files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# Exclude Python scripts and temporary files
+*.py
+*.pyc
+*.pyo
+__pycache__/
+*.tmp
+*.temp
+*.log
+
+# Exclude Obsidian workspace files
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Exclude cleanup and utility files
+CLAUDE*.md
+*cleanup*.py
+*fix*.py
+*refactor*.py
+MISSING_FUNCTIONS_ANALYSIS.md
+PROJECT_SUMMARY.md
+EXAMPLE_FORMATTED_FUNCTION.md
+CLEANUP_CONFIRMATION.md
+
+# Exclude backup files
+*.bak
+*.backup
+*.old
+*~

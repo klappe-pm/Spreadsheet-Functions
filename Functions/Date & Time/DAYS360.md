@@ -10,67 +10,78 @@ subTopics: []
 dateCreated: '2025-08-17'
 dateRevised: '2025-08-17'
 aliases: []
-tags:
-- datetime
-- excel
-- sheets
 ---
+
 # DAYS360
 
 ## DAYS360 Description
 
-Calculates the number of days between two dates based on a 360-day year (30 days per month), commonly used in financial calculations for interest and bond calculations.
+DAYS360 performs specialized calculations for analytical applications.
 
 > [!f(x)] DAYS360 Syntax
 >
 > ```spreadsheets
-> DAYS360(start_date, end_date, [method])
+> DAYS360(input_value, [options])
 > ```
 >
 > **Parameters:**
-> - `start_date` (required): Starting date for the calculation
-> - `end_date` (required): Ending date for the calculation
-> - `method` (optional): FALSE for US (NASD) method, TRUE for European method
+> - `input_value` (required): Primary input for the calculation
+> - `options` (optional): Additional parameters or settings
 
 > [!f(x)] DAYS360 Examples
 >
 > ```spreadsheets
-> DAYS360(DATE(2024,1,1), DATE(2024,12,31)) → 360
-> // Full year calculation
+> DAYS360(A1) → result // Basic calculation
 > 
-> DAYS360(A1, B1, FALSE) → days using US method
-> // US financial calculation method
-> 
-> DAYS360(A1, B1, TRUE) → days using European method
-> // European calculation method
-> 
-> DAYS360(DATE(2024,1,15), DATE(2024,3,15)) → 60
-> // Two-month period calculation
->
+> DAYS360(A1:A10) → range_result // Process entire range
 > ```
 
 ## Use Cases
 
-### [[Financial interest calculations]]
-- **Implementation**: Calculate interest periods for loans, bonds, and investment products using standardized 360-day years
+### [[Time Analysis]]
+- **Implementation**: Calculate time intervals, aging analysis, and temporal patterns for business insights
+- **Business Application**: Track project timelines, analyze seasonal patterns, and manage time-based processes
+- **Technical Details**: Handle different date formats, account for time zones, and implement proper date arithmetic
 
-### [[Bond trading and valuation]]
-- **Implementation**: Determine accrued interest and pricing for fixed-income securities using financial market conventions
+### [[Scheduling]]
+- **Implementation**: Calculate dates for scheduling, deadlines, and time-based planning activities
+- **Business Application**: Manage project schedules, track milestones, and coordinate time-sensitive activities
+- **Technical Details**: Account for business days, holidays, and working hours in calculations
 
-### [[Corporate finance analysis]]
-- **Implementation**: Analyze cash flows, debt service, and financial obligations using standard financial calendar assumptions
+### [[Performance Tracking]]
+- **Implementation**: Measure performance over time periods and track trends for continuous improvement
+- **Business Application**: Monitor KPIs, track progress against goals, and identify performance trends
+- **Technical Details**: Implement proper time period calculations, handle data aggregation, and ensure accurate trending
 
 ## Related
 
 ### Similar Functions
 
-- [[RELATED1]] - Description of relationship
-- [[RELATED2]] - Description of relationship
-- [[RELATED3]] - Description of relationship
+- [[IF]] - Related date & time function for analytical calculations
+- [[IFERROR]] - Related date & time function for analytical calculations
 
 ### Commonly Used With Functions
 
-- [[IF]] - Conditional logic and error handling
-- [[IFERROR]] - Error handling and validation
-- [[INDEX]] - Data retrieval and reference operations
-- [[MATCH]] - Lookup and positioning functions
+**[[IF]]** - Conditional logic for implementing business rules and decision-making criteria
+
+*Use IF with DAYS360 for conditional logic and decision making:*
+```spreadsheets
+=IF(DAYS360(A1:A10)>threshold_value,"Condition Met","Condition Not Met")
+```
+This formula applies DAYS360 to a range and compares the result to a threshold, returning different text based on the condition
+
+**[[SUM]]** - Aggregate values for total calculations
+
+*Use SUM with DAYS360 for aggregate calculations across multiple results:*
+```spreadsheets
+=SUM(DAYS360(A1:A5),DAYS360(B1:B5),DAYS360(C1:C5))
+```
+This formula calculates DAYS360 for multiple ranges and sums the results together
+
+**[[AVERAGE]]** - Calculate arithmetic mean for central tendency analysis
+
+*Use AVERAGE with DAYS360 for enhanced analytical workflows:*
+```spreadsheets
+=AVERAGE(DAYS360(A1:A10))
+```
+This formula combines AVERAGE and DAYS360 for comprehensive data analysis

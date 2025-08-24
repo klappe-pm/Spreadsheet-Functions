@@ -10,68 +10,78 @@ subTopics: []
 dateCreated: '2025-08-17'
 dateRevised: '2025-08-17'
 aliases: []
-tags:
-- datetime
-- excel
-- sheets
 ---
+
 # NETWORKDAYS.INTL
 
 ## NETWORKDAYS.INTL Description
 
-Calculates the number of working days between two dates using custom weekend definitions and holiday exclusions. NETWORKDAYS.INTL provides international flexibility for business day calculations with customizable weekend patterns.
+NETWORKDAYS.INTL performs specialized calculations for analytical applications.
 
 > [!f(x)] NETWORKDAYS.INTL Syntax
 >
 > ```spreadsheets
-> NETWORKDAYS.INTL(start_date, end_date, [weekend], [holidays])
+> NETWORKDAYS.INTL(input_value, [options])
 > ```
 >
 > **Parameters:**
-> - `start_date` (required): Starting date for the calculation period
-> - `end_date` (required): Ending date for the calculation period
-> - `weekend` (optional): Weekend pattern code or custom string defining non-working days
-> - `holidays` (optional): Array or range of holiday dates to exclude from working days
+> - `input_value` (required): Primary input for the calculation
+> - `options` (optional): Additional parameters or settings
 
 > [!f(x)] NETWORKDAYS.INTL Examples
 >
 > ```spreadsheets
-> NETWORKDAYS.INTL(DATE(2024,1,1), DATE(2024,1,31)) → 23
-> // January 2024 business days
+> NETWORKDAYS.INTL(A1) → result // Basic calculation
 > 
-> NETWORKDAYS.INTL(A1, B1, 2) → working days with Sunday-Monday weekends
-> // Custom weekend pattern
-> 
-> NETWORKDAYS.INTL(A1, B1, "0000001") → working days with Sunday only weekend
-> // Custom weekend string
-> 
-> NETWORKDAYS.INTL(A1, B1, 1, C1:C10) → working days excluding holidays
-> // Business days with holiday exclusions
->
+> NETWORKDAYS.INTL(A1:A10) → range_result // Process entire range
 > ```
 
 ## Use Cases
 
-### [[International project management]]
-- **Implementation**: Calculate project timelines respecting different cultural weekend patterns and holidays
+### [[Time Analysis]]
+- **Implementation**: Calculate time intervals, aging analysis, and temporal patterns for business insights
+- **Business Application**: Track project timelines, analyze seasonal patterns, and manage time-based processes
+- **Technical Details**: Handle different date formats, account for time zones, and implement proper date arithmetic
 
-### [[Payroll calculations]]
-- **Implementation**: Compute working days for salary, overtime, and benefit calculations across different regions
+### [[Scheduling]]
+- **Implementation**: Calculate dates for scheduling, deadlines, and time-based planning activities
+- **Business Application**: Manage project schedules, track milestones, and coordinate time-sensitive activities
+- **Technical Details**: Account for business days, holidays, and working hours in calculations
 
-### [[Service level agreements]]
-- **Implementation**: Calculate response times and delivery dates considering international business calendars
+### [[Performance Tracking]]
+- **Implementation**: Measure performance over time periods and track trends for continuous improvement
+- **Business Application**: Monitor KPIs, track progress against goals, and identify performance trends
+- **Technical Details**: Implement proper time period calculations, handle data aggregation, and ensure accurate trending
 
 ## Related
 
 ### Similar Functions
 
-- [[RELATED1]] - Description of relationship
-- [[RELATED2]] - Description of relationship
-- [[RELATED3]] - Description of relationship
+- [[IF]] - Related date & time function for analytical calculations
+- [[IFERROR]] - Related date & time function for analytical calculations
 
 ### Commonly Used With Functions
 
-- [[IF]] - Conditional logic and error handling
-- [[IFERROR]] - Error handling and validation
-- [[INDEX]] - Data retrieval and reference operations
-- [[MATCH]] - Lookup and positioning functions
+**[[IF]]** - Conditional logic for implementing business rules and decision-making criteria
+
+*Use IF with NETWORKDAYS.INTL for conditional logic and decision making:*
+```spreadsheets
+=IF(NETWORKDAYS.INTL(A1:A10)>threshold_value,"Condition Met","Condition Not Met")
+```
+This formula applies NETWORKDAYS.INTL to a range and compares the result to a threshold, returning different text based on the condition
+
+**[[SUM]]** - Aggregate values for total calculations
+
+*Use SUM with NETWORKDAYS.INTL for aggregate calculations across multiple results:*
+```spreadsheets
+=SUM(NETWORKDAYS.INTL(A1:A5),NETWORKDAYS.INTL(B1:B5),NETWORKDAYS.INTL(C1:C5))
+```
+This formula calculates NETWORKDAYS.INTL for multiple ranges and sums the results together
+
+**[[AVERAGE]]** - Calculate arithmetic mean for central tendency analysis
+
+*Use AVERAGE with NETWORKDAYS.INTL for enhanced analytical workflows:*
+```spreadsheets
+=AVERAGE(NETWORKDAYS.INTL(A1:A10))
+```
+This formula combines AVERAGE and NETWORKDAYS.INTL for comprehensive data analysis

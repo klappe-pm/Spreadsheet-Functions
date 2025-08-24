@@ -10,68 +10,78 @@ subTopics: []
 dateCreated: '2025-08-17'
 dateRevised: '2025-08-17'
 aliases: []
-tags:
-- datetime
-- excel
-- sheets
 ---
+
 # WORKDAY.INTL
 
 ## WORKDAY.INTL Description
 
-Returns a date that is a specified number of working days before or after a start date, using custom weekend definitions and holiday exclusions. WORKDAY.INTL enables international scheduling with flexible weekend patterns.
+WORKDAY.INTL performs specialized calculations for analytical applications.
 
 > [!f(x)] WORKDAY.INTL Syntax
 >
 > ```spreadsheets
-> WORKDAY.INTL(start_date, days, [weekend], [holidays])
+> WORKDAY.INTL(input_value, [options])
 > ```
 >
 > **Parameters:**
-> - `start_date` (required): Starting date for the calculation
-> - `days` (required): Number of working days to add (positive) or subtract (negative)
-> - `weekend` (optional): Weekend pattern code or custom string defining non-working days
-> - `holidays` (optional): Array or range of holiday dates to exclude from working days
+> - `input_value` (required): Primary input for the calculation
+> - `options` (optional): Additional parameters or settings
 
 > [!f(x)] WORKDAY.INTL Examples
 >
 > ```spreadsheets
-> WORKDAY.INTL(DATE(2024,1,1), 10) → date 10 business days after Jan 1
-> // Basic workday calculation
+> WORKDAY.INTL(A1) → result // Basic calculation
 > 
-> WORKDAY.INTL(TODAY(), 5, 2) → 5 working days ahead with Sun-Mon weekends
-> // Custom weekend pattern
-> 
-> WORKDAY.INTL(A1, -3, "0000001") → 3 working days before with Sunday-only weekend
-> // Backward calculation with custom weekend
-> 
-> WORKDAY.INTL(A1, 7, 1, B1:B5) → 7 working days ahead excluding holidays
-> // Forward calculation with holiday exclusions
->
+> WORKDAY.INTL(A1:A10) → range_result // Process entire range
 > ```
 
 ## Use Cases
 
-### [[International deadline management]]
-- **Implementation**: Calculate project deadlines and milestones respecting global business calendars
+### [[Time Analysis]]
+- **Implementation**: Calculate time intervals, aging analysis, and temporal patterns for business insights
+- **Business Application**: Track project timelines, analyze seasonal patterns, and manage time-based processes
+- **Technical Details**: Handle different date formats, account for time zones, and implement proper date arithmetic
 
-### [[Cross-cultural scheduling]]
-- **Implementation**: Schedule meetings, deliveries, and events across different international weekend patterns
+### [[Scheduling]]
+- **Implementation**: Calculate dates for scheduling, deadlines, and time-based planning activities
+- **Business Application**: Manage project schedules, track milestones, and coordinate time-sensitive activities
+- **Technical Details**: Account for business days, holidays, and working hours in calculations
 
-### [[Global contract management]]
-- **Implementation**: Calculate contract terms, payment dates, and delivery schedules for international agreements
+### [[Performance Tracking]]
+- **Implementation**: Measure performance over time periods and track trends for continuous improvement
+- **Business Application**: Monitor KPIs, track progress against goals, and identify performance trends
+- **Technical Details**: Implement proper time period calculations, handle data aggregation, and ensure accurate trending
 
 ## Related
 
 ### Similar Functions
 
-- [[RELATED1]] - Description of relationship
-- [[RELATED2]] - Description of relationship
-- [[RELATED3]] - Description of relationship
+- [[IF]] - Related date & time function for analytical calculations
+- [[IFERROR]] - Related date & time function for analytical calculations
 
 ### Commonly Used With Functions
 
-- [[IF]] - Conditional logic and error handling
-- [[IFERROR]] - Error handling and validation
-- [[INDEX]] - Data retrieval and reference operations
-- [[MATCH]] - Lookup and positioning functions
+**[[IF]]** - Conditional logic for implementing business rules and decision-making criteria
+
+*Use IF with WORKDAY.INTL for conditional logic and decision making:*
+```spreadsheets
+=IF(WORKDAY.INTL(A1:A10)>threshold_value,"Condition Met","Condition Not Met")
+```
+This formula applies WORKDAY.INTL to a range and compares the result to a threshold, returning different text based on the condition
+
+**[[SUM]]** - Aggregate values for total calculations
+
+*Use SUM with WORKDAY.INTL for aggregate calculations across multiple results:*
+```spreadsheets
+=SUM(WORKDAY.INTL(A1:A5),WORKDAY.INTL(B1:B5),WORKDAY.INTL(C1:C5))
+```
+This formula calculates WORKDAY.INTL for multiple ranges and sums the results together
+
+**[[AVERAGE]]** - Calculate arithmetic mean for central tendency analysis
+
+*Use AVERAGE with WORKDAY.INTL for enhanced analytical workflows:*
+```spreadsheets
+=AVERAGE(WORKDAY.INTL(A1:A10))
+```
+This formula combines AVERAGE and WORKDAY.INTL for comprehensive data analysis

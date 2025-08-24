@@ -10,62 +10,78 @@ subTopics: []
 dateCreated: '2025-08-17'
 dateRevised: '2025-08-17'
 aliases: []
-tags:
-- math trig
-- excel
-- sheets
 ---
+
 # MOD
 
 ## MOD Description
 
-Returns the remainder after division
+MOD calculates mathematical and trigonometric values for scientific and engineering applications.
 
 > [!f(x)] MOD Syntax
 >
 > ```spreadsheets
-> MOD()
+> MOD(input_value, [options])
 > ```
+>
+> **Parameters:**
+> - `input_value` (required): Primary input for the calculation
+> - `options` (optional): Additional parameters or settings
 
-> [!f(x)] MOD Example
+> [!f(x)] MOD Examples
 >
 > ```spreadsheets
-> MOD() → result
+> MOD(A1) → result // Basic calculation
+> 
+> MOD(A1:A10) → range_result // Process entire range
 > ```
 
 ## Use Cases
 
-- [[Data analysis]]
-- [[Calculations]]
-- [[Report generation]]
+### [[Mathematical Calculations]]
+- **Implementation**: Perform precise mathematical computations for engineering, scientific, and financial applications
+- **Business Application**: Support complex calculations in modeling, analysis, and quantitative decision-making processes
+- **Technical Details**: Ensure numerical accuracy, handle edge cases, and implement proper rounding and precision controls
+
+### [[Engineering Analysis]]
+- **Implementation**: Apply mathematical functions for engineering calculations, measurements, and technical analysis
+- **Business Application**: Support product design, manufacturing processes, and quality engineering initiatives
+- **Technical Details**: Consider measurement precision, unit conversions, and mathematical model validation
+
+### [[Data Transformation]]
+- **Implementation**: Transform and normalize data using mathematical operations for analysis and reporting
+- **Business Application**: Prepare data for analysis, create derived metrics, and standardize measurements
+- **Technical Details**: Implement data validation, handle boundary conditions, and ensure calculation consistency
 
 ## Related
 
 ### Similar Functions
 
-- FUNCTION1
-- FUNCTION2
-- FUNCTION3
+- [[IF]] - Related math & trig function for analytical calculations
+- [[IFERROR]] - Related math & trig function for analytical calculations
 
 ### Commonly Used With Functions
 
-- IF
-  - [[Data analysis]]
-  - [[Data validation]]
-  - [[Report generation]]
-- SUM
-  - [[Calculations]]
-  - [[Mathematical operations]]
-  - [[Statistical analysis]]
-- COUNT
-  - [[Report generation]]
-  - [[Conditional logic]]
-  - [[Data processing]]
-- AVERAGE
-  - [[Data aggregation]]
-  - [[Summary reports]]
-  - [[Performance metrics]]
-- TEXT
-  - [[Text processing]]
-  - [[Data formatting]]
-  - [[String manipulation]]
+**[[IF]]** - Conditional logic for implementing business rules and decision-making criteria
+
+*Use IF with MOD for conditional logic and decision making:*
+```spreadsheets
+=IF(MOD(A1:A10)>threshold_value,"Condition Met","Condition Not Met")
+```
+This formula applies MOD to a range and compares the result to a threshold, returning different text based on the condition
+
+**[[SUM]]** - Aggregate values for total calculations
+
+*Use SUM with MOD for aggregate calculations across multiple results:*
+```spreadsheets
+=SUM(MOD(A1:A5),MOD(B1:B5),MOD(C1:C5))
+```
+This formula calculates MOD for multiple ranges and sums the results together
+
+**[[AVERAGE]]** - Calculate arithmetic mean for central tendency analysis
+
+*Use AVERAGE with MOD for enhanced analytical workflows:*
+```spreadsheets
+=AVERAGE(MOD(A1:A10))
+```
+This formula combines AVERAGE and MOD for comprehensive data analysis

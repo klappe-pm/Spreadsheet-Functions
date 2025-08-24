@@ -1,22 +1,19 @@
 ---
-!!python/object/apply:collections.OrderedDict
-- - - categories
-    - - spreadsheet-functions
-  - - subCategories
-    - - excel
-      - sheets
-  - - topics
-    - - diagrams
-  - - subTopics
-    - []
-  - - dateCreated
-    - 2025-06-16
-  - - dateRevised
-    - 2025-08-17
-  - - aliases
-    - - Spreadsheets-Functions-Engineering-Complete
-  - - tags
-    - []
+categories:
+- spreadsheet-functions
+subCategories:
+- excel
+- sheets
+topics:
+- diagrams
+subTopics: []
+dateCreated: '2025-08-17'
+dateRevised: '2025-08-17'
+aliases: []
+tags:
+- diagrams
+- excel
+- sheets
 ---
 # Spreadsheets-Functions-Engineering-Complete
 

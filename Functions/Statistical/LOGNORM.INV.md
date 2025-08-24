@@ -1,22 +1,19 @@
 ---
-!!python/object/apply:collections.OrderedDict
-- - - categories
-    - - spreadsheets
-  - - subCategories
-    - - excel
-      - sheets
-  - - topics
-    - - statistical
-  - - subTopics
-    - []
-  - - dateCreated
-    - 2025-06-20
-  - - dateRevised
-    - 2025-08-17
-  - - aliases
-    - []
-  - - tags
-    - []
+categories:
+- spreadsheet-functions
+subCategories:
+- excel
+- sheets
+topics:
+- statistical
+subTopics: []
+dateCreated: '2025-08-17'
+dateRevised: '2025-08-17'
+aliases: []
+tags:
+- statistical
+- excel
+- sheets
 ---
 # LOGNORM.INV
 

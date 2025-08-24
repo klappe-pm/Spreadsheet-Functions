@@ -1,22 +1,19 @@
 ---
-!!python/object/apply:collections.OrderedDict
-- - - categories
-    - - spreadsheets
-  - - subCategories
-    - - excel
-      - sheets
-  - - topics
-    - - sheets
-  - - subTopics
-    - []
-  - - dateCreated
-    - 2025-06-20
-  - - dateRevised
-    - 2025-08-17
-  - - aliases
-    - []
-  - - tags
-    - []
+categories:
+- spreadsheet-functions
+subCategories:
+- excel
+- sheets
+topics:
+- google-specific
+subTopics: []
+dateCreated: '2025-08-17'
+dateRevised: '2025-08-17'
+aliases: []
+tags:
+- google specific
+- excel
+- sheets
 ---
 # REDUCE
 

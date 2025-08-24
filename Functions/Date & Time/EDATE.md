@@ -1,5 +1,4 @@
 ---
-!!python/object/apply:collections.OrderedDict
 - - - categories
     - - spreadsheets
   - - subCategories
@@ -17,6 +16,8 @@
     - []
   - - tags
     - []
+dateCreated: 2025-06-20
+dateRevised: 2025-08-24
 ---
 # EDATE
 

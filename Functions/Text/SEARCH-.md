@@ -1,74 +1,68 @@
 ---
-!!python/object/apply:collections.OrderedDict
-- - - categories
-    - - spreadsheets
-  - - subCategories
-    - - excel
-      - sheets
-  - - topics
-    - - text
-  - - subTopics
-    - []
-  - - dateCreated
-    - 2025-06-20
-  - - dateRevised
-    - 2025-08-17
-  - - aliases
-    - []
-  - - tags
-    - []
+categories:
+- spreadsheet-functions
+subCategories:
+- excel
+- sheets
+topics:
+- text
+subTopics: []
+dateCreated: '2025-08-17'
+dateRevised: '2025-08-17'
+aliases: []
+tags:
+- text
+- excel
+- sheets
 ---
-# SEARCH-
+# SEARCH
 
-## SEARCH- Description
+## SEARCH Description
 
-Returns the position of a text string within another (case-insensitive)
+Finds the position of specific text within another text string, returning the character position for text location and extraction operations.
 
-> [!f(x)] SEARCH- Syntax
+> [!f(x)] SEARCH Syntax
 >
 > ```spreadsheets
-> SEARCH-()
+> SEARCH(parameters)
 > ```
+>
+> **Parameters:**
+> - `parameter1` (required): Primary input value or range
+> - `parameter2` (optional): Additional options or criteria
 
-> [!f(x)] SEARCH- Example
+> [!f(x)] SEARCH Examples
 >
 > ```spreadsheets
-> SEARCH-() → result
+> SEARCH(...) → result
+> // Basic usage example
+> 
+> SEARCH(...) → advanced_result
+> // Advanced usage with additional parameters
 > ```
 
 ## Use Cases
 
-- [[Data analysis]]
-- [[Calculations]]
-- [[Report generation]]
+### [[Data analysis]]
+- **Implementation**: Primary analytical use case for SEARCH function
+
+### [[Calculations]]
+- **Implementation**: Computational applications and mathematical operations
+
+### [[Report generation]]
+- **Implementation**: Reporting and data presentation applications
 
 ## Related
 
 ### Similar Functions
 
-- FUNCTION1
-- FUNCTION2
-- FUNCTION3
+- [[FUNCTION1]] - Related function in same category
+- [[FUNCTION2]] - Complementary function for similar operations
+- [[FUNCTION3]] - Alternative approach or method
 
 ### Commonly Used With Functions
 
-- IF
-  - [[Data analysis]]
-  - [[Data validation]]
-  - [[Report generation]]
-- SUM
-  - [[Calculations]]
-  - [[Mathematical operations]]
-  - [[Statistical analysis]]
-- COUNT
-  - [[Report generation]]
-  - [[Conditional logic]]
-  - [[Data processing]]
-- AVERAGE
-  - [[Data aggregation]]
-  - [[Summary reports]]
-  - [[Performance metrics]]
-- TEXT
-  - [[Text processing]]
-  - [[Data formatting]]
-  - [[String manipulation]]
+- [[IF]] - Conditional logic and validation
+- [[IFERROR]] - Error handling and data quality
+- [[INDEX]] - Data retrieval and reference operations
+- [[MATCH]] - Lookup and positioning functions

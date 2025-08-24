@@ -1,21 +1,18 @@
 ---
-!!python/object/apply:collections.OrderedDict
-- - - categories
-    - []
-  - - subCategories
-    - []
-  - - topics
-    - []
-  - - subTopics
-    - []
-  - - dateCreated
-    - 2025-06-16
-  - - dateRevised
-    - 2025-06-16
-  - - aliases
-    - - "\U0001F4CA CLAUDE.MD - Excel & Google Sheets Functions Visual Reference"
-  - - tags
-    - []
+categories:
+- documentation
+subCategories:
+- diagrams
+topics:
+- function-relationships
+subTopics: []
+dateCreated: '2025-08-17'
+dateRevised: '2025-08-17'
+aliases: []
+tags:
+- diagrams
+- mermaid
+- functions
 ---
 # 📊 CLAUDE.MD - Excel & Google Sheets Functions Visual Reference
 ## Project Overview

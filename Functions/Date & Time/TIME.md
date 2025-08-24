@@ -1,22 +1,19 @@
 ---
-!!python/object/apply:collections.OrderedDict
-- - - categories
-    - - spreadsheets
-  - - subCategories
-    - - excel
-      - sheets
-  - - topics
-    - - date & time
-  - - subTopics
-    - []
-  - - dateCreated
-    - 2025-06-20
-  - - dateRevised
-    - 2025-08-17
-  - - aliases
-    - []
-  - - tags
-    - []
+categories:
+- spreadsheet-functions
+subCategories:
+- excel
+- sheets
+topics:
+- datetime
+subTopics: []
+dateCreated: '2025-08-17'
+dateRevised: '2025-08-17'
+aliases: []
+tags:
+- datetime
+- excel
+- sheets
 ---
 # TIME
 

@@ -1,16 +1,23 @@
 ---
-categories: spreadsheets
-subCategories: 
-  - excel
-  - sheets
-topics: math & trig
-subTopics: []
-dateCreated: 2025-06-20
-dateRevised: 2025-08-17
-aliases: []
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - - spreadsheets
+  - - subCategories
+    - - excel
+      - sheets
+  - - topics
+    - - math & trig
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-20
+  - - dateRevised
+    - 2025-08-17
+  - - aliases
+    - []
+  - - tags
+    - []
 ---
-
 # COSH
 
 ## COSH Description

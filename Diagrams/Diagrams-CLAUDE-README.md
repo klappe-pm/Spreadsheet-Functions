@@ -1,16 +1,22 @@
 ---
-fileName: 📊 CLAUDE.MD - Excel & Google Sheets Functions Visual Reference
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [📊 CLAUDE.MD - Excel & Google Sheets Functions Visual Reference]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - "\U0001F4CA CLAUDE.MD - Excel & Google Sheets Functions Visual Reference"
+  - - tags
+    - []
 ---
-
 # 📊 CLAUDE.MD - Excel & Google Sheets Functions Visual Reference
 ## Project Overview
 A comprehensive visual documentation system for all 546 Excel and Google Sheets functions using Mermaid.js diagrams, optimized for Obsidian.md and knowledge management systems. This project transforms complex spreadsheet function documentation into accessible, interactive visual references.

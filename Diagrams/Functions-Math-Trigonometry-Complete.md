@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Math-Trigonometry-Complete
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Math-Trigonometry-Complete]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Math-Trigonometry-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Math-Trigonometry-Complete
 
 ```mermaid

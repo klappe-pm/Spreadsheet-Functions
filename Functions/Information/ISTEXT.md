@@ -1,16 +1,23 @@
 ---
-categories: spreadsheets
-subCategories: 
-  - excel
-  - sheets
-topics: information
-subTopics: []
-dateCreated: 2025-06-20
-dateRevised: 2025-08-19
-aliases: []
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - - spreadsheets
+  - - subCategories
+    - - excel
+      - sheets
+  - - topics
+    - - information
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-20
+  - - dateRevised
+    - 2025-08-19
+  - - aliases
+    - []
+  - - tags
+    - []
 ---
-
 # ISTEXT
 
 ## ISTEXT Description

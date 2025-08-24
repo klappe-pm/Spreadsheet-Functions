@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheet-Formulas-Database-Updated
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheet-Formulas-Database-Updated]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheet-Formulas-Database-Updated
+  - - tags
+    - []
 ---
-
 # Spreadsheet-Formulas-Database-Updated
 
 ```mermaid

@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Financial-Loans
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Financial-Loans]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Financial-Loans
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Financial-Loans
 
 ```mermaid

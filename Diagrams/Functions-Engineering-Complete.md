@@ -1,19 +1,23 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: 2025-06-16
-dateRevised: 2025-08-17
-aliases:
-- Spreadsheets-Functions-Engineering-Complete
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - - spreadsheet-functions
+  - - subCategories
+    - - excel
+      - sheets
+  - - topics
+    - - diagrams
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-08-17
+  - - aliases
+    - - Spreadsheets-Functions-Engineering-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Engineering-Complete
 
 ```mermaid

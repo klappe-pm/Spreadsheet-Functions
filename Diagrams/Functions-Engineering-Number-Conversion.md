@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Engineering-Number Conversion
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Engineering-Number Conversion]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Engineering-Number Conversion
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Engineering-Number Conversion
 
 ```mermaid

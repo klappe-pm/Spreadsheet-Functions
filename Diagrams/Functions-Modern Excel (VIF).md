@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Modern Excel (VIF)
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Modern Excel (VIF)]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Modern Excel (VIF)
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Modern Excel (VIF)
 
 ```mermaid

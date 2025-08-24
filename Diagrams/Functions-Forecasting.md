@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Forecasting
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Forecasting]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Forecasting
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Forecasting
 
 ```mermaid

@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Excel-Specific-Complete
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Excel-Specific-Complete]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Excel-Specific-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Excel-Specific-Complete
 
 ```mermaid

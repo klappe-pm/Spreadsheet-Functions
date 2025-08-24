@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Dynamic Arrays
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Dynamic Arrays]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Dynamic Arrays
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Dynamic Arrays
 
 ```mermaid

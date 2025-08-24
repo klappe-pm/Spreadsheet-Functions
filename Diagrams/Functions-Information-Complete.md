@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Information-Complete
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Information-Complete]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Information-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Information-Complete
 
 ```mermaid

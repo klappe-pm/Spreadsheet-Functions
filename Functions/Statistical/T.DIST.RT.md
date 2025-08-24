@@ -1,16 +1,23 @@
 ---
-categories: spreadsheets
-subCategories: 
-  - excel
-  - sheets
-topics: statistical
-subTopics: []
-dateCreated: 2025-06-20
-dateRevised: 2025-08-17
-aliases: []
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - - spreadsheets
+  - - subCategories
+    - - excel
+      - sheets
+  - - topics
+    - - statistical
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-20
+  - - dateRevised
+    - 2025-08-17
+  - - aliases
+    - []
+  - - tags
+    - []
 ---
-
 # T.DIST.RT
 
 ## T.DIST.RT Description

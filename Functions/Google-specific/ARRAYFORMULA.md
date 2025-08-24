@@ -1,15 +1,22 @@
 ---
-categories: spreadsheets
-subCategories: 
-  - sheets
-topics: google-specific
-subTopics: []
-dateCreated: 2025-06-20
-dateRevised: 2025-08-19
-aliases: []
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - - spreadsheets
+  - - subCategories
+    - - sheets
+  - - topics
+    - - google-specific
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-20
+  - - dateRevised
+    - 2025-08-19
+  - - aliases
+    - []
+  - - tags
+    - []
 ---
-
 # ARRAYFORMULA
 
 ## ARRAYFORMULA Description

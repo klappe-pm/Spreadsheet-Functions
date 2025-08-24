@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Summary Table
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-17
-dateRevised: 2025-06-17
-aliases: [Spreadsheets-Functions-Summary Table]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-17
+  - - dateRevised
+    - 2025-06-17
+  - - aliases
+    - - Spreadsheets-Functions-Summary Table
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Summary Table
 
 | Category          | Functions | Subcategories                                                                 |

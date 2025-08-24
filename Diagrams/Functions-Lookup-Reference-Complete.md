@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Lookup-Reference-Complete
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Lookup-Reference-Complete]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Lookup-Reference-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Lookup-Reference-Complete
 
 ```mermaid

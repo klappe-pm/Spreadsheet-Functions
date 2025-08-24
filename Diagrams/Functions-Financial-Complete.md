@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Financial-Complete
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Financial-Complete]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Financial-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Financial-Complete
 
 ```mermaid

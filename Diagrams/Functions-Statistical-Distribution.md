@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Statistical-Distribution
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Statistical-Distribution]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Statistical-Distribution
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Statistical-Distribution
 
 ```mermaid

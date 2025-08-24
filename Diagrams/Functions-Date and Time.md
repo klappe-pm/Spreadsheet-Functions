@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Date and Time
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Date and Time]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Date and Time
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Date and Time
 
 ```mermaid

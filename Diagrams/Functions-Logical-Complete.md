@@ -1,16 +1,22 @@
 ---
-fileName: Spreadsheets-Functions-Logical-Complete
-area:
-category:
-subCategory:
-topic:
-subTopic: 
-dateCreated: 2025-06-16
-dateRevised: 2025-06-16
-aliases: [Spreadsheets-Functions-Logical-Complete]
-tags: []
+!!python/object/apply:collections.OrderedDict
+- - - categories
+    - []
+  - - subCategories
+    - []
+  - - topics
+    - []
+  - - subTopics
+    - []
+  - - dateCreated
+    - 2025-06-16
+  - - dateRevised
+    - 2025-06-16
+  - - aliases
+    - - Spreadsheets-Functions-Logical-Complete
+  - - tags
+    - []
 ---
-
 # Spreadsheets-Functions-Logical-Complete
 
 ```mermaid

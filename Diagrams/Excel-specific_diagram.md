@@ -3,7 +3,7 @@
 This diagram shows the relationships between functions in the Excel-specific category and their connections to commonly used functions.
 
 ```mermaid
-graph TD
+graph LR
     classDef Excel-specific fill:#6C5CE7,stroke:#333,stroke-width:2px,color:#000
     TOCOL["TOCOL<br/>TOCOL performs specialized calculations for analytical appli..."]
     CUMIPMT["CUMIPMT<br/>CUMIPMT performs specialized calculations for analytical app..."]

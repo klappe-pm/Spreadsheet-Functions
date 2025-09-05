@@ -1,4 +1,4 @@
-# Excel and Google Sheets Functions Documentation
+# Excel and Google Sheets Functions in Absurd Detail
 
 [![Obsidian](https://img.shields.io/badge/Obsidian-Vault-purple?logo=obsidian)](https://obsidian.md/)
 [![Functions](https://img.shields.io/badge/Functions-539+-brightgreen)](./Functions/)

@@ -1,340 +1,185 @@
 # Excel and Google Sheets Functions in Absurd Detail
 
 [![Obsidian](https://img.shields.io/badge/Obsidian-Vault-purple?logo=obsidian)](https://obsidian.md/)
-[![Functions](https://img.shields.io/badge/Functions-539+-brightgreen)](./Functions/)
+[![Functions](https://img.shields.io/badge/Functions-530+-brightgreen)](./Functions/)
 [![Categories](https://img.shields.io/badge/Categories-15-blue)](./Functions/)
-[![Documentation](https://img.shields.io/badge/Documentation-Complete-success)](./README.md)
+[![Documentation](https://img.shields.io/badge/Documentation-In_Progress-yellow)](./README.md)
 
-A comprehensive, standardized documentation system for 539+ Excel and Google Sheets functions with consistent YAML frontmatter and structured markdown optimized for Obsidian and other knowledge management systems. Every Excel and Sheets function in a handy markdown format, including definitions, explanations, and examples.
+A comprehensive, opinionated documentation system for Excel and Google Sheets functions. This isn't just another function reference—it's **absurdly detailed** explanations of what each function does, **why** you'd use it, **when** to choose alternatives, and **how** to avoid common pitfalls. Every function includes 10+ real-world examples, official Microsoft/Google documentation links, and platform difference warnings.
 
-## 🚀 Features
+## What Makes This Different?
 
-- **Comprehensive Coverage**: 539 standardized function documentation files
-- **Obsidian Optimized**: Perfect YAML frontmatter for knowledge management systems
-- **Consistent Structure**: Uniform formatting across all function categories
-- **Platform Agnostic**: Works with Excel and Google Sheets
-- **Linked References**: Double-bracketed use cases and related functions
-- **Category Organization**: 15 function categories with clear taxonomy
-- **Date Tracking**: Created and revision dates for all functions
-- **Search Ready**: Clean tags and aliases for powerful filtering
+Most function references tell you `SUM(number1, [number2], ...)` and leave you to figure out the rest. This project gives you:
 
-## 📊 Function Categories
+- **Verbose explanations** that explain the *concept*, not just the syntax
+- **10-15+ examples per function** with realistic business scenarios
+- **Common errors table** with causes and solutions
+- **Platform differences** between Excel and Google Sheets
+- **Tips and best practices** from real-world usage
+- **Official documentation links** to Microsoft and Google support pages
+- **Related functions** with guidance on when to use alternatives
+
+## Function Categories
 
 | Category | Functions | Description |
 |----------|-----------|-------------|
-| **Statistical** | 89 | Distributions, averages, correlation, regression |
-| **Math & Trig** | 77 | Arithmetic, trigonometry, matrix, rounding |
-| **Engineering** | 68 | Number systems, complex numbers, conversions |
-| **Financial** | 67 | Investments, loans, depreciation, yield |
-| **Text** | 43 | String manipulation, formatting, search |
-| **Information** | 42 | Type checking, error validation, metadata |
-| **Excel Functions** | 40 | LAMBDA, dynamic arrays, advanced features |
-| **Lookup & Reference** | 30 | VLOOKUP, INDEX/MATCH, array lookups |
-| **Google Sheets** | 29 | IMPORT functions, QUERY, Sheets-specific |
+| **Statistical** | 125 | Distributions, averages, correlation, regression |
+| **Math & Trig** | 72 | Arithmetic, trigonometry, matrix, rounding |
+| **Engineering** | 54 | Number systems, complex numbers, conversions |
+| **Financial** | 54 | Investments, loans, depreciation, yield, NPV, IRR |
+| **Text** | 40 | String manipulation, formatting, search |
+| **Excel-specific** | 39 | LAMBDA, dynamic arrays, advanced features |
+| **Google-specific** | 32 | IMPORT functions, QUERY, Sheets-exclusive |
+| **Lookup & Reference** | 29 | VLOOKUP, INDEX/MATCH, XLOOKUP |
 | **Date & Time** | 25 | Date arithmetic, formatting, business days |
+| **Information** | 22 | Type checking, error validation, metadata |
 | **Logical** | 14 | IF statements, Boolean logic, conditionals |
 | **Database** | 12 | DAVERAGE, DCOUNT, criteria-based operations |
+| **Dynamic Arrays** | 7 | UNIQUE, SORT, FILTER, modern array functions |
 | **Cube** | 6 | OLAP functions for business intelligence |
-| **Dynamic Arrays** | 3 | UNIQUE, SORT, modern array functions |
 | **Web** | 1 | Web services and data import |
 
-## 🧠 Obsidian.md Integration
+## Documentation Format
 
-This repository is optimized for [Obsidian](https://obsidian.md/), a powerful knowledge management system that works perfectly with our standardized markdown structure.
+Every function file follows this comprehensive structure:
 
-### Quick Setup in Obsidian
-
-1. **Clone or Download** this repository
-2. **Open Obsidian** and choose "Open folder as vault"
-3. **Select** the `/Functions/` directory as your vault root
-4. **Enable** the following core plugins:
-   - **Tags**: For filtering by function categories
-   - **Graph View**: To visualize function relationships
-   - **Search**: For powerful function discovery
-   - **Templates**: For creating new function documentation
-
-### Obsidian Features You'll Love
-
-#### 🔍 **Powerful Search & Filtering**
-```
-tag:#mathematical              # Find all math functions
-tag:#excel                     # Excel-specific functions  
-tag:#sheets                    # Google Sheets functions
-path:"Statistical/"            # All statistical functions
-"[[Data validation]]"          # Functions used for data validation
-```
-
-#### 🌐 **Graph View**
-- Visualize connections between functions
-- See which functions are commonly used together
-- Discover related functions through linked references
-
-#### 📝 **Templates & Consistency**
-- Every function follows the same YAML structure
-- Consistent use cases with double-bracketed links
-- Standardized "Related Functions" sections
-
-#### 🏷️ **Smart Tagging System**
-```yaml
-categories: spreadsheets       # Always "spreadsheets"
-subCategories: 
-  - excel                     # Platform compatibility
-  - sheets
-topics: statistical           # Function category
-subTopics: []                 # Specific subcategory
-tags: []                      # Currently empty, ready for your workflow
-aliases: []                   # Alternative function names
-```
-
-### Recommended Obsidian Plugins
-
-#### Core Plugins (Built-in)
-- ✅ **Graph View**: Visualize function relationships
-- ✅ **Search**: Advanced filtering and discovery
-- ✅ **Tags**: Category-based organization
-- ✅ **Templates**: Consistent function creation
-
-#### Community Plugins (Optional)
-- **Dataview**: Query functions by metadata
-- **Tag Wrangler**: Better tag management
-- **Advanced Tables**: Enhanced markdown tables
-- **Calendar**: View functions by creation date
-
-### Example Obsidian Workflows
-
-#### 📊 **Find Functions by Category**
-1. Use graph view to see all statistical functions
-2. Filter by `tag:#statistical`
-3. Browse connected functions through links
-
-#### 🔗 **Discover Function Relationships**
-1. Open any function (e.g., `AVERAGE.md`)
-2. Check "Related Functions" section
-3. Follow links to commonly used functions
-4. See use case connections in double brackets
-
-#### 📅 **Track Recent Updates**
-1. Search by `dateRevised:2025-08-17`
-2. View all recently updated functions
-3. Use calendar view to see revision timeline
-
-## 🚀 Getting Started
-
-### Option 1: Obsidian Vault (Recommended)
-```bash
-# Clone repository
-git clone [your-repo-url]
-
-# Open in Obsidian
-1. Open Obsidian
-2. Choose "Open folder as vault" 
-3. Select the cloned repository folder
-4. Start exploring with Graph View
-```
-
-### Option 2: Standard Markdown
-```bash
-# Clone repository  
-git clone [your-repo-url]
-cd spreadsheet-functions
-
-# Browse with any markdown editor
-# VS Code, Typora, MarkText, etc.
-```
-
-## 📚 Repository Structure
-
-```
-spreadsheet-functions/
-├── README.md                   # This file - project overview
-├── .gitignore                  # Clean repository (Functions + Diagrams only)
-├── Functions/                  # 539 function documentation files
-│   ├── Statistical/           # 89 statistical functions
-│   ├── Math & Trig/           # 77 mathematical functions  
-│   ├── Engineering/           # 68 engineering functions
-│   ├── Financial/             # 67 financial functions
-│   ├── Text/                  # 43 text manipulation functions
-│   ├── Information/           # 42 information functions
-│   ├── Excel-specific/        # 40 Excel-only functions
-│   ├── Lookup & Reference/    # 30 lookup functions
-│   ├── Google-specific/       # 29 Google Sheets functions
-│   ├── Date & Time/           # 25 date/time functions
-│   ├── Logical/              # 14 logical functions
-│   ├── Database/             # 12 database functions
-│   ├── Cube/                 # 6 OLAP cube functions
-│   ├── Dynamic Arrays/       # 3 modern array functions
-│   └── Web/                  # 1 web function
-└── Diagrams/                  # Visual documentation and flowcharts
-    ├── Functions-Summary Table.md
-    ├── Functions-Engineering-Complete.md
-    └── [Additional diagram files...]
-```
-
-## 🎯 Key Features & Structure
-
-### Standardized YAML Frontmatter
-Every function file includes consistent metadata:
-```yaml
----
-categories: spreadsheets
-subCategories: 
-  - excel
-  - sheets
-topics: engineering                   # Category from folder structure
-subTopics: []                        # Future expansion
-dateCreated: 2025-06-20             # Original creation date preserved
-dateRevised: 2025-08-17             # Updated to current date
-aliases: []                         # Alternative function names
-tags: []                            # Ready for your workflow
----
-```
-
-### Linked Use Cases & Functions
-Every function includes:
-- **3 Use Cases** with double-bracketed links: `[[Data validation]]`
-- **Similar Functions** section with related function names
-- **Commonly Used With** section showing function combinations
-- **Sub-use cases** for each commonly used function
-
-### Automated Processing
-The project includes scripts for:
-- YAML frontmatter standardization across all files
-- Topic assignment based on folder structure  
-- Field migration from old formats to new standards
-- Date preservation and revision tracking
-
-## 📈 Project Statistics
-
-### Current Status (August 17, 2025)
-- **Total Functions**: 539 documented and standardized
-- **Categories**: 15 functional groupings
-- **Platform Support**: Excel and Google Sheets compatible
-- **YAML Standardization**: 100% complete across all files
-- **Link Structure**: Double-bracketed references for Obsidian
-
-### Quality Metrics
-- ✅ **Consistent Structure**: All 539 files follow identical format
-- ✅ **Clean YAML**: Standardized frontmatter with proper arrays
-- ✅ **Date Tracking**: Original creation dates preserved, revision dates updated
-- ✅ **Platform Agnostic**: Works with Excel and Google Sheets
-- ✅ **Obsidian Ready**: Perfect for knowledge management workflows
-- ✅ **Search Optimized**: Clean topics, categories, and linking structure
-
-## 🔧 Function Template
-
-Each function follows this exact structure:
 ```markdown
----
-categories: spreadsheets
-subCategories: 
-  - excel
-  - sheets
-topics: [category-name]
-subTopics: []
-dateCreated: [preserved-date]
-dateRevised: 2025-08-17
-aliases: []
-tags: []
----
-
 # FUNCTION_NAME
 
-## FUNCTION_NAME Description
+## Description
+[4 paragraphs: What it does, Why/when to use it, Gotchas and comparisons, Platform notes]
 
-[Function description from original content]
-
+## Syntax
 > [!f(x)] FUNCTION_NAME Syntax
->
-> ```spreadsheets
-> FUNCTION_NAME()
-> ```
+> =FUNCTION_NAME(param1, param2, [optional_param])
 
-> [!f(x)] FUNCTION_NAME Example
->
-> ```spreadsheets
-> FUNCTION_NAME() → result
-> ```
+### Parameters
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| param1    | Yes      | Detailed explanation |
+
+### Return Value
+[What the function returns]
+
+## Examples
+### Example 1: Basic Usage
+[10-15 examples with formulas, results, and explanations]
+
+## Common Errors
+| Error | Cause | Solution |
+|-------|-------|----------|
 
 ## Use Cases
+### [[Business Scenario 1]]
+**Scenario:** [Real-world problem]
+**Implementation:** [Formula]
+**Business Application:** [How this solves the problem]
+**Technical Details:** [Important considerations]
 
-- [[Use case 1]]
-- [[Use case 2]]  
-- [[Use case 3]]
+## Platform Differences
+### Microsoft Excel
+- Availability, specific behaviors
 
-## Related
+### Google Sheets
+- Availability, specific behaviors, differences
 
+## Tips and Best Practices
+1. [6-8 actionable tips]
+
+## Related Functions
 ### Similar Functions
+| Function | Description | When to Use Instead |
 
-- FUNCTION1
-- FUNCTION2
-- FUNCTION3
+### Commonly Used Together
+[Functions frequently combined with this one]
 
-### Commonly Used With Functions
+## Official Documentation
+- Microsoft Excel: [Link]
+- Google Sheets: [Link]
 
-- IF
-  - [[Use case]]
-  - [[Data validation]]
-  - [[Report generation]]
-[... 4 more functions with sub-use cases]
+## Version History
+| Platform | Version Introduced | Notes |
 ```
 
-## 🔗 Related Resources
+## Recently Updated Functions (January 2026)
 
-- **Excel Functions**: [Microsoft Excel Function Reference](https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188)
-- **Google Sheets Functions**: [Google Sheets Function List](https://support.google.com/docs/table/25273)
-- **Obsidian**: [Obsidian Knowledge Management](https://obsidian.md/)
-- **Markdown Guide**: [Markdown Syntax Reference](https://www.markdownguide.org/)
+### Core Functions (Fully Rewritten)
+- **IF, AND, OR, NOT** - Complete logical function documentation with truth tables
+- **IFS, IFERROR, IFNA, SWITCH** - Modern alternatives to nested IF
+- **SUM, SUMIF, SUMIFS** - Aggregation with conditional logic
+- **VLOOKUP, INDEX, MATCH, HLOOKUP** - Comprehensive lookup coverage
+- **AVERAGE, COUNT, COUNTA, COUNTIF, COUNTIFS** - Statistical basics
 
-## 🤝 Contributing
+### Google Sheets Exclusive (Fully Rewritten)
+- **QUERY** - SQL-like queries with 15+ examples
+- **IMPORTRANGE** - Cross-spreadsheet data with permission handling
+- **ARRAYFORMULA** - Array processing for bulk operations
+- **GOOGLEFINANCE** - Stock data with all attributes documented
+- **IMPORTHTML, IMPORTDATA, IMPORTFEED, IMPORTXML** - Web data imports with XPath
 
-Contributions welcome! To add or improve function documentation:
+### Financial Functions (Fully Rewritten)
+- **NPV, IRR, PMT, PV, FV** - Time value of money with sign conventions explained
 
-1. **Fork** this repository
-2. **Follow** the established YAML frontmatter format
-3. **Use** the function template structure
-4. **Include** practical use cases with double-bracket links
-5. **Test** in Obsidian or another markdown editor
-6. **Submit** a pull request
+### Text Functions (Fully Rewritten)
+- **LEFT, RIGHT, MID, LEN, TRIM** - String extraction and cleaning
+- **CONCATENATE, TEXT** - String building and formatting
 
-### Contribution Guidelines
-- Maintain consistent YAML structure across all files
-- Use double-bracketed links for use cases: `[[Data validation]]`
-- Include both Excel and Google Sheets compatibility where applicable
-- Preserve original creation dates, update revision dates
-- Follow the established "Related Functions" format
+### Date & Time Functions (Fully Rewritten)
+- **TODAY, NOW, DATE, YEAR, MONTH, DAY** - Date components and calculations
 
-## 📝 License
+### Math Functions (Fully Rewritten)
+- **ROUND, ROUNDUP, ROUNDDOWN, ABS, SQRT, MOD** - Rounding and arithmetic
 
-This project is open source and available under the [MIT License](LICENSE).
+### Dynamic Arrays (Fully Rewritten)
+- **FILTER, SORT, UNIQUE** - Modern array functions for both platforms
 
-## 📧 Contact & Support
+## Getting Started
 
-**Questions or Issues?**
-- Create an issue in the GitHub repository
-- Follow the project for updates
-- Share with other spreadsheet enthusiasts!
+### Using with Obsidian (Recommended)
+```bash
+git clone https://github.com/your-repo/Excel-and-Sheets-Functions-in-Absurd-Detail.git
+# Open Obsidian > Open folder as vault > Select cloned folder
+```
+
+### Using as Reference
+Browse the `/Functions/` directory by category. Each `.md` file is self-contained documentation.
+
+## Official Documentation Links
+
+- **Microsoft Excel:** [Excel Functions Alphabetical](https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188)
+- **Microsoft Excel by Category:** [Excel Functions by Category](https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb)
+- **Google Sheets:** [Google Sheets Function List](https://support.google.com/docs/table/25273)
+
+## Contributing
+
+This project is a work in progress. Contributions are welcome:
+
+1. Fork the repository
+2. Follow the TEMPLATE.md format (in repository root)
+3. Include realistic examples and official documentation links
+4. Note platform differences between Excel and Sheets
+5. Submit a pull request
+
+## License
+
+This project is open source under the [MIT License](LICENSE).
 
 ---
 
-*Last Updated: August 17, 2025 | 539 Functions Documented & Standardized*
+*Last Updated: January 10, 2026 | 60+ Functions Comprehensively Documented | ~470 Remaining*
 
-## 🆕 Recent Improvements (August 17, 2025)
+## Recent Changes (January 10, 2026)
 
-### ✅ Complete YAML Standardization
-- **539 Functions** processed with consistent frontmatter
-- **Field Migration** from old formats to new structure  
-- **Date Preservation** of original creation dates
-- **Topic Mapping** based on folder structure
-- **Platform Updates** from "google-specific" → "sheets", "excel-specific" → "excel"
+### Major Documentation Overhaul
+- **New Template:** Comprehensive format with 10+ examples, error tables, platform differences
+- **63 Functions Rewritten:** Complete rewrites with verbose explanations
+- **Official References:** All updated functions include Microsoft and Google documentation links
+- **Platform Warnings:** Clear documentation of Excel vs Sheets differences
+- **Real Examples:** Business scenarios instead of placeholder text
 
-### 🗂️ Repository Optimization
-- **Clean .gitignore** includes only Functions/ and Diagrams/ directories
-- **Removed** all Python scripts and temporary files from repository
-- **Preserved** all unique function documentation
-- **Organized** by logical function categories
-
-### 🧠 Obsidian Ready
-- **Double-bracketed Links** for powerful cross-referencing
-- **Consistent Structure** perfect for graph view visualization  
-- **Smart Tagging** system ready for advanced workflows
-- **Template Format** for adding new functions
+### Quality Improvements
+- Removed all generic placeholder descriptions ("performs specialized calculations")
+- Added proper parameter tables with Required column
+- Included common error troubleshooting
+- Added tips and best practices sections
+- Cross-linked related functions with usage guidance

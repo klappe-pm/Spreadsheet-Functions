@@ -1,0 +1,4 @@
+.trash/
+*.tmp
+.DS_Store
+Untitled*.md

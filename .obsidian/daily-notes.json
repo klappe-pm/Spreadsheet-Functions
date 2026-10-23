@@ -1,6 +1,0 @@
-{
-  "format": "YYYY/WW/YYYY-MM-DD",
-  "folder": "3-Progress/Daily",
-  "template": "z-Meta/Templater/Recurring/Daily",
-  "autorun": true
-}

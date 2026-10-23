@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title description">
+  <title id="title">functions terminal logo</title>
+  <desc id="description">A green terminal window displaying the word functions with a small bird perched on its edge.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#09131c" />
+      <stop offset="1" stop-color="#102b2c" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-30%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="420" rx="28" fill="url(#background)" />
+  <path d="M0 338C154 288 218 399 392 345S659 246 826 320s230 27 374-32v132H0Z" fill="#0c1d23" opacity=".82" />
+  <rect x="95" y="64" width="1010" height="275" rx="18" fill="#071017" stroke="#4ef0b6" stroke-opacity=".72" stroke-width="3" />
+  <path d="M95 121h1010" stroke="#4ef0b6" stroke-opacity=".35" stroke-width="3" />
+  <circle cx="133" cy="93" r="10" fill="#ff6b7a" />
+  <circle cx="163" cy="93" r="10" fill="#ffc857" />
+  <circle cx="193" cy="93" r="10" fill="#4ef0b6" />
+  <text x="244" y="100" fill="#93afad" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="21">functions@spreadsheet:~</text>
+  <text x="153" y="230" fill="#4ef0b6" filter="url(#glow)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="76" font-weight="700">$ functions</text>
+  <rect x="891" y="175" width="18" height="74" rx="2" fill="#4ef0b6" filter="url(#glow)" />
+  <g transform="translate(955 20)">
+    <path d="M36 112c-6-44 20-78 61-78 48 0 77 35 68 82-6 29-32 50-65 50-35 0-59-20-64-54Z" fill="#50e4ae" />
+    <path d="M68 69c21-16 47-17 67-2-21 5-39 17-52 34Z" fill="#d9fff1" />
+    <path d="M38 100 5 85l26 34Z" fill="#ffcc65" />
+    <circle cx="112" cy="76" r="5" fill="#071017" />
+    <path d="M77 159 68 193M112 159l13 31M61 192h19M116 190h21" fill="none" stroke="#d9fff1" stroke-linecap="round" stroke-width="7" />
+  </g>
+  <text x="155" y="292" fill="#93afad" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="23">reference library for Excel and Google Sheets</text>
+</svg>

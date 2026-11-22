@@ -1,487 +1,239 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- lookup-reference
-subTopics:
-- dynamic-range
-- volatile-function
-- reference-creation
-- range-offset
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Lookup & Reference
+subcategory: Reference Building
+purpose:
+  - Data Retrieval
+use-case:
+  - Dynamic Chart Ranges
+  - Growing Data Named Range
+  - Rolling Average Window
+related:
+  - COUNTA
+  - INDEX
+  - INDIRECT
+  - MATCH
+  - ROW
+  - ROWS
+level: 3
+source:
+  - https://support.microsoft.com/en-us/excel/functions/offset-function
+  - https://support.google.com/docs/answer/3093379
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Dynamic Range
-- Range Offset
-- Cell Offset
-- Reference Offset
+  - Cell Offset
+  - Dynamic Range
+  - Range Offset
 tags:
-- lookup
-- reference
-- dynamic-range
-- volatile
-- offset
+  - dynamic-range
+  - excel
+  - reference
+  - sheets
+  - volatile
 ---
 
 # OFFSET
 
 ## Description
 
-**OFFSET** returns a reference to a range that is a specified number of rows and columns from a starting cell or range. Think of it as saying "start here, move this many rows down (or up), this many columns right (or left), and give me a range of this size." The function does not move or rearrange any data—it simply creates a reference to cells at a calculated position. OFFSET is incredibly powerful for creating dynamic ranges that automatically adjust based on data changes, user selections, or calculated values.
+**OFFSET** returns a reference to a cell or range that sits a given number of rows and columns away from a starting cell. You name the start, how far to move down or up, how far to move right or left, and, optionally, how many rows and columns the result should cover. OFFSET does not move or change any data. It only points at cells, so the result can be used anywhere a range is accepted, such as inside SUM, AVERAGE or a chart source.
 
-The function has five parameters: a starting reference, row offset, column offset, and optional height and width. If you omit height and width, OFFSET returns a reference the same size as the starting reference. The row and column offsets can be negative (to move up or left) or positive (to move down or right). This flexibility makes OFFSET the foundation for many advanced spreadsheet techniques, including dynamic named ranges, rolling averages, and interactive dashboards where users control which data slice to display.
+OFFSET is useful when a range must start in a calculated position or change size as data arrives. A formula can count the filled rows, convert that count into a height, and total exactly the entries that exist. A named range built with OFFSET can feed a chart that grows with the data.
 
-**Critical Performance Warning: OFFSET is a volatile function.** This means Excel and Google Sheets recalculate every OFFSET formula whenever ANY cell in the workbook changes—not just cells the formula depends on. In a small workbook with a few OFFSET formulas, this is unnoticeable. In a large workbook with hundreds or thousands of OFFSET formulas, it can cause severe performance degradation, with recalculations taking seconds or even minutes. Every edit triggers a full recalculation cascade. **Before using OFFSET extensively, consider whether INDEX (which is non-volatile) can achieve the same result.** INDEX with MATCH or COUNTA often replaces OFFSET with better performance.
-
-**Platform considerations:** OFFSET works identically in Excel and Google Sheets, but performance implications differ. Excel's calculation engine handles volatility more efficiently with larger datasets, while Google Sheets may struggle earlier with many volatile formulas. Both platforms support OFFSET in named ranges, enabling dynamic ranges that grow and shrink automatically. However, the modern best practice is to use Excel Tables (structured references) or INDEX-based dynamic ranges instead of OFFSET where possible, reserving OFFSET for cases where its unique capabilities are truly needed—such as creating ranges that start from a calculated position rather than just having a calculated size.
+OFFSET is volatile. Excel recalculates every OFFSET formula whenever any cell in the workbook changes, which can slow large workbooks. Where a fixed or INDEX-based range will do, prefer it. INDEX returns a reference without being volatile, so `SUM(B2:INDEX(B:B, n))` gives the same result as a range built with OFFSET in many cases.
 
 ## Syntax
 
-> [!f(x)] OFFSET Syntax
->
-> ```
-> =OFFSET(reference, rows, cols, [height], [width])
-> ```
+```excel
+=OFFSET(reference, rows, cols, [height], [width])
+```
+
+<!-- Image 1: OFFSET Argument Anatomy. See Images/Lookup & Reference/OFFSET.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `reference` | Yes | The starting point from which the offset is calculated. This can be a single cell or a range of cells. The reference establishes both the starting position and, if height/width are omitted, the dimensions of the returned range. |
-| `rows` | Yes | The number of rows to move from the starting reference. Positive numbers move down, negative numbers move up, zero stays on the same row. |
-| `cols` | Yes | The number of columns to move from the starting reference. Positive numbers move right, negative numbers move left, zero stays in the same column. |
-| `height` | No | The number of rows in the returned range. Must be a positive number. If omitted, the returned range has the same number of rows as the reference. |
-| `width` | No | The number of columns in the returned range. Must be a positive number. If omitted, the returned range has the same number of columns as the reference. |
+| --- | --- | --- |
+| `reference` | Yes | The starting cell or range. It must be a single cell or a block of adjacent cells. |
+| `rows` | Yes | How far to move from the starting cell. A positive number moves down, a negative number moves up, and zero keeps the same row. Decimal parts are cut off. |
+| `cols` | Yes | How far to move from the starting cell. A positive number moves right, a negative number moves left, and zero keeps the same column. Decimal parts are cut off. |
+| `height` | No | The number of rows in the result. It must be positive. When omitted, the result has the same height as `reference`. |
+| `width` | No | The number of columns in the result. It must be positive. When omitted, the result has the same width as `reference`. |
 
 ### Return Value
 
-Returns a reference to a range. The returned range is offset from the starting reference by the specified number of rows and columns, and has the specified height and width (or the same dimensions as the reference if height/width are omitted). Returns #REF! error if the offset would place the range outside the worksheet boundaries. OFFSET returns a reference, not a value—this means it can be used anywhere a range reference is accepted (SUM, AVERAGE, chart source data, named ranges, etc.).
+A reference to the cell or range that OFFSET identifies. It is not a value, so `=OFFSET(B2, 3, 0)` returns a reference to cell B5, and the formula displays the value in B5. OFFSET returns `#REF!` when the offset moves the result beyond the top or left edge of the sheet. It returns `#VALUE!` when `reference` is not a cell or a range of adjacent cells.
 
 ## Examples
 
-> [!f(x)] OFFSET Examples
+All examples use this weekly sales table in `A1:B7`. The header is in row 1, weeks 1 to 6 are in `A2:A7`, and sales are in `B2:B7`.
 
-### Example 1: Basic Single Cell Offset
+| Week | Sales |
+| --- | --- |
+| Week 1 | 40 |
+| Week 2 | 55 |
+| Week 3 | 30 |
+| Week 4 | 62 |
+| Week 5 | 48 |
+| Week 6 | 70 |
+
+### Example 1: One Cell Three Rows Down
+
+```excel
+=OFFSET(B2, 3, 0)
 ```
-=OFFSET(A1, 3, 2)
+
+**Result:** `62`
+
+The formula starts at B2 and moves down three rows to B5. Since no height or width is given, the result is the single cell B5, and its value is 62.
+
+### Example 2: Total of the First Three Weeks
+
+```excel
+=SUM(OFFSET(B2, 0, 0, 3, 1))
 ```
-**Result:** Returns a reference to cell C4
 
-**Explanation:** Starting from A1, move 3 rows down (to row 4) and 2 columns right (to column C). The result is a reference to C4. Since no height/width is specified and A1 is a single cell, the result is also a single cell.
+**Result:** `125`
 
----
+The formula stays at B2 and returns a range three rows tall and one column wide, which is B2:B4. The sum is 40 + 55 + 30 = 125.
 
-### Example 2: Offset with Custom Range Size
+### Example 3: Average of the Last Three Weeks
+
+```excel
+=AVERAGE(OFFSET(B7, -2, 0, 3, 1))
 ```
-=OFFSET(A1, 0, 0, 5, 3)
+
+**Result:** `60`
+
+Starting at B7 and moving up two rows gives B5. A height of three covers B5:B7, which holds 62, 48 and 70. Their average is 60.
+
+<!-- Image 2: Rolling Window Range. See Images/Lookup & Reference/OFFSET.md -->
+
+### Example 4: Window Size From a Cell
+
+```excel
+=SUM(OFFSET(B7, 1-C1, 0, C1, 1))
 ```
-**Result:** Returns a reference to the range A1:C5
 
-**Explanation:** Starting from A1, move 0 rows and 0 columns (stay at A1), then return a range that is 5 rows tall and 3 columns wide. This creates a dynamic reference to A1:C5 without moving from the starting position.
+Where `C1` contains `3`
 
----
+**Result:** `180`
 
-### Example 3: SUM with Dynamic Range
+The formula moves up `C1 - 1` rows from B7 and uses a height of C1 rows. With C1 set to 3, it covers B5:B7 and returns 62 + 48 + 70 = 180. Change C1 and the window changes size.
+
+### Example 5: Reference From a Labeled Row
+
+```excel
+=OFFSET(A4, 2, 1)
 ```
-=SUM(OFFSET(A1, 0, 0, COUNTA(A:A), 1))
+
+**Result:** `48`
+
+Row 4 holds the label Week 3 in column A. Moving down two rows reaches row 6, and moving right one column reaches column B. The cell B6 holds 48, the sales for Week 5.
+
+### Example 6: Same Total Without OFFSET
+
+```excel
+=SUM(B2:INDEX(B:B, COUNTA(B:B)))
 ```
-**Result:** Sums all non-empty cells in column A starting from A1
 
-**Explanation:** COUNTA(A:A) counts all non-empty cells in column A (let's say 100). OFFSET creates a range starting at A1, 100 rows tall, 1 column wide—effectively A1:A100. As data is added to column A, the SUM automatically includes new values.
+**Result:** `305`
 
----
+COUNTA counts seven filled cells in column B, including the header. INDEX returns a reference to B7, and the range B2:B7 sums to 305. This version is not volatile, so it recalculates only when the referenced cells change.
 
-### Example 4: Negative Offset (Moving Up and Left)
+## Story Problems
+
+### Problem 1: Total of the Four Most Recent Weeks
+
+The weekly sales table from the examples is in `A1:B7`. A manager enters the number of recent weeks in `D1` and wants the total of those weeks.
+
+**Task:** Put 4 in `D1` and return the total sales for the four most recent weeks.
+
+**Solution:**
+
+```excel
+=SUM(OFFSET(B7, 1-D1, 0, D1, 1))
 ```
-=OFFSET(D10, -3, -2)
+
+**Answer:** `210`. The formula moves up three rows from B7 to B4 and covers four rows, B4:B7, which hold 30, 62, 48 and 70. Their total is 210.
+
+<!-- Image 3: Four Week Window Result. See Images/Lookup & Reference/OFFSET.md -->
+
+### Problem 2: Value Two Rows Below a Label
+
+A manager wants the sales figure two rows below the label Week 3 in `A4`, without typing the cell address into the formula.
+
+**Task:** Enter a formula that returns the sales value two rows below the cell that contains the label Week 3.
+
+**Solution:**
+
+```excel
+=OFFSET(A4, 2, 1)
 ```
-**Result:** Returns a reference to cell B7
 
-**Explanation:** Starting from D10, move 3 rows UP (negative moves up) and 2 columns LEFT (negative moves left). Row 10 - 3 = row 7, column D - 2 = column B. Result: B7.
-
----
-
-### Example 5: Last N Values for Rolling Average
-```
-=AVERAGE(OFFSET(A1, COUNTA(A:A)-5, 0, 5, 1))
-```
-**Result:** Calculates the average of the last 5 values in column A
-
-**Explanation:** COUNTA counts filled cells (say 50). The formula starts at A1, moves down 45 rows (50-5), then creates a 5-row range. This captures rows 46-50, the last 5 values. As new data is added, the rolling window automatically shifts.
-
----
-
-### Example 6: Dynamic Chart Source Range
-```
-Named Range "ChartData" = OFFSET(Sheet1!$A$1, 0, 0, COUNTA(Sheet1!$A:$A), 3)
-```
-**Result:** Creates a named range that automatically expands as data is added
-
-**Explanation:** Define this in Name Manager (Excel) or Named Ranges (Sheets). The range starts at A1 and spans 3 columns, with height determined by how many rows have data in column A. Charts using this named range automatically include new data points.
-
----
-
-### Example 7: User-Selected Row Offset
-```
-=SUM(OFFSET(B2, A1-1, 0, 1, 5))
-```
-Where A1 contains a row number entered by the user (e.g., 3)
-
-**Result:** Sums 5 columns from the user-selected row
-
-**Explanation:** If the user enters 3 in A1, the formula calculates OFFSET(B2, 2, 0, 1, 5)—starting at B2, moving down 2 rows to B4, returning 1 row and 5 columns (B4:F4). The user can change A1 to analyze different rows.
-
----
-
-### Example 8: Offset from Named Range
-```
-=OFFSET(DataStart, MonthNumber-1, 0, 1, 12)
-```
-Where DataStart is a named range pointing to the first data cell, and MonthNumber is 1-12
-
-**Explanation:** Creates a reference to a full year of monthly data starting from the selected month. If DataStart is B2 and MonthNumber is 4 (April), the result is B5:M5 (row for April's year of data).
-
----
-
-### Example 9: Two-Dimensional Offset with INDEX Alternative
-```
-OFFSET version: =OFFSET(A1, MATCH(B1, A:A, 0)-1, MATCH(C1, 1:1, 0)-1)
-INDEX version: =INDEX(DataRange, MATCH(B1, RowHeaders, 0), MATCH(C1, ColHeaders, 0))
-```
-**Result:** Both return the cell at the intersection of the B1 row and C1 column
-
-**Explanation:** OFFSET can replicate INDEX functionality but is volatile. The INDEX version is preferred for performance. However, OFFSET becomes necessary when you need a range (not a single value) from a calculated position.
-
----
-
-### Example 10: Creating a Moving Window for Sparklines
-```
-=SPARKLINE(OFFSET(A1, MAX(0, COUNTA(A:A)-12), 0, MIN(12, COUNTA(A:A)), 1))
-```
-**Result:** Creates a sparkline showing the last 12 data points (Google Sheets)
-
-**Explanation:** This formula calculates the starting position to always show at most 12 recent values. If fewer than 12 values exist, it shows all available. The sparkline automatically updates as new data arrives.
-
----
-
-### Example 11: OFFSET for Dependent Dropdown Lists
-```
-Data Validation Source: =OFFSET(CategoryList, MATCH(A1, CategoryList, 0), 1, COUNTIF(SubcategoryList, A1&"*"), 1)
-```
-**Result:** Creates a dropdown showing subcategories for the selected category
-
-**Explanation:** When user selects "Electronics" in A1, OFFSET finds Electronics in CategoryList, moves one column right to subcategories, and returns only the rows matching Electronics. The dropdown dynamically shows relevant options.
-
----
-
-### Example 12: Summing a Variable Number of Recent Months
-```
-=SUM(OFFSET(A1, 0, COUNTA(1:1)-B1, 1, B1))
-```
-Where B1 contains the number of recent months to sum
-
-**Result:** Sums the last N months of data where N is specified in B1
-
-**Explanation:** If row 1 has 12 months of data and B1 says 3, the formula creates a reference to the last 3 columns. User changes B1 to analyze different periods (last 6 months, last quarter, etc.).
-
----
-
-### Example 13: OFFSET vs INDEX Performance Comparison
-```
-OFFSET (volatile): =SUM(OFFSET($A$1, 0, 0, COUNTA($A:$A), 1))
-INDEX (non-volatile): =SUM($A$1:INDEX($A:$A, COUNTA($A:$A)))
-```
-**Result:** Both sum all data in column A, but INDEX version is more efficient
-
-**Explanation:** The INDEX formula creates a range from A1 to the last filled cell. INDEX is not volatile, so this formula only recalculates when column A changes—not when any cell in the workbook changes. Prefer INDEX for performance.
-
----
-
-### Example 14: Creating a Staggered Reference
-```
-=SUMPRODUCT(OFFSET(B2:B10, 0, 0) * OFFSET(C2:C10, ROW(B2:B10)-ROW(B2), 0))
-```
-**Result:** Multiplies each cell in B by a staggered cell in C
-
-**Explanation:** Advanced use of OFFSET within array context. The second OFFSET shifts each C value by its row position, creating a staggered multiplication pattern. Useful for specialized calculations.
-
----
-
-### Example 15: OFFSET in Conditional Formatting
-```
-Conditional Format Formula: =OFFSET($A1, 0, $B$1-1) > 100
-```
-**Result:** Highlights cells where the value in a user-selected column exceeds 100
-
-**Explanation:** If B1 contains 3, the formula checks column C for each row. User changes B1 to apply the same conditional format to different columns—a dynamic conditional formatting technique.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#REF!` | Offset places reference outside worksheet boundaries | Verify that rows/cols offsets don't result in negative rows or columns beyond column A/row 1. Check that starting reference + offset doesn't exceed worksheet limits. |
-| `#REF!` | Height or width is zero or negative | Height and width must be positive integers. Use MAX(1, calculation) to ensure minimum value of 1. |
-| `#VALUE!` | Non-numeric values in rows, cols, height, or width parameters | Ensure all offset and dimension parameters evaluate to numbers. Wrap calculations in VALUE() if needed. |
-| `Slow calculation` | Too many OFFSET formulas causing volatility cascade | Replace OFFSET with INDEX-based alternatives where possible. Limit OFFSET use to truly dynamic scenarios. |
-| `#NAME?` | Function misspelled or named range in reference doesn't exist | Check spelling. Verify named ranges are defined correctly. |
-| `Unexpected range size` | Omitted height/width using multi-cell reference as starting point | If reference is a range (like A1:B5), omitting height/width returns a range of the same size. Specify dimensions explicitly for predictable results. |
-| `Circular reference` | OFFSET references a cell that depends on the OFFSET result | Restructure formula to avoid circular dependencies. OFFSET cannot reference cells in its own calculation chain. |
+**Answer:** `48`, the sales for Week 5. Moving down two rows from row 4 reaches row 6, and moving one column right reaches column B.
 
 ## Use Cases
 
-### [[Dynamic Named Range for Growing Data]]
+### Growing Data Named Range
 
-**Scenario:** A sales manager maintains a monthly sales log where new rows are added at the bottom each month. Reports and charts need to automatically include all data without manually updating range references. The data starts in A1 with headers and grows downward indefinitely.
+**Scenario:** A sales log gains a new row each day. A chart and several summary formulas should include every entry without anyone editing a range address.
 
-**Implementation:**
-```
-Named Range "SalesData" (define in Name Manager):
-=OFFSET(SalesLog!$A$1, 0, 0, COUNTA(SalesLog!$A:$A), 6)
-
-Usage in formulas:
-=SUM(INDEX(SalesData,,3))  -- Sums the 3rd column of dynamic range
-=AVERAGE(INDEX(SalesData,,4))  -- Averages the 4th column
-
-Chart Source:
-Set chart data range to "SalesData" named range
+```excel
+=OFFSET(SalesLog!$A$1, 0, 0, COUNTA(SalesLog!$A:$A), 2)
 ```
 
-**Business Application:** Sales reporting, inventory tracking, transaction logs—any scenario where data continuously grows. Charts and pivot tables using the named range automatically incorporate new entries without modification.
+**Why It Works:** Define this formula as a named range, such as `LogData`, in the Name Manager in Excel or in Named ranges in Google Sheets. The height is the count of filled cells in column A, which includes the header, so the range covers the header and every entry. The width of two covers columns A and B. Because OFFSET is volatile, keep the number of such names small in a large workbook.
 
-**Technical Details:** COUNTA counts all non-empty cells in column A (including the header). The range always includes 6 columns (A through F). **Performance note:** This named range is recalculated every time any cell changes because OFFSET is volatile. For workbooks with thousands of cells, consider using an Excel Table (Ctrl+T) with structured references instead, which automatically expands without volatility.
+### Rolling Average Window
 
----
+**Scenario:** A finance analyst reports the average of the last N months, where N is typed in a cell. The table keeps growing, and N may be larger than the number of months available.
 
-### [[Rolling 12-Month Average Calculator]]
-
-**Scenario:** A financial analyst needs to calculate and display a rolling 12-month average that automatically updates as new monthly data is added. The dashboard should always show the average of the most recent 12 months, regardless of how many months of historical data exist.
-
-**Implementation:**
-```
-Monthly Data in Column B (B2:B∞), with dates in Column A
-
-Rolling 12-Month Average:
-=AVERAGE(OFFSET($B$2, MAX(0, COUNTA($B:$B)-1-12), 0, MIN(12, COUNTA($B:$B)-1), 1))
-
-Rolling 12-Month Sum:
-=SUM(OFFSET($B$2, MAX(0, COUNTA($B:$B)-1-12), 0, MIN(12, COUNTA($B:$B)-1), 1))
-
-Rolling Average for Last N Months (N in cell D1):
+```excel
 =AVERAGE(OFFSET($B$2, MAX(0, COUNTA($B:$B)-1-$D$1), 0, MIN($D$1, COUNTA($B:$B)-1), 1))
 ```
 
-**Business Application:** Financial trend analysis, sales forecasting, KPI dashboards. Rolling averages smooth out seasonality and reveal underlying trends. Common in CFO reports and board presentations.
+**Why It Works:** COUNTA minus 1 counts the monthly entries under the header. The start row moves down so that only the last N entries are included, and MAX keeps the start at the first entry when N is larger than the data. The height uses MIN for the same reason, so the average covers all available months rather than returning an error. With the Week table and N set to 3, the formula averages B5:B7 and returns 60.
 
-**Technical Details:** The MAX and MIN functions handle edge cases: when fewer than 12 months of data exist, the formula averages all available data instead of returning an error. As the 13th month is added, the formula automatically drops the oldest month. **Volatility consideration:** For multiple rolling calculations, consider calculating the start row once in a helper cell to reduce redundant COUNTA calculations.
+## Common Errors
 
----
-
-### [[User-Controlled Data Slicer Dashboard]]
-
-**Scenario:** An operations manager needs an interactive dashboard where users can select a region from a dropdown and immediately see all KPIs for that region. Each region's data is in a different row, and the dashboard should update based on the selection without VBA or complex macros.
-
-**Implementation:**
-```
-Data Layout:
-Row 1: Headers (Region, Q1, Q2, Q3, Q4, YTD, Target, Variance)
-Rows 2-10: Region data (North, South, East, West, etc.)
-
-Region Selector (Cell B2): Data validation dropdown listing regions
-
-Dashboard Formulas:
-Q1 Sales: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 1)
-Q2 Sales: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 2)
-Q3 Sales: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 3)
-Q4 Sales: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 4)
-YTD: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 5)
-Target: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 6)
-Variance: =OFFSET($A$1, MATCH($B$2, $A:$A, 0)-1, 7)
-
-Or more efficiently using a helper cell:
-Helper (C2): =MATCH($B$2, $A:$A, 0)-1
-Then: =OFFSET($A$1, $C$2, 1), =OFFSET($A$1, $C$2, 2), etc.
-```
-
-**Business Application:** Regional performance dashboards, product line analysis, department comparisons. Executives can explore data interactively without technical skills or waiting for IT to generate reports.
-
-**Technical Details:** MATCH finds the row containing the selected region, and OFFSET retrieves each metric from that row. The helper cell approach calculates MATCH once and reuses it, improving performance. **Alternative:** INDEX+MATCH achieves the same result without volatility: `=INDEX($B$1:$H$10, MATCH($B$2, $A:$A, 0), 1)`.
-
----
-
-### [[Dynamic Chart with Zoom Control]]
-
-**Scenario:** A data analyst presents time series data spanning several years. Executives want to zoom into specific periods—last 6 months, last year, last 3 years—using a simple dropdown control. The chart should dynamically adjust its date range based on the selection.
-
-**Implementation:**
-```
-Time Period Selector (B1): Dropdown with "6 Months", "1 Year", "2 Years", "3 Years", "All"
-
-Period Lookup Table:
-6 Months = 6
-1 Year = 12
-2 Years = 24
-3 Years = 36
-All = 999
-
-Months to Show (C1): =VLOOKUP(B1, PeriodTable, 2, FALSE)
-
-Named Range "ChartDates":
-=OFFSET(Data!$A$2, MAX(0, COUNTA(Data!$A:$A)-1-Dashboard!$C$1), 0, MIN(Dashboard!$C$1, COUNTA(Data!$A:$A)-1), 1)
-
-Named Range "ChartValues":
-=OFFSET(Data!$B$2, MAX(0, COUNTA(Data!$A:$A)-1-Dashboard!$C$1), 0, MIN(Dashboard!$C$1, COUNTA(Data!$A:$A)-1), 1)
-
-Chart Configuration:
-- X-axis (Category): =ChartDates
-- Y-axis (Values): =ChartValues
-```
-
-**Business Application:** Executive dashboards, investor presentations, board reports. Allows non-technical users to explore data at different granularities without regenerating charts or reports.
-
-**Technical Details:** The named ranges dynamically adjust based on the period selection. "All" uses 999, which MIN caps at the actual data count, showing everything. Charts in both Excel and Sheets can reference named ranges for their data sources. **Limitation:** Some chart types handle dynamic range changes better than others; test thoroughly.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#REF!` | The offset moves the result past the top or left edge of the sheet. | Use MAX to keep the starting row and column at 1 or higher. |
+| `#REF!` | The result would overwrite part of its own starting range in an array formula, which creates a circular reference. | Move the formula so the result does not overlap its starting range. |
+| `#VALUE!` | `reference` is not a single cell or a block of adjacent cells. | Use a single cell or contiguous range as the starting point. |
+| Error or wrong size | `height` or `width` is zero or negative. | Wrap the value in MAX(1, ...) so it stays positive. |
+| Slow workbook | Many OFFSET formulas recalculate on every change. | Replace them with INDEX-based ranges where possible. |
+| Unexpected total | A decimal row or column value was cut off. | Round the calculated offset with INT or ROUND before using it. |
 
 ## Platform Differences
 
-### Microsoft Excel
-
-- **Availability:** All versions from Excel 97 onward
-- **Volatility:** Fully volatile—recalculates on every worksheet change
-- **Named ranges:** Can be used in Name Manager to create dynamic named ranges
-- **Performance:** Better handling of volatility at scale than Google Sheets
-- **Tables:** Excel Tables (Ctrl+T) provide non-volatile auto-expanding ranges as an alternative
-- **LAMBDA:** Excel 365 allows creating custom functions that can encapsulate OFFSET logic
-
-### Google Sheets
-
-- **Availability:** All versions from Sheets' inception
-- **Volatility:** Fully volatile—same behavior as Excel
-- **Named ranges:** Can be used in Data > Named ranges for dynamic ranges
-- **Performance:** May degrade faster than Excel with many volatile formulas
-- **No Tables:** Lacks Excel's Table feature; OFFSET remains important for dynamic ranges
-- **ARRAYFORMULA:** Can combine with OFFSET for advanced array operations
-
-### Key Differences
-
-| Feature | Excel | Google Sheets |
-|---------|-------|---------------|
-| Volatility behavior | Recalculates on any change | Recalculates on any change |
-| Performance at scale | Generally better | May struggle earlier |
-| Table alternative | Excel Tables (non-volatile) | Not available |
-| Named range support | Full (Name Manager) | Full (Named ranges) |
-| Maximum offset | To worksheet limits (1M+ rows) | To worksheet limits (10M cells) |
-| SEQUENCE alternative | INDEX+SEQUENCE (365) | INDEX+SEQUENCE |
-| Spill behavior | Spills with dynamic arrays (365) | Always spills |
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Microsoft 365, Excel 2024, Excel 2021, Excel 2019 and Excel 2016, including Mac and web versions | Returns a reference that can be used in named ranges, charts and functions that accept references. Volatile, so it recalculates on every worksheet change. |
+| Google Sheets | Available | Uses the same arguments. Decimal row and column values are truncated. Circular array references return `#REF!`. The documentation does not describe volatility, so test performance on large sheets. |
 
 ## Tips and Best Practices
 
-1. **Prefer INDEX over OFFSET when possible:** INDEX is non-volatile and achieves many of the same results. `=SUM(A1:INDEX(A:A, COUNTA(A:A)))` creates a dynamic range without volatility overhead. Reserve OFFSET for cases requiring calculated starting positions.
-
-2. **Use OFFSET sparingly in large workbooks:** Every OFFSET formula recalculates on every cell change, anywhere in the workbook. 100 OFFSET formulas mean 100 recalculations per keystroke. Profile your workbook's calculation time before adding more.
-
-3. **Cache OFFSET results for multiple uses:** If you need the same dynamic range in multiple formulas, define it once as a named range and reference the name. One OFFSET in the name definition is better than 20 OFFSET formulas in cells.
-
-4. **Always specify height and width for clarity:** Even when you want the same size as the reference, explicit dimensions make formulas easier to understand and debug: `=OFFSET(A1, 5, 0, 1, 1)` is clearer than `=OFFSET(A1, 5, 0)`.
-
-5. **Handle edge cases with MAX and MIN:** Dynamic ranges can produce errors when data is empty or smaller than expected. `=OFFSET(A1, 0, 0, MAX(1, COUNTA(A:A)), 1)` ensures at least 1 row even with no data.
-
-6. **Test named range definitions carefully:** OFFSET in named ranges can cause hard-to-debug issues. After defining, select the name in the Name Box and verify the highlighted range matches expectations.
-
-7. **Consider Excel Tables as alternative:** If your data is tabular and grows downward, convert it to an Excel Table (Ctrl+T). Table references like `Table1[Sales]` automatically expand without volatility.
-
-8. **Document volatile formulas:** Add comments or a documentation sheet noting which formulas use OFFSET and why, to help future maintainers understand performance implications.
+- Prefer INDEX-based ranges such as `B2:INDEX(B:B, n)` when the result only needs to be a range, because INDEX is not volatile.
+- Give the height and width every time, so the result size is clear to the next person who reads the formula.
+- Define a dynamic range once as a named range and reuse the name, rather than repeating OFFSET in many cells.
+- Use MAX and MIN to keep the starting point and the size within the available data.
+- Test a named range by selecting its name in the Name Box and checking the highlighted cells.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[INDEX]] | Returns value or reference from array position | When you need a value at a specific position without volatility. INDEX is non-volatile and should be preferred for most lookups. |
-| [[INDIRECT]] | Converts text string to reference | When you need to construct references from text strings. Also volatile—same performance concerns apply. |
-| [[ADDRESS]] | Creates cell address as text | When you need a text representation of a cell address for use with INDIRECT or display purposes. |
-| [[ROW]]/[[COLUMN]] | Returns row or column number | When you need the position of a cell rather than an offset reference. |
-| [[ROWS]]/[[COLUMNS]] | Returns count of rows or columns in range | When calculating dimensions for OFFSET's height/width parameters. |
-
-### Commonly Used Together
-
-**[[COUNTA]]** - Count non-empty cells
-
-*Combined with OFFSET to create ranges that grow with data:*
-```
-=OFFSET(A1, 0, 0, COUNTA(A:A), 1)
-```
-COUNTA provides the row count for a dynamic range that automatically includes all data in a column.
-
----
-
-**[[MATCH]]** - Find position in range
-
-*Combined with OFFSET for dynamic starting position:*
-```
-=OFFSET(A1, MATCH("Target", A:A, 0)-1, 0, 5, 3)
-```
-MATCH finds where "Target" is located, and OFFSET creates a range starting from that position.
-
----
-
-**[[SUM]]/[[AVERAGE]]** - Aggregate functions
-
-*Using OFFSET result as range for aggregation:*
-```
-=SUM(OFFSET(A1, 0, 0, COUNTA(A:A), 1))
-=AVERAGE(OFFSET(B1, B10, 0, 12, 1))
-```
-OFFSET returns a reference that aggregate functions can process like any normal range.
-
----
-
-**[[MAX]]/[[MIN]]** - Handle edge cases
-
-*Ensuring OFFSET parameters stay within valid bounds:*
-```
-=OFFSET(A1, 0, 0, MAX(1, COUNTA(A:A)-1), 1)
-```
-MAX ensures height is at least 1 even when formula would calculate 0 or negative values.
-
----
-
-**[[INDEX]]** - Non-volatile alternative
-
-*INDEX-based dynamic range as OFFSET replacement:*
-```
-=SUM(A1:INDEX(A:A, COUNTA(A:A)))
-```
-Creates an expanding range from A1 to the last filled cell without volatility overhead.
-
----
-
-**[[ROW]]/[[COLUMN]]** - Calculate offsets dynamically
-
-*Using ROW to create relative offsets:*
-```
-=OFFSET($A$1, ROW()-ROW($A$1), 0)
-```
-Creates offsets relative to the formula's own position, useful for self-adjusting formulas.
+| Function | Relationship |
+| --- | --- |
+| [INDEX](INDEX.md) | Returns a reference or value without volatility, and often replaces OFFSET for ranges. |
+| [INDIRECT](INDIRECT.md) | Builds a reference from text, which is also volatile. |
+| [COUNTA](../Statistical/COUNTA.md) | Counts filled cells, which often supplies the height for a dynamic range. |
+| [MATCH](MATCH.md) | Finds a position that can be used as the row or column offset. |
+| [ROW](ROW.md) | Returns a row number that can be used to calculate offsets. |
+| [ROWS](ROWS.md) | Counts the rows in a range, which can supply a height. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [OFFSET function](https://support.microsoft.com/en-us/office/offset-function-c8de19ae-dd79-4b9b-a14e-b4d906d11b66)
-- **Google Sheets:** [OFFSET function](https://support.google.com/docs/answer/3093379)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 97 (1997) | Original implementation; volatile from inception |
-| Excel 2007 | Enhanced | Improved calculation engine handles volatility better |
-| Excel 2010 | Enhanced | Better performance with large worksheets |
-| Excel 2019/365 | Dynamic arrays | OFFSET works seamlessly with spilling arrays |
-| Google Sheets | Original launch (2006) | Full compatibility with Excel's implementation |
-| Google Sheets | 2018+ | Improved handling but still volatile |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: OFFSET function](https://support.microsoft.com/en-us/excel/functions/offset-function)
+- [Google Docs Editors Help: OFFSET](https://support.google.com/docs/answer/3093379)

@@ -151,6 +151,8 @@ A warehouse exports product codes. Some codes start with zeros, and the import c
 
 **Answer:** `2`. Codes 417 and 1080 are numbers, so both need conversion.
 
+<!-- Image 2: Product Codes Check. See Images/Information/ISNONTEXT.md -->
+
 ## Use Cases
 
 ### Name Field Validation

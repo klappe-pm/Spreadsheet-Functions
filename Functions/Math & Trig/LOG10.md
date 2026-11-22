@@ -142,7 +142,7 @@ Copy the formula down to `C2:C5`.
 
 **Answer:** `5.6021`. The rain sample has a concentration of 2.5 x 10 to the power of -6, and its pH is about 5.60. The spring sample scores 7, the creek sample 5, and the lake sample 7.3979.
 
-<!-- Image 3: pH Results for the Lab Samples. See Images/Math & Trig/LOG10.md -->
+<!-- Image 3: Acidity Results for the Lab Samples. See Images/Math & Trig/LOG10.md -->
 
 ### Problem 2: Estimating Digits in Customer Counts
 

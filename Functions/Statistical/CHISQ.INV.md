@@ -109,9 +109,9 @@ Passing the result of Example 2 back into CHISQ.DIST returns the original probab
 
 ## Story Problems
 
-### Problem 1: Lower Bound on Variance
+### Problem 1: One-Sided Variance Bound
 
-A quality analyst takes a sample of 7 measurements, which gives 6 degrees of freedom. The analyst needs the left-tail value at the 5 percent level to find a lower bound on the variance.
+A quality analyst takes a sample of 7 measurements, which gives 6 degrees of freedom. The analyst needs the left-tail value at the 5 percent level to build a one-sided 95 percent upper bound on the variance.
 
 | Input | Value |
 | --- | --- |
@@ -126,9 +126,9 @@ A quality analyst takes a sample of 7 measurements, which gives 6 degrees of fre
 =CHISQ.INV(B1, B2)
 ```
 
-**Answer:** `1.6354`. The variance bound uses this value in the denominator, so a smaller value gives a wider bound.
+**Answer:** `1.6354`. The upper bound divides the sum of squares by this value, so a smaller value gives a wider bound.
 
-### Problem 2: Mid-Range Cutoff for Ten Readings
+### Problem 2: Lower Cutoff for Eleven Readings
 
 A sensor logs 11 readings, which gives 10 degrees of freedom. The engineer needs the value that only 2.5 percent of the distribution falls below.
 

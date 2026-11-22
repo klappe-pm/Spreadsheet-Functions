@@ -37,7 +37,7 @@ tags:
 
 Use IMSQRT when a quadratic equation has complex roots, when a pole or a root location must be found, or when a negative value needs a square root. Unlike SQRT, which returns an error for a negative number, IMSQRT accepts any complex input, including negative real numbers. A negative real input returns an imaginary result, such as `2i` for -4.
 
-Google Sheets documents IMSQRT as equivalent to IMPOWER with an exponent of 0.5. In Excel, IMPOWER with 0.5 gives the same root and is the choice when the power is a variable.
+Google Sheets documents IMSQRT as equivalent to IMPOWER with an exponent of 0.5. Use IMPOWER instead when the exponent is a variable that changes from row to row.
 
 ## Syntax
 

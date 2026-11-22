@@ -6,7 +6,7 @@ purpose:
   - Complex Numbers
 use-case:
   - AC Impedance Analysis
-  - Signal Phase Modeling
+  - Signal Phase Analysis
 related:
   - IMABS
   - IMAGINARY
@@ -159,7 +159,7 @@ The same lab connects Branch A and Branch B in series. In a series circuit the c
 
 **Why It Works:** COMPLEX builds the complex value from the two columns, and IMABS returns its length. Use the same pattern to compare branch magnitudes against a rated limit.
 
-### Signal Phase Modeling
+### Signal Phase Analysis
 
 **Scenario:** A signal analysis sheet needs the phase angle of a complex value in radians.
 

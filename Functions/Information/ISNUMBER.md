@@ -131,6 +131,8 @@ An accounts clerk keeps invoice amounts in column B. Some rows contain status wo
 
 **Answer:** `505`. The four real amounts are 120, 85, 240 and 60, and the two status words add nothing.
 
+<!-- Image 2: Invoice Total Result. See Images/Information/ISNUMBER.md -->
+
 ### Problem 2: Counting Usable Quantities
 
 A stock count sheet holds quantities that were typed by several people. The manager wants to know how many entries are usable numbers.

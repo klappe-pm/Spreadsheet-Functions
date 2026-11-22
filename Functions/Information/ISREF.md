@@ -140,6 +140,8 @@ A form takes two inputs. The first input is a cell reference, entered in a way t
 
 **Answer:** `TRUE` for argument 1 and `FALSE` for argument 2. Only the reference passes the test, and the typed address needs INDIRECT before it can be used as a reference.
 
+<!-- Image 2: Two Kinds of Address Input. See Images/Information/ISREF.md -->
+
 ## Use Cases
 
 ### Named Range Input Check

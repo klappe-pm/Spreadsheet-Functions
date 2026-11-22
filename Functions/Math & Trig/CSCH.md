@@ -148,7 +148,7 @@ A reviewer tests a negative input and a positive input of similar size to see ho
 =SUMPRODUCT(CSCH(B2:B3))
 ```
 
-**Answer:** `-0.81427`. The hyperbolic cosecant of -1 is -0.85092 and that of 4 is 0.03664. The negative input dominates the total because its result is larger in size.
+**Answer:** `-0.81427`. The hyperbolic cosecant of -1 is -0.85092 and that of 4 is 0.03664, and the total at full precision is -0.81427. The negative input dominates the total because its result is larger in size.
 
 ## Use Cases
 

@@ -1,405 +1,235 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- financial
-subTopics:
-- valuation
-- time-value-of-money
-- discounting
-- investment-analysis
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Financial
+subcategory: Loans and Annuities
+purpose:
+  - Financial Modeling
+  - Loan Analysis
+use-case:
+  - Annuity Versus Lump Sum
+  - Bond Price Estimate
+  - Loan Affordability
+related:
+  - FV
+  - NPER
+  - NPV
+  - PMT
+  - RATE
+level: 3
+source:
+  - https://support.microsoft.com/en-us/excel/functions/pv-function
+  - https://support.google.com/docs/answer/3093243
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Present Value
-- Discounted Value
-- Current Value
+  - Discounted Value
+  - Present Value
 tags:
-- financial-modeling
-- valuation
-- discounting
-- investment-analysis
+  - annuity
+  - excel
+  - sheets
+  - time-value-of-money
 ---
 
 # PV
 
 ## Description
 
-**PV (Present Value)** calculates what a future sum of money or series of payments is worth in today's dollars, given a specified interest (discount) rate. This is perhaps the most conceptually important financial function because it answers the fundamental investment question: "What should I pay today for money I will receive in the future?" Every asset valuation, bond pricing, lottery payout decision, and investment comparison ultimately relies on present value calculations.
+**PV** returns the present value of a series of equal payments, a future lump sum, or both, discounted at a constant interest rate. It answers the question "what is a stream of future cash worth today?" Lenders use it to size a loan from a payment the borrower can afford, buyers use it to price a bond or an annuity, and planners use it to compare a lump sum with a payment plan.
 
-The function is the mathematical expression of the **time value of money**--the principle that a dollar today is worth more than a dollar tomorrow because today's dollar can be invested to earn returns. PV works backward in time: if you know what you will receive in the future (whether a lump sum, regular payments, or both), PV tells you what that future money stream is equivalent to right now. The discount rate represents your required return or opportunity cost--what you could earn on that money elsewhere.
+PV is the reverse of FV. FV grows a present amount forward in time, while PV discounts future amounts back to the present. Both functions assume the rate and the payment amount stay the same for every period. When payments change from period to period, use NPV instead.
 
-**Understanding sign conventions is essential:** In spreadsheet financial functions, cash flowing IN to you is positive, and cash flowing OUT is negative. For PV calculations: the payments you will receive in the future (pmt) should be positive; the future lump sum you will receive (fv) should also be positive; and the resulting PV is typically **negative** because it represents money you would pay out today to receive those future cash flows. If you are receiving positive future cash flows, you would need to pay a positive amount today (shown as negative in the formula result) to obtain them. To display PV as a positive number, use =-PV(...).
+Sign conventions matter. Cash you receive is positive and cash you pay out is negative. When the payments and the future value are positive (money you receive), PV returns a negative number, which is the amount you would have to pay today to receive them. Negate the result with a leading minus sign to show the value as a positive number in a report.
 
-PV has been available since the earliest versions of both Excel and Google Sheets with identical behavior. The function assumes payments occur at the **end** of each period by default (ordinary annuity), but you can specify beginning-of-period payments using the type parameter. As with all time-value-of-money functions, the discount rate must match the payment period--for monthly payments, use a monthly rate.
+Set the type argument to 1 when payments happen at the start of each period, such as rent or lease payments made in advance. The default, 0, assumes payments happen at the end of each period.
 
 ## Syntax
 
-> [!f(x)] PV Syntax
->
-> ```
-> =PV(rate, nper, pmt, [fv], [type])
-> ```
+```excel
+=PV(rate, nper, pmt, [fv], [type])
+```
+
+<!-- Image 1: Syntax Anatomy. See Images/Financial/PV.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `rate` | Yes | The interest (discount) rate per period. For annual discounting of monthly payments, use the annual rate divided by 12. Enter as decimal (0.06) or percentage (6%) divided by periods per year. |
-| `nper` | Yes | The total number of payment periods. For 10 years of monthly payments, use 10*12 = 120. Must match the rate period--if rate is monthly, nper must be in months. |
-| `pmt` | Yes | The payment received (or made) each period. For receiving payments, enter as positive. For making payments, enter as negative. Enter 0 if calculating PV of a single future lump sum only. |
-| `fv` | No | The future value--a lump sum received at the end of all periods. Enter as positive for money you will receive. Defaults to 0 if omitted. |
-| `type` | No | When payments occur: 0 (or omitted) = end of period (ordinary annuity); 1 = beginning of period (annuity due). Beginning-of-period payments have slightly higher PV. |
+| --- | --- | --- |
+| `rate` | Yes | The interest rate per period. For monthly payments on an annual rate, divide the annual rate by 12. |
+| `nper` | Yes | The total number of payment periods. For 30 years of monthly payments, enter `30*12`. The rate and nper must use the same period length. |
+| `pmt` | Yes | The payment made each period. It stays constant for the life of the annuity. Enter money you receive as positive and money you pay as negative. |
+| `fv` | No | The future value, or the cash balance you want after the last payment. Defaults to 0 when omitted. If `pmt` is omitted, `fv` is required. |
+| `type` | No | When payments occur. `0` or omitted means end of period. `1` means beginning of period. |
 
 ### Return Value
 
-Returns a single numeric value representing the present value. When pmt and fv represent money you will receive (positive inputs), the result is negative--indicating money you would pay today to obtain those future cash flows. Use =-PV() or ABS(PV()) to display as a positive number.
+A single number: the present value of the payments and the future value. The result is negative when the inputs are positive cash receipts, and positive when the payments are entered as negative cash outflows. A non-numeric argument produces an error.
 
 ## Examples
 
-> [!f(x)] PV Examples
+All examples use the standard PV syntax with the arguments shown.
 
-### Example 1: Present Value of Future Lump Sum
+### Example 1: Loan Amount a Payment Supports
+
+```excel
+=PV(0.05/12, 360, -1500)
 ```
-=PV(0.06, 10, 0, 100000)
+
+**Result:** `279,422.43`
+
+The payment of 1,500 per month is entered as negative because it is cash the borrower pays out. At 5% a year, paid monthly for 30 years, that stream supports a loan of about 279,422 today. The positive result is the amount the borrower receives.
+
+### Example 2: Present Value of a Single Future Amount
+
+```excel
+=PV(0.04, 5, 0, 20000)
 ```
-**Result:** `-$55,839.48`
 
-**Explanation:** Calculates what $100,000 received in 10 years is worth today at a 6% annual discount rate. There are no periodic payments (pmt=0). The negative result means you would need to invest $55,839.48 today to have $100,000 in 10 years at 6% growth. This is the flip side of FV--if $55,839 grows to $100,000, then $100,000 discounts back to $55,839.
+**Result:** `-16,438.54`
 
----
+With no periodic payments (pmt is 0), PV discounts the 20,000 due in five years back to today at 4% a year. The negative sign means you would need to set aside 16,438.54 today to have 20,000 in five years.
 
-### Example 2: Lottery Payout Comparison - Annuity vs. Lump Sum
+### Example 3: Beginning Versus End of Period
+
+```excel
+=PV(0.06/12, 24, -300, 0, 1)
 ```
-=PV(0.05, 20, 50000)
+
+**Result:** `6,802.70`
+
+This loan pays 300 at the start of each of 24 months. Changing the type argument to 0 or omitting it gives `6,768.86` for the same payments made at the end of each month. Payments made earlier are worth more, so the start-of-period result is higher.
+
+<!-- Image 2: Payment Timing Comparison. See Images/Financial/PV.md -->
+
+### Example 4: Present Value as a Positive Number
+
+```excel
+=-PV(0.06, 12, 3000)
 ```
-**Result:** `-$623,110.52`
 
-**Explanation:** A lottery offers $50,000 per year for 20 years (total $1,000,000) or a lump sum today. At a 5% discount rate, those future payments are worth $623,110 in today's dollars. If the lump sum offer is higher than this, take the lump sum. If lower, take the annuity.
+**Result:** `25,151.53`
 
----
+Negating the function shows the present value of receiving 3,000 a year for 12 years at 6% as a positive number. The negation changes only the display; the calculation is the same.
 
-### Example 3: How Much Loan Can You Afford?
+### Example 5: Choosing Between Payments and a Lump Sum
+
+```excel
+=IF(-PV(0.06, 12, 3000) < 30000, "Take the Lump Sum", "Take the Payments")
 ```
-=PV(0.065/12, 360, -2000)
+
+**Result:** `"Take the Lump Sum"`
+
+The payments are worth 25,151.53 today, which is less than the 30,000 lump sum offer, so the lump sum has the higher value at this discount rate.
+
+## Story Problems
+
+### Problem 1: Settlement Offer on Annual Payments
+
+A supplier owes a customer 2,400 at the end of each year for 10 years. The supplier offers a single payment of 18,000 today instead. The customer's required return is 5% a year.
+
+| Year | Payment | Offer |
+| --- | --- | --- |
+| 1 to 10 | 2,400 each year | 18,000 today |
+
+**Task:** Find the present value of the payments and decide which option is worth more.
+
+**Solution:**
+
+```excel
+=-PV(0.05, 10, 2400)
 ```
-**Result:** `$316,422.43`
 
-**Explanation:** If you can afford a $2,000 monthly payment at 6.5% for 30 years, how much can you borrow? The payment is negative because it is money you will pay out. The positive result indicates the loan amount you receive. This is the core calculation for mortgage pre-approval.
+**Answer:** `18,532.16`. The payments are worth 532.16 more than the 18,000 offer, so the customer should keep the payments.
 
----
+<!-- Image 3: Story Problem Result Panel. See Images/Financial/PV.md -->
 
-### Example 4: Bond Valuation
+### Problem 2: Leasing a Vehicle With Payments in Advance
+
+A business can lease a van for 36 months at 400 per month, paid at the start of each month. Buying the van outright costs 13,000 today. The business discounts cash flows at 8% a year.
+
+| Term | Monthly Payment | Purchase Price |
+| --- | --- | --- |
+| 36 months | 400 | 13,000 |
+
+**Task:** Find the present value of the lease payments and compare it with the purchase price.
+
+**Solution:**
+
+```excel
+=-PV(0.08/12, 36, 400, 0, 1)
 ```
-=PV(0.05, 10, 60, 1000)
-```
-**Result:** `-$1,077.22`
 
-**Explanation:** Value a bond that pays $60 annual coupon for 10 years, then returns $1,000 face value. At a 5% market rate, this bond is worth $1,077.22--a premium because its 6% coupon exceeds the 5% market rate. If market rates were 7%, the bond would trade at a discount.
-
----
-
-### Example 5: Comparing Bond Prices at Different Market Rates
-```
-At 4% market rate: =PV(0.04, 10, 60, 1000) = -$1,162.22 (premium)
-At 6% market rate: =PV(0.06, 10, 60, 1000) = -$1,000.00 (par)
-At 8% market rate: =PV(0.08, 10, 60, 1000) = -$865.80 (discount)
-```
-**Result:** Bond prices inversely related to market rates
-
-**Explanation:** A 6% coupon bond trades at par when market rates equal 6%. When market rates drop below the coupon rate, the bond's higher payments become more valuable (premium). When market rates rise above the coupon rate, those fixed payments become less attractive (discount).
-
----
-
-### Example 6: Retirement Nest Egg Required
-```
-=PV(0.04/12, 300, 5000)
-```
-**Result:** `-$946,073.16`
-
-**Explanation:** How much do you need at retirement to withdraw $5,000 monthly for 25 years (300 months), assuming 4% annual returns on the remaining balance? You need approximately $946,000. This is "reverse FV"--instead of calculating what savings grow to, you calculate what is needed to fund withdrawals.
-
----
-
-### Example 7: Business Acquisition - Value of Cash Flows
-```
-=PV(0.12, 5, 200000, 500000)
-```
-**Result:** `-$1,005,311.79`
-
-**Explanation:** A business generates $200,000 annual cash flow for 5 years, then can be sold for $500,000. At a 12% required return (accounting for business risk), these cash flows are worth about $1 million today. If the asking price is $900,000, it is a potentially good investment.
-
----
-
-### Example 8: Lease vs. Buy - Present Value of Lease Payments
-```
-=PV(0.08/12, 36, -400, 0, 1)
-```
-**Result:** `$13,043.12`
-
-**Explanation:** Value a 3-year lease with $400 monthly payments at the beginning of each month (type=1, typical for leases). The 8% is the company's borrowing rate. If purchasing outright costs $13,000, the lease and purchase have equivalent present value--other factors (maintenance, flexibility) should decide.
-
----
-
-### Example 9: Structured Settlement Valuation
-```
-=PV(0.06, 15, 25000, 100000)
-```
-**Result:** `-$285,162.81`
-
-**Explanation:** A settlement pays $25,000 annually for 15 years, plus a $100,000 final payment. At 6% discount rate, this is worth $285,163 today. Settlement purchasing companies offer less than this (their profit margin), typically 10-30% less.
-
----
-
-### Example 10: Monthly Payments with Annual Rate Conversion
-```
-=PV(0.09/12, 48, 500)
-```
-**Result:** `-$20,092.39`
-
-**Explanation:** Value of receiving $500 monthly for 4 years at 9% annual rate. Rate is divided by 12 for monthly; nper is 4*12=48 months. The $24,000 in total payments is worth $20,092 today because future payments are discounted.
-
----
-
-### Example 11: Zero-Coupon Bond Valuation
-```
-=PV(0.05, 15, 0, 10000)
-```
-**Result:** `-$4,810.17`
-
-**Explanation:** A zero-coupon bond pays no interest but returns $10,000 at maturity in 15 years. At 5% discount rate, it is worth $4,810 today. Zero-coupon bonds are pure time-value-of-money instruments--their entire return comes from the discount.
-
----
-
-### Example 12: Present Value as Positive (for Reporting)
-```
-=-PV(0.07, 20, 15000)
-```
-**Result:** `$158,883.28`
-
-**Explanation:** By negating the PV function, the result displays as a positive number, which is often clearer for reporting: "The present value of this income stream is $158,883." The negative sign before PV is purely for display--it does not change the underlying calculation.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Text values in parameters, or non-numeric inputs | Ensure all parameters are numbers. Check for hidden text formatting, spaces, or currency symbols in cells. |
-| `#NUM!` | Impossible calculation (e.g., rate of -100%) | Verify rate is greater than -1. Rate of -100% causes division by zero. |
-| `Unexpectedly small PV` | Rate entered as whole number instead of decimal | Use 0.06 for 6%, not 6. Alternatively, use 6% with the percent sign. |
-| `Wrong present value` | Rate and nper period mismatch | Monthly payments need monthly rate (annual/12) and nper in months (years*12). |
-| `Negative PV when expecting positive` | This is correct! PV is negative when valuing positive future cash flows | Use =-PV() for positive display. The negative indicates money you would pay to receive those cash flows. |
-| `PV seems too high or low` | Discount rate does not match risk level | Higher risk investments need higher discount rates, producing lower PVs. Verify your rate reflects the true opportunity cost. |
+**Answer:** `12,849.82`. The lease costs 150.18 less than buying in today's money. Lease terms, residual value and ownership are not part of this comparison.
 
 ## Use Cases
 
-### [[Investment Property Valuation]]
+### Loan Affordability Check
 
-**Scenario:** A real estate investor is evaluating a rental property generating $2,000 monthly net income. They expect to sell the property in 10 years for $300,000. What is a fair price today?
+**Scenario:** A household can afford a 1,200 monthly mortgage payment at 6.5% annual interest over 25 years and wants to know the largest loan the payment supports.
 
-**Implementation:**
-```
-Monthly income for 10 years: 120 payments of $2,000
-Future sale: $300,000
-Required return for real estate: 8%
-
-=PV(0.08/12, 120, 2000, 300000)
-```
-**Result:** `-$300,867.47` (Property is worth approximately $301,000)
-
-**Business Application:** Real estate investors use PV to determine maximum purchase prices that will meet their return requirements. If the asking price exceeds the calculated PV, the investment will not meet the target return. Negotiating below PV creates excess returns.
-
-**Technical Details:** The 8% discount rate reflects real estate risk--illiquidity, tenant risk, maintenance uncertainty. Adjust for specific property risks. Also consider that rental income typically increases over time; for accuracy, use NPV with projected growing rents rather than constant PMT.
-
----
-
-### [[Pension Buyout Decision]]
-
-**Scenario:** A company offers employees a choice: keep their pension ($2,500/month for life starting at 65) or accept a lump sum buyout today. The employee is 55 and expects to live to 85.
-
-**Implementation:**
-```
-Monthly pension: $2,500 for 20 years (age 65-85)
-But pension starts in 10 years
-Step 1: PV at age 65 of pension payments
-Step 2: Discount that value back to today
-
-PV at age 65: =PV(0.05/12, 240, 2500) = -$378,959
-PV at age 55: =PV(0.05, 10, 0, 378959) = -$232,623
-```
-**Result:** Pension is worth approximately $233,000 today
-
-**Business Application:** Employees use PV to evaluate buyout offers objectively. If the company offers more than the calculated PV, the lump sum is better (assuming the employee can invest wisely). If less, keeping the pension is financially superior.
-
-**Technical Details:** Pension valuation is complex--it depends on life expectancy, inflation adjustments (if any), survivor benefits, and the employee's personal discount rate. Risk tolerance matters too: the pension is guaranteed, while lump sum returns depend on investment performance.
-
----
-
-### [[Business Acquisition - Discounted Cash Flow]]
-
-**Scenario:** An investor is evaluating a small business that generates $150,000 annual cash flow. Cash flow is expected to remain stable for 7 years, after which the business can be sold for 3x cash flow.
-
-**Implementation:**
-```
-Annual cash flow: $150,000 for 7 years
-Terminal value: $150,000 * 3 = $450,000
-Required return for small business: 15%
-
-=PV(0.15, 7, 150000, 450000)
-```
-**Result:** `-$798,466.85`
-
-**Business Application:** PV calculations form the foundation of discounted cash flow (DCF) analysis, the primary valuation method for acquisitions. The 15% discount rate reflects small business risk--higher than public companies. If the asking price is $700,000, there is a potential $98,000 margin of safety.
-
-**Technical Details:** Real DCF analysis uses NPV with projected varying cash flows rather than constant PMT. The terminal value multiplier (3x in this example) depends on industry norms and growth expectations. Always sensitivity-test the discount rate--small changes significantly impact valuation.
-
----
-
-### [[Lawsuit Settlement Evaluation]]
-
-**Scenario:** A plaintiff won a lawsuit and is offered either a structured settlement of $50,000/year for 15 years or an immediate lump sum of $500,000.
-
-**Implementation:**
-```
-Structured settlement: =PV(0.06, 15, 50000) = -$485,644
-Lump sum offer: $500,000
-
-Comparison:
-At 6% discount rate, structured payments worth $485,644
-Lump sum offer is $500,000
-Lump sum is better by $14,356
+```excel
+=PV(0.065/12, 25*12, -1200)
 ```
 
-**Business Application:** Personal injury attorneys and plaintiffs use PV to objectively compare settlement options. The key variable is the discount rate--which reflects what return the plaintiff could earn on a lump sum. A financially sophisticated plaintiff might use 7-8%; a conservative one might use 4-5%.
+**Why It Works:** The payment is negative because it leaves the household's account. The result is the loan amount the household can receive. Lenders use the same arithmetic when they pre-approve a borrower.
 
-**Technical Details:** Also consider taxes (structured settlements are often tax-free while lump sum investment earnings may be taxed), inflation protection (some settlements include inflation adjustments), and personal financial discipline. A lump sum that gets spent unwisely is worth zero in practice.
+### Bond Price Estimate
+
+**Scenario:** A bond pays a 60 coupon each year for 10 years and returns its 1,000 face value at maturity. Market rates for similar bonds are 5%.
+
+```excel
+=-PV(0.05, 10, 60, 1000)
+```
+
+**Why It Works:** The coupons and face value are positive cash receipts, so PV is negative. Negating it gives the price an investor would pay, about 1,077.22. The bond trades above par because its coupon rate of 6% is above the 5% market rate.
+
+### Annuity Versus Lump Sum
+
+**Scenario:** A retiree is offered 30,000 today or 3,000 a year for 12 years. The retiree's expected return on invested money is 6%.
+
+```excel
+=IF(-PV(0.06, 12, 3000) < 30000, "Take the Lump Sum", "Take the Payments")
+```
+
+**Why It Works:** Both options are converted to present value at the same rate, so they can be compared directly. A higher discount rate lowers the payment stream's value and can change the decision.
+
+## Common Errors
+
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | A parameter contains text, a currency symbol or a space. | Enter each argument as a number or a cell that holds a number. |
+| Very large or very small result | The rate was typed as a whole number, such as `6`, instead of `0.06`. | Enter 6% as `0.06` or `6%`. |
+| Result too large or small by about 12 times | The annual rate was used with monthly periods. | Divide the annual rate by 12 and multiply the years by 12. |
+| Unexpected negative result | Receipts were entered as positive values, so the result is the cost to obtain them. | Negate the function with `-PV()` for a positive display. |
+| Payment stream appears to have no effect | The payment argument was left empty or set to 0 without an fv value. | Enter the payment, the future value, or both. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions (Excel 97 through Excel 365 and beyond)
-- **Specific Behavior:** Standard 5-parameter function. Returns negative PV when valuing positive future cash flows.
-- **Precision:** IEEE 754 double-precision floating point, accurate to 15 significant digits.
-
-### Google Sheets
-- **Availability:** All versions since launch
-- **Specific Behavior:** Functionally identical to Excel. Same parameter order, defaults, and sign conventions.
-- **Precision:** Same floating-point precision as Excel.
-
-### Both Platforms
-- Sign convention: Positive future cash flows (pmt, fv) produce negative PV (money paid out today)
-- Rate and nper must use matching time periods
-- FV defaults to 0; Type defaults to 0
-- For positive PV display, use =-PV() or ABS(PV())
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available in current Excel versions, including Microsoft 365 and Excel for the web | Arguments are named rate, nper, pmt, fv and type. |
+| Google Sheets | Available | Arguments are named rate, number_of_periods, payment_amount, future_value and end_or_beginning. The order and behavior match Excel. |
 
 ## Tips and Best Practices
 
-1. **Match your rate to your period:** For monthly payments, divide annual rate by 12 and multiply years by 12. Quarterly: divide by 4, multiply by 4. Mismatched periods are the most common error and produce dramatically wrong answers.
-
-2. **Use the right discount rate:** The discount rate should reflect your opportunity cost--what return you could earn on that money elsewhere at similar risk. Higher-risk cash flows require higher discount rates, producing lower present values.
-
-3. **Remember: higher discount rates mean lower present values:** When valuing future money, more aggressive discounting (higher rates) makes that future money worth less today. This is why risky investments are worth less than safe ones with identical cash flows.
-
-4. **Use =-PV() for positive display in reports:** The negative PV result is mathematically correct (representing outflow to obtain inflows), but often confusing in presentations. Negate the function for clearer reporting.
-
-5. **Combine PV calculations for complex scenarios:** For a delayed annuity (payments starting in the future), first calculate PV at the start date of payments, then discount that lump sum back to today. Chain multiple PV calculations as needed.
-
-6. **Sensitivity test your discount rate:** PV is highly sensitive to the discount rate. Calculate PV at multiple rates (optimistic, base case, pessimistic) to understand the range of possible values before making decisions.
-
-7. **Use PV for loan affordability analysis:** With PMT known (what you can afford to pay), PV tells you the maximum loan amount. This is how banks calculate pre-approval amounts.
-
-8. **Compare present values, not future totals:** When choosing between payment streams with different timing, always compare present values--not the sum of undiscounted payments. Timing matters.
+- Match the rate to the payment period. Monthly payments need a monthly rate and a period count in months.
+- Keep a consistent sign convention across the workbook: money in is positive, money out is negative.
+- Test several discount rates to see how sensitive the present value is before you decide.
+- Use `-PV()` in reports so readers see a positive value without a confusing sign.
+- For a delayed annuity, find the value at the start of the payments with PV, then discount that amount back to today with a second PV.
+- Use NPV when cash flows vary from period to period.
 
 ## Related Functions
 
-### Similar Functions
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[FV]] | Future value of present money | When you know today's amount and want to find future value |
-| [[NPV]] | Net present value of irregular cash flows | When cash flows vary each period (not constant payments) |
-| [[PMT]] | Payment per period | When you know PV and want to find required payments |
-| [[NPER]] | Number of periods | When you know PV, payment, and rate, want to find time |
-| [[RATE]] | Interest rate per period | When you know PV, payment, and nper, want to find rate |
-
-### Commonly Used Together
-
-**[[PMT]]** - Calculate Required Payments
-
-*Combined with PV for loan analysis:*
-```
-Maximum loan amount at $2,000/month payment:
-=PV(0.07/12, 360, -2000) = $300,714.42
-
-Verify with PMT:
-=PMT(0.07/12, 360, 300714.42) = -$2,000.00
-```
-PV finds loan amount from payment; PMT finds payment from loan amount.
-
----
-
-**[[FV]]** - Future Value Verification
-
-*Combined with PV for time-value consistency check:*
-```
-PV of $100,000 in 10 years at 6%:
-=PV(0.06, 10, 0, 100000) = -$55,839.48
-
-Verify: FV of that amount:
-=FV(0.06, 10, 0, -55839.48) = $100,000.00
-```
-PV and FV are mathematical inverses--use them to cross-check calculations.
-
----
-
-**[[NPV]]** - Variable Cash Flow Valuation
-
-*Combined with PV for complex scenarios:*
-```
-Simple annuity: =PV(0.08, 5, 10000) = -$39,927.10
-
-Variable cash flows: =NPV(0.08, 8000, 10000, 12000, 11000, 15000) = $42,637.87
-```
-Use PV for constant payments; use NPV when payments vary each period.
-
----
-
-**[[IRR]]** - Finding Break-Even Rate
-
-*Combined with PV for investment analysis:*
-```
-If investment costs $50,000 and pays $15,000/year for 5 years:
-=IRR({-50000, 15000, 15000, 15000, 15000, 15000}) = 15.24%
-
-At that rate, PV equals investment:
-=PV(0.1524, 5, 15000) = -$50,000
-```
-IRR finds the rate where PV of cash flows equals the initial investment.
-
----
-
-**[[IF]]** - Conditional Valuation
-
-*Combined with PV for decision modeling:*
-```
-=IF(PV(0.06, 10, 20000) < -LumpSumOffer, "Take Lump Sum", "Keep Annuity")
-```
-Automate recommendation based on comparing PV to an alternative offer.
+| Function | Relationship |
+| --- | --- |
+| [FV](FV.md) | Grows a present amount forward; the inverse of discounting a future amount with PV. |
+| [NPER](NPER.md) | Solves for the number of periods when the rate, payment and present value are known. |
+| [NPV](NPV.md) | Discounts a series of uneven cash flows rather than equal payments. |
+| [PMT](PMT.md) | Solves for the payment when the present value is known. |
+| [RATE](RATE.md) | Solves for the interest rate when the other arguments are known. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [PV function](https://support.microsoft.com/en-us/office/pv-function-23879d31-0e02-4321-be01-da16e8168cbd)
-- **Google Sheets:** [PV function](https://support.google.com/docs/answer/3093188)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 97 (1997) | Original implementation with all 5 parameters |
-| Excel 2007+ | All subsequent versions | No changes to function behavior |
-| Google Sheets | Original launch | Identical to Excel implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: PV function](https://support.microsoft.com/en-us/excel/functions/pv-function)
+- [Google Docs Editors Help: PV](https://support.google.com/docs/answer/3093243)

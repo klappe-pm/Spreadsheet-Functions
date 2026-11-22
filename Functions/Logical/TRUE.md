@@ -10,7 +10,7 @@ use-case:
   - Logical Test Data
 related:
   - AND
-  - FALSE
+  - 'FALSE'
   - IF
   - NOT
   - OR

@@ -13,7 +13,7 @@ related:
   - IF
   - NOT
   - OR
-  - TRUE
+  - 'TRUE'
 level: 1
 source:
   - https://support.microsoft.com/en-us/excel/functions/false-function

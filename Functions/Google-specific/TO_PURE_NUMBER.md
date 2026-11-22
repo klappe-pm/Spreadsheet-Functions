@@ -9,7 +9,7 @@ use-case:
   - Date Gap Calculation
   - Export Cleanup
 related:
-  - N
+  - 'N'
   - TO_DATE
   - TO_DOLLARS
   - TO_PERCENT

@@ -9,11 +9,11 @@ use-case:
   - Mutually Exclusive Flags
 related:
   - AND
-  - FALSE
+  - 'FALSE'
   - IF
   - NOT
   - OR
-  - TRUE
+  - 'TRUE'
 level: 2
 source:
   - https://support.microsoft.com/en-us/excel/functions/xor-function

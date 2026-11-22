@@ -3,7 +3,7 @@ domain: Spreadsheet Functions
 category: Logical
 subcategory: Boolean Values
 related:
-  - TRUE
+  - 'TRUE'
 date-created: 2026-11-22
 date-revised: 2026-11-22
 tags:

@@ -139,7 +139,7 @@ A short, original business story with the data the reader needs.
 
 | Function | Relationship |
 | --- | --- |
-| [INDEX](../Lookup%20%26%20Reference/INDEX.md) | When to use it instead or together. |
+| `[INDEX](../Lookup%20%26%20Reference/INDEX.md)` | When to use it instead or together. Links are relative to the page's own folder. |
 
 ## Official Documentation
 

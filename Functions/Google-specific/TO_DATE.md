@@ -12,7 +12,7 @@ use-case:
 related:
   - DATE
   - DATEVALUE
-  - N
+  - 'N'
   - TO_PURE_NUMBER
   - TO_TEXT
 level: 2

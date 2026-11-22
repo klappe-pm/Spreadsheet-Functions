@@ -3,7 +3,7 @@ domain: Spreadsheet Functions
 category: Information
 subcategory: Type Checks
 related:
-  - N
+  - 'N'
 date-created: 2026-11-22
 date-revised: 2026-11-22
 tags:

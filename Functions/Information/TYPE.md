@@ -14,7 +14,7 @@ related:
   - ISLOGICAL
   - ISNUMBER
   - ISTEXT
-  - N
+  - 'N'
 level: 2
 source:
   - https://support.microsoft.com/en-us/excel/functions/type-function

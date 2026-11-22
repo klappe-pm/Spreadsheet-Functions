@@ -1,393 +1,229 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- math-trig
-subTopics:
-- absolute-value
-- magnitude
-- distance
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Math & Trig
+subcategory: Arithmetic
+purpose:
+  - Data Cleaning
+  - Statistical Analysis
+use-case:
+  - Budget Variance Reporting
+  - Distance Between Readings
+  - Tolerance Checks
+related:
+  - IF
+  - ROUND
+  - SIGN
+  - SQRT
+  - SUMPRODUCT
+level: 1
+source:
+  - https://support.microsoft.com/en-us/excel/functions/abs-function
+  - https://support.google.com/docs/answer/3093459
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Absolute Value
-- Magnitude
-- Distance From Zero
+  - Absolute Value
+  - Distance From Zero
+  - Magnitude
 tags:
-- absolute-value
-- magnitude
-- distance
-- positive
-- variance
+  - arithmetic
+  - excel
+  - magnitude
+  - sheets
+  - variance
 ---
 
 # ABS
 
 ## Description
 
-**ABS** returns the absolute value of a number—its distance from zero without regard to sign. Positive numbers stay positive; negative numbers become positive. ABS(-5) = 5, ABS(5) = 5, ABS(0) = 0. It's the mathematical concept of magnitude, stripping away direction to leave only size.
+**ABS** returns the absolute value of a number, which is its distance from zero with the sign removed. A positive number comes back unchanged, a negative number comes back as its positive equivalent, and zero stays zero. So `ABS(-15)` and `ABS(15)` both return 15.
 
-This function is fundamental for **variance analysis, error measurement, and any calculation where direction doesn't matter**. When comparing budget to actual, you might care about the size of the difference regardless of whether you're over or under. When calculating distance between two points, you need the positive distance. When determining if values are "close enough," ABS removes the sign complexity.
+Use ABS when the size of a value matters and its direction does not. A budget report might need the size of each variance whether the spending came in over or under plan. A distance between two readings is always positive, whichever reading is larger. Tolerance checks use ABS to turn a two-sided test into a single comparison.
 
-ABS is deceptively simple but appears in sophisticated formulas constantly. It's essential for calculating metrics like Mean Absolute Deviation (MAD), for implementing tolerance checks (`=IF(ABS(A1-B1)<0.01, "Match", "Differ")`), and for converting any calculation to its magnitude. Many financial and statistical functions have ABS embedded in their logic.
-
-**One common gotcha: ABS doesn't change the number, it changes the sign.** ABS(-$1000) is $1000, not suddenly a different amount. This seems obvious but matters when you're summing: SUM of original values might net to zero if positives and negatives cancel, while SUM of ABS values gives total magnitude. Choose based on whether cancellation is meaningful or a problem to avoid.
+ABS changes only the sign. It does not round or scale the number. Because of this, a column of mixed positive and negative values can net to a small total with SUM, while the sum of the absolute values shows the total movement. Choose the function that matches the question you are answering.
 
 ## Syntax
 
-> [!f(x)] ABS Syntax
->
-> ```
-> =ABS(number)
-> ```
+```excel
+=ABS(number)
+```
+
+<!-- Image 1: Absolute Value on a Number Line. See Images/Math & Trig/ABS.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `number` | Yes | The numeric value for which you want the absolute value. Can be a positive number (returned unchanged), negative number (returned as positive), zero (returns 0), cell reference, or formula result. |
+| --- | --- | --- |
+| `number` | Yes | The real number whose absolute value you want. It can be a typed number, a cell reference, or the result of another formula. |
 
 ### Return Value
 
-Returns a non-negative numeric value equal to the absolute value (magnitude) of the input. Positive inputs return unchanged. Negative inputs return the positive equivalent. Zero returns zero. If input is non-numeric, returns #VALUE! error.
+A non-negative number. Positive numbers and zero return unchanged, and negative numbers return the positive equivalent. A value that cannot be read as a number returns `#VALUE!`.
 
 ## Examples
 
-> [!f(x)] ABS Examples
+### Example 1: Negative Input
 
-### Example 1: Absolute Value of Negative Number
-```
+```excel
 =ABS(-15)
 ```
-**Result:** 15
 
-**Explanation:** The core use case—converting a negative number to positive. ABS removes the negative sign, returning the magnitude.
+**Result:** `15`
 
----
+The minus sign is removed and the magnitude is returned.
 
-### Example 2: Absolute Value of Positive Number
+### Example 2: Absolute Difference Between Two Cells
+
+Budget in `B2` is 120 and actual in `C2` is 95.
+
+```excel
+=ABS(B2-C2)
 ```
-=ABS(15)
+
+**Result:** `25`
+
+The result is 25 whichever cell is larger, so swapping `B2` and `C2` gives the same answer.
+
+<!-- Image 2: Difference in Both Directions. See Images/Math & Trig/ABS.md -->
+
+### Example 3: Sum of Magnitudes Without Cancellation
+
+Values in `D2:D6` are 500, -300, 120, -80 and -45.
+
+```excel
+=SUMPRODUCT(ABS(D2:D6))
 ```
-**Result:** 15
 
-**Explanation:** Positive numbers pass through unchanged. ABS never makes numbers negative—it only ensures the result is non-negative.
+**Result:** `1045`
 
----
+Plain `SUM(D2:D6)` returns 195 because the negative values offset the positive ones. Taking the absolute value of each cell first adds up the movement in both directions.
 
-### Example 3: Absolute Value of Zero
+### Example 4: Tolerance Test
+
+Measured value in `E2` is 10.2 and the target in `F2` is 10.5.
+
+```excel
+=IF(ABS(E2-F2)<=0.5,"Within tolerance","Adjust")
 ```
-=ABS(0)
+
+**Result:** `Within tolerance`
+
+The difference is 0.3, which is inside the 0.5 band. The test works the same whether the measurement is above or below the target.
+
+## Story Problems
+
+### Problem 1: Monthly Budget Variance
+
+A team budgets 5000 for marketing each month. Spending for the first four months is below.
+
+| Month | Budget | Actual |
+| --- | --- | --- |
+| Jan | 5000 | 4700 |
+| Feb | 5000 | 5350 |
+| Mar | 5000 | 4980 |
+| Apr | 5000 | 5120 |
+
+**Task:** Find the total size of the variances, counting over-spend and under-spend as separate amounts of movement.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(ABS(C2:C5-B2:B5))
 ```
-**Result:** 0
 
-**Explanation:** Zero is neither positive nor negative. Its absolute value is zero—the only number equal to its own negation.
+**Answer:** `790`, because the variances are 300, 350, 20 and 120. The net variance is only 150, which hides how much the spending moved.
 
----
+<!-- Image 3: Variance Table With Signed and Absolute Values. See Images/Math & Trig/ABS.md -->
 
-### Example 4: Absolute Value of Cell Reference
+### Problem 2: Part Width Check
+
+A machine shop cuts parts to a target width of 25.00 mm with a tolerance of 0.05 mm on either side.
+
+| Part | Width (mm) |
+| --- | --- |
+| P-101 | 25.03 |
+| P-102 | 24.96 |
+| P-103 | 25.08 |
+| P-104 | 24.99 |
+
+**Task:** Count the parts whose width is within tolerance.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(--(ABS(B2:B5-25)<=0.05))
 ```
-=ABS(A1)
-```
-**Result:** Absolute value of whatever is in A1
 
-**Explanation:** Works with cell references as expected. If A1 contains -42, result is 42. If A1 contains 42, result is 42.
-
----
-
-### Example 5: Absolute Difference Between Two Values
-```
-=ABS(A1 - B1)
-```
-**Result:** Positive difference regardless of which is larger
-
-**Explanation:** The most common pattern. If A1=100 and B1=150, result is 50. If A1=150 and B1=100, result is still 50. Order doesn't matter.
-
----
-
-### Example 6: Budget Variance (Magnitude Only)
-```
-=ABS(Actual - Budget)
-```
-**Result:** Size of variance, always positive
-
-**Explanation:** When reporting variance magnitude without caring about direction (over vs under), ABS simplifies the calculation. A $500 over-budget and $500 under-budget both show as $500 variance.
-
----
-
-### Example 7: Tolerance Check
-```
-=IF(ABS(Measurement - Target) <= Tolerance, "Pass", "Fail")
-```
-**Result:** "Pass" if within tolerance, "Fail" otherwise
-
-**Explanation:** Quality control pattern. Whether measurement is above or below target, ABS converts the difference to positive for comparison against the tolerance threshold.
-
----
-
-### Example 8: Distance Between Two Points (1D)
-```
-=ABS(PointA - PointB)
-```
-**Result:** Distance between points
-
-**Explanation:** Distance is always positive. Whether PointA is 10 and PointB is 3, or vice versa, the distance is 7. ABS handles the sign automatically.
-
----
-
-### Example 9: Converting Formula Results
-```
-=ABS(VLOOKUP(A1, Data, 2, FALSE) - C1)
-```
-**Result:** Absolute difference between lookup result and C1
-
-**Explanation:** ABS wraps complex formulas to ensure positive results. The VLOOKUP finds a value, subtracts C1, and ABS makes the result positive regardless of which was larger.
-
----
-
-### Example 10: Sum of Absolute Values
-```
-=SUMPRODUCT(ABS(A1:A10))
-```
-**Result:** Sum of magnitudes (no cancellation)
-
-**Explanation:** Unlike SUM (where -5 and 5 cancel to 0), SUMPRODUCT with ABS totals the magnitudes: |-5| + |5| = 10. Essential for total activity, gross movement, or total deviation.
-
----
-
-### Example 11: Mean Absolute Deviation (MAD)
-```
-=AVERAGE(ABS(A1:A10 - AVERAGE(A1:A10)))
-```
-**Result:** Average absolute deviation from mean
-
-**Explanation:** MAD measures typical distance from average. ABS ensures deviations above and below don't cancel. More robust than standard deviation for some analyses.
-
----
-
-### Example 12: Percentage Difference
-```
-=ABS(A1 - B1) / ((A1 + B1) / 2) * 100
-```
-**Result:** Absolute percentage difference between two values
-
-**Explanation:** Calculates symmetric percentage difference. ABS in numerator ensures positive result regardless of which value is larger.
-
----
-
-### Example 13: Conditional Formatting Helper
-```
-=ABS(ThisMonth - LastMonth) / LastMonth > 0.1
-```
-**Result:** TRUE if change exceeds 10% in either direction
-
-**Explanation:** Flags significant changes. A 15% increase and 15% decrease both return TRUE. Without ABS, you'd need separate conditions for positive and negative changes.
-
----
-
-### Example 14: Complex Number Magnitude (with SQRT)
-```
-=SQRT(A1^2 + B1^2)
-```
-**Result:** Magnitude of vector (A1, B1)
-
-**Explanation:** For 2D distance or complex number magnitude, this is equivalent to ABS in higher dimensions. Note: Excel has IMABS for actual complex numbers.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Non-numeric input | Ensure the argument is a number. Text, blanks interpreted as text, or errors in the referenced cell cause this. |
-| `#NAME?` | Misspelled function name | Check spelling: ABS, not ABSO or ABSOLUTE. |
-| `Unexpected positive` | Didn't expect ABS behavior | Remember ABS always returns positive. If you need to preserve negative sign in some cases, use IF logic. |
-| `Circular reference` | ABS references its own cell | ABS(A1) in cell A1 creates a circular reference. Move the formula to a different cell. |
-| `No effect on positive` | Expected change to positive number | ABS(5) = 5. Positive numbers are unchanged—that's correct behavior, not an error. |
-| `Sum still negative` | ABS not applied to range correctly | SUM(ABS(range)) doesn't work. Use SUMPRODUCT(ABS(range)) or array formula. |
+**Answer:** `3`. Parts P-101, P-102 and P-104 are within 0.05 mm of target. P-103 is 0.08 mm over and fails.
 
 ## Use Cases
 
-### [[Variance Analysis and Reporting]]
+### Budget Variance Reporting
 
-**Scenario:** Calculate and report budget variances where the magnitude matters regardless of direction.
+**Scenario:** A finance analyst needs a list of departments whose spending moved more than 10 percent from budget, whether they overspent or underspent.
 
-**Implementation:**
-```
-=ABS(Actual - Budget)
-=ABS(Actual - Budget) / Budget * 100          → Percentage variance
-=IF(ABS(Variance) > Threshold, "Review", "OK") → Flag large variances
+```excel
+=IF(ABS(C2-B2)/B2>0.1,"Review","OK")
 ```
 
-**Business Application:** Financial reporting, budget analysis, performance metrics. When you want to identify large variances without distinguishing over from under.
+**Why It Works:** `ABS(C2-B2)` gives the size of the variance and dividing by the budget converts it to a rate. Keep the signed difference in another column when the report also needs to show direction.
 
-**Technical Details:** For directional analysis, keep the sign (Actual - Budget). For magnitude-only analysis, use ABS. Many reports show both: signed variance and absolute variance for different purposes.
+### Distance Between Readings
 
----
+**Scenario:** A logistics team records the odometer reading at each stop and wants the distance between two stops, regardless of the order in which they were entered.
 
-### [[Quality Control and Tolerance Checks]]
-
-**Scenario:** Determine if measurements fall within acceptable tolerances of a target value.
-
-**Implementation:**
-```
-=IF(ABS(Measurement - Specification) <= Tolerance, "Pass", "Fail")
-=COUNTIF(ABS(Measurements - Target) <= AllowedDeviation)
-=ABS(Reading - Expected) / Expected * 100     → Percent deviation
+```excel
+=ABS(B3-B2)
 ```
 
-**Business Application:** Manufacturing QC, laboratory testing, process control. Measurements can deviate above or below target—ABS makes the tolerance check symmetric.
+**Why It Works:** Subtracting in either order can produce a negative number, and ABS makes the distance positive.
 
-**Technical Details:** Tolerance checks often use symmetric bands (plus or minus). ABS simplifies this to a single comparison instead of compound conditions (>= lower AND <= upper).
+### Tolerance Checks
 
----
+**Scenario:** A quality team accepts a batch when each sample's weight is within a fixed band around the target weight.
 
-### [[Distance and Difference Calculations]]
-
-**Scenario:** Calculate distances, differences, or errors where sign is meaningless.
-
-**Implementation:**
-```
-=ABS(LocationA - LocationB)                   → 1D distance
-=SQRT(ABS(X1-X2)^2 + ABS(Y1-Y2)^2)            → 2D distance (Euclidean)
-=SUM(ABS(Predicted - Actual))                 → Total absolute error
+```excel
+=IF(ABS(D2-Target)<=Tolerance,"Accept","Reject")
 ```
 
-**Business Application:** Logistics routing, error analysis, prediction accuracy. Distance is inherently positive; direction is separate information.
+**Why It Works:** One comparison covers both the lower and upper limits, so the formula is easier to audit than two separate tests.
 
-**Technical Details:** For Euclidean distance, ABS inside the squares is optional (squaring makes negative positive anyway), but ABS improves readability of intent.
+## Common Errors
 
----
-
-### [[Statistical Measures]]
-
-**Scenario:** Calculate statistics that require absolute deviations rather than signed deviations.
-
-**Implementation:**
-```
-=AVERAGE(ABS(Range - AVERAGE(Range)))         → Mean Absolute Deviation
-=MEDIAN(ABS(Range - MEDIAN(Range)))           → Median Absolute Deviation
-=SUMPRODUCT(ABS(Errors)) / COUNT(Errors)      → Mean Absolute Error
-```
-
-**Business Application:** Forecasting accuracy, process variation analysis, robust statistics. MAD and similar measures are less sensitive to outliers than variance/standard deviation.
-
-**Technical Details:** These formulas require array evaluation. In older Excel, enter with Ctrl+Shift+Enter. Modern Excel and Sheets handle arrays automatically. SUMPRODUCT is a reliable array-like function.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | The argument is text that cannot be read as a number, or a cell that holds an error. | Convert the value to a number or correct the referenced cell. |
+| Total looks too small | `SUM` was applied to values that include negatives, so they offset each other. | Use `SUMPRODUCT(ABS(range))` to add the magnitudes. |
+| `#NAME?` | The function name is misspelled. | Type `ABS`, not `ABSOLUTE`. |
+| Total is wrong in older Excel | `SUM(ABS(range))` was entered without array handling, so ABS used only one cell. | Use `SUMPRODUCT(ABS(range))`, which handles arrays in every version. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions since Excel 1.0
-- **Array support:** Works element-wise in array formulas and with dynamic arrays
-- **Complex numbers:** Use IMABS for complex number magnitude
-- **Performance:** Highly optimized, negligible overhead
-
-### Google Sheets
-- **Availability:** All versions
-- **Array support:** Works in ARRAYFORMULA context
-- **Complex numbers:** No native complex number support
-- **Performance:** Equivalent to Excel
-
-### Both Platforms
-- Identical behavior for real numbers
-- Returns #VALUE! for non-numeric inputs
-- Works seamlessly with other functions as arguments
-- No platform-specific quirks for this simple function
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | All versions | Works element by element inside `SUMPRODUCT` and in dynamic array formulas. |
+| Google Sheets | Available | Same arguments and results for real numbers. Use `ARRAYFORMULA` or `SUMPRODUCT` to apply it to a range. |
 
 ## Tips and Best Practices
 
-1. **Use ABS for symmetric comparisons:** Instead of `IF(AND(A1>=B1-5, A1<=B1+5), ...)`, use `IF(ABS(A1-B1)<=5, ...)`. Cleaner and less error-prone.
-
-2. **Remember SUMPRODUCT for array ABS:** `SUM(ABS(A1:A10))` doesn't work directly. Use `SUMPRODUCT(ABS(A1:A10))` or wrap in SUMPRODUCT for element-wise ABS then sum.
-
-3. **Combine with SIGN for custom logic:** `SIGN(x)` returns -1, 0, or 1. `ABS(x) * SIGN(y)` gives the magnitude of x with the sign of y—useful for aligned directions.
-
-4. **Use for "close enough" comparisons:** Floating-point math means 0.1+0.2 might not exactly equal 0.3. `IF(ABS(A1-0.3)<0.0001, ...)` handles this tolerance.
-
-5. **Consider when to NOT use ABS:** If direction matters (debits vs credits, gains vs losses), keep the sign. ABS removes information—make sure you don't need it.
-
-6. **ABS before SQRT for safety:** While squaring makes numbers positive anyway, `SQRT(ABS(x))` is defensive if x might somehow be negative due to floating-point issues.
-
-7. **Use for sorting by magnitude:** To sort by size regardless of sign, create a helper column with ABS values and sort by that.
-
-8. **Understand the difference from sign functions:** ABS gives magnitude. SIGN gives direction (-1, 0, 1). Together they decompose any number: `x = ABS(x) * SIGN(x)`.
+- Use ABS when direction does not matter. Keep the signed value when debits and credits, or gains and losses, need separate treatment.
+- Use `SUMPRODUCT(ABS(range))` instead of `SUM(ABS(range))` so the formula works in every version of Excel.
+- Replace two comparisons such as `AND(x>=low, x<=high)` with `ABS(x-target)<=band` for a symmetric tolerance.
+- To sort by size regardless of sign, add a helper column with the ABS values and sort on that column.
+- Combine `ABS(x)` with `SIGN(y)` to give the size of `x` the direction of `y`.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[SIGN]] | Returns -1, 0, or 1 for sign | When you need direction without magnitude |
-| [[IMABS]] | Absolute value of complex number | When working with complex numbers in Excel |
-| [[SQRT]] | Square root | For magnitude calculations involving squares |
-
-### Commonly Used Together
-
-**[[IF]]** - Conditional logic with absolute values
-
-*Tolerance-based decisions:*
-```
-=IF(ABS(A1-Target) <= Tolerance, "OK", "Out of spec")
-```
-Classic pattern for pass/fail based on symmetric tolerance.
-
----
-
-**[[SUMPRODUCT]]** - Sum of absolute values
-
-*Total magnitude:*
-```
-=SUMPRODUCT(ABS(A1:A100))
-```
-Sums the absolute values without cancellation.
-
----
-
-**[[AVERAGE]]** - Mean Absolute Deviation
-
-*Robust dispersion measure:*
-```
-=AVERAGE(ABS(A1:A100 - AVERAGE(A1:A100)))
-```
-Calculate MAD for less outlier-sensitive variation measure.
-
----
-
-**[[SQRT]]** - Euclidean distance
-
-*2D or nD distance calculation:*
-```
-=SQRT(ABS(X1-X2)^2 + ABS(Y1-Y2)^2)
-```
-Distance formula using ABS for clarity (squares make positive anyway).
-
----
-
-**[[MAX]]/[[MIN]]** - Range or spread
-
-*Symmetric bounds:*
-```
-Upper: =Target + ABS(Tolerance)
-Lower: =Target - ABS(Tolerance)
-```
-Ensure tolerance is positive regardless of input.
+| Function | Relationship |
+| --- | --- |
+| [SIGN](SIGN.md) | Returns -1, 0 or 1. Use it when the direction is needed without the size. |
+| [SQRT](SQRT.md) | Returns a square root. Use it with ABS in distance formulas. |
+| [SUMPRODUCT](SUMPRODUCT.md) | Sums the results of ABS across a range. |
+| [IF](../Logical/IF.md) | Applies ABS inside a tolerance or threshold test. |
+| [ROUND](ROUND.md) | Rounds a result after ABS has removed the sign. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [ABS function](https://support.microsoft.com/en-us/office/abs-function-3420200f-5628-4e8c-99da-c99d7c87713c)
-- **Google Sheets:** [ABS function](https://support.google.com/docs/answer/3093459)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 1.0 (1985) | Original function |
-| Excel 2007+ | All subsequent | No changes to behavior |
-| Google Sheets | Original launch | Identical to Excel |
-| LibreOffice Calc | All versions | Compatible implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: ABS function](https://support.microsoft.com/en-us/excel/functions/abs-function)
+- [Google Docs Editors Help: ABS](https://support.google.com/docs/answer/3093459)

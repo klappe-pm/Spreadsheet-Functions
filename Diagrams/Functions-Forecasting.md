@@ -1,19 +1,29 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Statistical
+purpose:
+  - Function Relationships
+use-case:
+  - Forecasting Future Values
+  - Measuring Forecast Uncertainty
+related:
+  - FORECAST.ETS
+  - FORECAST.ETS.CONFINT
+  - FORECAST.ETS.SEASONALITY
+  - FORECAST.ETS.STAT
+level: 4
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - forecasting
+  - time-series
+  - statistical
 ---
 # Spreadsheets-Functions-Forecasting
 

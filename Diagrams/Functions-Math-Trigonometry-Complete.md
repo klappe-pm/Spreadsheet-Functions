@@ -1,34 +1,71 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Math & Trig
+purpose:
+  - Function Relationships
+use-case:
+  - Rounding Numbers
+  - Choosing a Trigonometric Function
+related:
+  - ABS
+  - ACOS
+  - ASIN
+  - ATAN
+  - CEILING
+  - COS
+  - EXP
+  - FACT
+  - FLOOR
+  - GCD
+  - LCM
+  - LN
+  - LOG
+  - MDETERM
+  - MINVERSE
+  - MMULT
+  - MOD
+  - PERMUTATIONA
+  - PI
+  - POWER
+  - RAND
+  - RANDARRAY
+  - RANDBETWEEN
+  - ROUND
+  - ROUNDDOWN
+  - ROUNDUP
+  - SEQUENCE
+  - SIN
+  - SQRT
+  - TAN
+  - TRANSPOSE
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - math
+  - trigonometry
+  - matrix
 ---
 # Spreadsheets-Functions-Math-Trigonometry-Complete
 
 ```mermaid
 
 graph LR
-    MathTrig["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Math & Trig</b><br/>────────────────<br/>Mathematical and trigonometric functions<br/><b>Total Functions:</b> 73</div>"]
+    MathTrig["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Math & Trig</b><br/>────────────────<br/>Mathematical and trigonometric functions<br/><b>Total Functions:</b> 83</div>"]
     
-    MathTrig --> BasicArithmetic["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Basic Arithmetic</b><br/>────────────────<br/>Basic mathematical operations<br/><b>Functions:</b> 18</div>"]
+    MathTrig --> BasicArithmetic["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Basic Arithmetic</b><br/>────────────────<br/>Basic mathematical operations<br/><b>Functions:</b> 11</div>"]
     
-    MathTrig --> Trigonometry["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Trigonometry</b><br/>────────────────<br/>Trigonometric functions<br/><b>Functions:</b> 21</div>"]
+    MathTrig --> Trigonometry["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Trigonometry</b><br/>────────────────<br/>Trigonometric functions<br/><b>Functions:</b> 14</div>"]
     
-    MathTrig --> AdvancedMath["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Advanced Math</b><br/>────────────────<br/>Advanced mathematical functions<br/><b>Functions:</b> 24</div>"]
+    MathTrig --> AdvancedMath["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Advanced Math</b><br/>────────────────<br/>Advanced mathematical functions<br/><b>Functions:</b> 14</div>"]
     
-    MathTrig --> MatrixOperations["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Matrix Operations</b><br/>────────────────<br/>Matrix and array operations<br/><b>Functions:</b> 4</div>"]
+    MathTrig --> MatrixOperations["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Matrix Operations</b><br/>────────────────<br/>Matrix and array operations<br/><b>Functions:</b> 8</div>"]
     
     MathTrig --> RandomNumbers["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Random Numbers</b><br/>────────────────<br/>Random number generation<br/><b>Functions:</b> 3</div>"]
     
@@ -36,17 +73,17 @@ graph LR
     
     MathTrig --> NewFunctions["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>New Functions</b><br/>────────────────<br/>Modern mathematical functions<br/><b>Functions:</b> 2</div>"]
     
-    %% Basic Arithmetic Functions (18 functions)
+    %% Basic Arithmetic Functions (11 functions)
     BasicArithmetic --> ABS["<div align='left' style='font-family: MonoLisa, monospace;'><b>ABS</b><br/>────────────────<br/>Returns the absolute value of a number</div>"]
     ABS --> ABSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ABS(number)</div>"]
     ABS --> ABSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ABS(-5) → 5</div>"]
     
     BasicArithmetic --> CEILING["<div align='left' style='font-family: MonoLisa, monospace;'><b>CEILING</b><br/>────────────────<br/>Rounds a number up to the nearest multiple of significance</div>"]
-    CEILING --> CEILINGSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>CEILING(number, [significance])</div>"]
+    CEILING --> CEILINGSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>CEILING(number, significance)</div>"]
     CEILING --> CEILINGEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=CEILING(2.1, 1) → 3</div>"]
     
     BasicArithmetic --> FLOOR["<div align='left' style='font-family: MonoLisa, monospace;'><b>FLOOR</b><br/>────────────────<br/>Rounds a number down to the nearest multiple of significance</div>"]
-    FLOOR --> FLOORSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FLOOR(number, [significance])</div>"]
+    FLOOR --> FLOORSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FLOOR(number, significance)</div>"]
     FLOOR --> FLOOREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=FLOOR(3.7, 1) → 3</div>"]
     
     BasicArithmetic --> ROUND["<div align='left' style='font-family: MonoLisa, monospace;'><b>ROUND</b><br/>────────────────<br/>Rounds a number to a specified number of digits</div>"]
@@ -73,7 +110,7 @@ graph LR
     SQRT --> SQRTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SQRT(number)</div>"]
     SQRT --> SQRTEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SQRT(16) → 4</div>"]
     
-    %% Trigonometry Functions (21 functions) - showing key functions
+    %% Trigonometry Functions (14 functions) - showing key functions
     Trigonometry --> SIN["<div align='left' style='font-family: MonoLisa, monospace;'><b>SIN</b><br/>────────────────<br/>Returns the sine of the given angle</div>"]
     SIN --> SINSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SIN(number)</div>"]
     SIN --> SINEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SIN(PI()/2) → 1</div>"]
@@ -98,7 +135,7 @@ graph LR
     ATAN --> ATANSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ATAN(number)</div>"]
     ATAN --> ATANEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ATAN(1) → 0.7854</div>"]
     
-    %% Advanced Math Functions (24 functions) - showing key functions
+    %% Advanced Math Functions (14 functions) - showing key functions
     AdvancedMath --> LOG["<div align='left' style='font-family: MonoLisa, monospace;'><b>LOG</b><br/>────────────────<br/>Returns the logarithm of a number to a specified base</div>"]
     LOG --> LOGSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>LOG(number, [base])</div>"]
     LOG --> LOGEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=LOG(10, 10) → 1</div>"]
@@ -123,7 +160,7 @@ graph LR
     LCM --> LCMSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>LCM(number1, [number2], ...)</div>"]
     LCM --> LCMEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=LCM(5, 2) → 10</div>"]
     
-    %% Matrix Operations (4 functions)
+    %% Matrix Operations (8 functions)
     MatrixOperations --> MDETERM["<div align='left' style='font-family: MonoLisa, monospace;'><b>MDETERM</b><br/>────────────────<br/>Returns the matrix determinant of an array</div>"]
     MDETERM --> MDETERMSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>MDETERM(array)</div>"]
     MDETERM --> MDETERMEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=MDETERM(A1:B2) → -3</div>"]
@@ -150,7 +187,7 @@ graph LR
     RANDBETWEEN --> RANDBETWEENEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=RANDBETWEEN(1, 100) → 42</div>"]
     
     RandomNumbers --> RANDARRAY_MATH["<div align='left' style='font-family: MonoLisa, monospace;'><b>RANDARRAY</b><br/>────────────────<br/>Generates an array of random numbers</div>"]
-    RANDARRAY_MATH --> RANDARRAYMATHSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>RANDARRAY([rows], [columns], [min], [max], [integer])</div>"]
+    RANDARRAY_MATH --> RANDARRAYMATHSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>RANDARRAY([rows], [columns], [min], [max], [whole_number])</div>"]
     RANDARRAY_MATH --> RANDARRAYMATHEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=RANDARRAY(3, 2, 1, 10, TRUE)</div>"]
     
     %% Constants (1 function)
@@ -177,7 +214,7 @@ graph LR
     style Constants fill:#F0FFFF,stroke:#333,stroke-width:2px
     style NewFunctions fill:#F0FFFF,stroke:#333,stroke-width:2px
     
-    %% Functions alternate: odd=green, even=blue (sample of 73 functions)
+    %% Functions alternate: odd=green, even=blue (sample of 83 functions)
     style ABS fill:#F0FFF0,stroke:#333,stroke-width:2px
     style CEILING fill:#B9E9EB,stroke:#333,stroke-width:2px
     style FLOOR fill:#F0FFF0,stroke:#333,stroke-width:2px
@@ -277,5 +314,3 @@ graph LR
     style PERMUTATIONAMATHEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

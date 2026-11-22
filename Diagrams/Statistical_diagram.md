@@ -1,3 +1,67 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Statistical
+purpose:
+  - Function Relationships
+use-case:
+  - Choosing a Statistical Function
+  - Comparing Averages and Spread
+related:
+  - AVEDEV
+  - AVERAGE
+  - AVERAGEA
+  - AVERAGEIF
+  - AVERAGEIFS
+  - BETA.DIST
+  - BETA.INV
+  - BINOM.DIST
+  - BINOM.DIST.RANGE
+  - BINOM.INV
+  - CHISQ.DIST
+  - CHISQ.DIST.RT
+  - CHISQ.INV
+  - CHISQ.INV.RT
+  - CHISQ.TEST
+  - COMBIN
+  - COMBINA
+  - CONFIDENCE.NORM
+  - CONFIDENCE.T
+  - CORREL
+  - COUNT
+  - COUNTA
+  - COUNTBLANK
+  - COUNTIF
+  - COUNTIFS
+  - COUNTUNIQUE
+  - COUNTUNIQUEIFS
+  - COVAR
+  - COVARIANCE.P
+  - COVARIANCE.S
+  - DEVSQ
+  - EXPON.DIST
+  - F.DIST
+  - F.DIST.RT
+  - LARGE
+  - MAX
+  - MEDIAN
+  - MIN
+  - MODE
+  - SMALL
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - statistical
+  - distribution
+  - regression
+---
+
 # Statistical Functions Relationship Diagram
 
 This diagram shows the relationships between functions in the Statistical category and their connections to commonly used functions.
@@ -5,131 +69,131 @@ This diagram shows the relationships between functions in the Statistical catego
 ```mermaid
 graph TD
     classDef Statistical fill:#FF6B6B,stroke:#333,stroke-width:2px,color:#000
-    COVARIANCE_S["COVARIANCE.S<br/>COVARIANCE.S performs statistical analysis and calculations ..."]
-    MEDIAN["MEDIAN<br/>MEDIAN performs statistical analysis and calculations for da..."]
-    T_DIST_RT["T.DIST.RT<br/>T.DIST.RT performs statistical analysis and calculations for..."]
-    MODE_MULT["MODE.MULT<br/>MODE.MULT performs statistical analysis and calculations for..."]
-    SMALL["SMALL<br/>SMALL performs statistical analysis and calculations for dat..."]
-    T_DIST_2T["T.DIST.2T<br/>T.DIST.2T performs statistical analysis and calculations for..."]
-    NORM_INV["NORM.INV<br/>NORM.INV performs statistical analysis and calculations for ..."]
-    WEIBULL_DIST["WEIBULL.DIST<br/>WEIBULL.DIST performs statistical analysis and calculations ..."]
-    GEOMEAN["GEOMEAN<br/>GEOMEAN performs statistical analysis and calculations for d..."]
-    LINEST["LINEST<br/>LINEST performs statistical analysis and calculations for da..."]
-    LARGE["LARGE<br/>LARGE performs statistical analysis and calculations for dat..."]
-    F_DIST["F.DIST<br/>F.DIST performs statistical analysis and calculations for da..."]
-    STEYX["STEYX<br/>STEYX performs statistical analysis and calculations for dat..."]
-    TRIMMEAN["TRIMMEAN<br/>TRIMMEAN performs statistical analysis and calculations for ..."]
-    T_TEST["T.TEST<br/>T.TEST performs statistical analysis and calculations for da..."]
-    COUNTA["COUNTA<br/>COUNTA performs statistical analysis and calculations for da..."]
-    MAXIFS["MAXIFS<br/>MAXIFS performs conditional calculations based on specified ..."]
-    CONFIDENCE_T["CONFIDENCE.T<br/>CONFIDENCE.T performs statistical analysis and calculations ..."]
-    RANK_EQ["RANK.EQ<br/>RANK.EQ performs statistical analysis and calculations for d..."]
-    VAR["VAR<br/>VAR performs statistical analysis and calculations for data ..."]
-    MIN["MIN<br/>MIN returns the smallest numeric value in a set of values. T..."]
-    CONFIDENCE_NORM["CONFIDENCE.NORM<br/>CONFIDENCE.NORM performs statistical analysis and calculatio..."]
-    MODE["MODE<br/>MODE performs statistical analysis and calculations for data..."]
-    STANDARDIZE["STANDARDIZE<br/>STANDARDIZE performs statistical analysis and calculations f..."]
-    FORECAST_LINEAR["FORECAST.LINEAR<br/>FORECAST.LINEAR performs statistical analysis and calculatio..."]
-    FORECAST_ETS["FORECAST.ETS<br/>FORECAST.ETS performs statistical analysis and calculations ..."]
-    CHISQ_INV["CHISQ.INV<br/>CHISQ.INV performs statistical analysis and calculations for..."]
-    VARPA["VARPA<br/>VARPA performs statistical analysis and calculations for dat..."]
-    NORM_S_INV["NORM.S.INV<br/>NORM.S.INV performs statistical analysis and calculations fo..."]
-    COUNTIF["COUNTIF<br/>COUNTIF performs conditional calculations based on specified..."]
-    GAMMALN_PRECISE["GAMMALN.PRECISE<br/>GAMMALN.PRECISE performs statistical analysis and calculatio..."]
-    FORECAST_ETS_STAT["FORECAST.ETS.STAT<br/>FORECAST.ETS.STAT performs statistical analysis and calculat..."]
-    BINOM_DIST["BINOM.DIST<br/>BINOM.DIST performs statistical analysis and calculations fo..."]
-    COUNTUNIQUEIFS["COUNTUNIQUEIFS<br/>COUNTUNIQUEIFS performs conditional calculations based on sp..."]
-    MAXA["MAXA<br/>MAXA performs statistical analysis and calculations for data..."]
-    F_INV_RT["F.INV.RT<br/>F.INV.RT performs statistical analysis and calculations for ..."]
-    KURT["KURT<br/>KURT performs statistical analysis and calculations for data..."]
-    SKEW_P["SKEW.P<br/>SKEW.P performs statistical analysis and calculations for da..."]
-    CORREL["CORREL<br/>CORREL performs statistical analysis and calculations for da..."]
-    DEVSQ["DEVSQ<br/>DEVSQ performs statistical analysis and calculations for dat..."]
-    VARP["VARP<br/>VARP performs statistical analysis and calculations for data..."]
-    FORECAST_ETS_SEASONALITY["FORECAST.ETS.SEASONALITY<br/>FORECAST.ETS.SEASONALITY performs statistical analysis and c..."]
-    COUNTBLANK["COUNTBLANK<br/>COUNTBLANK performs statistical analysis and calculations fo..."]
-    CHISQ_TEST["CHISQ.TEST<br/>CHISQ.TEST performs statistical analysis and calculations fo..."]
-    QUARTILE_INC["QUARTILE.INC<br/>QUARTILE.INC performs statistical analysis and calculations ..."]
-    RANK["RANK<br/>RANK performs statistical analysis and calculations for data..."]
-    PERCENTILE["PERCENTILE<br/>PERCENTILE performs statistical analysis and calculations fo..."]
-    PHI["PHI<br/>PHI performs statistical analysis and calculations for data ..."]
-    STDEVP["STDEVP<br/>STDEVP performs statistical analysis and calculations for da..."]
-    T_INV_2T["T.INV.2T<br/>T.INV.2T performs statistical analysis and calculations for ..."]
-    QUARTILE_EXC["QUARTILE.EXC<br/>QUARTILE.EXC performs statistical analysis and calculations ..."]
-    GAMMA["GAMMA<br/>GAMMA performs statistical analysis and calculations for dat..."]
-    COUNT["COUNT<br/>COUNT counts the number of cells in a range that contain num..."]
-    VAR_P["VAR.P<br/>VAR.P performs statistical analysis and calculations for dat..."]
-    PERCENTRANK_EXC["PERCENTRANK.EXC<br/>PERCENTRANK.EXC performs statistical analysis and calculatio..."]
-    AVERAGEIF["AVERAGEIF<br/>AVERAGEIF performs conditional calculations based on specifi..."]
-    FISHERINV["FISHERINV<br/>FISHERINV performs statistical analysis and calculations for..."]
-    NORM_S_DIST["NORM.S.DIST<br/>NORM.S.DIST performs statistical analysis and calculations f..."]
-    RSQ["RSQ<br/>RSQ performs statistical analysis and calculations for data ..."]
-    MODE_SNGL["MODE.SNGL<br/>MODE.SNGL performs statistical analysis and calculations for..."]
-    STDEV_S["STDEV.S<br/>STDEV.S performs statistical analysis and calculations for d..."]
-    AVEDEV["AVEDEV<br/>AVEDEV performs statistical analysis and calculations for da..."]
-    CHISQ_INV_RT["CHISQ.INV.RT<br/>CHISQ.INV.RT performs statistical analysis and calculations ..."]
-    AVERAGE["AVERAGE<br/>AVERAGE calculates the arithmetic mean of a set of numbers b..."]
-    PERCENTRANK_INC["PERCENTRANK.INC<br/>PERCENTRANK.INC performs statistical analysis and calculatio..."]
-    PERCENTRANK["PERCENTRANK<br/>PERCENTRANK performs statistical analysis and calculations f..."]
-    AVERAGEA["AVERAGEA<br/>AVERAGEA performs statistical analysis and calculations for ..."]
-    COUNTUNIQUE["COUNTUNIQUE<br/>COUNTUNIQUE performs statistical analysis and calculations f..."]
-    PERMUTATIONA["PERMUTATIONA<br/>PERMUTATIONA performs statistical analysis and calculations ..."]
-    T_DIST["T.DIST<br/>T.DIST performs statistical analysis and calculations for da..."]
-    GAMMALN["GAMMALN<br/>GAMMALN performs statistical analysis and calculations for d..."]
-    STDEV_P["STDEV.P<br/>STDEV.P performs statistical analysis and calculations for d..."]
-    F_TEST["F.TEST<br/>F.TEST performs statistical analysis and calculations for da..."]
-    FORECAST["FORECAST<br/>FORECAST performs statistical analysis and calculations for ..."]
-    COVAR["COVAR<br/>COVAR performs statistical analysis and calculations for dat..."]
-    PEARSON["PEARSON<br/>PEARSON performs statistical analysis and calculations for d..."]
-    FISHER["FISHER<br/>FISHER performs statistical analysis and calculations for da..."]
-    COMBINA["COMBINA<br/>COMBINA performs statistical analysis and calculations for d..."]
-    INTERCEPT["INTERCEPT<br/>INTERCEPT performs statistical analysis and calculations for..."]
-    LOGNORM_INV["LOGNORM.INV<br/>LOGNORM.INV performs statistical analysis and calculations f..."]
-    SKEW["SKEW<br/>SKEW performs statistical analysis and calculations for data..."]
-    Z_TEST["Z.TEST<br/>Z.TEST performs statistical analysis and calculations for da..."]
-    STDEV["STDEV<br/>STDEV performs statistical analysis and calculations for dat..."]
-    PROB["PROB<br/>PROB performs statistical analysis and calculations for data..."]
-    FREQUENCY["FREQUENCY<br/>FREQUENCY performs statistical analysis and calculations for..."]
-    PERCENTILE_EXC["PERCENTILE.EXC<br/>PERCENTILE.EXC performs statistical analysis and calculation..."]
-    COUNTIFS["COUNTIFS<br/>COUNTIFS performs conditional calculations based on specifie..."]
-    HYPGEOM_DIST["HYPGEOM.DIST<br/>HYPGEOM.DIST performs statistical analysis and calculations ..."]
-    F_INV["F.INV<br/>F.INV performs statistical analysis and calculations for dat..."]
-    NORM_DIST["NORM.DIST<br/>NORM.DIST performs statistical analysis and calculations for..."]
-    PERCENTILE_INC["PERCENTILE.INC<br/>PERCENTILE.INC performs statistical analysis and calculation..."]
-    AVERAGEIFS["AVERAGEIFS<br/>AVERAGEIFS performs conditional calculations based on specif..."]
-    F_DIST_RT["F.DIST.RT<br/>F.DIST.RT performs statistical analysis and calculations for..."]
-    GAMMA_DIST["GAMMA.DIST<br/>GAMMA.DIST performs statistical analysis and calculations fo..."]
-    BINOM_DIST_RANGE["BINOM.DIST.RANGE<br/>BINOM.DIST.RANGE performs statistical analysis and calculati..."]
-    CHISQ_DIST_RT["CHISQ.DIST.RT<br/>CHISQ.DIST.RT performs statistical analysis and calculations..."]
-    MINA["MINA<br/>MINA performs statistical analysis and calculations for data..."]
-    MAX["MAX<br/>MAX returns the largest numeric value in a set of values. Te..."]
-    VAR_S["VAR.S<br/>VAR.S performs statistical analysis and calculations for dat..."]
-    GROWTH["GROWTH<br/>GROWTH performs statistical analysis and calculations for da..."]
-    BINOM_INV["BINOM.INV<br/>BINOM.INV performs statistical analysis and calculations for..."]
-    CHISQ_DIST["CHISQ.DIST<br/>CHISQ.DIST performs statistical analysis and calculations fo..."]
-    LOGNORM_DIST["LOGNORM.DIST<br/>LOGNORM.DIST performs statistical analysis and calculations ..."]
-    GAMMA_INV["GAMMA.INV<br/>GAMMA.INV performs statistical analysis and calculations for..."]
-    PERMUT["PERMUT<br/>PERMUT performs statistical analysis and calculations for da..."]
-    LOGEST["LOGEST<br/>LOGEST performs statistical analysis and calculations for da..."]
-    MINIFS["MINIFS<br/>MINIFS performs conditional calculations based on specified ..."]
-    POISSON_DIST["POISSON.DIST<br/>POISSON.DIST performs statistical analysis and calculations ..."]
-    BETA_INV["BETA.INV<br/>BETA.INV performs statistical analysis and calculations for ..."]
-    COVARIANCE_P["COVARIANCE.P<br/>COVARIANCE.P performs statistical analysis and calculations ..."]
-    HARMEAN["HARMEAN<br/>HARMEAN performs statistical analysis and calculations for d..."]
-    STDEVPA["STDEVPA<br/>STDEVPA performs statistical analysis and calculations for d..."]
-    TREND["TREND<br/>TREND performs statistical analysis and calculations for dat..."]
-    VARA["VARA<br/>VARA performs statistical analysis and calculations for data..."]
-    BETA_DIST["BETA.DIST<br/>BETA.DIST performs statistical analysis and calculations for..."]
-    GAUSS["GAUSS<br/>GAUSS performs statistical analysis and calculations for dat..."]
-    SLOPE["SLOPE<br/>SLOPE performs statistical analysis and calculations for dat..."]
-    COMBIN["COMBIN<br/>COMBIN performs statistical analysis and calculations for da..."]
-    NEGBINOM_DIST["NEGBINOM.DIST<br/>NEGBINOM.DIST performs statistical analysis and calculations..."]
-    EXPON_DIST["EXPON.DIST<br/>EXPON.DIST performs statistical analysis and calculations fo..."]
-    FORECAST_ETS_CONFINT["FORECAST.ETS.CONFINT<br/>FORECAST.ETS.CONFINT performs statistical analysis and calcu..."]
-    RANK_AVG["RANK.AVG<br/>RANK.AVG performs statistical analysis and calculations for ..."]
-    STDEVA["STDEVA<br/>STDEVA performs statistical analysis and calculations for da..."]
-    T_INV["T.INV<br/>T.INV performs statistical analysis and calculations for dat..."]
-    QUARTILE["QUARTILE<br/>QUARTILE performs statistical analysis and calculations for ..."]
+    COVARIANCE_S["COVARIANCE.S<br/>Returns the sample covariance of two data sets"]
+    MEDIAN["MEDIAN<br/>Returns the median of the given numbers"]
+    T_DIST_RT["T.DIST.RT<br/>Returns the right-tailed Student's t-distribution"]
+    MODE_MULT["MODE.MULT<br/>Returns a vertical array of the most frequently occurring values"]
+    SMALL["SMALL<br/>Returns the k-th smallest value in a data set"]
+    T_DIST_2T["T.DIST.2T<br/>Returns the two-tailed Student's t-distribution"]
+    NORM_INV["NORM.INV<br/>Returns the inverse of the normal cumulative distribution"]
+    WEIBULL_DIST["WEIBULL.DIST<br/>Returns the Weibull distribution"]
+    GEOMEAN["GEOMEAN<br/>Returns the geometric mean"]
+    LINEST["LINEST<br/>Returns the parameters of a linear trend"]
+    LARGE["LARGE<br/>Returns the k-th largest value in a data set"]
+    F_DIST["F.DIST<br/>Returns the left-tailed F probability distribution"]
+    STEYX["STEYX<br/>Returns the standard error of the predicted y-value for each x"]
+    TRIMMEAN["TRIMMEAN<br/>Returns the mean of the interior of a data set"]
+    T_TEST["T.TEST<br/>Returns the probability associated with a Student's t-test"]
+    COUNTA["COUNTA<br/>Counts how many values are in the list of arguments"]
+    MAXIFS["MAXIFS<br/>Returns the maximum value among cells that meet multiple criteria"]
+    CONFIDENCE_T["CONFIDENCE.T<br/>Returns a confidence interval for a mean (Student's t)"]
+    RANK_EQ["RANK.EQ<br/>Returns the rank of a number in a list of numbers"]
+    VAR["VAR<br/>Estimates variance based on a sample"]
+    MIN["MIN<br/>Returns the minimum value in a list of arguments"]
+    CONFIDENCE_NORM["CONFIDENCE.NORM<br/>Returns a confidence interval for a population mean"]
+    MODE["MODE<br/>Returns the most common value in a data set"]
+    STANDARDIZE["STANDARDIZE<br/>Returns a normalized value"]
+    FORECAST_LINEAR["FORECAST.LINEAR<br/>Returns a future value along a linear trend"]
+    FORECAST_ETS["FORECAST.ETS<br/>Returns a future value using exponential smoothing (ETS)"]
+    CHISQ_INV["CHISQ.INV<br/>Returns the inverse of the left-tailed chi-squared distribution"]
+    VARPA["VARPA<br/>Calculates population variance, including text and logical values"]
+    NORM_S_INV["NORM.S.INV<br/>Returns the inverse of the standard normal cumulative distribution"]
+    COUNTIF["COUNTIF<br/>Counts cells within a range that meet a given criterion"]
+    GAMMALN_PRECISE["GAMMALN.PRECISE<br/>Returns the natural logarithm of the gamma function"]
+    FORECAST_ETS_STAT["FORECAST.ETS.STAT<br/>Returns a statistic for a time series forecast"]
+    BINOM_DIST["BINOM.DIST<br/>Returns the binomial distribution probability"]
+    COUNTUNIQUEIFS["COUNTUNIQUEIFS<br/>Counts unique values with conditions (Google Sheets only)"]
+    MAXA["MAXA<br/>Returns the maximum value, including text and logical values"]
+    F_INV_RT["F.INV.RT<br/>Returns the inverse of the right-tailed F distribution"]
+    KURT["KURT<br/>Returns the kurtosis of a data set"]
+    SKEW_P["SKEW.P<br/>Returns the skewness of a distribution based on a population"]
+    CORREL["CORREL<br/>Returns the correlation coefficient of two data sets"]
+    DEVSQ["DEVSQ<br/>Returns the sum of squared deviations from the mean"]
+    VARP["VARP<br/>Calculates variance based on the entire population"]
+    FORECAST_ETS_SEASONALITY["FORECAST.ETS.SEASONALITY<br/>Returns the length of the repeating pattern in a time series"]
+    COUNTBLANK["COUNTBLANK<br/>Counts the number of blank cells within a range"]
+    CHISQ_TEST["CHISQ.TEST<br/>Returns the chi-squared test for independence"]
+    QUARTILE_INC["QUARTILE.INC<br/>Returns the quartile of a data set, using inclusive percentiles"]
+    RANK["RANK<br/>Returns the rank of a number in a list of numbers"]
+    PERCENTILE["PERCENTILE<br/>Returns the k-th percentile of values in a range"]
+    PHI["PHI<br/>Returns the density of a standard normal distribution"]
+    STDEVP["STDEVP<br/>Calculates standard deviation based on the entire population"]
+    T_INV_2T["T.INV.2T<br/>Returns the inverse of the two-tailed Student's t-distribution"]
+    QUARTILE_EXC["QUARTILE.EXC<br/>Returns the quartile of a data set, using exclusive percentiles"]
+    GAMMA["GAMMA<br/>Returns the Gamma function value"]
+    COUNT["COUNT<br/>Counts how many numbers are in the list of arguments"]
+    VAR_P["VAR.P<br/>Calculates variance based on the entire population"]
+    PERCENTRANK_EXC["PERCENTRANK.EXC<br/>Returns the percentage rank of a value, exclusive of endpoints"]
+    AVERAGEIF["AVERAGEIF<br/>Returns the average of cells that meet a single criterion"]
+    FISHERINV["FISHERINV<br/>Returns the inverse of the Fisher transformation"]
+    NORM_S_DIST["NORM.S.DIST<br/>Returns the standard normal cumulative distribution"]
+    RSQ["RSQ<br/>Returns the square of the Pearson correlation coefficient"]
+    MODE_SNGL["MODE.SNGL<br/>Returns the most common value in a data set"]
+    STDEV_S["STDEV.S<br/>Estimates standard deviation based on a sample"]
+    AVEDEV["AVEDEV<br/>Returns the average of the absolute deviations from the mean"]
+    CHISQ_INV_RT["CHISQ.INV.RT<br/>Returns the inverse of the right-tailed chi-squared distribution"]
+    AVERAGE["AVERAGE<br/>Returns the average of its arguments"]
+    PERCENTRANK_INC["PERCENTRANK.INC<br/>Returns the percentage rank of a value, inclusive of endpoints"]
+    PERCENTRANK["PERCENTRANK<br/>Returns the percentage rank of a value in a data set"]
+    AVERAGEA["AVERAGEA<br/>Returns the average of its arguments, including text and logicals"]
+    COUNTUNIQUE["COUNTUNIQUE<br/>Counts unique values in a range (Google Sheets only)"]
+    PERMUTATIONA["PERMUTATIONA<br/>Returns permutations with repetitions"]
+    T_DIST["T.DIST<br/>Returns the left-tailed Student's t-distribution"]
+    GAMMALN["GAMMALN<br/>Returns the natural logarithm of the gamma function"]
+    STDEV_P["STDEV.P<br/>Calculates standard deviation based on the entire population"]
+    F_TEST["F.TEST<br/>Returns the result of an F-test"]
+    FORECAST["FORECAST<br/>Returns a value along a linear trend (legacy, see FORECAST.LINEAR)"]
+    COVAR["COVAR<br/>Returns covariance, the average of paired deviation products"]
+    PEARSON["PEARSON<br/>Returns the Pearson product moment correlation coefficient"]
+    FISHER["FISHER<br/>Returns the Fisher transformation"]
+    COMBINA["COMBINA<br/>Returns combinations with repetitions"]
+    INTERCEPT["INTERCEPT<br/>Returns the intercept of the linear regression line"]
+    LOGNORM_INV["LOGNORM.INV<br/>Returns the inverse of the lognormal cumulative distribution"]
+    SKEW["SKEW<br/>Returns the skewness of a distribution"]
+    Z_TEST["Z.TEST<br/>Returns the one-tailed probability of a z-test"]
+    STDEV["STDEV<br/>Estimates standard deviation based on a sample"]
+    PROB["PROB<br/>Returns the probability that values fall between two limits"]
+    FREQUENCY["FREQUENCY<br/>Returns a frequency distribution as a vertical array"]
+    PERCENTILE_EXC["PERCENTILE.EXC<br/>Returns the k-th percentile of values, using exclusive bounds"]
+    COUNTIFS["COUNTIFS<br/>Counts cells that meet multiple criteria"]
+    HYPGEOM_DIST["HYPGEOM.DIST<br/>Returns the hypergeometric distribution"]
+    F_INV["F.INV<br/>Returns the inverse of the left-tailed F distribution"]
+    NORM_DIST["NORM.DIST<br/>Returns the normal cumulative distribution"]
+    PERCENTILE_INC["PERCENTILE.INC<br/>Returns the k-th percentile of values, using inclusive bounds"]
+    AVERAGEIFS["AVERAGEIFS<br/>Returns the average of cells that meet multiple criteria"]
+    F_DIST_RT["F.DIST.RT<br/>Returns the right-tailed F probability distribution"]
+    GAMMA_DIST["GAMMA.DIST<br/>Returns the gamma distribution"]
+    BINOM_DIST_RANGE["BINOM.DIST.RANGE<br/>Returns a binomial probability for a range of trial results"]
+    CHISQ_DIST_RT["CHISQ.DIST.RT<br/>Returns the right-tailed chi-squared distribution"]
+    MINA["MINA<br/>Returns the minimum value, including text and logical values"]
+    MAX["MAX<br/>Returns the maximum value in a list of arguments"]
+    VAR_S["VAR.S<br/>Estimates variance based on a sample"]
+    GROWTH["GROWTH<br/>Returns values along an exponential trend"]
+    BINOM_INV["BINOM.INV<br/>Returns the smallest value meeting a cumulative binomial criterion"]
+    CHISQ_DIST["CHISQ.DIST<br/>Returns the chi-squared distribution"]
+    LOGNORM_DIST["LOGNORM.DIST<br/>Returns the cumulative lognormal distribution"]
+    GAMMA_INV["GAMMA.INV<br/>Returns the inverse of the gamma cumulative distribution"]
+    PERMUT["PERMUT<br/>Returns the number of permutations for a given number of objects"]
+    LOGEST["LOGEST<br/>Returns the parameters of an exponential trend"]
+    MINIFS["MINIFS<br/>Returns the minimum value among cells that meet multiple criteria"]
+    POISSON_DIST["POISSON.DIST<br/>Returns the Poisson distribution"]
+    BETA_INV["BETA.INV<br/>Returns the inverse of the cumulative beta distribution"]
+    COVARIANCE_P["COVARIANCE.P<br/>Returns the population covariance of two data sets"]
+    HARMEAN["HARMEAN<br/>Returns the harmonic mean"]
+    STDEVPA["STDEVPA<br/>Calculates population standard deviation, including text and logicals"]
+    TREND["TREND<br/>Returns values along a linear trend"]
+    VARA["VARA<br/>Estimates variance based on a sample, including text and logicals"]
+    BETA_DIST["BETA.DIST<br/>Returns the cumulative beta distribution function"]
+    GAUSS["GAUSS<br/>Returns 0.5 less than the standard normal cumulative distribution"]
+    SLOPE["SLOPE<br/>Returns the slope of the linear regression line"]
+    COMBIN["COMBIN<br/>Returns the number of combinations for a given number of objects"]
+    NEGBINOM_DIST["NEGBINOM.DIST<br/>Returns the negative binomial distribution"]
+    EXPON_DIST["EXPON.DIST<br/>Returns the exponential distribution"]
+    FORECAST_ETS_CONFINT["FORECAST.ETS.CONFINT<br/>Returns a confidence interval for a forecast value"]
+    RANK_AVG["RANK.AVG<br/>Returns the average rank of a number in a list of numbers"]
+    STDEVA["STDEVA<br/>Estimates standard deviation of a sample, with text and logicals"]
+    T_INV["T.INV<br/>Returns the inverse of the left-tailed Student's t-distribution"]
+    QUARTILE["QUARTILE<br/>Returns the quartile of a data set"]
     IF["IF<br/>External Function"]
     COVARIANCE_S --> IF
     class IF external
@@ -1878,4 +1942,4 @@ graph TD
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 
-## Functions in this category: 125
+## Functions In This Category: 151

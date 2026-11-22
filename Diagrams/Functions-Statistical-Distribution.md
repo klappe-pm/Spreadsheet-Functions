@@ -1,28 +1,46 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Statistical
+purpose:
+  - Function Relationships
+use-case:
+  - Calculating Probabilities
+  - Choosing a Distribution Function
+related:
+  - BINOM.DIST
+  - BINOM.INV
+  - CHISQ.DIST
+  - CHISQ.INV
+  - F.DIST
+  - F.INV
+  - NORM.DIST
+  - NORM.INV
+  - NORM.S.DIST
+  - NORM.S.INV
+  - T.DIST
+  - T.INV
+level: 4
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - statistical
+  - distribution
+  - probability
 ---
 # Spreadsheets-Functions-Statistical-Distribution
 
 ```mermaid
 
 graph LR
-    Statistical["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Statistical</b><br/>────────────────<br/>Statistical analysis and calculations<br/><b>Total Functions:</b> 125</div>"]
+    Statistical["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Statistical</b><br/>────────────────<br/>Statistical analysis and calculations<br/><b>Total Functions:</b> 151</div>"]
     
-    Statistical --> Distribution["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Distribution</b><br/>────────────────<br/>Probability distribution functions<br/><b>Functions:</b> 33</div>"]
+    Statistical --> Distribution["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Distribution</b><br/>────────────────<br/>Probability distribution functions<br/><b>Functions:</b> 41</div>"]
     
     %% Distribution Functions (33 functions)
     Distribution --> NORMDIST["<div align='left' style='font-family: MonoLisa, monospace;'><b>NORM.DIST</b><br/>────────────────<br/>Returns the normal distribution</div>"]
@@ -120,5 +138,3 @@ graph LR
     style BINOMINVEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

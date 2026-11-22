@@ -1,353 +1,273 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- lookup-reference
-subTopics:
-- data-retrieval
-- table-lookup
-- reference
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Lookup & Reference
+subcategory: Classic Lookup
+purpose:
+  - Data Retrieval
+  - Reference Building
+use-case:
+  - Employee Records Lookup
+  - Grade Band Lookup
+  - Price List Lookup
+related:
+  - HLOOKUP
+  - IFNA
+  - INDEX
+  - MATCH
+  - XLOOKUP
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/functions/vlookup-function
+  - https://support.google.com/docs/answer/3093318
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Vertical Lookup
-- V Lookup
-- Table Lookup
+  - Table Lookup
+  - V Lookup
+  - Vertical Lookup
 tags:
-- lookup
-- reference
-- data-retrieval
-- table
+  - approximate-match
+  - exact-match
+  - excel
+  - lookup
+  - sheets
 ---
 
 # VLOOKUP
 
 ## Description
 
-**VLOOKUP (Vertical Lookup)** searches for a value in the first column of a table and returns a value from another column in the same row. It's the classic "find and fetch" function—give it an ID, get back the name; give it a product code, get back the price; give it an employee number, get back their department. For decades, VLOOKUP was the go-to function for connecting data across spreadsheets.
+**VLOOKUP** searches for a value in the first column of a range and returns a value from another column in the same row. Give it an employee ID and it returns the name. Give it a product code and it returns the price. The "V" stands for vertical because the function moves down a column to find the key.
 
-The "V" stands for vertical because it searches **down** a column. The function looks in the leftmost column of your table range, finds your search value, then moves right to the column number you specify and returns that value. This left-to-right limitation is VLOOKUP's most significant constraint—your lookup column must be the first column in your range.
+The lookup column must be the leftmost column of the range. VLOOKUP can only return values from columns to the right of that key column. When the answer sits to the left of the key, use [XLOOKUP](XLOOKUP.md) or [INDEX](INDEX.md) with [MATCH](MATCH.md) instead.
 
-**The approximate vs. exact match confusion:** VLOOKUP's fourth parameter (range_lookup) trips up countless users. TRUE (or omitted) means approximate match—useful for tax brackets and grade scales where you want "the closest value without going over." FALSE (or 0) means exact match—what you need 90% of the time for looking up IDs, codes, and specific values. **Always use FALSE unless you specifically need approximate matching.**
+The fourth argument chooses the match type. `FALSE` (or `0`) requests an exact match, which suits IDs, codes and names. `TRUE` (or `1`) requests an approximate match, which assumes the first column is sorted in ascending order and returns the largest key that does not go past the search value. Omitting the argument is the same as `TRUE`, so pass `FALSE` explicitly whenever you need an exact match.
 
-**VLOOKUP is being superseded.** Microsoft introduced XLOOKUP in 2019, which eliminates VLOOKUP's limitations: XLOOKUP can look left, handle missing values gracefully, and doesn't require column numbers. Google Sheets doesn't have XLOOKUP yet, but INDEX/MATCH has always been more flexible than VLOOKUP. That said, VLOOKUP remains the most widely-used lookup function—you'll encounter it in virtually every workplace spreadsheet, and understanding it is essential.
+XLOOKUP is the modern replacement. It is available in Excel 2021, Excel 2024 and Microsoft 365, but not in Excel 2016 or Excel 2019. Google Sheets supports both functions. VLOOKUP remains common in existing workbooks, so it is still worth knowing.
 
 ## Syntax
 
-> [!f(x)] VLOOKUP Syntax
->
-> ```
-> =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
-> ```
+```excel
+=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
+```
+
+<!-- Image 1: VLOOKUP Syntax Anatomy. See Images/Lookup & Reference/VLOOKUP.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `lookup_value` | Yes | The value to search for in the first column of table_array. Can be a cell reference, text (in quotes), number, or formula result. |
-| `table_array` | Yes | The table range to search. The first column of this range is where VLOOKUP looks for lookup_value. Subsequent columns contain the data you want to retrieve. |
-| `col_index_num` | Yes | The column number (starting at 1) in table_array from which to return a value. 1 = first column (lookup column itself), 2 = second column, etc. |
-| `range_lookup` | No | TRUE (default) for approximate match, FALSE for exact match. Use FALSE for most lookups. TRUE requires the first column to be sorted ascending. |
+| --- | --- | --- |
+| `lookup_value` | Yes | The value to find in the first column of `table_array`. It can be a number, a text string in quotes, or a cell reference. |
+| `table_array` | Yes | The range or table to search. It must include the lookup column and the column that holds the result. |
+| `col_index_num` | Yes | The position of the return column, counted from 1 at the leftmost column of `table_array`. The value 1 returns the lookup column itself. |
+| `range_lookup` | No | `FALSE` or `0` for an exact match. `TRUE` or `1` for an approximate match. Omitting it is the same as `TRUE`. |
 
 ### Return Value
 
-Returns the value from the specified column in the row where the lookup value was found. Returns #N/A if no match is found (exact match mode) or if lookup_value is smaller than the smallest value in the lookup column (approximate match mode).
+The value in the `col_index_num` column of the first row that matches. When the key appears more than once, only the first row is used.
+
+The function returns `#N/A` when an exact match is not found, or when an approximate lookup value is smaller than the smallest value in the first column. It returns `#REF!` when `col_index_num` is larger than the number of columns in `table_array`, and `#VALUE!` when `col_index_num` is less than 1.
 
 ## Examples
 
-> [!f(x)] VLOOKUP Examples
+All examples use this employee list in `A1:D6`.
 
-### Example 1: Basic Exact Match Lookup
+| Employee ID | Name | Department | Hourly Rate |
+| --- | --- | --- | --- |
+| E101 | Maya Reyes | Finance | 38 |
+| E102 | Owen Park | Sales | 27 |
+| E103 | Lena Brooks | Support | 24 |
+| E104 | Tomas Vidal | Sales | 31 |
+| E105 | Priya Nair | Operations | 35 |
+
+### Example 1: Basic Exact Match
+
+```excel
+=VLOOKUP("E103", A2:D6, 2, FALSE)
 ```
-=VLOOKUP("P001", A2:D100, 3, FALSE)
+
+**Result:** `Lena Brooks`
+
+The search finds E103 in column A and returns the value from column 2 of the same row. `FALSE` guarantees that only an identical ID matches.
+
+### Example 2: Cell Reference With a Fixed Table
+
+With `E104` typed in cell `F2`:
+
+```excel
+=VLOOKUP(F2, $A$2:$D$6, 4, FALSE)
 ```
-**Result:** Returns the value from column 3 where "P001" is found in column 1
 
-**Explanation:** Searches column A for "P001", finds it, returns the value from the 3rd column of the range (column C). FALSE ensures exact match. This is the most common VLOOKUP pattern—finding a specific record by ID.
+**Result:** `31`
 
----
+The dollar signs lock the table so the formula still points at the same range when it is copied down. Column 4 is the hourly rate.
 
-### Example 2: Using a Cell Reference as Lookup Value
+### Example 3: Approximate Match for Grade Bands
+
+A band table sits in `H1:I5` with the header row `Minimum Score` and `Band`, followed by the rows `0` and `Developing`, `60` and `Proficient`, `80` and `Advanced`, and `90` and `Expert`.
+
+```excel
+=VLOOKUP(85, $H$2:$I$5, 2, TRUE)
 ```
-=VLOOKUP(A2, Products!$A$2:$D$500, 2, FALSE)
+
+**Result:** `Advanced`
+
+The score 85 is larger than 80 but smaller than 90, so the function returns the band that starts at 80. The minimum scores must be sorted in ascending order for this to work.
+
+<!-- Image 2: Exact Versus Approximate Match. See Images/Lookup & Reference/VLOOKUP.md -->
+
+### Example 4: Column Chosen by Header Name
+
+With `E102` in `F2` and `Department` in `F3`:
+
+```excel
+=VLOOKUP(F2, $A$2:$D$6, MATCH(F3, $A$1:$D$1, 0), FALSE)
 ```
-**Result:** Looks up whatever value is in A2, returns column 2 from Products sheet
 
-**Explanation:** Instead of hardcoding "P001", we reference cell A2. The formula can now be dragged down to look up different values for each row. Note the $ signs making the table range absolute—essential when copying formulas.
+**Result:** `Sales`
 
----
+`MATCH` finds that `Department` is in position 3, so the outer function returns column 3 for the row of E102. If someone inserts a column, the header still leads to the right position.
 
-### Example 3: Lookup with Column Name Using MATCH
+### Example 5: Fallback When the Key Is Missing
+
+```excel
+=IFERROR(VLOOKUP("E999", $A$2:$D$6, 2, FALSE), "Not Found")
 ```
-=VLOOKUP(A2, $B$1:$F$100, MATCH("Price", $B$1:$F$1, 0), FALSE)
+
+**Result:** `Not Found`
+
+No row has the ID E999, so the exact match fails and `IFERROR` returns the text. [IFNA](../Logical/IFNA.md) is a narrower choice because it only catches `#N/A`.
+
+### Example 6: Wildcard Match on the Key
+
+```excel
+=VLOOKUP("E10?", $A$2:$D$6, 2, FALSE)
 ```
-**Result:** Returns the Price column for the item in A2
 
-**Explanation:** Instead of hardcoding column number 3, MATCH finds which column "Price" is in. If someone inserts a column, the formula still works. This VLOOKUP+MATCH combo is a classic pattern for resilient formulas.
+**Result:** `Maya Reyes`
 
----
+The question mark matches any single character, so every ID that starts with E10 and has one more character qualifies. The function returns the first match, E101. Wildcards work only with `FALSE` and text keys.
 
-### Example 4: Approximate Match for Tax Brackets
+## Story Problems
+
+### Problem 1: Parcel Shipping Rate
+
+A courier charges a rate that depends on the weight band of the parcel. The band table in `E1:F5` lists the minimum weight of each band in ascending order.
+
+| Minimum Weight (kg) | Rate |
+| --- | --- |
+| 0 | 4.00 |
+| 5 | 6.50 |
+| 10 | 9.00 |
+| 20 | 14.00 |
+
+**Task:** Find the rate for a parcel weighing 12 kg, which is typed in cell `B2`.
+
+**Solution:**
+
+```excel
+=VLOOKUP(B2, $E$2:$F$5, 2, TRUE)
 ```
-=VLOOKUP(B2, TaxTable!$A$2:$B$7, 2, TRUE)
+
+**Answer:** `9.00`. The largest minimum weight that does not exceed 12 is 10, and its rate is 9.00.
+
+<!-- Image 3: Shipping Rate Lookup Result. See Images/Lookup & Reference/VLOOKUP.md -->
+
+### Problem 2: Client Behind an Invoice
+
+A small studio keeps invoices in `A1:C5` with the invoice number in column A, the client in column B and the amount in column C.
+
+| Invoice | Client | Amount |
+| --- | --- | --- |
+| INV-2041 | Birch Studio | 1250 |
+| INV-2042 | Cedar Labs | 480 |
+| INV-2048 | Acme Retail | 3975 |
+| INV-2050 | Dune Foods | 610 |
+
+**Task:** Return the client name for invoice INV-2048.
+
+**Solution:**
+
+```excel
+=VLOOKUP("INV-2048", $A$1:$C$5, 2, FALSE)
 ```
-Where TaxTable has: 0→10%, 10000→15%, 40000→22%, 85000→24%, 165000→32%, 215000→35%
 
-**Result:** Returns the tax rate for income in B2
-
-**Explanation:** TRUE (approximate match) finds the largest value ≤ lookup_value. Income of $50,000 matches the $40,000 bracket (returning 22%), not $85,000. The lookup column MUST be sorted ascending for this to work correctly.
-
----
-
-### Example 5: Handling #N/A with IFERROR
-```
-=IFERROR(VLOOKUP(A2, DataTable, 3, FALSE), "Not Found")
-```
-**Result:** Returns column 3 value if found, "Not Found" if lookup fails
-
-**Explanation:** VLOOKUP returns #N/A when it can't find a match. Wrapping in IFERROR provides a graceful fallback. Common alternatives: 0, "", or "N/A" depending on what makes sense for your data.
-
----
-
-### Example 6: Looking Up from Another Workbook
-```
-=VLOOKUP(A2, '[Inventory.xlsx]Products'!$A$2:$D$1000, 4, FALSE)
-```
-**Result:** Looks up A2 in the Products sheet of Inventory.xlsx file
-
-**Explanation:** Reference external workbooks with [Filename.xlsx]SheetName! syntax. Both files must be open for real-time updates. When the source file is closed, the path becomes a full file path string.
-
----
-
-### Example 7: Case-Sensitive VLOOKUP (Workaround)
-```
-=INDEX(C2:C100, MATCH(TRUE, EXACT(A2:A100, "ABC"), 0))
-```
-**Result:** Finds "ABC" exactly, not "abc" or "Abc"
-
-**Explanation:** Standard VLOOKUP is case-insensitive. For case-sensitive lookups, use INDEX/MATCH with EXACT. This array formula (Ctrl+Shift+Enter in older Excel) finds the exact case match.
-
----
-
-### Example 8: Returning Multiple Columns
-```
-Column D: =VLOOKUP($A2, Products!$A:$E, 2, FALSE)
-Column E: =VLOOKUP($A2, Products!$A:$E, 3, FALSE)
-Column F: =VLOOKUP($A2, Products!$A:$E, 4, FALSE)
-```
-**Result:** Retrieves columns 2, 3, and 4 for the item in A2
-
-**Explanation:** To pull multiple columns, you need multiple VLOOKUPs. The $ on $A2 keeps the lookup value fixed while copying across. This is inefficient—consider INDEX/MATCH or XLOOKUP which can return arrays.
-
----
-
-### Example 9: Two-Way Lookup (VLOOKUP + MATCH)
-```
-=VLOOKUP(A2, DataTable, MATCH(B1, HeaderRow, 0), FALSE)
-```
-**Result:** Finds row by A2, column by B1, returns intersection
-
-**Explanation:** When you need to look up both row and column dynamically, combine VLOOKUP with MATCH. MATCH finds which column number corresponds to the header in B1. Alternative: use INDEX with two MATCH functions.
-
----
-
-### Example 10: Looking Up with Wildcards
-```
-=VLOOKUP("*"&A2&"*", B:D, 2, FALSE)
-```
-**Result:** Finds any cell in column B containing the text in A2
-
-**Explanation:** Use * (any characters) and ? (single character) wildcards for partial matching. This finds "John" within "John Smith" or "Dr. John". Only works with exact match (FALSE). Wildcards are powerful for fuzzy matching.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#N/A` | Value not found in lookup column | Check spelling, leading/trailing spaces (use TRIM), data types (text vs number). Verify value exists in table. |
-| `#REF!` | col_index_num exceeds the number of columns in table_array | If table has 4 columns, col_index_num can't be 5. Expand your table range or reduce column number. |
-| `#VALUE!` | col_index_num is less than 1, or invalid parameter types | Column number must be ≥1. Ensure lookup_value isn't an error. |
-| `Wrong result` | Approximate match finding wrong row | Using TRUE when you meant FALSE. Use FALSE for exact matching. If using TRUE, ensure column is sorted ascending. |
-| `Wrong result` | Duplicate values in lookup column | VLOOKUP returns the FIRST match only. Use FILTER or INDEX/MATCH for handling duplicates. |
-| `#NAME?` | Function spelled wrong or named range undefined | Check spelling. Verify named ranges exist if used. |
+**Answer:** `Acme Retail`. The exact match finds the row for INV-2048, and column 2 holds the client.
 
 ## Use Cases
 
-### [[Employee Information Lookup]]
+### Employee Records Lookup
 
-**Scenario:** Given an employee ID in a timesheet, pull in their name, department, and hourly rate from the master employee database.
+**Scenario:** A timesheet lists employee IDs. The payroll sheet needs the name and hourly rate for each row.
 
-**Implementation:**
-```
-Name: =VLOOKUP($A2, Employees!$A:$F, 2, FALSE)
-Dept: =VLOOKUP($A2, Employees!$A:$F, 4, FALSE)
-Rate: =VLOOKUP($A2, Employees!$A:$F, 6, FALSE)
+```excel
+=VLOOKUP($A2, Employees!$A:$F, 2, FALSE)
 ```
 
-**Business Application:** Time tracking, payroll processing, HR reporting. Eliminates manual data entry and ensures consistency with master records.
+**Why It Works:** The `$A2` reference keeps the key column fixed while the formula is copied across. Full-column references keep the range current as the master list grows. Each extra field needs its own formula with a different column number.
 
-**Technical Details:** Use $ on the lookup cell ($A2) to allow copying across columns. Make the table range absolute ($A:$F) to prevent shifting when copying down. Consider XLOOKUP or INDEX/MATCH for better performance.
+### Grade Band Lookup
 
----
+**Scenario:** A training team converts numeric assessment scores to bands such as Developing, Proficient and Advanced.
 
-### [[Price List Integration]]
-
-**Scenario:** Sales orders contain product codes; automatically pull in current prices from the master price list.
-
-**Implementation:**
+```excel
+=VLOOKUP(B2, GradeBands, 2, TRUE)
 ```
+
+**Why It Works:** `GradeBands` is a named range whose first column holds the minimum score for each band, sorted in ascending order. The approximate match returns the band that a score falls into, so a score of 85 does not need its own row in the table.
+
+### Price List Integration
+
+**Scenario:** Sales orders contain product codes. The quoting sheet needs the current unit price for each code.
+
+```excel
 =VLOOKUP(B2, PriceList!$A:$D, MATCH("Unit Price", PriceList!$1:$1, 0), FALSE)
 ```
 
-**Business Application:** Quote generation, invoice creation, inventory valuation. Ensures pricing consistency and enables instant price updates when the master list changes.
+**Why It Works:** `MATCH` finds the price column by its header, so inserting a column in the price list does not break the quote. The product code must be in the leftmost column of the price list.
 
-**Technical Details:** Using MATCH for column number makes the formula resilient to column insertions in the price list. Consider caching the MATCH result in a separate cell for performance.
+## Common Errors
 
----
-
-### [[Grade Assignment System]]
-
-**Scenario:** Convert numeric scores to letter grades using a grading scale.
-
-**Implementation:**
-```
-=VLOOKUP(B2, GradeScale, 2, TRUE)
-```
-Where GradeScale is: 0→F, 60→D, 70→C, 80→B, 90→A
-
-**Business Application:** Educational grading, performance rating systems, any tiered classification based on thresholds.
-
-**Technical Details:** TRUE (approximate match) is correct here—a score of 85 should match the 80 row (B grade), not require an exact 85 entry. Lookup column MUST be sorted ascending.
-
----
-
-### [[Inventory Management]]
-
-**Scenario:** Track stock levels by looking up product details from a central inventory database.
-
-**Implementation:**
-```
-=IFERROR(VLOOKUP(A2, Inventory!$A:$E, 3, FALSE), "Product Not Found")
-```
-
-**Business Application:** Warehouse management, reorder point monitoring, stock valuation. Connect transaction data to master product information.
-
-**Technical Details:** IFERROR handles new products not yet in the system gracefully. For high-volume lookups, consider loading the entire lookup result into Power Query or using database connections.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#N/A` | The key is not in the first column, or an exact match finds no row. | Check spelling and spaces, and use `TRIM` on text keys. |
+| `#N/A` | An approximate lookup value is smaller than the smallest key. | Add a lower band or start the table at 0. |
+| `#REF!` | `col_index_num` is larger than the number of columns in `table_array`. | Widen the range or lower the column number. |
+| `#VALUE!` | `col_index_num` is less than 1. | Use a column number of 1 or higher. |
+| `#NAME?` | A text key is typed without quotation marks. | Wrap literal text in double quotes. |
+| Wrong value | `TRUE` or a missing `range_lookup` returns the nearest smaller key. | Pass `FALSE` for exact matches. |
+| Wrong value | The first column is not sorted when approximate matching is used. | Sort the key column in ascending order, or use exact matching. |
+| Wrong value | Numbers or dates are stored as text. | Convert the key or the table column so both use the same type. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions (Excel 97 onward)
-- **Case sensitivity:** Case-insensitive (abc = ABC = Abc)
-- **Performance:** Can be slow with large datasets; consider INDEX/MATCH or XLOOKUP
-- **Wildcards:** Fully supported (* and ?)
-- **XLOOKUP alternative:** Available in Excel 2019, 365, and later
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available in all current versions. | Arguments are named `lookup_value`, `table_array`, `col_index_num` and `range_lookup`. Wildcards work only with `FALSE` and text keys. |
+| Google Sheets | Available. | Arguments are named `search_key`, `range`, `index` and `is_sorted`. The default for `is_sorted` is `TRUE`, the same as Excel's default. |
 
-### Google Sheets
-- **Availability:** All versions
-- **Case sensitivity:** Case-insensitive (same as Excel)
-- **Performance:** Generally efficient; full-column references (A:E) work well
-- **Wildcards:** Supported with exact match (FALSE)
-- **No XLOOKUP:** Use INDEX/MATCH for similar flexibility
-
-### Both Platforms
-- Searches the FIRST column of table_array only
-- Cannot look left (lookup column must be leftmost)
-- Returns first match only (doesn't handle duplicates)
-- Approximate match requires sorted data
+Neither official page states whether lookups are case-sensitive, so test that behavior before depending on it.
 
 ## Tips and Best Practices
 
-1. **Always use FALSE for exact match:** TRUE (approximate) is rarely what you want. Make it a habit: `=VLOOKUP(..., FALSE)` every time unless you're doing tiered lookups.
-
-2. **Lock your table reference:** Use $ signs (`$A$2:$D$100`) so the range doesn't shift when you copy the formula. Even better, use a named range.
-
-3. **Use MATCH for column numbers:** `=VLOOKUP(A2, Table, MATCH("Column Name", Headers, 0), FALSE)` survives column insertions and is more readable.
-
-4. **Wrap in IFERROR for clean output:** `=IFERROR(VLOOKUP(...), "")` prevents #N/A from cluttering your sheet and breaking downstream formulas.
-
-5. **Consider INDEX/MATCH instead:** It's more flexible (can look left), often faster, and easier to audit. VLOOKUP is more readable for simple cases, but INDEX/MATCH handles complex scenarios better.
-
-6. **Watch for data type mismatches:** "123" (text) ≠ 123 (number). If lookups fail inexplicably, check whether your lookup value and table column are the same type.
-
-7. **Use TRIM to handle spaces:** Hidden leading/trailing spaces break lookups. Use `=VLOOKUP(TRIM(A2), ...)` to be safe.
+- Pass `FALSE` on every exact lookup so the formula never falls back to an approximate match.
+- Anchor the table with dollar signs or a named range so the reference does not shift when the formula is copied.
+- Use `MATCH` for the column number when headers may move.
+- Clean text keys with `TRIM` when the source data may contain stray spaces.
+- Keep the key column leftmost, and when that is not possible, switch to XLOOKUP or INDEX with MATCH.
+- Check for duplicate keys before relying on the first match.
 
 ## Related Functions
 
-### Similar Functions
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[XLOOKUP]] | Modern replacement for VLOOKUP | When you need to look left, want default values, or prefer cleaner syntax (Excel 365/2019+) |
-| [[HLOOKUP]] | Horizontal lookup (searches across rows) | When your table is arranged horizontally with headers on the left |
-| [[INDEX]]+[[MATCH]] | Flexible lookup combination | When you need to look left, handle multiple criteria, or want better performance |
-| [[LOOKUP]] | Simplified lookup (legacy) | Rarely—mostly for backward compatibility |
-
-### Commonly Used Together
-
-**[[MATCH]]** - Find position in range
-
-*Combined with VLOOKUP for dynamic column selection:*
-```
-=VLOOKUP(A2, Table, MATCH("Header", HeaderRow, 0), FALSE)
-```
-MATCH finds which column number contains "Header", making the formula resilient to column changes.
-
----
-
-**[[IFERROR]]** - Handle lookup failures
-
-*Combined with VLOOKUP for graceful error handling:*
-```
-=IFERROR(VLOOKUP(A2, Table, 2, FALSE), "Not found")
-```
-Returns "Not found" instead of #N/A when lookup fails.
-
----
-
-**[[INDIRECT]]** - Dynamic range references
-
-*Combined with VLOOKUP for dynamic table selection:*
-```
-=VLOOKUP(A2, INDIRECT(B2&"!A:D"), 3, FALSE)
-```
-The table range is determined by the sheet name in B2.
-
----
-
-**[[INDEX]]** - Return value at intersection
-
-*Alternative to VLOOKUP with more flexibility:*
-```
-=INDEX(C:C, MATCH(A2, A:A, 0))
-```
-INDEX/MATCH can look in any direction and handles complex scenarios VLOOKUP can't.
-
----
-
-**[[IF]]** - Conditional logic
-
-*Combined with VLOOKUP for conditional lookups:*
-```
-=IF(A2<>"", VLOOKUP(A2, Table, 2, FALSE), "")
-```
-Only performs lookup if A2 has a value, avoiding unnecessary #N/A errors.
+| Function | Relationship |
+| --- | --- |
+| [HLOOKUP](HLOOKUP.md) | Performs the same search across the first row instead of the first column. |
+| [IFNA](../Logical/IFNA.md) | Supplies a fallback value only when the lookup returns `#N/A`. |
+| [INDEX](INDEX.md) | Returns a value from any column, including columns to the left of the key. |
+| [MATCH](MATCH.md) | Finds the position of a header or key, often used to set `col_index_num`. |
+| [XLOOKUP](XLOOKUP.md) | Modern replacement that can look left, returns a fallback value and needs no column number. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [VLOOKUP function](https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1)
-- **Google Sheets:** [VLOOKUP function](https://support.google.com/docs/answer/3093318)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 97 (1997) | Original implementation |
-| Excel 2007 | Enhanced | Better performance with large datasets |
-| Excel 2019/365 | XLOOKUP introduced | Modern alternative with more features |
-| Google Sheets | Original launch | Identical to Excel implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: VLOOKUP function](https://support.microsoft.com/en-us/excel/functions/vlookup-function)
+- [Google Docs Editors Help: VLOOKUP](https://support.google.com/docs/answer/3093318)

@@ -1,26 +1,61 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Date & Time
+purpose:
+  - Function Relationships
+use-case:
+  - Calculating Date Differences
+  - Calculating Working Days
+  - Extracting Parts of a Date
+related:
+  - DATE
+  - DATEDIF
+  - DATEVALUE
+  - DAY
+  - DAYS
+  - DAYS360
+  - EDATE
+  - EOMONTH
+  - HOUR
+  - ISOWEEKNUM
+  - MINUTE
+  - MONTH
+  - NETWORKDAYS
+  - NETWORKDAYS.INTL
+  - NOW
+  - SECOND
+  - TIME
+  - TIMEVALUE
+  - TODAY
+  - WEEKDAY
+  - WEEKNUM
+  - WORKDAY
+  - WORKDAY.INTL
+  - YEAR
+  - YEARFRAC
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - dates
+  - times
+  - working-days
 ---
-# Spreadsheets-Functions-Date and Time
+
+# Date & Time Functions
+
+This diagram shows 25 of the 26 Date & Time functions. EPOCHTODATE is not shown.
 
 ```mermaid
 
 graph LR
-    DateTime["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date & Time</b><br/>────────────────<br/>Functions for date and time calculations<br/><b>Total Functions:</b> 25</div>"]
+    DateTime["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date & Time</b><br/>────────────────<br/>Functions for date and time calculations<br/><b>Total Functions:</b> 26</div>"]
     
     DateTime --> DateCalc["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date Calculations</b><br/>────────────────<br/>Functions for date operations<br/><b>Functions:</b> 16</div>"]
     DateTime --> Duration["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Duration</b><br/>────────────────<br/>Functions for working days<br/><b>Functions:</b> 4</div>"]

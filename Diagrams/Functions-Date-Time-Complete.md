@@ -1,34 +1,55 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Date & Time
+purpose:
+  - Function Relationships
+use-case:
+  - Calculating Date Differences
+  - Calculating Working Days
+  - Extracting Parts of a Date
+related:
+  - DATE
+  - DAY
+  - DAYS
+  - HOUR
+  - MONTH
+  - NETWORKDAYS
+  - NOW
+  - TIME
+  - TODAY
+  - WEEKDAY
+  - YEAR
+level: 1
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - dates
+  - times
+  - working-days
 ---
-# Spreadsheets-Functions-Date-Time-Complete
+
+# Date & Time Functions Complete
+
+This diagram shows 11 of the 26 Date & Time functions.
 
 ```mermaid
 
 graph LR
-    DateTime["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date & Time</b><br/>────────────────<br/>Date and time functions<br/><b>Total Functions:</b> 25</div>"]
+    DateTime["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date & Time</b><br/>────────────────<br/>Date and time functions<br/><b>Total Functions:</b> 26</div>"]
     
-    DateTime --> DateCalculations["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date Calculations</b><br/>────────────────<br/>Date calculation functions<br/><b>Functions:</b> 16</div>"]
+    DateTime --> DateCalculations["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Date Calculations</b><br/>────────────────<br/>Date calculation functions<br/><b>Functions:</b> 6</div>"]
     
-    DateTime --> TimeCalculations["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Time Calculations</b><br/>────────────────<br/>Time calculation functions<br/><b>Functions:</b> 5</div>"]
+    DateTime --> TimeCalculations["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Time Calculations</b><br/>────────────────<br/>Time calculation functions<br/><b>Functions:</b> 3</div>"]
     
-    DateTime --> Duration["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Duration</b><br/>────────────────<br/>Duration calculation functions<br/><b>Functions:</b> 4</div>"]
+    DateTime --> Duration["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Duration</b><br/>────────────────<br/>Duration calculation functions<br/><b>Functions:</b> 2</div>"]
     
-    %% Date Calculations Functions (16 functions)
+    %% Date Calculations Functions (6 functions)
     DateCalculations --> DATE["<div align='left' style='font-family: MonoLisa, monospace;'><b>DATE</b><br/>────────────────<br/>Returns the serial number of a particular date</div>"]
     DATE --> DATESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DATE(year, month, day)</div>"]
     DATE --> DATEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=DATE(2025, 6, 16) → 6/16/2025</div>"]
@@ -53,7 +74,7 @@ graph LR
     WEEKDAY --> WEEKDAYSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>WEEKDAY(serial_number, [return_type])</div>"]
     WEEKDAY --> WEEKDAYEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=WEEKDAY(DATE(2025,6,16)) → 2</div>"]
     
-    %% Time Calculations Functions (5 functions)
+    %% Time Calculations Functions (3 functions)
     TimeCalculations --> TIME["<div align='left' style='font-family: MonoLisa, monospace;'><b>TIME</b><br/>────────────────<br/>Returns the serial number of a particular time</div>"]
     TIME --> TIMESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>TIME(hour, minute, second)</div>"]
     TIME --> TIMEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=TIME(15, 30, 0) → 3:30 PM</div>"]
@@ -66,14 +87,14 @@ graph LR
     HOUR --> HOURSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>HOUR(serial_number)</div>"]
     HOUR --> HOUREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=HOUR(TIME(15,30,0)) → 15</div>"]
     
-    %% Duration Functions (4 functions)
+    %% Duration Functions (2 functions)
     Duration --> DAYS["<div align='left' style='font-family: MonoLisa, monospace;'><b>DAYS</b><br/>────────────────<br/>Returns the number of days between two dates</div>"]
     DAYS --> DAYSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DAYS(end_date, start_date)</div>"]
     DAYS --> DAYSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=DAYS(&quot;6/16/2025&quot;, &quot;1/1/2025&quot;) → 166</div>"]
     
     Duration --> NETWORKDAYS["<div align='left' style='font-family: MonoLisa, monospace;'><b>NETWORKDAYS</b><br/>────────────────<br/>Returns the number of whole workdays between two dates</div>"]
     NETWORKDAYS --> NETWORKDAYSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>NETWORKDAYS(start_date, end_date, [holidays])</div>"]
-    NETWORKDAYS --> NETWORKDAYSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=NETWORKDAYS(&quot;1/1/2025&quot;, &quot;6/16/2025&quot;) → 118</div>"]
+    NETWORKDAYS --> NETWORKDAYSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=NETWORKDAYS(&quot;1/1/2025&quot;, &quot;6/16/2025&quot;) → 119</div>"]
     
     %% Styling
     style DateTime fill:#F0FFFF,stroke:#333,stroke-width:2px
@@ -121,5 +142,3 @@ graph LR
     style NETWORKDAYSEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

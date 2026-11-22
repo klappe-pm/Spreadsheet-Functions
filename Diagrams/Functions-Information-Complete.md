@@ -1,38 +1,63 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Information
+purpose:
+  - Function Relationships
+use-case:
+  - Checking Data Types
+  - Detecting Errors
+  - Reading Cell Information
+related:
+  - CELL
+  - COLUMN
+  - ERROR.TYPE
+  - INFO
+  - ISBLANK
+  - ISERR
+  - ISERROR
+  - ISEVEN
+  - ISLOGICAL
+  - ISNA
+  - ISNUMBER
+  - ISTEXT
+  - NA
+  - ROW
+  - TYPE
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - data-types
+  - error-checking
+  - information
+  - reference-info
 ---
-# Spreadsheets-Functions-Information-Complete
+
+# Information Functions Complete
+
+This diagram shows 13 of the 26 Information functions. COLUMN and ROW belong to Lookup & Reference.
 
 ```mermaid
 
 graph LR
-    Information["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Information</b><br/>────────────────<br/>Information and data type functions<br/><b>Total Functions:</b> 41</div>"]
+    Information["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Information</b><br/>────────────────<br/>Information and data type functions<br/><b>Total Functions:</b> 26</div>"]
     
-    Information --> TypeChecking["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Type Checking</b><br/>────────────────<br/>Data type validation functions<br/><b>Functions:</b> 14</div>"]
+    Information --> TypeChecking["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Type Checking</b><br/>────────────────<br/>Data type validation functions<br/><b>Functions:</b> 6</div>"]
     
-    Information --> ReferenceInfo["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Reference Info</b><br/>────────────────<br/>Cell and reference information<br/><b>Functions:</b> 14</div>"]
+    Information --> ReferenceInfo["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Reference Info</b><br/>────────────────<br/>Cell and reference information<br/><b>Functions:</b> 3</div>"]
     
-    Information --> ErrorChecking["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Error Checking</b><br/>────────────────<br/>Error detection functions<br/><b>Functions:</b> 8</div>"]
+    Information --> ErrorChecking["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Error Checking</b><br/>────────────────<br/>Error detection functions<br/><b>Functions:</b> 2</div>"]
     
     Information --> ErrorInfo["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Error Info</b><br/>────────────────<br/>Error information functions<br/><b>Functions:</b> 2</div>"]
     
     Information --> LegacyFunctions["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Legacy Functions</b><br/>────────────────<br/>Legacy information functions<br/><b>Functions:</b> 2</div>"]
     
-    Information --> DataTypes["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Data Types</b><br/>────────────────<br/>Data type identification<br/><b>Functions:</b> 1</div>"]
     
     %% Type Checking Functions (14 functions)
     TypeChecking --> ISBLANK["<div align='left' style='font-family: MonoLisa, monospace;'><b>ISBLANK</b><br/>────────────────<br/>Checks whether a value is blank</div>"]
@@ -44,7 +69,7 @@ graph LR
     ISERROR --> ISERROREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ISERROR(1/0) → TRUE</div>"]
     
     TypeChecking --> ISEVEN["<div align='left' style='font-family: MonoLisa, monospace;'><b>ISEVEN</b><br/>────────────────<br/>Checks whether a number is even</div>"]
-    ISEVEN --> ISEVENSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ISEVEN(number)</div>"]
+    ISEVEN --> ISEVENSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ISEVEN(value)</div>"]
     ISEVEN --> ISEVENEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ISEVEN(4) → TRUE</div>"]
     
     TypeChecking --> ISLOGICAL["<div align='left' style='font-family: MonoLisa, monospace;'><b>ISLOGICAL</b><br/>────────────────<br/>Checks whether a value is a logical value</div>"]
@@ -99,10 +124,6 @@ graph LR
     TYPE --> TYPESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>TYPE(value)</div>"]
     TYPE --> TYPEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=TYPE(&quot;Hello&quot;) → 2</div>"]
     
-    %% Data Types (1 function)
-    DataTypes --> TYPEOF["<div align='left' style='font-family: MonoLisa, monospace;'><b>TYPEOF</b><br/>────────────────<br/>Returns a text string indicating the data type of a value</div>"]
-    TYPEOF --> TYPEOFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>TYPEOF(value)</div>"]
-    TYPEOF --> TYPEOFEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=TYPEOF(123) → &quot;Number&quot;</div>"]
     
     %% Styling
     style Information fill:#F0FFFF,stroke:#333,stroke-width:2px
@@ -111,7 +132,6 @@ graph LR
     style ErrorChecking fill:#F0FFFF,stroke:#333,stroke-width:2px
     style ErrorInfo fill:#F0FFFF,stroke:#333,stroke-width:2px
     style LegacyFunctions fill:#F0FFFF,stroke:#333,stroke-width:2px
-    style DataTypes fill:#F0FFFF,stroke:#333,stroke-width:2px
     
     %% Functions alternate: odd=green, even=blue
     style ISBLANK fill:#F0FFF0,stroke:#333,stroke-width:2px
@@ -129,7 +149,6 @@ graph LR
     style NA_FUNC fill:#F0FFF0,stroke:#333,stroke-width:2px
     style INFO fill:#B9E9EB,stroke:#333,stroke-width:2px
     style TYPE fill:#F0FFF0,stroke:#333,stroke-width:2px
-    style TYPEOF fill:#B9E9EB,stroke:#333,stroke-width:2px
     
     %% All syntax nodes - pink
     style ISBLANKSYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
@@ -147,7 +166,6 @@ graph LR
     style NAFUNCSYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
     style INFOSYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
     style TYPESYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
-    style TYPEOFSYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
     
     %% All example nodes - lavender
     style ISBLANKEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
@@ -165,8 +183,5 @@ graph LR
     style NAFUNCEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     style INFOEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     style TYPEEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
-    style TYPEOFEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

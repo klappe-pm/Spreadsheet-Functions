@@ -1,26 +1,50 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Logical
+purpose:
+  - Function Relationships
+use-case:
+  - Choosing a Conditional Function
+  - Combining Logical Tests
+  - Handling Formula Errors
+related:
+  - AND
+  - BYCOL
+  - CHOOSE
+  - FALSE
+  - IF
+  - IFERROR
+  - IFNA
+  - IFS
+  - ISERROR
+  - NOT
+  - OR
+  - SWITCH
+  - TRUE
+  - XOR
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - conditional-logic
+  - error-handling
+  - logical
 ---
-# Spreadsheets-Functions-Logical-Complete
+
+# Logical Functions Complete
+
+This diagram shows 12 of the 19 Logical functions. CHOOSE belongs to Lookup & Reference and ISERROR belongs to Information.
 
 ```mermaid
 
 graph LR
-    Logical["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Logical</b><br/>────────────────<br/>Logical and conditional functions<br/><b>Total Functions:</b> 14</div>"]
+    Logical["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Logical</b><br/>────────────────<br/>Logical and conditional functions<br/><b>Total Functions:</b> 19</div>"]
     
     Logical --> ConditionalLogic["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Conditional Logic</b><br/>────────────────<br/>Basic conditional functions<br/><b>Functions:</b> 4</div>"]
     
@@ -28,19 +52,19 @@ graph LR
     
     Logical --> ErrorHandling["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Error Handling</b><br/>────────────────<br/>Error handling functions<br/><b>Functions:</b> 3</div>"]
     
-    Logical --> DynamicArrays["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Dynamic Arrays</b><br/>────────────────<br/>Array-based logical functions<br/><b>Functions:</b> 1</div>"]
+    Logical --> DynamicArrays["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Array Functions</b><br/>────────────────<br/>Array-based logical functions<br/><b>Functions:</b> 1</div>"]
     
     %% Conditional Logic Functions (4 functions)
     ConditionalLogic --> IF["<div align='left' style='font-family: MonoLisa, monospace;'><b>IF</b><br/>────────────────<br/>Specifies a logical test to perform</div>"]
-    IF --> IFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IF(logical_test, [value_if_true], [value_if_false])</div>"]
+    IF --> IFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IF(logical_test, value_if_true, [value_if_false])</div>"]
     IF --> IFEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IF(A1&gt;10, &quot;High&quot;, &quot;Low&quot;) → &quot;High&quot;</div>"]
     
     ConditionalLogic --> IFS["<div align='left' style='font-family: MonoLisa, monospace;'><b>IFS</b><br/>────────────────<br/>Checks whether one or more conditions are met</div>"]
-    IFS --> IFSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IFS(logical_test1, value_if_true1, [logical_test2, value_if_true2]...)</div>"]
+    IFS --> IFSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IFS(logical_test1, value_if_true1, [logical_test2, value_if_true2], ...)</div>"]
     IFS --> IFSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IFS(A1&gt;90, &quot;A&quot;, A1&gt;80, &quot;B&quot;, A1&gt;70, &quot;C&quot;) → &quot;A&quot;</div>"]
     
     ConditionalLogic --> SWITCH["<div align='left' style='font-family: MonoLisa, monospace;'><b>SWITCH</b><br/>────────────────<br/>Evaluates an expression against a list of values</div>"]
-    SWITCH --> SWITCHSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SWITCH(expression, value1, result1, [value2, result2]..., [default])</div>"]
+    SWITCH --> SWITCHSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SWITCH(expression, value1, result1, [value2, result2], ..., [default])</div>"]
     SWITCH --> SWITCHEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SWITCH(A1, 1, &quot;One&quot;, 2, &quot;Two&quot;, 3, &quot;Three&quot;) → &quot;Two&quot;</div>"]
     
     ConditionalLogic --> CHOOSE_LOGICAL["<div align='left' style='font-family: MonoLisa, monospace;'><b>CHOOSE</b><br/>────────────────<br/>Chooses a value from a list of values based on index</div>"]
@@ -85,7 +109,7 @@ graph LR
     ISERROR_LOGICAL --> ISERRORLOGICALSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ISERROR(value)</div>"]
     ISERROR_LOGICAL --> ISERRORLOGICALEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ISERROR(1/0) → TRUE</div>"]
     
-    %% Dynamic Arrays Functions (1 function)
+    %% Array Functions (1 function)
     DynamicArrays --> BYCOL["<div align='left' style='font-family: MonoLisa, monospace;'><b>BYCOL</b><br/>────────────────<br/>Applies a LAMBDA to each column and returns an array</div>"]
     BYCOL --> BYCOLSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>BYCOL(array, lambda)</div>"]
     BYCOL --> BYCOLEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=BYCOL(A1:C3, LAMBDA(col, SUM(col)))</div>"]
@@ -146,5 +170,3 @@ graph LR
     style BYCOLEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

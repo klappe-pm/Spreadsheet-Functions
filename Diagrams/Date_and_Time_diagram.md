@@ -1,36 +1,92 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Date & Time
+purpose:
+  - Function Relationships
+use-case:
+  - Calculating Date Differences
+  - Calculating Working Days
+  - Extracting Parts of a Date
+related:
+  - AVERAGE
+  - COUNT
+  - DATE
+  - DATEDIF
+  - DATEVALUE
+  - DAY
+  - DAYS
+  - DAYS360
+  - EDATE
+  - EOMONTH
+  - HOUR
+  - IF
+  - IFERROR
+  - INT
+  - ISOWEEKNUM
+  - MINUTE
+  - MONTH
+  - NETWORKDAYS
+  - NETWORKDAYS.INTL
+  - NOW
+  - SECOND
+  - SUM
+  - SUMIF
+  - TIME
+  - TIMEVALUE
+  - TODAY
+  - WEEKDAY
+  - WEEKNUM
+  - WORKDAY
+  - WORKDAY.INTL
+  - YEAR
+  - YEARFRAC
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - dates
+  - times
+  - working-days
+---
+
 # Date & Time Functions Relationship Diagram
 
-This diagram shows the relationships between functions in the Date & Time category and their connections to commonly used functions.
+This diagram shows the relationships between functions in the Date & Time category and their connections to commonly used functions. It shows 25 of the 26 Date & Time functions. EPOCHTODATE is not shown.
 
 ```mermaid
 graph TD
     classDef DateTime fill:#FF9FF3,stroke:#333,stroke-width:2px,color:#000
-    ISOWEEKNUM["ISOWEEKNUM<br/>ISOWEEKNUM performs specialized calculations for analytical ..."]
-    MINUTE["MINUTE<br/>MINUTE performs date and time calculations for temporal anal..."]
-    HOUR["HOUR<br/>HOUR performs date and time calculations for temporal analys..."]
-    WEEKNUM["WEEKNUM<br/>WEEKNUM performs specialized calculations for analytical app..."]
-    NETWORKDAYS_INTL["NETWORKDAYS.INTL<br/>NETWORKDAYS.INTL performs specialized calculations for analy..."]
-    TIMEVALUE["TIMEVALUE<br/>TIMEVALUE performs date and time calculations for temporal a..."]
-    WORKDAY["WORKDAY<br/>WORKDAY performs specialized calculations for analytical app..."]
-    TODAY["TODAY<br/>TODAY returns the current date as a serial number. The date ..."]
-    DAY["DAY<br/>DAY performs date and time calculations for temporal analysi..."]
-    DATEVALUE["DATEVALUE<br/>DATEVALUE performs date and time calculations for temporal a..."]
-    Untitled["Untitled<br/>"]
-    NETWORKDAYS["NETWORKDAYS<br/>NETWORKDAYS performs specialized calculations for analytical..."]
-    WORKDAY_INTL["WORKDAY.INTL<br/>WORKDAY.INTL performs specialized calculations for analytica..."]
-    DATE["DATE<br/>DATE performs date and time calculations for temporal analys..."]
-    MONTH["MONTH<br/>MONTH performs date and time calculations for temporal analy..."]
-    DATEDIF["DATEDIF<br/>DATEDIF performs conditional calculations based on specified..."]
-    EOMONTH["EOMONTH<br/>EOMONTH performs specialized calculations for analytical app..."]
+    ISOWEEKNUM["ISOWEEKNUM<br/>Returns the ISO 8601 week number of a date"]
+    MINUTE["MINUTE<br/>Returns the minute of a time, from 0 to 59"]
+    HOUR["HOUR<br/>Returns the hour of a time, from 0 to 23"]
+    WEEKNUM["WEEKNUM<br/>Returns the week number of the year for a date"]
+    NETWORKDAYS_INTL["NETWORKDAYS.INTL<br/>Counts working days with custom weekend days"]
+    TIMEVALUE["TIMEVALUE<br/>Converts a text time to a decimal fraction of a day"]
+    WORKDAY["WORKDAY<br/>Returns the date a number of working days away"]
+    TODAY["TODAY<br/>Returns the current date as a serial number"]
+    DAY["DAY<br/>Returns the day of the month, from 1 to 31"]
+    DATEVALUE["DATEVALUE<br/>Converts a date stored as text to a date value"]
+    NETWORKDAYS["NETWORKDAYS<br/>Counts whole working days between two dates"]
+    WORKDAY_INTL["WORKDAY.INTL<br/>Returns a date offset by working days, with custom weekends"]
+    DATE["DATE<br/>Builds a date from a year, month and day"]
+    MONTH["MONTH<br/>Returns the month of a date, from 1 to 12"]
+    DATEDIF["DATEDIF<br/>Returns the difference between two dates in a chosen unit"]
+    EOMONTH["EOMONTH<br/>Returns the last day of a month, offset by months"]
     YEAR["YEAR<br/>YEAR extracts the year from a date as a four-digit number."]
-    YEARFRAC["YEARFRAC<br/>YEARFRAC performs specialized calculations for analytical ap..."]
-    TIME["TIME<br/>TIME performs date and time calculations for temporal analys..."]
-    DAYS360["DAYS360<br/>DAYS360 performs specialized calculations for analytical app..."]
-    WEEKDAY["WEEKDAY<br/>WEEKDAY performs specialized calculations for analytical app..."]
-    NOW["NOW<br/>NOW returns the current date and time as a serial number. Up..."]
-    DAYS["DAYS<br/>DAYS performs specialized calculations for analytical applic..."]
-    EDATE["EDATE<br/>EDATE performs date and time calculations for temporal analy..."]
-    SECOND["SECOND<br/>SECOND performs date and time calculations for temporal anal..."]
+    YEARFRAC["YEARFRAC<br/>Returns the fraction of a year between two dates"]
+    TIME["TIME<br/>Builds a time value from an hour, minute and second"]
+    DAYS360["DAYS360<br/>Counts days between two dates on a 360-day year"]
+    WEEKDAY["WEEKDAY<br/>Returns the day of the week for a date, as a number"]
+    NOW["NOW<br/>Returns the current date and time as a serial number"]
+    DAYS["DAYS<br/>Returns the number of calendar days between two dates"]
+    EDATE["EDATE<br/>Returns a date offset by a number of months"]
+    SECOND["SECOND<br/>Returns the second of a time, from 0 to 59"]
     IF["IF<br/>External Function"]
     ISOWEEKNUM --> IF
     class IF external
@@ -314,7 +370,6 @@ graph TD
     class TODAY DateTime
     class DAY DateTime
     class DATEVALUE DateTime
-    class Untitled DateTime
     class NETWORKDAYS DateTime
     class WORKDAY_INTL DateTime
     class DATE DateTime
@@ -336,7 +391,7 @@ graph TD
 
 ## Legend
 - **Solid arrows (→)**: "Commonly used with" relationships
-- **Dashed arrows (-.->)**: "Similar functions" relationships  
+- **Dashed arrows** (`-.->`): "Similar functions" relationships
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 

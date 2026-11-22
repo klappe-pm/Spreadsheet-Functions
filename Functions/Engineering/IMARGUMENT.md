@@ -1,87 +1,198 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- engineering
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
-aliases: []
+domain: Spreadsheet Functions
+category: Engineering
+subcategory: Complex Numbers
+purpose:
+  - Complex Numbers
+  - Trigonometry
+use-case:
+  - Phase Angle Reporting
+  - Phasor Direction Checks
+related:
+  - ATAN2
+  - COMPLEX
+  - DEGREES
+  - IMABS
+  - IMAGINARY
+level: 5
+source:
+  - https://support.microsoft.com/en-us/excel/functions/imargument-function
+  - https://support.google.com/docs/answer/9116360
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases:
+  - Complex Argument
+  - Phase Angle
+tags:
+  - complex-numbers
+  - excel
+  - sheets
+  - trigonometry
 ---
 
 # IMARGUMENT
 
-## IMARGUMENT Description
+## Description
 
-IMARGUMENT performs specialized calculations for analytical applications.
+**IMARGUMENT** returns the argument of a complex number, also called theta or the phase angle. The argument is the angle between the positive real axis and the line from zero to the point x + yi on the complex plane, measured in radians. For a value such as `3+4i`, the angle is the inverse tangent of 4 divided by 3.
 
-> [!f(x)] IMARGUMENT Syntax
->
-> ```spreadsheets
-> IMARGUMENT(input_value, [options])
-> ```
->
-> **Parameters:**
-> - `input_value` (required): Primary input for the calculation
-> - `options` (optional): Additional parameters or settings
+The result is in radians and falls in the range from minus pi (exclusive) to pi (inclusive). Multiply a radian value by 180 and divide by pi, or wrap the result in DEGREES, to show the angle in degrees. Use IMABS for the size of the same number.
 
-> [!f(x)] IMARGUMENT Examples
->
-> ```spreadsheets
-> IMARGUMENT(A1) → result // Basic calculation
-> 
-> IMARGUMENT(A1:A10) → range_result // Process entire range
-> ```
+In AC analysis, the argument of an impedance or phasor gives the phase difference between voltage and current. IMARGUMENT is the direct method when the complex value is already stored as text. Use ATAN2 instead when the real and imaginary parts are in separate cells and you do not want to build a complex value first.
+
+## Syntax
+
+```excel
+=IMARGUMENT(inumber)
+```
+
+<!-- Image 1: Syntax Anatomy. See Images/Engineering/IMARGUMENT.md -->
+
+### Parameters
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `inumber` | Yes | The complex number, in text form such as `"3+4i"`, a cell that contains that text, or a result from COMPLEX. A real number is accepted and treated as having no imaginary part. |
+
+### Return Value
+
+A real number: the angle theta in radians, between minus pi (exclusive) and pi (inclusive). Text that is not a valid complex number returns an error.
+
+## Examples
+
+### Example 1: Basic Angle
+
+```excel
+=IMARGUMENT("3+4i")
+```
+
+**Result:** `0.92729522`
+
+The angle is the inverse tangent of 4 divided by 3, which is about 0.9273 radians.
+
+### Example 2: Pure Imaginary Value
+
+```excel
+=IMARGUMENT(COMPLEX(0, 1))
+```
+
+**Result:** `1.570796327`
+
+A value on the positive imaginary axis has an angle of pi divided by 2, which is about 1.5708 radians.
+
+### Example 3: Real Number Input
+
+```excel
+=IMARGUMENT(1)
+```
+
+**Result:** `0`
+
+A positive real number lies on the positive real axis, so its angle is 0.
+
+### Example 4: Angle in Degrees
+
+Cell `B2` holds the text `3+4i`.
+
+```excel
+=DEGREES(IMARGUMENT(B2))
+```
+
+**Result:** `53.13`
+
+The argument is about 0.9273 radians, which is about 53.13 degrees.
+
+<!-- Image 2: Angle on the Complex Plane. See Images/Engineering/IMARGUMENT.md -->
+
+## Story Problems
+
+### Problem 1: Phase Angle of a Motor Load
+
+A technician records the impedance of a motor as `4+3i` ohms. The team needs the phase angle between voltage and current, in degrees, for a report.
+
+| Load | Impedance |
+| --- | --- |
+| Motor A | 4+3i |
+
+**Task:** Calculate the phase angle of Motor A in degrees, using the text in `B2`.
+
+**Solution:**
+
+```excel
+=DEGREES(IMARGUMENT(B2))
+```
+
+**Answer:** `36.87` degrees. The angle is the inverse tangent of 3 divided by 4, which is about 0.6435 radians.
+
+### Problem 2: Direction of a Test Phasor
+
+A signal analyzer reports a phasor as `1+1i`. The analyst wants the direction in radians to compare against a limit of 0.75 radians.
+
+**Task:** Calculate the angle of the phasor in cell `B2`, then compare it with the limit in `C2`.
+
+**Solution:**
+
+```excel
+=IMARGUMENT(B2)>C2
+```
+
+**Answer:** `TRUE`. The phasor's angle is 0.7854 radians, which is greater than the limit of 0.75 radians.
 
 ## Use Cases
 
-### [[Mathematical Calculations]]
-- **Implementation**: Perform precise mathematical computations for engineering, scientific, and financial applications
-- **Business Application**: Support complex calculations in modeling, analysis, and quantitative decision-making processes
-- **Technical Details**: Ensure numerical accuracy, handle edge cases, and implement proper rounding and precision controls
+### Phase Angle Reporting
 
-### [[Engineering Analysis]]
-- **Implementation**: Apply mathematical functions for engineering calculations, measurements, and technical analysis
-- **Business Application**: Support product design, manufacturing processes, and quality engineering initiatives
-- **Technical Details**: Consider measurement precision, unit conversions, and mathematical model validation
+**Scenario:** A power quality report lists the phase angle of each load in degrees for a table that management reviews each month.
 
-### [[Data Transformation]]
-- **Implementation**: Transform and normalize data using mathematical operations for analysis and reporting
-- **Business Application**: Prepare data for analysis, create derived metrics, and standardize measurements
-- **Technical Details**: Implement data validation, handle boundary conditions, and ensure calculation consistency
-
-## Related
-
-### Similar Functions
-
-- [[IF]] - Related engineering function for analytical calculations
-- [[IFERROR]] - Related engineering function for analytical calculations
-
-### Commonly Used With Functions
-
-**[[IF]]** - Conditional logic for implementing business rules and decision-making criteria
-
-*Use IF with IMARGUMENT for conditional logic and decision making:*
-```spreadsheets
-=IF(IMARGUMENT(A1:A10)>threshold_value,"Condition Met","Condition Not Met")
+```excel
+=DEGREES(IMARGUMENT(Loads[Impedance]))
 ```
-This formula applies IMARGUMENT to a range and compares the result to a threshold, returning different text based on the condition
 
-**[[SUM]]** - Aggregate values for total calculations
+**Why It Works:** Wrapping the radian result in DEGREES makes the figures readable without a separate conversion column.
 
-*Use SUM with IMARGUMENT for aggregate calculations across multiple results:*
-```spreadsheets
-=SUM(IMARGUMENT(A1:A5),IMARGUMENT(B1:B5),IMARGUMENT(C1:C5))
+### Phasor Direction Checks
+
+**Scenario:** A test engineer flags any measurement where the phase angle drifts beyond a tolerance.
+
+```excel
+=IF(ABS(IMARGUMENT(B2))>Tolerance,"Drift","OK")
 ```
-This formula calculates IMARGUMENT for multiple ranges and sums the results together
 
-**[[AVERAGE]]** - Calculate arithmetic mean for central tendency analysis
+**Why It Works:** The absolute value of the angle makes the test work for both leading and lagging phasors. Keep the tolerance in radians to match the function's output.
 
-*Use AVERAGE with IMARGUMENT for enhanced analytical workflows:*
-```spreadsheets
-=AVERAGE(IMARGUMENT(A1:A10))
-```
-This formula combines AVERAGE and IMARGUMENT for comprehensive data analysis
+## Common Errors
+
+| Error | Cause | Fix |
+| --- | --- | --- |
+| Error value | The text is not a valid complex number. | Rewrite the value in x + yi or x + yj form. |
+| Error value with zero | The input is 0, which has no defined angle in Google Sheets. | Test for zero with IF before calling IMARGUMENT. |
+| Degrees off by a factor | The result is in radians but the report expects degrees. | Wrap the result in DEGREES. |
+
+## Platform Differences
+
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Excel 2016 and later, Excel 2019, Excel 2021, Excel 2024, Excel for Microsoft 365 and Excel for the web | The help page does not describe the result for a zero input. |
+| Google Sheets | Available | Returns an error when the input is 0. |
+
+## Tips and Best Practices
+
+- Keep the result in radians inside formulas and convert with DEGREES only for display.
+- Use IF with a zero test before IMARGUMENT when a column may contain 0.
+- Use IMABS with IMARGUMENT to recover both the size and the angle of the same value.
+- Use ATAN2 when the real and imaginary parts are in separate cells.
+
+## Related Functions
+
+| Function | Relationship |
+| --- | --- |
+| [ATAN2](../Math%20%26%20Trig/ATAN2.md) | Computes the angle from separate x and y values without building complex text. |
+| [COMPLEX](COMPLEX.md) | Builds the complex number from real and imaginary coefficients. |
+| [DEGREES](../Math%20%26%20Trig/DEGREES.md) | Converts the radian result to degrees. |
+| [IMABS](IMABS.md) | Returns the size of the same complex number. |
+| [IMAGINARY](IMAGINARY.md) | Returns the imaginary coefficient used in the angle calculation. |
+
+## Official Documentation
+
+- [Microsoft Support: IMARGUMENT function](https://support.microsoft.com/en-us/excel/functions/imargument-function)
+- [Google Docs Editors Help: IMARGUMENT](https://support.google.com/docs/answer/9116360)

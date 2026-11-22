@@ -1,245 +1,147 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel     # Include if available in Excel
-- sheets    # Include if available in Google Sheets
-topics:
-- category-name    # One of: statistical, math-trig, engineering, financial, text, lookup-reference, date-time, information, logical, database, dynamic-arrays, cube, web, excel-specific, google-specific
-subTopics: []
-dateCreated: 'YYYY-MM-DD'
-dateRevised: 'YYYY-MM-DD'
+domain: Spreadsheet Functions
+category: Lookup & Reference
+subcategory: Dynamic Arrays
+purpose:
+  - Data Retrieval
+use-case:
+  - Price Lookup
+related:
+  - INDEX
+  - MATCH
+level: 3
+source:
+  - https://support.microsoft.com/en-us/excel/functions/function-name-function
+  - https://support.google.com/docs/answer/0000000
+date-created: YYYY-MM-DD
+date-revised: YYYY-MM-DD
 aliases: []
-tags: []
+tags:
+  - excel
+  - sheets
 ---
 
 # FUNCTION_NAME
 
-## Description
-
 <!--
-REQUIREMENTS FOR DESCRIPTION:
-- Minimum 3-4 paragraphs explaining the function in detail
-- Paragraph 1: What the function does in plain English
-- Paragraph 2: Why/when you would use this function (real-world context)
-- Paragraph 3: How it differs from similar functions or common gotchas
-- Paragraph 4 (optional): Historical context, version availability, platform differences
+Template rules
+Frontmatter keys appear in exactly this order. List values are deduplicated and sorted A to Z (case-insensitive); an empty list is written as [].
+domain: always Spreadsheet Functions.
+category: the folder the page lives in (the official Microsoft category, or the Google category for a Sheets-only function).
+subcategory: one Title Case group inside the category.
+purpose: one or more Title Case values from the purpose vocabulary in the Frontmatter Schema section of README.md.
+use-case: one or more Title Case business scenarios.
+related: function names (uppercase) that exist in this library.
+level: 1 Foundational, 2 Core, 3 Intermediate, 4 Advanced, 5 Specialist.
+source: official Microsoft and Google documentation URLs only.
+date-created never changes; date-revised changes on every content edit.
+tags: lowercase; include excel and/or sheets for each platform that supports the function.
+Headings use Title Case. Formula code fences use the excel tag; other fences use text.
+Never use an em dash, en dash, spaced hyphen or double hyphen as punctuation. Never hard-wrap prose.
+Image placement markers are HTML comments that point to the image guide in Images/<Category>/<NAME>.md.
 -->
 
-**FUNCTION_NAME** [detailed explanation of what this function does, written for someone who has never seen it before. Explain the concept, not just the mechanics. What problem does this function solve?]
+## Description
 
-[Second paragraph explaining when and why you would use this function in real-world scenarios. Give context about the business problems or data analysis tasks this function helps solve. Be specific about use cases.]
-
-[Third paragraph discussing important considerations, limitations, common mistakes, or how this function compares to similar alternatives. If there are platform differences between Excel and Google Sheets, explain them here.]
-
-[Fourth paragraph (optional) covering version availability, when this function was introduced, or any historical context that helps users understand compatibility.]
+One to four paragraphs: what the function does in plain language, when to use it, how it differs from similar functions, and any platform or version caveats.
 
 ## Syntax
 
-> [!f(x)] FUNCTION_NAME Syntax
->
-> ```
-> =FUNCTION_NAME(required_param1, required_param2, [optional_param1], [optional_param2])
-> ```
+```excel
+=FUNCTION_NAME(required_arg, [optional_arg])
+```
+
+<!-- Image 1: Syntax Anatomy. See Images/<Category>/FUNCTION_NAME.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `required_param1` | Yes | [Detailed description of this parameter - what values are accepted, what data types work, what happens with edge cases] |
-| `required_param2` | Yes | [Detailed description] |
-| `optional_param1` | No | [Detailed description including what the default value is if omitted] |
-| `optional_param2` | No | [Detailed description] |
+| --- | --- | --- |
+| `required_arg` | Yes | What it accepts and how edge cases behave. |
+| `optional_arg` | No | What it does and the default when omitted. |
 
 ### Return Value
 
-[Describe what the function returns - data type, possible values, error conditions]
+The data type returned and the conditions that produce errors.
 
 ## Examples
 
-> [!f(x)] FUNCTION_NAME Examples
-
 ### Example 1: Basic Usage
+
+```excel
+=FUNCTION_NAME(A2, B2)
 ```
-=FUNCTION_NAME(value1, value2)
+
+**Result:** `value`
+
+What the example shows and why it works.
+
+### Example 2: Combined With Other Functions
+
+```excel
+=IFERROR(FUNCTION_NAME(A2, B2), "Not found")
 ```
-**Result:** `expected_result`
 
-**Explanation:** [Detailed explanation of what this example demonstrates and why you would use it this way]
+**Result:** `value`
 
----
+What the combination adds.
 
-### Example 2: With Optional Parameters
+## Story Problems
+
+### Problem 1: Short Scenario Title
+
+A short, original business story with the data the reader needs.
+
+| Column A | Column B |
+| --- | --- |
+| value | value |
+
+**Task:** What the reader must calculate.
+
+**Solution:**
+
+```excel
+=FUNCTION_NAME(A2:A6, B2)
 ```
-=FUNCTION_NAME(value1, value2, optional_value)
-```
-**Result:** `expected_result`
 
-**Explanation:** [Explanation of how the optional parameter changes the behavior]
-
----
-
-### Example 3: Real-World Scenario - [Scenario Name]
-```
-=FUNCTION_NAME(A1:A100, B1, "criteria")
-```
-**Result:** `expected_result`
-
-**Explanation:** [A realistic business scenario showing how this would be used with actual data. Include sample data context.]
-
----
-
-### Example 4: Combined with Other Functions
-```
-=OTHER_FUNCTION(FUNCTION_NAME(A1, B1), C1)
-```
-**Result:** `expected_result`
-
-**Explanation:** [Show how this function works in combination with other common functions]
-
----
-
-### Example 5: Handling Edge Cases
-```
-=FUNCTION_NAME(edge_case_value)
-```
-**Result:** `expected_result or #ERROR!`
-
-**Explanation:** [Demonstrate what happens with empty cells, zeros, errors, or other edge cases]
-
----
-
-### Example 6: Array/Range Application
-```
-=FUNCTION_NAME(A1:A10, B1:B10)
-```
-**Result:** `expected_result`
-
-**Explanation:** [If applicable, show how the function works with ranges or as an array formula]
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | [Description of what causes this error] | [How to fix it] |
-| `#REF!` | [Description] | [Solution] |
-| `#NAME?` | [Description] | [Solution] |
-| `#N/A` | [Description] | [Solution] |
+**Answer:** `value`, with one or two sentences on why.
 
 ## Use Cases
 
-### [[Use Case 1: Descriptive Name]]
+### Use Case Title
 
-**Scenario:** [Describe a specific, realistic business scenario]
+**Scenario:** A realistic business situation.
 
-**Implementation:**
-```
-=FUNCTION_NAME(specific_formula_for_this_use_case)
-```
-
-**Business Application:** [How this solves a real business problem]
-
-**Technical Details:** [Any important technical considerations for this use case]
-
----
-
-### [[Use Case 2: Descriptive Name]]
-
-**Scenario:** [Different realistic scenario]
-
-**Implementation:**
-```
-=FUNCTION_NAME(specific_formula)
+```excel
+=FUNCTION_NAME(Table1[Column], criteria)
 ```
 
-**Business Application:** [Real-world application]
+**Why It Works:** How the formula solves the problem and what to watch for.
 
-**Technical Details:** [Technical considerations]
+## Common Errors
 
----
-
-### [[Use Case 3: Descriptive Name]]
-
-**Scenario:** [Third scenario]
-
-**Implementation:**
-```
-=FUNCTION_NAME(specific_formula)
-```
-
-**Business Application:** [Application]
-
-**Technical Details:** [Details]
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | What triggers it. | How to fix it. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** Excel 2007+ / Excel 365 / Excel Online
-- **Specific Behavior:** [Any Excel-specific behavior or syntax]
-
-### Google Sheets
-- **Availability:** All versions
-- **Specific Behavior:** [Any Sheets-specific behavior or syntax differences]
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Version or release | Excel-only behavior. |
+| Google Sheets | Availability | Sheets-only behavior. |
 
 ## Tips and Best Practices
 
-1. **[Tip Title]:** [Practical advice for using this function effectively]
-2. **[Tip Title]:** [Another useful tip]
-3. **[Tip Title]:** [Performance considerations, if any]
-4. **[Tip Title]:** [Common mistakes to avoid]
+- Practical advice in one line per tip.
 
 ## Related Functions
 
-### Similar Functions
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[SIMILAR_FUNCTION_1]] | [Brief description] | [When you'd choose this over the current function] |
-| [[SIMILAR_FUNCTION_2]] | [Brief description] | [When to use this one] |
-| [[SIMILAR_FUNCTION_3]] | [Brief description] | [When to use this one] |
-
-### Commonly Used Together
-
-**[[FUNCTION_A]]** - [Brief description of FUNCTION_A]
-
-*Combined with FUNCTION_NAME for [specific purpose]:*
-```
-=FUNCTION_A(FUNCTION_NAME(A1:A10), additional_params)
-```
-[Explanation of what this combination accomplishes]
-
----
-
-**[[FUNCTION_B]]** - [Brief description]
-
-*Combined with FUNCTION_NAME for [specific purpose]:*
-```
-=FUNCTION_B(FUNCTION_NAME(value), other_value)
-```
-[Explanation]
-
----
-
-**[[FUNCTION_C]]** - [Brief description]
-
-*Combined with FUNCTION_NAME for [specific purpose]:*
-```
-=IF(FUNCTION_NAME(A1)>threshold, "Yes", "No")
-```
-[Explanation]
+| Function | Relationship |
+| --- | --- |
+| [INDEX](../Lookup%20%26%20Reference/INDEX.md) | When to use it instead or together. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [FUNCTION_NAME function](https://support.microsoft.com/en-us/office/function_name-function-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
-- **Google Sheets:** [FUNCTION_NAME](https://support.google.com/docs/answer/xxxxxxx)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 2007 | [Any notes about initial release] |
-| Excel 365 | [Date] | [Any enhancements in 365] |
-| Google Sheets | [Date] | [Notes] |
-
----
-
-*Last updated: YYYY-MM-DD*
+- [Microsoft Support: FUNCTION_NAME function](https://support.microsoft.com/en-us/excel/functions/function-name-function)
+- [Google Docs Editors Help: FUNCTION_NAME](https://support.google.com/docs/answer/0000000)

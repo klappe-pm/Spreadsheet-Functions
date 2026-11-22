@@ -1,87 +1,199 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- engineering
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Engineering
+subcategory: Complex Numbers
+purpose:
+  - Complex Numbers
+  - Trigonometry
+use-case:
+  - Complex Ramp Response Checks
+  - Hyperbolic Transmission Profiles
+related:
+  - COMPLEX
+  - IMCOSH
+  - IMSECH
+  - IMSIN
+  - SINH
+level: 5
+source:
+  - https://support.microsoft.com/en-us/excel/functions/imsinh-function
+  - https://support.google.com/docs/answer/9366445
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
+tags:
+  - complex-numbers
+  - engineering
+  - excel
+  - hyperbolic
+  - sheets
 ---
 
 # IMSINH
 
-## IMSINH Description
+## Description
 
-IMSINH performs specialized calculations for analytical applications.
+**IMSINH** returns the hyperbolic sine of a complex number. The input is text in `x+yi` or `x+yj` form, or a complex number built with COMPLEX. The result is a complex number in the same text form, so `=IMSINH("1+1i")` returns `0.6350+1.2985i` (rounded here to four decimal places).
 
-> [!f(x)] IMSINH Syntax
->
-> ```spreadsheets
-> IMSINH(input_value, [options])
-> ```
->
-> **Parameters:**
-> - `input_value` (required): Primary input for the calculation
-> - `options` (optional): Additional parameters or settings
+Use IMSINH when a model with exponential growth along one direction and oscillation along another is evaluated at complex points, such as a transmission line or a ramp response. For a real number, SINH returns a plain number and is the simpler choice.
 
-> [!f(x)] IMSINH Examples
->
-> ```spreadsheets
-> IMSINH(A1) → result // Basic calculation
-> 
-> IMSINH(A1:A10) → range_result // Process entire range
-> ```
+Input angles are in radians. IMSINH is the hyperbolic counterpart of IMSIN, and it accepts the same COMPLEX and text formats.
+
+## Syntax
+
+```excel
+=IMSINH(inumber)
+```
+
+<!-- Image 1: Complex Input for a Hyperbolic Function. See Images/Engineering/IMSINH.md -->
+
+### Parameters
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `inumber` | Yes | The complex number, as text in `x+yi` or `x+yj` form, such as `"1+1i"`, or the result of COMPLEX. A real number is treated as a complex number with an imaginary part of 0. Google Sheets calls this argument `number`. |
+
+### Return Value
+
+The hyperbolic sine as a complex number in `x+yi` text form. Microsoft documents `#NUM!` when the input is not in `x+yi` or `x+yj` text form and `#VALUE!` when the input is a logical value.
+
+## Examples
+
+### Example 1: Complex Input as Text
+
+```excel
+=IMSINH("1+1i")
+```
+
+**Result:** `0.6350+1.2985i` (rounded to four decimal places)
+
+The function evaluates the hyperbolic sine at the complex value 1 plus 1i.
+
+### Example 2: Input From Two Cells
+
+Cell `A2` holds the real part (2) and cell `B2` holds the imaginary part (-1).
+
+```excel
+=IMSINH(COMPLEX(A2, B2))
+```
+
+**Result:** `1.9596-3.1658i` (rounded to four decimal places)
+
+COMPLEX builds the value 2-1i from the two cells before IMSINH runs.
+
+<!-- Image 2: Imaginary Part of a Result. See Images/Engineering/IMSINH.md -->
+
+### Example 3: Real Input of Zero
+
+```excel
+=IMSINH(0)
+```
+
+**Result:** `0`
+
+The hyperbolic sine of zero is zero.
+
+### Example 4: Guarded Input
+
+```excel
+=IFERROR(IMSINH(A2), "Not complex")
+```
+
+**Result:** `Not complex` when `A2` holds text that is not in `x+yi` form, such as `abc`.
+
+## Story Problems
+
+### Problem 1: Ramp Response Point
+
+A ramp response is sampled at a complex point stored as text in cell `B2`.
+
+| Point | Value |
+| --- | --- |
+| Ramp | 1+1i |
+
+**Task:** Find the hyperbolic sine of the ramp point in `B2`.
+
+**Solution:**
+
+```excel
+=IMSINH(B2)
+```
+
+**Answer:** `0.6350+1.2985i` (rounded to four decimal places).
+
+### Problem 2: Imaginary Readout
+
+A report needs only the imaginary part of the hyperbolic sine at a second point, `2-1i`, which is stored in cell `B3`.
+
+| Point | Value |
+| --- | --- |
+| Second | 2-1i |
+
+**Task:** Find the imaginary part of the hyperbolic sine of the second point.
+
+**Solution:**
+
+```excel
+=IMAGINARY(IMSINH(B3))
+```
+
+**Answer:** `-3.1658` (rounded to four decimal places), which is the imaginary coefficient of 1.9596-3.1658i.
 
 ## Use Cases
 
-### [[Mathematical Calculations]]
-- **Implementation**: Perform precise mathematical computations for engineering, scientific, and financial applications
-- **Business Application**: Support complex calculations in modeling, analysis, and quantitative decision-making processes
-- **Technical Details**: Ensure numerical accuracy, handle edge cases, and implement proper rounding and precision controls
+### Hyperbolic Transmission Profiles
 
-### [[Engineering Analysis]]
-- **Implementation**: Apply mathematical functions for engineering calculations, measurements, and technical analysis
-- **Business Application**: Support product design, manufacturing processes, and quality engineering initiatives
-- **Technical Details**: Consider measurement precision, unit conversions, and mathematical model validation
+**Scenario:** An engineer evaluates the hyperbolic sine at a list of complex points along a line and keeps each result beside its point.
 
-### [[Data Transformation]]
-- **Implementation**: Transform and normalize data using mathematical operations for analysis and reporting
-- **Business Application**: Prepare data for analysis, create derived metrics, and standardize measurements
-- **Technical Details**: Implement data validation, handle boundary conditions, and ensure calculation consistency
-
-## Related
-
-### Similar Functions
-
-- [[IF]] - Related engineering function for analytical calculations
-- [[IFERROR]] - Related engineering function for analytical calculations
-
-### Commonly Used With Functions
-
-**[[IF]]** - Conditional logic for implementing business rules and decision-making criteria
-
-*Use IF with IMSINH for conditional logic and decision making:*
-```spreadsheets
-=IF(IMSINH(A1:A10)>threshold_value,"Condition Met","Condition Not Met")
+```excel
+=IMSINH(B2)
 ```
-This formula applies IMSINH to a range and compares the result to a threshold, returning different text based on the condition
 
-**[[SUM]]** - Aggregate values for total calculations
+**Why It Works:** Fill the formula down the column. Each point is calculated on its own, so one invalid point shows an error only in its row.
 
-*Use SUM with IMSINH for aggregate calculations across multiple results:*
-```spreadsheets
-=SUM(IMSINH(A1:A5),IMSINH(B1:B5),IMSINH(C1:C5))
+### Complex Ramp Response Checks
+
+**Scenario:** A team imports ramp points from a file. Some entries are text that is not a complex number, and the report must still run.
+
+```excel
+=IFERROR(IMSINH(B2), "Check value")
 ```
-This formula calculates IMSINH for multiple ranges and sums the results together
 
-**[[AVERAGE]]** - Calculate arithmetic mean for central tendency analysis
+**Why It Works:** IFERROR flags the bad rows and keeps the valid results readable.
 
-*Use AVERAGE with IMSINH for enhanced analytical workflows:*
-```spreadsheets
-=AVERAGE(IMSINH(A1:A10))
-```
-This formula combines AVERAGE and IMSINH for comprehensive data analysis
+## Common Errors
+
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#NUM!` | The input is not in `x+yi` or `x+yj` form. | Rewrite the value as text such as `"1+1i"` or build it with COMPLEX. |
+| `#VALUE!` | The input is a logical value such as TRUE. | Pass a number or a complex text value instead. |
+| Text instead of a number | The result is complex text, so it cannot be used directly in arithmetic. | Use IMREAL or IMAGINARY to extract the part you need. |
+
+## Platform Differences
+
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Excel 2016 and later, Microsoft 365, and Excel for the web | Returns complex text in `x+yi` form. The input argument is named `inumber`. |
+| Google Sheets | Available | Returns a complex value. The input argument is named `number`. |
+
+## Tips and Best Practices
+
+- Use SINH for real inputs, since it returns a plain number.
+- Use IMAGINARY or IMREAL to read one part of the result without parsing the text.
+- Build complex inputs with COMPLEX from numeric cells rather than joining text.
+- Wrap imported data in IFERROR so one invalid value does not stop the column.
+
+## Related Functions
+
+| Function | Relationship |
+| --- | --- |
+| [COMPLEX](COMPLEX.md) | Builds the complex input from real and imaginary coefficients. |
+| [IMCOSH](IMCOSH.md) | Hyperbolic cosine of a complex number, the companion function. |
+| [IMSIN](IMSIN.md) | Ordinary sine of a complex number. |
+| [IMSECH](IMSECH.md) | Hyperbolic secant of a complex number. |
+| [SINH](../Math%20%26%20Trig/SINH.md) | Hyperbolic sine of a real number. |
+
+## Official Documentation
+
+- [Microsoft Support: IMSINH function](https://support.microsoft.com/en-us/excel/functions/imsinh-function)
+- [Google Docs Editors Help: IMSINH](https://support.google.com/docs/answer/9366445)

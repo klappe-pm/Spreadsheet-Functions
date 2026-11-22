@@ -1,3 +1,68 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Financial
+purpose:
+  - Function Relationships
+use-case:
+  - Calculating Depreciation
+  - Valuing Investments
+  - Estimating Loan Payments
+related:
+  - AMORDEGRC
+  - AMORLINC
+  - AVERAGE
+  - COUPDAYS
+  - COUPDAYSNC
+  - COUPNUM
+  - CUMIPMT
+  - DISC
+  - DOLLARDE
+  - DOLLARFR
+  - EFFECT
+  - EUROCONVERT
+  - FV
+  - FVSCHEDULE
+  - IF
+  - IFERROR
+  - IPMT
+  - IRR
+  - MDURATION
+  - MIRR
+  - NOMINAL
+  - NPER
+  - NPV
+  - ODDLYIELD
+  - PMT
+  - PPMT
+  - PRICE
+  - PRICEMAT
+  - PV
+  - RATE
+  - RECEIVED
+  - SLN
+  - SUM
+  - SYD
+  - TBILLPRICE
+  - TBILLYIELD
+  - VDB
+  - XNPV
+  - YIELD
+  - YIELDMAT
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - depreciation
+  - financial
+  - investments
+---
+
 # Financial Functions Relationship Diagram
 
 This diagram shows the relationships between functions in the Financial category and their connections to commonly used functions.
@@ -5,60 +70,62 @@ This diagram shows the relationships between functions in the Financial category
 ```mermaid
 graph TD
     classDef Financial fill:#54A0FF,stroke:#333,stroke-width:2px,color:#000
-    EUROCONVERT["EUROCONVERT<br/>EUROCONVERT calculates financial metrics including payments,..."]
-    TBILLYIELD["TBILLYIELD<br/>TBILLYIELD calculates financial metrics including payments, ..."]
-    COUPNUM["COUPNUM<br/>COUPNUM calculates financial metrics including payments, ret..."]
-    CUMIPMT["CUMIPMT<br/>CUMIPMT calculates financial metrics including payments, ret..."]
-    PRICEMAT["PRICEMAT<br/>PRICEMAT calculates financial metrics including payments, re..."]
-    MIRR["MIRR<br/>MIRR calculates financial metrics including payments, return..."]
-    DOLLARFR["DOLLARFR<br/>DOLLARFR calculates financial metrics including payments, re..."]
-    PV["PV<br/>PV calculates the present value of an investment based on co..."]
-    FV["FV<br/>FV calculates financial metrics including payments, returns,..."]
-    PPMT["PPMT<br/>PPMT calculates financial metrics including payments, return..."]
-    MDURATION["MDURATION<br/>MDURATION calculates financial metrics including payments, r..."]
-    DISC["DISC<br/>DISC calculates financial metrics including payments, return..."]
-    SYD["SYD<br/>SYD calculates financial metrics including payments, returns..."]
-    IPMT["IPMT<br/>IPMT calculates financial metrics including payments, return..."]
-    COUPDAYS["COUPDAYS<br/>COUPDAYS calculates financial metrics including payments, re..."]
-    TBILLPRICE["TBILLPRICE<br/>TBILLPRICE calculates financial metrics including payments, ..."]
-    COUPDAYSNC["COUPDAYSNC<br/>COUPDAYSNC calculates financial metrics including payments, ..."]
-    NPV["NPV<br/>NPV calculates financial metrics including payments, returns..."]
-    FVSCHEDULE["FVSCHEDULE<br/>FVSCHEDULE calculates financial metrics including payments, ..."]
-    EFFECT["EFFECT<br/>EFFECT calculates financial metrics including payments, retu..."]
-    PMT["PMT<br/>PMT calculates the payment for a loan based on constant paym..."]
-    NPER["NPER<br/>NPER calculates financial metrics including payments, return..."]
-    AMORDEGRC["AMORDEGRC<br/>AMORDEGRC calculates financial metrics including payments, r..."]
-    AMORLINC["AMORLINC<br/>AMORLINC calculates financial metrics including payments, re..."]
-    NOMINAL["NOMINAL<br/>NOMINAL calculates financial metrics including payments, ret..."]
-    PRICE["PRICE<br/>PRICE calculates financial metrics including payments, retur..."]
-    YIELDMAT["YIELDMAT<br/>YIELDMAT calculates financial metrics including payments, re..."]
-    IRR["IRR<br/>IRR calculates financial metrics including payments, returns..."]
-    SLN["SLN<br/>SLN calculates financial metrics including payments, returns..."]
-    DOLLARDE["DOLLARDE<br/>DOLLARDE calculates financial metrics including payments, re..."]
-    YIELD["YIELD<br/>YIELD calculates financial metrics including payments, retur..."]
-    VDB["VDB<br/>VDB calculates financial metrics including payments, returns..."]
-    ODDLYIELD["ODDLYIELD<br/>ODDLYIELD calculates financial metrics including payments, r..."]
-    RECEIVED["RECEIVED<br/>RECEIVED calculates financial metrics including payments, re..."]
-    XNPV["XNPV<br/>XNPV calculates financial metrics including payments, return..."]
-    ODDLPRICE["ODDLPRICE<br/>ODDLPRICE calculates financial metrics including payments, r..."]
-    CUMPRINC["CUMPRINC<br/>CUMPRINC calculates financial metrics including payments, re..."]
-    COUPNCD["COUPNCD<br/>COUPNCD calculates financial metrics including payments, ret..."]
-    DB["DB<br/>DB calculates financial metrics including payments, returns,..."]
-    TBILLEQ["TBILLEQ<br/>TBILLEQ calculates financial metrics including payments, ret..."]
-    ODDFYIELD["ODDFYIELD<br/>ODDFYIELD calculates financial metrics including payments, r..."]
-    YIELDDISC["YIELDDISC<br/>YIELDDISC calculates financial metrics including payments, r..."]
-    ISPMT["ISPMT<br/>ISPMT calculates financial metrics including payments, retur..."]
-    PRICEDISC["PRICEDISC<br/>PRICEDISC calculates financial metrics including payments, r..."]
-    COUPPCD["COUPPCD<br/>COUPPCD calculates financial metrics including payments, ret..."]
-    INTRATE["INTRATE<br/>INTRATE calculates financial metrics including payments, ret..."]
-    ACCRINT["ACCRINT<br/>ACCRINT calculates financial metrics including payments, ret..."]
-    ACCRINTM["ACCRINTM<br/>ACCRINTM calculates financial metrics including payments, re..."]
-    DDB["DDB<br/>DDB calculates financial metrics including payments, returns..."]
-    COUPDAYBS["COUPDAYBS<br/>COUPDAYBS calculates financial metrics including payments, r..."]
-    RATE["RATE<br/>RATE calculates financial metrics including payments, return..."]
-    DURATION["DURATION<br/>DURATION calculates financial metrics including payments, re..."]
-    ODDFPRICE["ODDFPRICE<br/>ODDFPRICE calculates financial metrics including payments, r..."]
-    XIRR["XIRR<br/>XIRR calculates financial metrics including payments, return..."]
+    EUROCONVERT["EUROCONVERT<br/>Converts euro currencies (Add-in and Automation category)"]
+    TBILLYIELD["TBILLYIELD<br/>Returns the yield of a Treasury bill"]
+    COUPNUM["COUPNUM<br/>Returns the number of coupons between settlement and maturity"]
+    CUMIPMT["CUMIPMT<br/>Returns cumulative interest paid between two periods"]
+    PRICEMAT["PRICEMAT<br/>Returns the price per $100 face value at maturity"]
+    MIRR["MIRR<br/>Returns the modified internal rate of return"]
+    DOLLARFR["DOLLARFR<br/>Converts a decimal dollar price to a fractional price"]
+    PV["PV<br/>Returns the present value of an investment"]
+    FV["FV<br/>Returns the future value of an investment"]
+    PPMT["PPMT<br/>Returns the principal payment for an investment in a period"]
+    MDURATION["MDURATION<br/>Returns the modified Macaulay duration of a security"]
+    DISC["DISC<br/>Returns the discount rate for a security"]
+    SYD["SYD<br/>Returns sum-of-years digits depreciation for a period"]
+    IPMT["IPMT<br/>Returns the interest payment for an investment in a period"]
+    COUPDAYS["COUPDAYS<br/>Returns days in the coupon period that contains settlement"]
+    TBILLPRICE["TBILLPRICE<br/>Returns the price per $100 face value of a Treasury bill"]
+    COUPDAYSNC["COUPDAYSNC<br/>Returns days from settlement to the next coupon date"]
+    NPV["NPV<br/>Returns the net present value of periodic cash flows"]
+    FVSCHEDULE["FVSCHEDULE<br/>Returns future value after a series of interest rates"]
+    EFFECT["EFFECT<br/>Returns the effective annual interest rate"]
+    PMT["PMT<br/>Returns the periodic payment for a loan or annuity"]
+    NPER["NPER<br/>Returns the number of periods for an investment or loan"]
+    AMORDEGRC["AMORDEGRC<br/>Returns depreciation per period using a depreciation coefficient"]
+    AMORLINC["AMORLINC<br/>Returns depreciation for each accounting period"]
+    NOMINAL["NOMINAL<br/>Returns the annual nominal interest rate"]
+    PRICE["PRICE<br/>Returns the price per $100 face value of a periodic security"]
+    YIELDMAT["YIELDMAT<br/>Returns the annual yield of a security paid at maturity"]
+    IRR["IRR<br/>Returns the internal rate of return for periodic cash flows"]
+    SLN["SLN<br/>Returns straight-line depreciation of an asset for one period"]
+    DOLLARDE["DOLLARDE<br/>Converts a fractional dollar price to a decimal price"]
+    YIELD["YIELD<br/>Returns the yield of a security that pays periodic interest"]
+    VDB["VDB<br/>Returns depreciation for a specified or partial period"]
+    ODDLYIELD["ODDLYIELD<br/>Returns the yield of a security with an odd last period"]
+    RECEIVED["RECEIVED<br/>Returns the amount received at maturity for a security"]
+    XNPV["XNPV<br/>Returns the net present value for irregular cash flows"]
+    ODDLPRICE["ODDLPRICE<br/>Returns the price per $100 face value with an odd last period"]
+    CUMPRINC["CUMPRINC<br/>Returns cumulative principal paid between two periods"]
+    COUPNCD["COUPNCD<br/>Returns the next coupon date after settlement"]
+    DB["DB<br/>Returns depreciation for a period using fixed-declining balance"]
+    TBILLEQ["TBILLEQ<br/>Returns the bond-equivalent yield for a Treasury bill"]
+    ODDFYIELD["ODDFYIELD<br/>Returns the yield of a security with an odd first period"]
+    YIELDDISC["YIELDDISC<br/>Returns the annual yield of a discounted security"]
+    ISPMT["ISPMT<br/>Returns interest paid during a specific period of a loan"]
+    PRICEDISC["PRICEDISC<br/>Returns the price per $100 face value of a discounted security"]
+    COUPPCD["COUPPCD<br/>Returns the previous coupon date before settlement"]
+    INTRATE["INTRATE<br/>Returns the interest rate for a fully invested security"]
+    ACCRINT["ACCRINT<br/>Returns accrued interest for a security with periodic interest"]
+    ACCRINTM["ACCRINTM<br/>Returns accrued interest for a security paid at maturity"]
+    DDB["DDB<br/>Returns depreciation using the double-declining balance method"]
+    COUPDAYBS["COUPDAYBS<br/>Returns days from the coupon period start to settlement"]
+    RATE["RATE<br/>Returns the interest rate per period of an annuity"]
+    DURATION["DURATION<br/>Returns the annual duration of a security with periodic interest"]
+    ODDFPRICE["ODDFPRICE<br/>Returns the price per $100 face value with an odd first period"]
+    XIRR["XIRR<br/>Returns the internal rate of return for irregular cash flows"]
+    PDURATION["PDURATION<br/>Returns the periods needed for an investment to reach a value"]
+    RRI["RRI<br/>Returns an equivalent interest rate for investment growth"]
     IF["IF<br/>External Function"]
     EUROCONVERT --> IF
     class IF external
@@ -68,10 +135,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     EUROCONVERT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     EUROCONVERT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     EUROCONVERT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -83,10 +150,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     TBILLYIELD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     TBILLYIELD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     TBILLYIELD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -98,10 +165,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     COUPNUM --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     COUPNUM -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     COUPNUM -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -113,10 +180,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     CUMIPMT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     CUMIPMT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     CUMIPMT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -128,10 +195,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     PRICEMAT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     PRICEMAT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     PRICEMAT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -143,10 +210,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     MIRR --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     MIRR -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     MIRR -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -158,10 +225,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     DOLLARFR --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     DOLLARFR -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     DOLLARFR -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -180,10 +247,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     FV --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     FV -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     FV -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -195,10 +262,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     PPMT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     PPMT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     PPMT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -210,10 +277,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     MDURATION --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     MDURATION -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     MDURATION -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -225,10 +292,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     DISC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     DISC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     DISC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -240,10 +307,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     SYD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     SYD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     SYD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -255,10 +322,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     IPMT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     IPMT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     IPMT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -270,10 +337,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     COUPDAYS --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     COUPDAYS -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     COUPDAYS -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -285,10 +352,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     TBILLPRICE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     TBILLPRICE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     TBILLPRICE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -300,10 +367,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     COUPDAYSNC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     COUPDAYSNC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     COUPDAYSNC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -315,10 +382,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     NPV --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     NPV -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     NPV -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -330,10 +397,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     FVSCHEDULE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     FVSCHEDULE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     FVSCHEDULE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -345,10 +412,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     EFFECT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     EFFECT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     EFFECT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -367,10 +434,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     NPER --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     NPER -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     NPER -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -382,10 +449,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     AMORDEGRC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     AMORDEGRC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     AMORDEGRC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -397,10 +464,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     AMORLINC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     AMORLINC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     AMORLINC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -412,10 +479,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     NOMINAL --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     NOMINAL -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     NOMINAL -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -427,10 +494,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     PRICE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     PRICE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     PRICE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -442,10 +509,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     YIELDMAT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     YIELDMAT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     YIELDMAT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -457,10 +524,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     IRR --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     IRR -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     IRR -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -472,10 +539,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     SLN --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     SLN -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     SLN -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -487,10 +554,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     DOLLARDE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     DOLLARDE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     DOLLARDE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -502,10 +569,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     YIELD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     YIELD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     YIELD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -517,10 +584,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     VDB --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     VDB -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     VDB -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -532,10 +599,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ODDLYIELD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ODDLYIELD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ODDLYIELD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -547,10 +614,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     RECEIVED --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     RECEIVED -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     RECEIVED -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -562,10 +629,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     XNPV --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     XNPV -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     XNPV -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -577,10 +644,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ODDLPRICE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ODDLPRICE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ODDLPRICE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -592,10 +659,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     CUMPRINC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     CUMPRINC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     CUMPRINC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -607,10 +674,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     COUPNCD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     COUPNCD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     COUPNCD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -622,10 +689,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     DB --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     DB -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     DB -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -637,10 +704,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     TBILLEQ --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     TBILLEQ -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     TBILLEQ -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -652,10 +719,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ODDFYIELD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ODDFYIELD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ODDFYIELD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -667,10 +734,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     YIELDDISC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     YIELDDISC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     YIELDDISC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -682,10 +749,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ISPMT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ISPMT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ISPMT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -697,10 +764,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     PRICEDISC --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     PRICEDISC -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     PRICEDISC -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -712,10 +779,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     COUPPCD --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     COUPPCD -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     COUPPCD -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -727,10 +794,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     INTRATE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     INTRATE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     INTRATE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -742,10 +809,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ACCRINT --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ACCRINT -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ACCRINT -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -757,10 +824,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ACCRINTM --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ACCRINTM -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ACCRINTM -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -772,10 +839,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     DDB --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     DDB -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     DDB -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -787,10 +854,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     COUPDAYBS --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     COUPDAYBS -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     COUPDAYBS -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -802,10 +869,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     RATE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     RATE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     RATE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -817,10 +884,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     DURATION --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     DURATION -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     DURATION -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -832,10 +899,10 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     ODDFPRICE --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     ODDFPRICE -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     ODDFPRICE -.-> IFERROR
     class IFERROR external
     IF["IF<br/>External Function"]
@@ -847,13 +914,43 @@ graph TD
     AVERAGE["AVERAGE<br/>External Function"]
     XIRR --> AVERAGE
     class AVERAGE external
-    IF["IF<br/>Related Function"]
+    IF["IF<br/>External Function"]
     XIRR -.-> IF
     class IF external
-    IFERROR["IFERROR<br/>Related Function"]
+    IFERROR["IFERROR<br/>External Function"]
     XIRR -.-> IFERROR
     class IFERROR external
-    class EUROCONVERT Financial
+    class EUROCONVERT external
+    IF["IF<br/>External Function"]
+    PDURATION --> IF
+    class IF external
+    SUM["SUM<br/>External Function"]
+    PDURATION --> SUM
+    class SUM external
+    AVERAGE["AVERAGE<br/>External Function"]
+    PDURATION --> AVERAGE
+    class AVERAGE external
+    IF["IF<br/>External Function"]
+    PDURATION -.-> IF
+    class IF external
+    IFERROR["IFERROR<br/>External Function"]
+    PDURATION -.-> IFERROR
+    class IFERROR external
+    IF["IF<br/>External Function"]
+    RRI --> IF
+    class IF external
+    SUM["SUM<br/>External Function"]
+    RRI --> SUM
+    class SUM external
+    AVERAGE["AVERAGE<br/>External Function"]
+    RRI --> AVERAGE
+    class AVERAGE external
+    IF["IF<br/>External Function"]
+    RRI -.-> IF
+    class IF external
+    IFERROR["IFERROR<br/>External Function"]
+    RRI -.-> IFERROR
+    class IFERROR external
     class TBILLYIELD Financial
     class COUPNUM Financial
     class CUMIPMT Financial
@@ -907,14 +1004,16 @@ graph TD
     class DURATION Financial
     class ODDFPRICE Financial
     class XIRR Financial
+    class PDURATION Financial
+    class RRI Financial
     classDef external fill:#f9f9f9,stroke:#666,stroke-width:1px,stroke-dasharray: 5 5
 ```
 
 
 ## Legend
 - **Solid arrows (→)**: "Commonly used with" relationships
-- **Dashed arrows (-.->)**: "Similar functions" relationships  
+- **Dashed arrows (`-.->`)**: "Similar functions" relationships
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 
-## Functions in this category: 54
+## Functions in This Category: 55

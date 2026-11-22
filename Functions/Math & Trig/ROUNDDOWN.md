@@ -1,400 +1,238 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- math-trig
-subTopics:
-- rounding
-- precision
-- truncation
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Math & Trig
+subcategory: Rounding
+purpose:
+  - Number Formatting
+  - Rounding
+use-case:
+  - Complete Hours Worked
+  - Conservative Revenue Reporting
+  - Full Containers Filled
+related:
+  - FLOOR
+  - INT
+  - MOD
+  - ROUND
+  - ROUNDUP
+  - TRUNC
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/functions/rounddown-function
+  - https://support.google.com/docs/answer/3093442
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Round Down
-- Round Toward Zero
-- Truncate Decimal
+  - Round Down
+  - Round Toward Zero
+  - Truncate Decimal
 tags:
-- rounding
-- precision
-- truncation
-- floor
-- conservative
+  - excel
+  - precision
+  - rounding
+  - sheets
+  - truncation
 ---
 
 # ROUNDDOWN
 
 ## Description
 
-**ROUNDDOWN** rounds a number toward zero to a specified number of decimal places. Unlike standard ROUND which follows mathematical rounding rules, ROUNDDOWN always moves toward zero regardless of the digits being dropped. Positive numbers get smaller; negative numbers get closer to zero (less negative). If you ROUNDDOWN 2.999 to an integer, you get 2, not 3.
+**ROUNDDOWN** rounds a number toward zero to a set number of decimal places. Unlike ROUND, which moves to the nearest value, ROUNDDOWN drops the extra digits and always moves the result toward zero, whatever the digit being dropped. A positive number gets smaller, and a negative number gets closer to zero. For example, ROUNDDOWN(2.9, 0) returns 2, not 3.
 
-This function is essential for **"already completed" calculations**. When determining how many complete hours have passed, how many full units have been produced, or how much has been fully earned, ROUNDDOWN tells you what's definitively done without counting partial progress. It's the opposite of ROUNDUP's optimistic "better safe than sorry" approach.
+Use ROUNDDOWN when only complete amounts should count, such as whole hours worked, full boxes packed, or revenue that has reached a reporting threshold. It keeps a partial unit from being counted before it is finished.
 
-Like its siblings ROUND and ROUNDUP, the `num_digits` parameter accepts negative values for rounding to powers of 10. `=ROUNDDOWN(1999, -3)` returns 1000—rounding down to the nearest thousand. For negative numbers, ROUNDDOWN moves toward zero: `=ROUNDDOWN(-2.9, 0)` returns -2, not -3. The direction is always toward zero.
+The num_digits argument also accepts negative values to round to tens, hundreds, or thousands. ROUNDDOWN is not the same as INT. INT rounds toward negative infinity, so INT(-2.9) returns -3, while ROUNDDOWN(-2.9, 0) returns -2.
 
-**ROUNDDOWN vs TRUNC vs INT:** These three functions seem similar but differ importantly. ROUNDDOWN takes a precision parameter and works on any decimal position. TRUNC also rounds toward zero but traditionally takes no precision parameter (though Excel allows one). INT rounds toward negative infinity—for negative numbers, INT(-2.3) = -3 while ROUNDDOWN(-2.3, 0) = -2. For positive numbers, all three behave identically when rounding to integers.
+Microsoft Excel and Google Sheets calculate ROUNDDOWN the same way. The Excel documentation lists both arguments as required, while Google Sheets makes the second argument, named places, optional with a default of 0.
 
 ## Syntax
 
-> [!f(x)] ROUNDDOWN Syntax
->
-> ```
-> =ROUNDDOWN(number, num_digits)
-> ```
+```excel
+=ROUNDDOWN(number, num_digits)
+```
+
+<!-- Image 1: Rounding Argument Anatomy. See Images/Math & Trig/ROUNDDOWN.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `number` | Yes | The numeric value to round down. Can be positive or negative. For positive numbers, ROUNDDOWN decreases the value toward zero; for negative numbers, ROUNDDOWN increases the value toward zero (makes it less negative). |
-| `num_digits` | Yes | The number of digits to round to. Positive values specify decimal places (2 = hundredths). Zero rounds to integer toward zero. Negative values round to powers of 10—use -1 for tens, -2 for hundreds, -3 for thousands, always toward zero. |
+| --- | --- | --- |
+| `number` | Yes | The numeric value to round down. Positive values get smaller, and negative values move closer to zero. |
+| `num_digits` | Yes | The digit position to round to. Positive values set decimal places (2 means hundredths), 0 rounds to a whole number, and negative values round to tens (-1), hundreds (-2), thousands (-3), and so on. |
 
 ### Return Value
 
-Returns a numeric value rounded toward zero to the specified precision. For positive numbers, the result is always less than or equal to the input. For negative numbers, the result is always greater than or equal to the input (less negative). Returns 0 if the input is 0.
+Returns a number rounded toward zero to the requested digit position. For a positive input the result is less than or equal to the input. For a negative input the result is greater than or equal to the input. The function returns #VALUE! when an argument is text that cannot be read as a number.
 
 ## Examples
 
-> [!f(x)] ROUNDDOWN Examples
+### Example 1: Round Down to a Whole Number
 
-### Example 1: Basic Round Down to Integer
-```
+```excel
 =ROUNDDOWN(2.9, 0)
 ```
+
 **Result:** 2
 
-**Explanation:** Even though 2.9 is closer to 3, ROUNDDOWN always goes toward zero. The decimal portion is discarded. This returns what's "fully completed" without partial credit.
+The value 2.9 is closer to 3, but ROUNDDOWN always moves toward zero. The decimal part is discarded, which returns only the amount that is fully complete.
 
----
+### Example 2: Round Down to Two Decimal Places
 
-### Example 2: Round Down Small Fraction
-```
-=ROUNDDOWN(2.1, 0)
-```
-**Result:** 2
-
-**Explanation:** 2.1 would round down with standard ROUND too, but ROUNDDOWN guarantees it. There's never any "rounding up" regardless of the fractional part.
-
----
-
-### Example 3: Round Down to Two Decimal Places
-```
+```excel
 =ROUNDDOWN(3.14959, 2)
 ```
+
 **Result:** 3.14
 
-**Explanation:** The value is truncated at the second decimal place. 3.14959 becomes 3.14—the 959 portion is simply dropped, not considered for rounding.
+The digits after the second decimal place are dropped without being considered for rounding. The third decimal place does not push the result up.
 
----
+<!-- Image 2: Rounding Direction Comparison. See Images/Math & Trig/ROUNDDOWN.md -->
 
-### Example 4: Round Down Negative Numbers
-```
+### Example 3: Negative Numbers Move Toward Zero
+
+```excel
 =ROUNDDOWN(-2.9, 0)
 ```
+
 **Result:** -2
 
-**Explanation:** For negative numbers, "toward zero" means less negative. -2.9 becomes -2, not -3. This is the key difference from INT, which would give -3.
+For negative numbers, toward zero means less negative. The result is -2, not -3. This is the main difference between ROUNDDOWN and INT.
 
----
+### Example 4: Round Down to the Nearest Hundred
 
-### Example 5: Round Down to Nearest Ten
-```
-=ROUNDDOWN(1999, -1)
-```
-**Result:** 1990
-
-**Explanation:** With num_digits of -1, we round to tens toward zero. 1999 drops to 1990. The 9 in the ones place is discarded without rounding up.
-
----
-
-### Example 6: Round Down to Nearest Hundred
-```
-=ROUNDDOWN(1999, -2)
-```
-**Result:** 1900
-
-**Explanation:** Rounding to hundreds toward zero. 1999 becomes 1900. No matter how close to 2000, ROUNDDOWN stays at the lower hundred.
-
----
-
-### Example 7: Round Down to Nearest Thousand
-```
-=ROUNDDOWN(9999, -3)
-```
-**Result:** 9000
-
-**Explanation:** 9999 rounds down to 9000. The 999 portion is dropped entirely. This is aggressive truncation—useful for conservative reporting.
-
----
-
-### Example 8: Round Down Negative to Nearest Hundred
-```
+```excel
 =ROUNDDOWN(-1850, -2)
 ```
+
 **Result:** -1800
 
-**Explanation:** For negative numbers with negative num_digits, ROUNDDOWN still moves toward zero. -1850 becomes -1800 (less negative), not -1900.
+With num_digits set to -2, the value rounds to hundreds. The negative value moves toward zero, so -1850 becomes -1800 rather than -1900.
 
----
+### Example 5: Round Down a Percentage to One Decimal Place
 
-### Example 9: Complete Hours Calculation
+```excel
+=ROUNDDOWN(47.86, 1)
 ```
-=ROUNDDOWN(TotalMinutes/60, 0)
+
+**Result:** 47.8
+
+The second decimal (6) is dropped, and the first decimal stays at 8. The result is never rounded up, even though 47.86 is closer to 47.9.
+
+## Story Problems
+
+### Problem 1: Full Drums From Batch Volumes
+
+A small brewery bottles four batches of cider in a single week. Each full drum holds 250 liters, and the brewery ships only full drums. Each batch is counted on its own, so a batch that fills part of a drum does not contribute to the total.
+
+| Batch | Liters Bottled |
+| --- | --- |
+| B-101 | 1284.6 |
+| B-102 | 958.2 |
+| B-103 | 1103.95 |
+| B-104 | 77.09 |
+
+**Task:** Count the full 250-liter drums that can be filled from the four batches.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(ROUNDDOWN(B2:B5/250, 0))
 ```
-**Result:** Number of complete hours
 
-**Explanation:** If someone worked 179 minutes, that's 2 complete hours (with 59 minutes partial). `=ROUNDDOWN(179/60, 0)` = 2. Only count fully completed hours.
+**Answer:** `12`, because the batches fill 5, 3, 4, and 0 full drums (1284.6, 958.2, 1103.95, and 77.09 liters divided by 250). The last batch is too small for a full drum.
 
----
+### Problem 2: Quarterly Sales Statements
 
-### Example 10: Units Produced at Capacity
+A sales manager reports each rep's quarterly sales rounded down to the nearest 1,000 dollars, so that no figure is overstated. The totals are then added for the department statement.
+
+| Rep | Sales |
+| --- | --- |
+| Ana Ruiz | 4760 |
+| Ben Ortiz | 12340.5 |
+| Chen Li | 999.99 |
+| Dee Patel | 25000 |
+
+**Task:** Find the department total after each rep's sales is rounded down to the nearest 1,000.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(ROUNDDOWN(B2:B5, -3))
 ```
-=ROUNDDOWN(HoursWorked * UnitsPerHour, 0)
-```
-**Result:** Whole units completed
 
-**Explanation:** If capacity is 7.5 units/hour and they worked 3 hours, theoretical output is 22.5 units. ROUNDDOWN gives 22—you can't ship half a unit.
-
----
-
-### Example 11: Elapsed Full Days
-```
-=ROUNDDOWN((EndDate - StartDate), 0)
-```
-**Result:** Complete days elapsed
-
-**Explanation:** Date differences often include fractional days. ROUNDDOWN counts only fully completed days, not partial ones.
-
----
-
-### Example 12: Commission Tiers
-```
-=ROUNDDOWN(SalesAmount/1000, 0) * 1000
-```
-**Result:** Sales rounded down to commission tier
-
-**Explanation:** If commission tiers are per $1,000 and sales are $4,750, this returns $4,000—the completed tier for commission calculation.
-
----
-
-### Example 13: Age Calculation in Years
-```
-=ROUNDDOWN(YEARFRAC(BirthDate, TODAY()), 0)
-```
-**Result:** Age in complete years
-
-**Explanation:** YEARFRAC gives precise age as a decimal. ROUNDDOWN converts to the integer age we typically use. Someone 29.9 years old is "29 years old."
-
----
-
-### Example 14: Inventory Reorder Point
-```
-=ROUNDDOWN(SafetyStock + LeadTimeDemand, -1)
-```
-**Result:** Reorder point rounded down to nearest 10
-
-**Explanation:** Conservative inventory planning—round the reorder trigger down to avoid ordering too early. Balances against carrying costs.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Non-numeric input | Ensure both arguments are numbers. Check for text that looks like numbers or empty cells being calculated. |
-| `#NAME?` | Misspelled function name | Verify spelling: ROUNDDOWN (one word). Common mistake: ROUND_DOWN or ROUND DOWN. |
-| `Confusion with INT` | Different behavior for negative numbers | INT(-2.3) = -3 (toward negative infinity). ROUNDDOWN(-2.3, 0) = -2 (toward zero). Use the one that matches your need. |
-| `Unexpected truncation` | Used ROUNDDOWN when ROUND was intended | ROUNDDOWN 2.9 = 2, not 3. For standard mathematical rounding, use ROUND instead. |
-| `Missing decimals` | Expected more precision | ROUNDDOWN doesn't add precision—it only removes it. 5.0 rounded to 2 decimals is still 5, not 5.00. |
-| `Negative num_digits confusion` | Sign and direction mismatch | Negative num_digits rounds to powers of 10, still toward zero. -2 means hundreds place, not negative direction. |
+**Answer:** `41000`, because the rounded figures are 4,000, 12,000, 0, and 25,000. The 999.99 figure rounds down to 0 rather than 1,000.
 
 ## Use Cases
 
-### [[Completed Work Calculations]]
+### Complete Hours Worked
 
-**Scenario:** Determine how many whole units, hours, or tasks have been fully completed.
+**Scenario:** A consultant logs minutes for each client project, and the firm bills only whole hours in the first invoice pass.
 
-**Implementation:**
-```
-=ROUNDDOWN(TasksAttempted * CompletionRate, 0)
-=ROUNDDOWN(TotalSeconds/3600, 0)                → Complete hours
-=ROUNDDOWN(MilesRun/MarathonDistance, 0)        → Marathons completed
+```excel
+=ROUNDDOWN(B2/60, 0)
 ```
 
-**Business Application:** Productivity tracking, manufacturing output, service delivery metrics. Count only what's fully done, not work in progress.
+**Why It Works:** Dividing minutes by 60 gives a decimal number of hours. ROUNDDOWN keeps only the complete hours, so 179 minutes becomes 2 billable hours and the remaining 59 minutes wait for the next period.
 
-**Technical Details:** ROUNDDOWN prevents over-reporting. If 10.9 widgets are in various stages, only 10 are shippable. Partial credit can be tracked separately with MOD: `=MOD(Widgets, 1)` gives the fractional remainder.
+### Conservative Revenue Reporting
 
----
+**Scenario:** A finance team reports a forecast to the nearest thousand dollars without overstating the figure to the board.
 
-### [[Conservative Financial Reporting]]
-
-**Scenario:** Report figures rounded down to avoid overstating performance or assets.
-
-**Implementation:**
-```
-=ROUNDDOWN(RevenueEstimate, -3)                 → Revenue to nearest thousand (low)
-=ROUNDDOWN(AssetValue * DepreciationFactor, 2) → Conservative asset value
-=ROUNDDOWN(ProjectedSavings, -2)                → Savings to nearest hundred
+```excel
+=ROUNDDOWN(B2, -3)
 ```
 
-**Business Application:** Financial reporting, audit preparation, investor communications. Conservative figures reduce risk of restatement.
+**Why It Works:** A negative num_digits value rounds to thousands. A forecast of 4,760,000 reports as 4,760,000, and a forecast of 4,759,999 reports as 4,759,000. Results stay at or below the original figure for positive values.
 
-**Technical Details:** Pair with ROUNDUP for range reporting: "Revenue between $4,500,000 and $4,600,000" using ROUNDDOWN and ROUNDUP on the same estimate.
+### Full Containers Filled
 
----
+**Scenario:** A distributor has 1,750 cartons to load, and each pallet holds 48 cartons. Only complete pallets can leave the warehouse.
 
-### [[Quantity and Packaging Calculations]]
-
-**Scenario:** Calculate how many complete packages, containers, or units can be fulfilled.
-
-**Implementation:**
-```
-=ROUNDDOWN(AvailableInventory/PackSize, 0)      → Complete packs possible
-=ROUNDDOWN(BulkVolume/ContainerSize, 0)         → Full containers
-=ROUNDDOWN(TotalWeight/MaxTruckLoad, 0)         → Full truckloads
+```excel
+=ROUNDDOWN(B2/B3, 0)
 ```
 
-**Business Application:** Order fulfillment, shipping logistics, warehouse operations. You can only ship complete units.
+**Why It Works:** The division gives 36.46 pallets, and ROUNDDOWN returns 36 complete pallets. The remaining cartons can be counted with MOD, which returns 14 cartons.
 
-**Technical Details:** The remainder (partial pack) can be calculated as `=MOD(Inventory, PackSize)`. Combine for complete picture: "Can ship 5 full packs with 3 loose units remaining."
+## Common Errors
 
----
-
-### [[Time and Duration Calculations]]
-
-**Scenario:** Convert durations to whole time units without over-counting.
-
-**Implementation:**
-```
-=ROUNDDOWN(TotalMinutes/60, 0)                  → Complete hours
-=ROUNDDOWN((NOW()-StartTime)*24, 0)             → Hours elapsed
-=ROUNDDOWN(YEARFRAC(StartDate, EndDate)*12, 0)  → Complete months
-```
-
-**Business Application:** Time tracking, project duration reporting, milestone calculations. Report definitive completed time periods.
-
-**Technical Details:** For elapsed time calculations, be consistent about whether you're counting completed periods or current period. ROUNDDOWN gives completed; you might add 1 for "currently in Nth period."
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | An argument is text, not a number. | Convert the text with VALUE or correct the source cell. |
+| Unexpected total | ROUNDDOWN was used where nearest-value rounding was intended. | Use ROUND when the result should go to the nearest value. |
+| Different result from INT | Negative numbers round in different directions. | Use INT when negative values should move away from zero. |
+| Missing trailing zeros | ROUNDDOWN removes digits but does not add them. | Apply a number format such as 0.00 to display two decimals. |
+| Wrong rounding digit | The sign of num_digits was misread. | Positive values count decimals, and -2 means hundreds. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions since Excel 2000
-- **Behavior:** Always rounds toward zero for both positive and negative numbers
-- **Negative num_digits:** Fully supported for rounding to tens, hundreds, thousands
-- **Precision:** 15 significant digits
-
-### Google Sheets
-- **Availability:** All versions
-- **Behavior:** Identical to Excel—rounds toward zero
-- **Negative num_digits:** Fully supported, same behavior as Excel
-- **Precision:** 15 significant digits
-
-### Both Platforms
-- Consistent toward-zero behavior regardless of number sign
-- Zero input returns zero
-- ROUNDDOWN(n, 0) equivalent to TRUNC(n) for integers
-- Different from INT for negative numbers
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Microsoft 365, Excel 2024, Excel 2021, Excel 2019, Excel 2016, and Excel for the web | Both arguments are required. Negative num_digits rounds to the left of the decimal point. |
+| Google Sheets | Available | The second argument is named places and is optional, defaulting to 0. Behavior matches Excel. |
 
 ## Tips and Best Practices
 
-1. **Use for "completed" counts:** ROUNDDOWN is perfect when you need to count finished units, not work in progress. If 3.7 widgets are done, only 3 are shippable.
-
-2. **Understand the INT difference:** For positive numbers, ROUNDDOWN and INT are identical. For negative: ROUNDDOWN(-2.7, 0) = -2, INT(-2.7) = -3. Choose based on whether you want toward-zero or toward-negative-infinity.
-
-3. **Combine with MOD for remainders:** `=ROUNDDOWN(A1/B1, 0)` gives quotient, `=MOD(A1, B1)` gives remainder. Together they provide complete division information.
-
-4. **Pair with ROUNDUP for ranges:** When estimating, give conservative low (ROUNDDOWN) and high (ROUNDUP) bounds: "Project cost: $45,000 to $50,000."
-
-5. **Use negative num_digits for magnitude rounding:** `=ROUNDDOWN(value, -3)` rounds to thousands toward zero—simpler than division approaches for summary reporting.
-
-6. **Watch for data type issues:** ROUNDDOWN on text-that-looks-like-numbers returns #VALUE!. Use VALUE() to convert text to numbers first.
-
-7. **Consider TRUNC as alternative:** For simple truncation to integer, TRUNC(n) is equivalent to ROUNDDOWN(n, 0) and may be more readable.
-
-8. **Test negative number scenarios:** If your data includes negatives, verify ROUNDDOWN gives the direction you expect. -$2.50 becoming -$2.00 might not be the conservative choice for expenses.
+- Use ROUNDDOWN for amounts that must be complete before they count, such as finished units or full hours.
+- Pair ROUNDDOWN with ROUNDUP to build a low and high range around the same estimate.
+- Use MOD to calculate the leftover amount after ROUNDDOWN, so the two results always add back to the original.
+- Use TRUNC(value) when no decimal places are needed. It returns the same result as ROUNDDOWN(value, 0) and is shorter to write.
+- Check negative values before relying on the result, because a deduction of -2.50 rounds to -2.00, which may not be the conservative choice.
+- Apply number formatting to show trailing zeros, since ROUNDDOWN does not add them.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[ROUND]] | Standard rounding (5+ rounds away from zero) | When you want normal mathematical rounding behavior |
-| [[ROUNDUP]] | Always rounds away from zero | When you need conservative "at least" estimates |
-| [[TRUNC]] | Truncates toward zero | Essentially identical for most uses, slightly simpler syntax |
-| [[INT]] | Rounds toward negative infinity | When negative numbers should round more negative, not toward zero |
-| [[FLOOR]] | Rounds down to nearest multiple | When rounding to specific intervals (0.25, 5, 100) |
-| [[FLOOR.MATH]] | Floor with direction control | When you need floor behavior with sign options |
-
-### Commonly Used Together
-
-**[[MOD]]** - Get the remainder after ROUNDDOWN
-
-*Complete division information:*
-```
-Quotient:  =ROUNDDOWN(A1/B1, 0)
-Remainder: =MOD(A1, B1)
-```
-Together they reconstruct the original: quotient * divisor + remainder = original.
-
----
-
-**[[ROUNDUP]]** - Create range estimates
-
-*Low and high bounds:*
-```
-Low:  =ROUNDDOWN(Estimate, -2)
-High: =ROUNDUP(Estimate, -2)
-```
-Provides conservative range for planning.
-
----
-
-**[[IF]]** - Conditional rounding direction
-
-*Round based on sign:*
-```
-=IF(A1>=0, ROUNDDOWN(A1, 0), ROUNDUP(A1, 0))
-```
-Custom rounding logic based on value.
-
----
-
-**[[QUOTIENT]]** - Alternative for integer division
-
-*When you only need whole number result:*
-```
-=QUOTIENT(A1, B1)        → Integer quotient
-=ROUNDDOWN(A1/B1, 0)     → Same result
-```
-QUOTIENT is more explicit about intent.
-
----
-
-**[[TRUNC]]** - Simpler truncation
-
-*When no precision parameter needed:*
-```
-=TRUNC(3.7)             → 3
-=ROUNDDOWN(3.7, 0)      → 3 (same result, more verbose)
-```
-TRUNC is cleaner when just removing decimals.
+| Function | Relationship |
+| --- | --- |
+| [FLOOR](FLOOR.md) | Rounds down to a multiple of a chosen significance, such as 0.25 or 5. |
+| [INT](INT.md) | Rounds down toward negative infinity. Matches ROUNDDOWN for positive numbers only. |
+| [MOD](MOD.md) | Returns the remainder left after a division, which is the partial unit ROUNDDOWN discards. |
+| [ROUND](ROUND.md) | Rounds to the nearest value instead of toward zero. |
+| [ROUNDUP](ROUNDUP.md) | Rounds away from zero, the opposite direction. |
+| [TRUNC](TRUNC.md) | Removes digits toward zero and is simpler when no precision is needed. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [ROUNDDOWN function](https://support.microsoft.com/en-us/office/rounddown-function-2ec94c73-241f-4b01-8c6f-17e6d7968f53)
-- **Google Sheets:** [ROUNDDOWN function](https://support.google.com/docs/answer/3093442)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 2000 | Original introduction |
-| Excel 2007+ | All subsequent | No functional changes |
-| Google Sheets | Original launch | Matches Excel behavior |
-| LibreOffice Calc | All versions | Compatible implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: ROUNDDOWN function](https://support.microsoft.com/en-us/excel/functions/rounddown-function)
+- [Google Docs Editors Help: ROUNDDOWN](https://support.google.com/docs/answer/3093442)

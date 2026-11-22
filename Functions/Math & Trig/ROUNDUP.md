@@ -1,398 +1,245 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- math-trig
-subTopics:
-- rounding
-- precision
-- ceiling
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Math & Trig
+subcategory: Rounding
+purpose:
+  - Number Formatting
+  - Rounding
+use-case:
+  - Billing in Time Blocks
+  - Packaging Quantities
+  - Staff Shift Planning
+related:
+  - CEILING
+  - CEILING.MATH
+  - ROUND
+  - ROUNDDOWN
+  - TRUNC
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/functions/roundup-function
+  - https://support.google.com/docs/answer/3093443
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Round Up
-- Round Away From Zero
-- Always Round Up
+  - Round Up
+  - Round Away From Zero
 tags:
-- rounding
-- precision
-- ceiling
-- conservative-estimates
-- resource-planning
+  - ceiling
+  - excel
+  - precision
+  - rounding
+  - sheets
 ---
 
 # ROUNDUP
 
 ## Description
 
-**ROUNDUP** rounds a number away from zero to a specified number of decimal places. Unlike standard ROUND which follows the "5 or greater rounds up" rule, ROUNDUP always rounds away from zero regardless of the digit being dropped. Positive numbers get larger; negative numbers become more negative. Even if you're rounding 2.001 to an integer, ROUNDUP returns 3, not 2.
+**ROUNDUP** rounds a number away from zero to a set number of decimal places. Unlike ROUND, which follows the rule that 5 or greater moves up, ROUNDUP always moves away from zero whatever the digit being dropped. A positive number gets larger, and a negative number gets more negative. For example, ROUNDUP(2.001, 0) returns 3, not 2.
 
-This function is essential for **conservative estimates and resource planning**. When calculating how many trucks you need to ship orders, you can't use half a truck—ROUNDUP ensures you always have enough capacity. When determining minimum staffing levels, required inventory, or safety margins, ROUNDUP prevents shortfalls by always erring on the side of more.
+Use ROUNDUP when a shortfall is worse than a surplus, such as ordering enough pallets, billing for any started time block, or planning enough staff. It makes sure a partial unit is counted as a whole one.
 
-Like ROUND, the `num_digits` parameter accepts negative values for rounding to the left of the decimal point. `=ROUNDUP(1234, -2)` returns 1300—rounding 1234 up to the nearest hundred. This works away from zero: `=ROUNDUP(-1234, -2)` returns -1300, not -1200. The direction is always away from zero, whether the number is positive or negative.
+The num_digits argument also accepts negative values to round to tens, hundreds, or thousands. ROUNDUP always rounds away from zero, so ROUNDUP(-1234, -2) returns -1300, not -1200.
 
-**ROUNDUP vs CEILING:** Both round up, but they differ in meaning and behavior. ROUNDUP rounds to a specified number of decimal places (or powers of 10 with negative values). CEILING rounds to a specified multiple. `=ROUNDUP(2.3, 0)` gives 3 (nearest integer away from zero). `=CEILING(2.3, 1)` also gives 3 (nearest multiple of 1 upward). For non-integer multiples, use CEILING: `=CEILING(2.3, 0.5)` rounds to 2.5. ROUNDUP is simpler when you're thinking in decimal places.
+ROUNDUP and CEILING both round upward, but they answer different questions. ROUNDUP rounds to a count of decimal places or powers of 10. CEILING rounds up to a multiple you choose, such as 0.5 or 15. Microsoft Excel and Google Sheets calculate ROUNDUP the same way.
 
 ## Syntax
 
-> [!f(x)] ROUNDUP Syntax
->
-> ```
-> =ROUNDUP(number, num_digits)
-> ```
+```excel
+=ROUNDUP(number, num_digits)
+```
+
+<!-- Image 1: Rounding Argument Anatomy. See Images/Math & Trig/ROUNDUP.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `number` | Yes | The numeric value to round up. Can be positive or negative. For positive numbers, ROUNDUP increases the value; for negative numbers, ROUNDUP makes the value more negative (further from zero). |
-| `num_digits` | Yes | The number of digits to round to. Positive values specify decimal places. Zero rounds to the nearest integer (away from zero). Negative values round to powers of 10—use -1 for tens, -2 for hundreds, -3 for thousands. |
+| --- | --- | --- |
+| `number` | Yes | The numeric value to round up. Positive values get larger, and negative values become more negative. |
+| `num_digits` | Yes | The digit position to round to. Positive values set decimal places, 0 rounds to a whole number, and negative values round to tens (-1), hundreds (-2), thousands (-3), and so on. |
 
 ### Return Value
 
-Returns a numeric value rounded away from zero to the specified precision. For positive numbers, the result is always greater than or equal to the input. For negative numbers, the result is always less than or equal to the input (more negative). Returns 0 if the number is 0.
+Returns a number rounded away from zero to the requested digit position. For a positive input the result is greater than or equal to the input. For a negative input the result is less than or equal to the input. Returns 0 when the input is 0. The function returns #VALUE! when an argument is text that cannot be read as a number.
 
 ## Examples
 
-> [!f(x)] ROUNDUP Examples
+### Example 1: Round Up to a Whole Number
 
-### Example 1: Basic Round Up to Integer
-```
+```excel
 =ROUNDUP(2.1, 0)
 ```
+
 **Result:** 3
 
-**Explanation:** Even though 2.1 would normally round to 2, ROUNDUP always goes away from zero. Any fractional part causes the number to round up. This is the fundamental ROUNDUP behavior.
+Any fraction above zero moves the result up to the next whole number. The 0.1 that remains after the decimal point is enough to change 2 into 3.
 
----
+### Example 2: Round Up a Negative Number
 
-### Example 2: Round Up with Larger Decimal
-```
-=ROUNDUP(2.9, 0)
-```
-**Result:** 3
-
-**Explanation:** 2.9 would round to 3 with standard ROUND anyway, and ROUNDUP gives the same result here. ROUNDUP and ROUND agree when rounding away from zero is the standard behavior.
-
----
-
-### Example 3: Round Up to Two Decimal Places
-```
-=ROUNDUP(3.14159, 2)
-```
-**Result:** 3.15
-
-**Explanation:** The third decimal (1) would normally round down with ROUND, but ROUNDUP forces it up. 3.14159 becomes 3.15. Useful when you need conservative estimates with decimal precision.
-
----
-
-### Example 4: Round Up Negative Numbers
-```
+```excel
 =ROUNDUP(-2.1, 0)
 ```
+
 **Result:** -3
 
-**Explanation:** For negative numbers, "away from zero" means more negative. -2.1 rounds to -3, not -2. This is mathematically consistent—ROUNDUP always increases the absolute value.
+For negative numbers, away from zero means more negative. The absolute value increases, so -2.1 becomes -3.
 
----
+<!-- Image 2: Rounding Direction Comparison. See Images/Math & Trig/ROUNDUP.md -->
 
-### Example 5: Round Up to Nearest Ten
+### Example 3: Round Up to Two Decimal Places
+
+```excel
+=ROUNDUP(3.14159, 2)
 ```
+
+**Result:** 3.15
+
+The third decimal digit (1) would be dropped by ROUND, but ROUNDUP forces the second decimal place up. The result is 3.15.
+
+### Example 4: Round Up to the Nearest Ten
+
+```excel
 =ROUNDUP(1234, -1)
 ```
+
 **Result:** 1240
 
-**Explanation:** With num_digits of -1, we round to tens. 1234 rounds up to 1240, not down to 1230. Even the small "4" in the ones place triggers rounding up.
+With num_digits set to -1, the value rounds to tens. Even the 4 in the ones place is enough to move the result up to 1240.
 
----
+### Example 5: Round Up a Negative Value to the Nearest Hundred
 
-### Example 6: Round Up to Nearest Hundred
-```
-=ROUNDUP(1201, -2)
-```
-**Result:** 1300
-
-**Explanation:** Any amount above 1200—even just 1201—rounds up to 1300. This is powerful for budgeting: if you need $1,201, budget for $1,300 when rounding to hundreds.
-
----
-
-### Example 7: Round Up to Nearest Thousand
-```
-=ROUNDUP(5001, -3)
-```
-**Result:** 6000
-
-**Explanation:** 5001 rounds up to 6000. ROUNDUP is aggressive—any fractional part of the rounding unit triggers the upward round. Perfect for safety margins.
-
----
-
-### Example 8: Round Up Negative to Nearest Hundred
-```
+```excel
 =ROUNDUP(-1250, -2)
 ```
+
 **Result:** -1300
 
-**Explanation:** For negative numbers with negative num_digits, ROUNDUP still goes away from zero. -1250 becomes -1300, not -1200. Debts and expenses round to larger absolute values.
+The value moves away from zero, so -1250 becomes -1300 rather than -1200. This is the same behavior as the positive case, mirrored.
 
----
+### Example 6: Round Up a Large Value to the Nearest Hundred
 
-### Example 9: Resource Calculation - Trucks Needed
+```excel
+=ROUNDUP(7218.4, -2)
 ```
-=ROUNDUP(Items/TruckCapacity, 0)
+
+**Result:** 7300
+
+The hundreds digit is 2, and any remaining amount rounds it up to 3. The 18.4 that follows is still enough to move the result to 7300.
+
+## Story Problems
+
+### Problem 1: Pallets for Customer Orders
+
+A regional distributor ships bottled water on pallets that hold 120 units each. A pallet must be sent in full, so each order needs enough pallets to cover all of its units.
+
+| Order | Units |
+| --- | --- |
+| O-101 | 1046 |
+| O-102 | 240 |
+| O-103 | 1201 |
+| O-104 | 95 |
+
+**Task:** Find the total number of pallets needed for the four orders.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(ROUNDUP(B2:B5/120, 0))
 ```
-**Result:** Number of trucks needed (always enough)
 
-**Explanation:** If you have 1050 items and each truck holds 100, `=ROUNDUP(1050/100, 0)` = 11 trucks. You can't ship with 10.5 trucks. ROUNDUP ensures sufficient capacity.
+**Answer:** `23`, because the orders need 9, 2, 11, and 1 pallets. Order O-102 fills exactly two pallets, and order O-103 needs a partial eleventh pallet.
 
----
+### Problem 2: Supplier Price Increase
 
-### Example 10: Time Calculation - Hours to Bill
+A stationery supplier raises each item price by 2.75 percent. Prices are rounded up to the next cent, so the supplier never quotes less than the increased price.
+
+| Item | Current Price |
+| --- | --- |
+| Desk Lamp | 14.99 |
+| Notebook Set | 7.45 |
+| Office Chair | 102.10 |
+| Pen Pack | 3.20 |
+
+**Task:** Find the total of the four new prices after each price is increased and rounded up to the cent.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(ROUNDUP(B2:B5*1.0275, 2))
 ```
-=ROUNDUP(TotalMinutes/60, 0)
-```
-**Result:** Billable hours (rounded up)
 
-**Explanation:** If a service takes 61 minutes, that's 2 billable hours. 45 minutes is 1 hour. ROUNDUP ensures you never under-bill for partial time periods.
-
----
-
-### Example 11: Packaging Units Required
-```
-=ROUNDUP(OrderQuantity/PackSize, 0) * PackSize
-```
-**Result:** Quantity rounded up to full packs
-
-**Explanation:** If pack size is 12 and order is 25, you need 3 packs (36 units). `=ROUNDUP(25/12, 0) * 12` = 36. Always ship complete packages.
-
----
-
-### Example 12: Round Up Tiny Fractions
-```
-=ROUNDUP(0.001, 0)
-```
-**Result:** 1
-
-**Explanation:** Even the smallest positive fraction rounds up to 1. There's no threshold—any non-zero decimal triggers rounding up. This ensures conservative estimates.
-
----
-
-### Example 13: Safety Stock Calculation
-```
-=ROUNDUP(AverageDemand * SafetyFactor, -1)
-```
-**Result:** Safety stock rounded up to nearest 10
-
-**Explanation:** If average demand is 73 and safety factor is 1.5, raw calculation is 109.5. ROUNDUP to nearest 10 gives 110, ensuring adequate buffer inventory.
-
----
-
-### Example 14: Price Increase Calculation
-```
-=ROUNDUP(CurrentPrice * 1.03, 2)
-```
-**Result:** New price with 3% increase, rounded up to nearest cent
-
-**Explanation:** A $19.95 item with 3% increase is $20.5485. ROUNDUP gives $20.55, not $20.54. Revenue-protective rounding for price adjustments.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Non-numeric input | Ensure both arguments are numbers or cell references containing numbers. Check for text that looks like numbers. |
-| `#NAME?` | Misspelled function name | Verify spelling: ROUNDUP (one word, no space). |
-| `Unexpected direction` | Negative number behavior | Remember ROUNDUP goes away from zero. -2.1 becomes -3, not -2. If you want to round toward positive infinity, use CEILING. |
-| `Too aggressive rounding` | Used ROUNDUP when ROUND was appropriate | ROUNDUP is for conservative estimates. For standard rounding, use ROUND. For financial totals, ROUND is usually correct. |
-| `Zero result` | Input is exactly zero | Zero is already at zero—can't round further. ROUNDUP(0, n) = 0 for any n. |
-| `Wrong decimal places` | Confusion about num_digits sign | Positive num_digits = decimal places. Negative num_digits = powers of 10. -2 means hundreds, not two decimal places. |
+**Answer:** `131.27`, from the new prices 15.41, 7.66, 104.91, and 3.29. For example, 14.99 times 1.0275 is 15.4022, which rounds up to 15.41.
 
 ## Use Cases
 
-### [[Resource and Capacity Planning]]
+### Billing in Time Blocks
 
-**Scenario:** Calculate required trucks, containers, staff, or equipment where partial units aren't possible.
+**Scenario:** A repair service bills in 15-minute blocks, and any started block is charged in full.
 
-**Implementation:**
-```
-=ROUNDUP(TotalVolume/ContainerCapacity, 0)
-=ROUNDUP(ProjectHours/40, 0)                    → Full weeks needed
-=ROUNDUP(Attendees/TablesSeating, 0)            → Tables needed for event
+```excel
+=ROUNDUP(B2/15, 0) * 15
 ```
 
-**Business Application:** Logistics planning, workforce scheduling, event coordination, manufacturing capacity. Any scenario where you must have enough and can't use fractional resources.
+**Why It Works:** Dividing minutes by 15 gives a count of blocks. ROUNDUP counts a partial block as a full one, and multiplying by 15 returns the billable minutes. A job of 47 minutes bills as 60 minutes.
 
-**Technical Details:** ROUNDUP prevents the common error of under-provisioning. 10.01 units of need becomes 11 units of capacity. Combine with MAX to ensure minimum quantities: `=MAX(ROUNDUP(demand, 0), MinOrder)`.
+### Packaging Quantities
 
----
+**Scenario:** A bakery orders flour in packs of 12 units, and a customer orders 25 units. The bakery must buy complete packs.
 
-### [[Conservative Budget Estimates]]
-
-**Scenario:** Round cost projections upward to ensure adequate funding.
-
-**Implementation:**
-```
-=ROUNDUP(EstimatedCost * 1.1, -3)               → Add 10% contingency, round to thousands
-=ROUNDUP(MonthlyExpense * 12, -2)               → Annual budget to nearest hundred
-=ROUNDUP(SUM(LineItems), -4)                    → Project total to nearest $10,000
+```excel
+=ROUNDUP(B2/B3, 0) * B3
 ```
 
-**Business Application:** Budget proposals, capital requests, project estimates, financial planning. Conservative estimates prevent budget shortfalls.
+**Why It Works:** ROUNDUP(25/12, 0) returns 3 packs. Multiplying by the pack size gives 36 units, which covers the order.
 
-**Technical Details:** Negative num_digits simplifies executive-level budgets. -3 rounds to thousands, -6 to millions. Combining contingency factors with ROUNDUP creates appropriately padded estimates.
+### Staff Shift Planning
 
----
+**Scenario:** A warehouse team needs 61 labor hours to finish a receiving job, and each shift covers 8 hours. The planner must schedule whole shifts.
 
-### [[Billing and Invoicing]]
-
-**Scenario:** Round time, usage, or quantities upward for billing purposes.
-
-**Implementation:**
-```
-=ROUNDUP(ServiceMinutes/15, 0) * 15             → Bill in 15-minute increments
-=ROUNDUP(DataUsageGB, 0)                        → Bill whole gigabytes
-=ROUNDUP(PartialMonth/30, 2)                    → Prorate to hundredths
+```excel
+=ROUNDUP(B2/8, 0)
 ```
 
-**Business Application:** Professional services billing, utility metering, subscription services, rental agreements. Standard practice is to round up for billing.
+**Why It Works:** The division gives 7.625 shifts, and ROUNDUP schedules 8 whole shifts. This keeps the plan from falling short of the hours needed.
 
-**Technical Details:** Many industries have minimum billing increments. ROUNDUP to the increment, then multiply back. Verify billing rules match customer expectations and contract terms.
+## Common Errors
 
----
-
-### [[Safety and Compliance Margins]]
-
-**Scenario:** Calculate requirements with built-in safety margins that always err on the side of caution.
-
-**Implementation:**
-```
-=ROUNDUP(MinimumRequired * SafetyFactor, 0)
-=ROUNDUP(RatedCapacity * 0.8, -1)               → Derate to 80%, round up to tens
-=ROUNDUP(OccupancyLimit * 0.9, 0)               → 90% max occupancy, rounded
-```
-
-**Business Application:** Safety engineering, regulatory compliance, risk management, quality assurance. Margins should always be rounded conservatively.
-
-**Technical Details:** Safety calculations should never under-estimate requirements. ROUNDUP combined with safety factors creates robust margins. Document rounding methodology for compliance audits.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | An argument is text, not a number. | Convert the text with VALUE or correct the source cell. |
+| Unexpected negative result | Negative values move away from zero. | Use ROUNDDOWN or TRUNC when the value should move toward zero. |
+| Overstated total | ROUNDUP was used where standard rounding was intended. | Use ROUND for financial totals and reported figures. |
+| Wrong digit position | The sign of num_digits was misread. | Positive values count decimals, and -2 means hundreds. |
+| Unchanged value | The input is already at the requested precision. | Check the input for hidden decimals, such as a value of 5.0000001. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions since Excel 2000
-- **Behavior:** Rounds away from zero for both positive and negative numbers
-- **Negative num_digits:** Fully supported for rounding to tens, hundreds, thousands
-- **Precision:** 15 significant digits
-
-### Google Sheets
-- **Availability:** All versions
-- **Behavior:** Identical to Excel—rounds away from zero
-- **Negative num_digits:** Fully supported, same as Excel
-- **Precision:** 15 significant digits
-
-### Both Platforms
-- Rounding direction is always away from zero (positive numbers increase, negative numbers decrease)
-- Zero input always returns zero
-- Very small numbers (0.0001) still round up to 1 when num_digits is 0
-- Both handle floating-point precision the same way
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Microsoft 365, Excel 2024, Excel 2021, Excel 2019, Excel 2016, and Excel for the web | Both arguments are required. Negative num_digits rounds to the left of the decimal point. |
+| Google Sheets | Available | The second argument is named places and is optional, defaulting to 0. Behavior matches Excel. |
 
 ## Tips and Best Practices
 
-1. **Use ROUNDUP for "at least" calculations:** When you need "at least N trucks" or "at least M hours," ROUNDUP ensures you never come up short. It's the "better safe than sorry" function.
-
-2. **Understand negative number behavior:** ROUNDUP(-2.1, 0) = -3, not -2. "Away from zero" means more negative for negative numbers. If you want -2.1 to become -2, use ROUNDDOWN or TRUNC.
-
-3. **Combine with division for unit conversions:** `=ROUNDUP(Quantity/PackSize, 0)` tells you how many packs you need. Multiply back by PackSize to get actual quantity shipped.
-
-4. **Use negative num_digits for budget rounding:** `=ROUNDUP(estimate, -3)` rounds to thousands—much cleaner than complex division and multiplication formulas.
-
-5. **Don't use ROUNDUP for financial totals:** For invoice totals and accounting, standard ROUND is usually correct. ROUNDUP is for planning and estimates, not for representing actual amounts.
-
-6. **Consider CEILING for custom intervals:** To round up to the nearest 0.25 or nearest 5, CEILING is more direct. `=CEILING(value, 0.25)` rounds to quarters. ROUNDUP only works with decimal places.
-
-7. **Document your rounding choices:** When ROUNDUP affects customer-facing numbers (bills, estimates), document why you chose conservative rounding. It's a policy decision, not just a formula choice.
-
-8. **Test with edge cases:** Verify behavior with exactly whole numbers (5.0), very small fractions (0.001), and negative values. ROUNDUP can be aggressive—make sure that's what you want.
+- Use ROUNDUP for "at least" quantities, such as trucks, pallets, or staff shifts, where a shortfall causes a bigger problem than a surplus.
+- Multiply back by the pack or block size after ROUNDUP to get the quantity actually ordered or billed.
+- Use CEILING for custom steps such as 0.25 or 5, because ROUNDUP works only with decimal places and powers of 10.
+- Do not use ROUNDUP for invoice totals or reported actuals, where ROUND is usually the correct method.
+- Test edge cases such as exact whole numbers, very small fractions, and negative values before using the result in a contract.
+- Document the rounding rule when it affects customer-facing figures, because it is a policy choice.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[ROUND]] | Standard rounding (5+ rounds away) | When you want normal mathematical rounding, not always-up |
-| [[ROUNDDOWN]] | Always rounds toward zero | When you need conservative "already completed" calculations |
-| [[CEILING]] | Rounds up to nearest multiple | When rounding to specific intervals (0.25, 5, 100) |
-| [[CEILING.MATH]] | Rounds up with direction control | When you need ceiling behavior with sign control |
-| [[INT]] | Rounds down to integer | When you want floor behavior for positive numbers |
-| [[TRUNC]] | Truncates to specified digits | When you want to simply remove decimal places |
-
-### Commonly Used Together
-
-**[[IF]]** - Conditional application of ROUNDUP
-
-*Apply ROUNDUP only when needed:*
-```
-=IF(A1>0, ROUNDUP(A1/100, 0)*100, 0)
-```
-Round up to nearest 100 only for positive values.
-
----
-
-**[[MAX]]** - Enforce minimum after rounding
-
-*Ensure minimum quantity:*
-```
-=MAX(ROUNDUP(Demand, 0), MinimumOrder)
-```
-Round up demand but never order less than minimum.
-
----
-
-**[[SUM]]** - Total before rounding up
-
-*Round the sum, not individual values:*
-```
-=ROUNDUP(SUM(Requirements), -1)
-```
-Total all requirements, then round up to nearest 10.
-
----
-
-**[[ROUNDDOWN]]** - Paired for range calculations
-
-*Calculate range with both directions:*
-```
-Low estimate:  =ROUNDDOWN(Value, -2)
-High estimate: =ROUNDUP(Value, -2)
-```
-Provides conservative low and high bounds.
-
----
-
-**[[CEILING]]** - Alternative for multiples
-
-*When you need specific intervals:*
-```
-=CEILING(Value, 0.5)    → Rounds up to nearest 0.5
-=ROUNDUP(Value*2, 0)/2  → Equivalent but less elegant
-```
-CEILING is cleaner for non-power-of-10 intervals.
+| Function | Relationship |
+| --- | --- |
+| [CEILING](CEILING.md) | Rounds up to a multiple you choose, such as 0.5 or 15. |
+| [CEILING.MATH](CEILING.MATH.md) | Rounds up to a multiple, with options for negative numbers. |
+| [ROUND](ROUND.md) | Standard rounding that rounds up only when the next digit is 5 or greater. |
+| [ROUNDDOWN](ROUNDDOWN.md) | Rounds toward zero, the opposite direction. |
+| [TRUNC](TRUNC.md) | Removes digits toward zero without rounding. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [ROUNDUP function](https://support.microsoft.com/en-us/office/roundup-function-f8bc9b23-e795-47db-8703-db171d0c42a7)
-- **Google Sheets:** [ROUNDUP function](https://support.google.com/docs/answer/3093443)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 2000 | Original introduction |
-| Excel 2007+ | All subsequent | No functional changes |
-| Google Sheets | Original launch | Matches Excel behavior |
-| LibreOffice Calc | All versions | Compatible implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: ROUNDUP function](https://support.microsoft.com/en-us/excel/functions/roundup-function)
+- [Google Docs Editors Help: ROUNDUP](https://support.google.com/docs/answer/3093443)

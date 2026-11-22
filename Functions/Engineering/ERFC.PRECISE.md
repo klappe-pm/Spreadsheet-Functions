@@ -18,6 +18,7 @@ level: 5
 source:
   - https://support.microsoft.com/en-us/excel/functions/erfc-precise-function
   - https://support.google.com/docs/answer/3093407
+  - https://support.google.com/docs/table/25273
 date-created: 2025-08-17
 date-revised: 2026-11-22
 aliases: []
@@ -35,9 +36,9 @@ tags:
 
 **ERFC.PRECISE** returns the complementary error function of a number x, which is the integral of the error-function integrand from x to infinity. Microsoft describes it as the complementary ERF function integrated between x and infinity. The result equals 1 minus ERF(x).
 
-Use ERFC.PRECISE when a workbook is built for Excel and the formula must follow Microsoft's function naming. It supports the same tail-probability work as ERFC: multiply the result by 0.5 and divide the input by the square root of 2 to get the upper tail of a standard normal distribution.
+Use ERFC.PRECISE when the formula must follow Microsoft's function naming. It supports the same tail-probability work as ERFC: multiply the result by 0.5 and divide the input by the square root of 2 to get the upper tail of a standard normal distribution.
 
-Google Sheets does not list ERFC.PRECISE. Google's engineering help covers ERFC, so use ERFC in any workbook that is shared with Google Sheets users. Microsoft's examples give the same result for both functions at an input of 1.
+Google Sheets also lists ERFC.PRECISE in its function list, with the syntax `ERFC.PRECISE(z)`, and points to the ERFC help page for its details. The two functions take the same single argument, and Microsoft's examples give the same result for both at an input of 1.
 
 ## Syntax
 
@@ -124,7 +125,7 @@ A pack assembler measures how far each cell's voltage sits above the nominal val
 =0.5*ERFC.PRECISE(B3/SQRT(2))
 ```
 
-**Answer:** `0.02275`. Roughly 2.3 percent of cells are expected to exceed 2.0 and need retest. In Google Sheets, replace ERFC.PRECISE with ERFC.
+**Answer:** `0.02275`. Roughly 2.3 percent of cells are expected to exceed 2.0 and need retest.
 
 ### Problem 2: Delivery Time Tail
 
@@ -167,7 +168,6 @@ A courier company models delivery times as a standard normal variable. The team 
 | Error | Cause | Fix |
 | --- | --- | --- |
 | `#VALUE!` | The argument is text, blank or an error value. | Convert the input to a number before calling the function. |
-| `#NAME?` | The workbook is opened in Google Sheets, which does not list ERFC.PRECISE. | Replace the function with ERFC. |
 | Inverted probability | The formula returns the upper tail, but the analyst expected the lower tail. | Use `1 - 0.5*ERFC.PRECISE(z/SQRT(2))`. |
 | Unexpected value | The z-score was not standardized. | Subtract the mean and divide by the standard deviation first. |
 
@@ -176,12 +176,11 @@ A courier company models delivery times as a standard normal variable. The team 
 | Platform | Availability | Notes |
 | --- | --- | --- |
 | Microsoft Excel | Excel 2016 and later, Excel 2019, Excel 2021, Excel 2024, Excel for Microsoft 365 and Excel for the web | Returns `#VALUE!` for nonnumeric input. |
-| Google Sheets | Not available | Use ERFC, which has the same arguments and return value. |
+| Google Sheets | Available | Listed in the function list as `ERFC.PRECISE(z)`, with details on the ERFC help page. ERFC takes the same argument and returns the same value. |
 
 ## Tips and Best Practices
 
-- Use ERFC.PRECISE in Excel-only models, and ERFC in any model shared with Google Sheets users.
-- Keep a check cell that compares ERFC and ERFC.PRECISE when you migrate a workbook between the two.
+- Keep a check cell that compares ERFC and ERFC.PRECISE when you replace one with the other in an existing model.
 - Use NORM.S.DIST for ordinary normal probabilities that do not need the error function form.
 - Label the z-score column clearly so reviewers can see the standardization step.
 
@@ -191,7 +190,7 @@ A courier company models delivery times as a standard normal variable. The team 
 | --- | --- |
 | [ERF](ERF.md) | Returns the error function; ERF(x) equals 1 minus ERFC.PRECISE(x). |
 | [ERF.PRECISE](ERF.PRECISE.md) | Excel version of the error function for the same range of inputs. |
-| [ERFC](ERFC.md) | Complementary error function that Google Sheets supports; use it when portability matters. |
+| [ERFC](ERFC.md) | Older complementary error function with the same argument and result. |
 | [NORM.S.DIST](../Statistical/NORM.S.DIST.md) | Returns standard normal probabilities without the error function form. |
 | [NORMSDIST](../Statistical/NORMSDIST.md) | Legacy function that returns the standard normal cumulative distribution. |
 
@@ -199,3 +198,4 @@ A courier company models delivery times as a standard normal variable. The team 
 
 - [Microsoft Support: ERFC.PRECISE function](https://support.microsoft.com/en-us/excel/functions/erfc-precise-function)
 - [Google Docs Editors Help: ERFC](https://support.google.com/docs/answer/3093407)
+- [Google Docs Editors Help: Function List](https://support.google.com/docs/table/25273)

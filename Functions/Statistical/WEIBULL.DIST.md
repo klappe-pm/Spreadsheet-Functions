@@ -39,7 +39,7 @@ tags:
 
 The shape parameter controls how the failure rate changes over time. A shape below 1 means items become less likely to fail as they age, a shape of 1 means the chance stays constant, and a shape above 1 means items wear out and become more likely to fail. When the shape is exactly 1, the Weibull distribution reduces to the exponential distribution, so EXPON.DIST with a rate of 1 divided by the scale gives the same cumulative result.
 
-Microsoft Excel lists WEIBULL.DIST for Excel 2016 and later, including Microsoft 365 and Excel for the web. Google Sheets documents the same function as WEIBULL with the same four arguments, so use WEIBULL in Sheets. The Excel name WEIBULL.DIST is not listed on the Google help page.
+Microsoft Excel lists WEIBULL.DIST for Excel 2016 and later, including Microsoft 365 and Excel for the web. Google Sheets lists WEIBULL.DIST in its function list with the same four arguments, and documents it on the WEIBULL help page. Both WEIBULL.DIST and WEIBULL work in Sheets.
 
 ## Syntax
 
@@ -199,7 +199,7 @@ A lighting supplier tests bulbs that follow a shape of 1 and a scale of 40 hours
 | Platform | Availability | Notes |
 | --- | --- | --- |
 | Microsoft Excel | Excel 2016 and later, including Microsoft 365 and Excel for the web | Arguments are named `x`, `alpha`, `beta` and `cumulative`. |
-| Google Sheets | Available as `WEIBULL` | Same four arguments, named `x`, `shape`, `scale` and `cumulative`. The Google help page does not list `WEIBULL.DIST`. |
+| Google Sheets | Available | Same four arguments, named `x`, `shape`, `scale` and `cumulative`. The WEIBULL help page covers both WEIBULL.DIST and WEIBULL. |
 
 ## Tips and Best Practices
 
@@ -217,7 +217,7 @@ A lighting supplier tests bulbs that follow a shape of 1 and a scale of 40 hours
 | [GAMMA.DIST](GAMMA.DIST.md) | Another flexible skewed distribution for waiting times and sizes. |
 | [LOGNORM.DIST](LOGNORM.DIST.md) | Models values whose logarithm is normally distributed, such as repair times. |
 | [NORM.DIST](NORM.DIST.md) | Symmetric bell curve for measurements; use when the data is not skewed. |
-| [WEIBULL](WEIBULL.md) | Legacy name for the same calculation in Google Sheets. |
+| [WEIBULL](WEIBULL.md) | Legacy name for the same calculation. |
 
 ## Official Documentation
 

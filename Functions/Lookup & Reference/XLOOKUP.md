@@ -225,6 +225,7 @@ A wholesaler gives discounts by order quantity. The tiers in `F2:G5` start at 1,
 - Use absolute references such as `$A$2:$A$500` when copying the formula down a column.
 - Prefer full-column references only for tables that grow, because they slow large workbooks.
 - Use [FILTER](FILTER.md) when you need every match instead of the first one.
+- XLOOKUP does not distinguish uppercase from lowercase text, so `abc` and `ABC` match the same row. For a case-sensitive match, use `=XLOOKUP(TRUE, EXACT(A2:A10, E2), B2:B10)`, where EXACT compares each key with the lookup value in `E2`.
 
 ## Related Functions
 

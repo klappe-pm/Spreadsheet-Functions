@@ -246,8 +246,6 @@ A small studio keeps invoices in `A1:C5` with the invoice number in column A, th
 | Microsoft Excel | Available in all current versions. | Arguments are named `lookup_value`, `table_array`, `col_index_num` and `range_lookup`. Wildcards work only with `FALSE` and text keys. |
 | Google Sheets | Available. | Arguments are named `search_key`, `range`, `index` and `is_sorted`. The default for `is_sorted` is `TRUE`, the same as Excel's default. |
 
-Neither official page states whether lookups are case-sensitive, so test that behavior before depending on it.
-
 ## Tips and Best Practices
 
 - Pass `FALSE` on every exact lookup so the formula never falls back to an approximate match.
@@ -256,6 +254,7 @@ Neither official page states whether lookups are case-sensitive, so test that be
 - Clean text keys with `TRIM` when the source data may contain stray spaces.
 - Keep the key column leftmost, and when that is not possible, switch to XLOOKUP or INDEX with MATCH.
 - Check for duplicate keys before relying on the first match.
+- VLOOKUP does not distinguish uppercase from lowercase, so `abc` and `ABC` match the same row. For a case-sensitive match, use `=INDEX(B2:B10, MATCH(TRUE, EXACT(A2:A10, E2), 0))`, where EXACT compares each key with the lookup value in `E2`. In Excel versions without dynamic arrays, confirm it with Ctrl+Shift+Enter; in Google Sheets, wrap the formula in ARRAYFORMULA.
 
 ## Related Functions
 

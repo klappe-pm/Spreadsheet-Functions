@@ -241,6 +241,7 @@ A sales representative earns a commission rate that depends on monthly sales. Th
 - Wrap the formula in IFERROR when a missing value should show a message or a blank instead of an error.
 - Keep the lookup row at the top of the range, because HLOOKUP cannot look above it.
 - Store headers as real dates or numbers, not text, so they match the lookup value.
+- HLOOKUP treats uppercase and lowercase text as equivalent, so `abc` and `ABC` match the same column. For a case-sensitive match, use `=INDEX(A2:J2, MATCH(TRUE, EXACT(A1:J1, L1), 0))`, where EXACT compares each header with the lookup value in `L1`. In Excel versions without dynamic arrays, confirm it with Ctrl+Shift+Enter; in Google Sheets, wrap the formula in ARRAYFORMULA.
 
 ## Related Functions
 

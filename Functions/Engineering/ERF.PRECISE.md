@@ -35,7 +35,7 @@ tags:
 
 **ERF.PRECISE** returns the error function integrated from 0 up to a single value `x`. It is the one-argument form of the error function, so it suits workbooks that always integrate from zero. It returns a value between -1 and 1 for ordinary inputs, and its result for a given `x` matches ERF with that same single argument.
 
-Use ERF.PRECISE when the model needs only the share of a normal distribution between the mean and a point, or when the sheet should be simple to audit. If you need the integral between two limits, use ERF with both arguments. For the upper tail, use ERFC.PRECISE, which is the complement of this function.
+Use ERF.PRECISE when the calculation needs only the share of a normal distribution between the mean and a point, or when the sheet should be simple to audit. If you need the integral between two limits, use ERF with both arguments. For the upper tail, use ERFC.PRECISE, which is the complement of this function.
 
 The error function is odd, so ERF.PRECISE of a negative value is the negative of the result for the positive value. For example, `ERF.PRECISE(-1)` returns the negative of `ERF.PRECISE(1)`.
 
@@ -151,7 +151,7 @@ Enter this in B2 and fill it down to B4.
 
 ### Normal Distribution Probability
 
-**Scenario:** A capacity model needs the share of output between the mean and a planning limit, expressed in standard deviations.
+**Scenario:** A capacity plan needs the share of output between the mean and a planning limit, expressed in standard deviations.
 
 ```excel
 =ERF.PRECISE(B2/SQRT(2))/2
@@ -182,11 +182,11 @@ Enter this in B2 and fill it down to B4.
 | Platform | Availability | Notes |
 | --- | --- | --- |
 | Microsoft Excel | Excel 2016 and later, including Microsoft 365 and Excel for the web | Single argument `x`. Integrates from 0 to `x`. |
-| Google Sheets | Available | The help page for the ERF family is the reference. Confirm the argument list there before you use the function. |
+| Google Sheets | Available | Listed in the Google function list and documented on the ERF help page. With one argument it integrates from 0 to that value, as ERF does. |
 
 ## Tips and Best Practices
 
-- Use ERF.PRECISE in models that always start at the mean, so the formula stays short and clear.
+- Use ERF.PRECISE in calculations that always start at the mean, so the formula stays short and clear.
 - Convert sigma values with SQRT(2) once in a helper column rather than repeating it in every formula.
 - Keep the band limits in input cells so reviewers can test different tolerances.
 - Use ERFC.PRECISE for upper-tail shares, rather than subtracting this result from 1.

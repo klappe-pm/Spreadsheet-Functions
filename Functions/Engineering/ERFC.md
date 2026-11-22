@@ -38,7 +38,7 @@ tags:
 
 The most useful application is the upper tail of a normal distribution. The probability that a standard normal value is greater than z equals 0.5 * ERFC(z / SQRT(2)). Engineers use this form to estimate how often a measurement will fall beyond a specification limit once the limit has been converted to a z-score.
 
-ERFC is more reliable than 1 minus ERF(x) when x is large. In that range ERF is very close to 1, so subtracting it from 1 discards significant digits. ERFC returns the small tail value directly. Microsoft Excel supports ERFC in all current versions. Google Sheets also lists ERFC, but it does not list the related ERFC.PRECISE function.
+ERFC is more reliable than 1 minus ERF(x) when x is large. In that range ERF is very close to 1, so subtracting it from 1 discards significant digits. ERFC returns the small tail value directly. Microsoft Excel supports ERFC in all current versions. Google Sheets lists both ERFC and the related ERFC.PRECISE function.
 
 ## Syntax
 
@@ -100,7 +100,7 @@ For negative x the result is above 1. The value equals 2 minus ERFC(1), which is
 
 **Result:** `0.15729921`
 
-Excel lists ERFC.PRECISE with the same description. Use ERFC when the workbook must also work in Google Sheets.
+Excel and Google Sheets both list ERFC.PRECISE with the same single argument.
 
 <!-- Image 2: Tail Probability Worksheet. See Images/Engineering/ERFC.md -->
 
@@ -171,7 +171,6 @@ A valve opens when a standardized pressure reading exceeds 1.5. Cell `B2` holds 
 | --- | --- | --- |
 | `#VALUE!` | The argument is text, blank or an error value. | Convert the input to a number or wrap the reference in `N()`. |
 | Inverted probability | The formula returns the upper tail, but the analyst expected the area below z. | Use `1 - 0.5*ERFC(z/SQRT(2))` for the lower tail. |
-| `#NAME?` | ERFC.PRECISE is entered in Google Sheets, which does not list it. | Use ERFC in Google Sheets. |
 | Wrong probability | The z-score was not standardized, so the formula uses the raw measurement. | Subtract the mean and divide by the standard deviation first. |
 
 ## Platform Differences

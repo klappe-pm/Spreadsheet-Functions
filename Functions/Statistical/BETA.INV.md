@@ -17,6 +17,7 @@ related:
   - PERCENTILE.INC
 level: 4
 source:
+  - https://support.microsoft.com/en-us/excel/functions/beta-inv-function
   - https://support.google.com/docs/answer/9061377
 date-created: 2025-08-17
 date-revised: 2026-11-22
@@ -25,6 +26,7 @@ aliases:
   - Inverse Beta
 tags:
   - distributions
+  - excel
   - probability
   - sheets
   - statistics
@@ -38,7 +40,7 @@ tags:
 
 Use BETA.INV when you know the probability and need the value. Use BETA.DIST when you know the value and need the probability. The two functions are matched: if BETA.DIST returns 0.6875 for a value of 0.5, then BETA.INV returns 0.5 for a probability of 0.6875. Shape parameters must be positive, and the probability must be between 0 and 1 inclusive.
 
-The optional `A` and `B` arguments set the interval of the distribution. In Excel they default to 0 and 1. The Google Sheets help page lists default bounds that could not be confirmed, so pass the bounds explicitly in Sheets if the interval is not 0 to 1. That keeps the formula correct no matter which defaults a platform uses.
+The optional `A` and `B` arguments set the interval of the distribution. In Excel they default to 0 and 1. The Google Sheets help page lists its own default bounds inconsistently, so pass the bounds explicitly in Sheets if the interval is not 0 to 1. That keeps the formula correct no matter which defaults a platform uses. BETA.INV is available in Excel 2010 and later and in Google Sheets.
 
 ## Syntax
 
@@ -200,8 +202,8 @@ A logistics model places delivery times between 10 and 20 minutes with alpha 2 a
 
 | Platform | Availability | Notes |
 | --- | --- | --- |
-| Microsoft Excel | Excel 2016, Excel 2019, Excel 2021, Excel 2024 and Microsoft 365, Windows, Mac and web | Arguments are `probability, alpha, beta, A, B`, with `A` and `B` defaulting to 0 and 1. |
-| Google Sheets | Available | Arguments are `probability, alpha, beta, lower_bound, upper_bound`. The help page lists default bounds that could not be confirmed, so pass the bounds explicitly. |
+| Microsoft Excel | Available since Excel 2010, including Excel 2016, 2019, 2021, 2024 and Microsoft 365 | Arguments are `probability, alpha, beta, A, B`, with `A` and `B` defaulting to 0 and 1. The result is found by searching with BETA.DIST, so its precision depends on that function. |
+| Google Sheets | Available | Arguments are `probability, alpha, beta, lower_bound, upper_bound`. The help page lists both default bounds as 1, which conflicts with a standard 0 to 1 interval, so pass the bounds explicitly. |
 
 ## Tips and Best Practices
 
@@ -223,4 +225,5 @@ A logistics model places delivery times between 10 and 20 minutes with alpha 2 a
 
 ## Official Documentation
 
+- [Microsoft Support: BETA.INV function](https://support.microsoft.com/en-us/excel/functions/beta-inv-function)
 - [Google Docs Editors Help: BETA.INV](https://support.google.com/docs/answer/9061377)

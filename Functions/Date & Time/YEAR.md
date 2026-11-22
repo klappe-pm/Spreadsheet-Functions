@@ -60,7 +60,7 @@ Google Sheets names the argument `date`, as in `YEAR(date)`. The argument is pos
 
 ### Return Value
 
-A whole number for the year of the date. A text value that the application cannot read as a date returns `#VALUE!`.
+A whole number from 1900 to 9999 in Excel. The result is always a Gregorian year, even when the date is displayed in another calendar such as Hijri. A text value that the application cannot read as a date returns `#VALUE!`.
 
 ## Examples
 

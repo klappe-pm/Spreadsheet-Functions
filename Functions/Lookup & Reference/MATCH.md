@@ -233,6 +233,7 @@ A billing clerk keeps invoice numbers in `A1:A6`, sorted in no particular order.
 - Keep the lookup range one row or one column wide, and anchor it with `$` signs when the formula is copied.
 - Use ISNUMBER with MATCH to test whether a value exists, which is clearer than comparing the result to `#N/A`.
 - Store the MATCH result in a helper cell when several INDEX formulas need the same position.
+- MATCH does not distinguish uppercase from lowercase text. For a case-sensitive position, use `=MATCH(TRUE, EXACT(A2:A10, E2), 0)`, where EXACT compares each item with the lookup value in `E2`. In Excel versions without dynamic arrays, confirm it with Ctrl+Shift+Enter; in Google Sheets, wrap the formula in ARRAYFORMULA.
 
 ## Related Functions
 

@@ -1,412 +1,241 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- date-time
-subTopics:
-- date-extraction
-- day-component
-- date-parsing
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Date & Time
+subcategory: Date Parts
+purpose:
+  - Data Validation
+  - Date Calculation
+use-case:
+  - Billing Day Schedules
+  - Month-End Close Checks
+  - Payroll Pay Dates
+related:
+  - DATE
+  - DAYS
+  - EOMONTH
+  - MONTH
+  - TODAY
+  - WEEKDAY
+  - YEAR
+level: 1
+source:
+  - https://support.microsoft.com/en-us/excel/functions/day-function
+  - https://support.google.com/docs/answer/3093040
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Extract Day
-- Get Day
-- Day of Month
-- Day Component
+  - Day Of Month
+  - Extract Day
 tags:
-- date
-- day
-- extraction
-- date-component
+  - date-parts
+  - day-of-month
+  - excel
+  - sheets
 ---
 
 # DAY
 
 ## Description
 
-**DAY** extracts the day-of-month component from a date and returns it as an integer from 1 to 31. Given a date like "March 15, 2026", DAY returns 15. It isolates just the day portion, ignoring the month and year. This is the third of the three essential date component functions (YEAR, MONTH, DAY) that together decompose any date into its calendar parts.
+**DAY** returns the day of the month from a date, as a whole number from 1 to 31. It ignores the month and year, so a date of March 15, 2026 returns 15. Use it when you need the day part on its own, for example to find payroll dates, billing days or the position of a date within its month.
 
-The DAY function works with Excel's serial number date system. When a cell displays "January 10, 2026", Excel stores the serial number 46032. DAY calculates which day of the month that serial number represents and returns 10. The cell's display format is irrelevant—whether showing "10 Jan 2026", "1/10/2026", or "2026-01-10", DAY returns 10.
+DAY reads the underlying date value, not the way the date is displayed. A cell that shows `15 Mar 2026`, `3/15/2026` or `2026-03-15` returns 15 in each case, provided the cell holds a real date. A date typed into a formula as slash-separated text is a different case: Google Sheets reads `10/10/2000` as a division, so use DATE to build the date instead.
 
-**Common applications for DAY include:** validating that data falls within expected day ranges, calculating days until end of month, identifying payroll cycles (like 1st and 15th), detecting month-end transactions, and reconstructing dates with modified components. Combined with YEAR and MONTH in a DATE formula, DAY enables flexible date manipulation—change any component while preserving the others.
-
-**Day ranges vary by month:** DAY returns 1-28, 29, 30, or 31 depending on the source date's month. For February dates, maximum is 28 or 29 (leap year). For April, June, September, November: 30. For other months: 31. The function simply reports what day the date falls on; it doesn't validate whether that day "should" exist for a given month. When constructing dates with DATE function, out-of-range days roll over to subsequent months (day 32 in January becomes February 1).
+DAY is the day half of the YEAR, MONTH and DAY set. Together with DATE, it lets you change one part of a date and keep the others. For example, `DATE(YEAR(A2), MONTH(A2) + 1, DAY(A2))` moves a date forward one month, but it overflows when the day does not exist in the new month, so EDATE or EOMONTH is safer for month-end dates.
 
 ## Syntax
 
-> [!f(x)] DAY Syntax
->
-> ```
-> =DAY(serial_number)
-> ```
+```excel
+=DAY(serial_number)
+```
+
+<!-- Image 1: Date Cell to Day Number. See Images/Date & Time/DAY.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `serial_number` | Yes | A date value from which to extract the day-of-month. Can be a cell reference containing a date, a date function like TODAY() or DATE(), a serial number, or a text string that Excel can interpret as a date. |
+| --- | --- | --- |
+| `serial_number` | Yes | The date to read. Use a cell that holds a date, a function such as DATE, TODAY or DATEVALUE, or a serial number. |
 
 ### Return Value
 
-Returns an integer from 1 to 31 representing the day of the month. The maximum value depends on the month in the source date (28-31).
+A whole number from 1 to 31. The largest possible value depends on the month of the date, so a February date returns at most 28 or 29, and a date in April, June, September or November returns at most 30.
 
 ## Examples
 
-> [!f(x)] DAY Examples
+### Example 1: Day From a Date Cell
 
-### Example 1: Extract Day from a Date Cell
+```excel
+=DAY(A2)
 ```
-=DAY(A1)
+
+**Result:** With A2 holding March 15, 2026, the result is `15`.
+
+The cell's display format does not change the result. DAY reads the date behind the cell.
+
+### Example 2: Day From a Built Date
+
+```excel
+=DAY(DATE(2026, 9, 22))
 ```
-**Result:** 15 (if A1 contains March 15, 2026)
 
-**Explanation:** Extracts just the day number from any date. Works regardless of date format displayed in the cell—the underlying serial number determines the result.
+**Result:** `22`
 
----
+DATE builds the date from its parts, so this formula is a safe way to write a literal date in a formula.
 
-### Example 2: Current Day of Month
+### Example 3: Days Remaining in the Month
+
+```excel
+=DAY(EOMONTH(A2, 0)) - DAY(A2)
 ```
-=DAY(TODAY())
+
+**Result:** With A2 holding March 15, 2026, the result is `16`.
+
+EOMONTH returns March 31, which has day 31, and subtracting the day 15 leaves 16 days.
+
+<!-- Image 2: Days Remaining in a Month. See Images/Date & Time/DAY.md -->
+
+### Example 4: Flag a Month-End Date
+
+```excel
+=IF(DAY(A2) = DAY(EOMONTH(A2, 0)), "Month End", "Not Month End")
 ```
-**Result:** 10 (on January 10, 2026)
 
-**Explanation:** Combines with TODAY() to get the current day-of-month. Useful for identifying where we are in the current month for pacing calculations.
+**Result:** With A2 holding February 28, 2026, the result is `Month End`.
 
----
+The test works for every month length, because EOMONTH supplies the last day of the month for each date.
 
-### Example 3: Days Remaining in Month
+### Example 5: Check for a Payroll Day
+
+```excel
+=IF(OR(DAY(A2) = 1, DAY(A2) = 15), "Pay Day", "Not Pay Day")
 ```
-=DAY(EOMONTH(A1,0))-DAY(A1)
+
+**Result:** With A2 holding January 15, 2026, the result is `Pay Day`.
+
+Many payroll calendars pay on the first and fifteenth of each month. Extend the test with WEEKDAY if weekend dates move to another day.
+
+### Example 6: Day From Text
+
+```excel
+=DAY(DATEVALUE("3/14/2026"))
 ```
-**Result:** 16 (if A1 contains March 15, 2026; March has 31 days)
 
-**Explanation:** EOMONTH returns the last day of the month; subtracting today's day gives remaining days. March 31 - 15 = 16 days remaining.
+**Result:** `14`
 
----
+DATEVALUE converts the text to a date first, and DAY then reads the day. Passing the text straight to DAY is less reliable across regional settings.
 
-### Example 4: Is It Month End?
+## Story Problems
+
+### Problem 1: Billing Days for Subscribers
+
+A software company bills customers on the day they signed up. The billing team lists five billing dates in `B2:B6` and wants to count how many fall on the first or the fifteenth of the month.
+
+| Customer | Billing Date |
+| --- | --- |
+| Acme | January 1, 2026 |
+| Birch | January 15, 2026 |
+| Cedar | January 20, 2026 |
+| Dune | February 15, 2026 |
+| Elm | March 9, 2026 |
+
+**Task:** Count the customers whose billing day is 1 or 15 with DAY inside a single formula.
+
+**Solution:**
+
+```excel
+=SUMPRODUCT(--((DAY(B2:B6) = 1) + (DAY(B2:B6) = 15) > 0))
 ```
-=IF(DAY(A1)=DAY(EOMONTH(A1,0)), "Month End", "Not Month End")
+
+**Answer:** `3`. Acme (day 1), Birch (day 15) and Dune (day 15) match. Cedar is on the 20th and Elm is on the 9th.
+
+### Problem 2: Days Left in the Month
+
+A project manager reports progress on September 22, 2026. She wants the number of days left in that month, counting the report date itself as one of the days already used.
+
+| Report Date |
+| --- |
+| September 22, 2026 |
+
+**Task:** Put the report date in `A2` and return the number of days remaining after it in `B2`.
+
+**Solution:**
+
+```excel
+=DAY(EOMONTH(A2, 0)) - DAY(A2)
 ```
-**Result:** "Month End" for dates like Jan 31, Feb 28/29, etc.
 
-**Explanation:** Compares the day to the month's last day. Identifies month-end dates regardless of whether the month has 28, 29, 30, or 31 days.
-
----
-
-### Example 5: First Day of Month Check
-```
-=IF(DAY(A1)=1, "Month Start", "Mid-Month")
-```
-**Result:** "Month Start" if date is 1st of any month
-
-**Explanation:** Simple check for the first day. Use for identifying period starts, processing month-opening transactions, or applying first-of-month business rules.
-
----
-
-### Example 6: Payroll Date Check (1st and 15th)
-```
-=IF(OR(DAY(A1)=1, DAY(A1)=15), "Payday", "Not Payday")
-```
-**Result:** "Payday" for 1st or 15th of any month
-
-**Explanation:** Many organizations pay on the 1st and 15th. This identifies payroll dates. Extend with WEEKDAY checks for business day adjustments.
-
----
-
-### Example 7: Weekly Pattern (Days 1-7, 8-14, etc.)
-```
-=CEILING(DAY(A1)/7, 1)
-```
-**Result:** 1 for days 1-7, 2 for days 8-14, 3 for days 15-21, 4 for days 22-28, 5 for days 29-31
-
-**Explanation:** Groups days into weekly segments. Useful for intra-month analysis where you want to see patterns by week-of-month.
-
----
-
-### Example 8: Same Day Check Across Dates
-```
-=IF(DAY(A1)=DAY(B1), "Same Day of Month", "Different Day")
-```
-**Result:** Compares day-of-month regardless of month/year
-
-**Explanation:** Checks if two dates share the same day number. June 15 and December 15 return "Same Day of Month". Use for anniversary calculations.
-
----
-
-### Example 9: Days Since Start of Month
-```
-=DAY(A1)-1
-```
-**Result:** 14 (if A1 is March 15, representing 14 complete days since March 1)
-
-**Explanation:** Simple subtraction gives elapsed days within the month. March 15 means 14 days have passed since the month started.
-
----
-
-### Example 10: Adjust Day to End of Month
-```
-=IF(DAY(A1)>DAY(EOMONTH(DATE(B1,C1,1),0)), DAY(EOMONTH(DATE(B1,C1,1),0)), DAY(A1))
-```
-**Result:** Caps day at maximum for target month
-
-**Explanation:** If trying to apply day 31 to April (which has 30 days), this caps it at 30. Prevents invalid date creation when moving dates between months.
-
----
-
-### Example 11: Create Same Day Next Month
-```
-=DATE(YEAR(A1), MONTH(A1)+1, DAY(A1))
-```
-**Result:** Same day next month (with potential overflow)
-
-**Explanation:** Uses DAY to preserve the day-of-month. Warning: January 31 + 1 month = March 3 (because Feb 31 overflows). Use EDATE for smarter month addition.
-
----
-
-### Example 12: Extract Day from Text Date
-```
-=DAY(DATEVALUE("March 15, 2026"))
-```
-**Result:** 15
-
-**Explanation:** DATEVALUE converts text to a date serial number, then DAY extracts the day component. Useful for parsing imported text data.
-
----
-
-### Example 13: Business Day of Month
-```
-=NETWORKDAYS(DATE(YEAR(A1),MONTH(A1),1), A1)
-```
-**Result:** Which business day of the month (excluding weekends)
-
-**Explanation:** Counts working days from month start to the date. March 15 might be the 10th business day. Add holidays parameter for more accuracy.
-
----
-
-### Example 14: Day of Year (Ordinal Date)
-```
-=A1-DATE(YEAR(A1),1,0)
-```
-**Result:** Day number in the year (1-366)
-
-**Explanation:** Subtracting December 31 of prior year (day 0 of current year) gives ordinal date. March 15, 2026 = day 74. Not DAY function directly, but related concept.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Argument is text that can't be parsed as a date | Ensure input is a valid date; use DATEVALUE for text strings |
-| `#VALUE!` | Empty cell or error value in source | Validate inputs; use IFERROR for error handling |
-| `0 returned` | Time-only value (serial number < 1) | Ensure source contains a full date, not just time |
-| `Unexpected day` | Regional date format misinterpretation | "1/2/2026" could be Jan 2 (day 2) or Feb 1 (day 1); use unambiguous formats |
-| `Day higher than expected` | Date overflow from DATE construction | DATE(2026,2,30) = March 2; the 30th "overflowed" February |
+**Answer:** `8`. September has 30 days, so 30 minus 22 leaves 8 days after the report date.
 
 ## Use Cases
 
-### [[Invoice and Payment Due Date Calculation]]
+### Billing Day Schedule
 
-**Scenario:** Calculate payment terms and identify invoices due on specific days of the month for cash flow planning.
+**Scenario:** A subscription platform bills each customer on the same day of the month they joined, and it needs the billing date for the current month.
 
-**Implementation:**
-```
-=DATE(YEAR(A2), MONTH(A2)+1, DAY(A2))        (Same day next month)
-=IF(DAY(B2)<=15, "Early", "Late")            (Early vs. late month billing)
-=IF(DAY(TODAY())>=DAY(C2), "Due", "Not Yet") (Is invoice due yet this month?)
+```excel
+=DATE(YEAR(TODAY()), MONTH(TODAY()), MIN(DAY(B2), DAY(EOMONTH(TODAY(), 0))))
 ```
 
-**Business Application:** Accounts payable teams identify which invoices fall on their payment processing days. Cash flow forecasting groups payables by day-of-month to predict daily cash needs. Vendors paid "Net 30, same day" calculations use DAY to preserve due date patterns.
+**Why It Works:** DAY keeps the signup day, and the MIN with the last day of the current month stops a January 31 signup from producing March 3 in February. The result is the billing date for this month.
 
-**Technical Details:** When due dates fall on non-existent days (e.g., 31st in a 30-day month), decide on business rules: cap at month end, or move to next valid day. Handle explicitly with formulas like MIN(DAY(A2), DAY(EOMONTH(target_month, 0))).
+### Month-End Close Checklist
 
----
+**Scenario:** An accounting team flags any transaction dated within the last three days of a month for close review.
 
-### [[Payroll and Recurring Payment Processing]]
-
-**Scenario:** Identify payroll processing dates and calculate work days for employees paid on specific days of the month.
-
-**Implementation:**
-```
-=IF(OR(DAY(A2)=1, DAY(A2)=15), "Standard Payday", "")
-=IF(AND(DAY(A2)=15, WEEKDAY(A2,2)>5), "Move to Friday", "Process Normal")
-=NETWORKDAYS(DATE(YEAR(A2),MONTH(A2),1), A2)  (Work days elapsed this period)
+```excel
+=IF(DAY(A2) > DAY(EOMONTH(A2, 0)) - 3, "Review", "Normal")
 ```
 
-**Business Application:** Payroll systems flag processing dates automatically. HR reports show pay period progress for time-tracking. Finance forecasts biweekly cash requirements based on day-of-month patterns.
+**Why It Works:** The last day of the month comes from EOMONTH, and DAY compares the transaction's day against the three days before it. The test works for February as well as 31-day months.
 
-**Technical Details:** Real payroll systems must handle weekends and holidays. If the 15th is Sunday, pay Friday the 13th or Monday the 16th? Document your policy and encode it: =IF(WEEKDAY(DATE(y,m,15),2)=6, DATE(y,m,14), IF(WEEKDAY(DATE(y,m,15),2)=7, DATE(y,m,16), DATE(y,m,15)))
+### Payroll Calendar
 
----
+**Scenario:** A payroll team pays staff on the 1st and 15th and needs to flag any payment that falls on a weekend so it can be moved.
 
-### [[Subscription Billing Cycle Management]]
-
-**Scenario:** Manage subscription billing where customers are charged on their anniversary day each month.
-
-**Implementation:**
-```
-=DAY(B2)                                                          (Customer's billing day)
-=IF(DAY(TODAY())=DAY(B2), "Bill Today", "Not Billing Day")
-=DATE(YEAR(TODAY()), MONTH(TODAY()), MIN(DAY(B2), DAY(EOMONTH(TODAY(),0))))  (This month's billing date, capped at month end)
+```excel
+=IF(OR(DAY(A2) = 1, DAY(A2) = 15), IF(WEEKDAY(A2, 2) > 5, "Move Payment", "Pay"), "")
 ```
 
-**Business Application:** Subscription platforms identify which customers are due for billing each day. Revenue recognition systems allocate monthly charges based on billing day. Customer service knows each subscriber's next billing date instantly.
+**Why It Works:** DAY selects the pay dates, and WEEKDAY with type 2 gives Monday as 1 through Sunday as 7, so values above 5 mark Saturday and Sunday.
 
-**Technical Details:** The MIN formula handles customers who signed up on the 31st—in February, they're billed on the 28th (or 29th). This is the standard "bill on anniversary or last day of month, whichever is earlier" pattern.
+## Common Errors
 
----
-
-### [[Monthly Report Cutoff and Period Identification]]
-
-**Scenario:** Determine whether transactions fall before or after monthly cutoff dates for financial reporting periods.
-
-**Implementation:**
-```
-=IF(DAY(A2)<=5, "Prior Month Accrual", "Current Month")   (5-day cutoff for late entries)
-=IF(DAY(A2)>DAY(EOMONTH(A2,0))-3, "Month-End Close", "Normal Processing")
-=DAY(EOMONTH(TODAY(),0))-DAY(TODAY())                     (Days until month-end close)
-```
-
-**Business Application:** Accounting teams identify transactions needing period adjustment. Close processes flag last-day-of-month entries for review. Management reports show how close we are to month-end cutoff.
-
-**Technical Details:** Cutoff rules vary by organization. Some close on the 25th for reporting; others use actual month end. Parameterize cutoff day in a named cell for easy adjustment rather than hardcoding.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | The argument is text that cannot be read as a date. | Convert the text with DATEVALUE, or build the date with DATE. |
+| Unexpected 0 or 1 | The argument is a small number, such as the result of dividing `10/10/2000` in Sheets. | Pass a real date cell, or build the date with DATE. |
+| Wrong day | The text was read with the other day and month order because of regional settings. | Use DATE with separate year, month and day values. |
+| Day shown as a date | The result cell has a date format. | Format the result cell as Number. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions since Excel 1.0
-- **Date system:** Works with both 1900 and 1904 date systems
-- **Range:** Returns 1-31 depending on the date
-- **Text parsing:** Parses text dates according to regional settings
-- **Edge case:** DAY(0) returns 0 (the fictional January 0, 1900)
-
-### Google Sheets
-- **Availability:** All versions
-- **Date system:** Uses 1899 epoch
-- **Range:** Same as Excel, 1-31
-- **Text parsing:** Similar to Excel, may differ on ambiguous formats
-- **Edge case:** DAY(0) returns 30 (December 30, 1899)
-
-### Key Difference Alert
-The DAY(0) edge case differs: Excel returns 0 (from the fictional January 0, 1900) while Sheets returns 30 (from December 30, 1899). Since serial number 0 isn't used for real dates, this is only relevant for edge case testing. For all practical dates, behavior is identical.
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available | Returns 1 to 31 from a date serial number. Microsoft advises entering dates with DATE or as formula results, and notes that text dates can cause problems. |
+| Google Sheets | Available | Returns 1 to 31. Slash-separated dates typed directly into a formula are evaluated as numbers, so use DATE or a date cell. |
 
 ## Tips and Best Practices
 
-1. **Use DAY with EOMONTH for month-end logic:** DAY(EOMONTH(A1,0)) gives the last day of the month (28, 29, 30, or 31). Compare with DAY(A1) to identify month-end dates.
-
-2. **Handle end-of-month transfers carefully:** When moving a date from a 31-day month to a 30-day month, DAY preserves the 31, causing DATE to overflow to the next month. Use MIN(DAY(A1), DAY(EOMONTH(target,0))) to cap appropriately.
-
-3. **Create helper columns for day numbers:** In large datasets, a =DAY(A1) helper column simplifies SUMIF, COUNTIF, and PivotTable analysis by day-of-month.
-
-4. **Remember DAY returns 1-31, not 0-30:** Unlike some programming languages, spreadsheet days are 1-indexed. The first day is 1, not 0.
-
-5. **Combine with WEEKDAY for business day analysis:** DAY tells you it's the 15th; WEEKDAY tells you it's a Tuesday. Together they answer "Is the 15th a business day this month?"
-
-6. **Use for data validation:** Catch impossible dates in imported data: =IF(DAY(A1)>31, "Invalid", "OK") won't catch everything (DATE auto-corrects), but validates after the fact.
-
-7. **Consider billing day edge cases:** If customers signed up on the 29th, 30th, or 31st, they need special handling in February. Document and test these scenarios explicitly.
-
-8. **Use TEXT for ordinal display:** =DAY(A1)&IF(OR(DAY(A1)=11,DAY(A1)=12,DAY(A1)=13),"th",IF(MOD(DAY(A1),10)=1,"st",IF(MOD(DAY(A1),10)=2,"nd",IF(MOD(DAY(A1),10)=3,"rd","th")))) gives "1st", "2nd", "3rd", "4th", etc.
+- Use DAY with EOMONTH to find the last day of a month, then compare it with DAY(A2) to test for month-end dates.
+- Use MIN with DAY and the month length when a date may not exist in the target month.
+- Build literal dates with DATE, not with typed text, so the formula works in any regional setting.
+- Store dates as real date values in data, so DAY reads them the same way in every row.
+- Add a helper column with DAY for large data sets when you need to group or count by day of month.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[YEAR]] | Extracts year component (1900-9999) | When you need the year portion of a date |
-| [[MONTH]] | Extracts month component (1-12) | When you need the month portion of a date |
-| [[WEEKDAY]] | Returns day of week (1-7) | When you need weekday (Mon/Tue/etc), not day-of-month |
-| [[DAYS]] | Returns days between two dates | When calculating day differences, not extracting component |
-
-### Commonly Used Together
-
-**[[DATE]]** - Reconstruct dates with modified day
-
-*Change day or find period boundaries:*
-```
-=DATE(YEAR(A1), MONTH(A1), 1)        // First of the month
-=DATE(YEAR(A1), MONTH(A1), 15)       // 15th of the month
-=DATE(YEAR(A1), MONTH(A1)+1, 0)      // Last of the month (day 0 trick)
-```
-Essential for creating fixed day-of-month dates or adjusting days while preserving month/year.
-
----
-
-**[[YEAR]] / [[MONTH]]** - Complete date decomposition
-
-*Extract all components:*
-```
-=YEAR(A1)    // Year portion
-=MONTH(A1)   // Month portion
-=DAY(A1)     // Day portion
-```
-Together these three functions fully decompose any date for manipulation or analysis.
-
----
-
-**[[EOMONTH]]** - Month-end calculations
-
-*Work with last day of month:*
-```
-=EOMONTH(A1, 0)                      // Last day of A1's month
-=DAY(EOMONTH(A1, 0))                 // Number of days in A1's month (28-31)
-=EOMONTH(A1, 0)-A1                   // Days remaining in month
-```
-Essential companion for month-end detection, days-remaining calculations, and period boundaries.
-
----
-
-**[[TODAY]]** - Current day reference
-
-*Dynamic day-of-month calculations:*
-```
-=DAY(TODAY())                        // Current day of month
-=DAY(EOMONTH(TODAY(),0))-DAY(TODAY()) // Days remaining this month
-=IF(DAY(TODAY())>=DAY(A1), "Due", "Not Due")
-```
-Enables dynamic month progress tracking and due date comparisons.
-
----
-
-**[[IF]]** - Conditional day logic
-
-*Day-based conditions:*
-```
-=IF(DAY(A1)=1, "Month Start", "")
-=IF(DAY(A1)>15, "Second Half", "First Half")
-=IF(AND(DAY(A1)>=1, DAY(A1)<=7), "Week 1", "Later")
-```
-Foundation for all day-based decision logic and classification.
-
----
-
-**[[WEEKDAY]]** - Day of week companion
-
-*Combine calendar day with weekday:*
-```
-=IF(AND(DAY(A1)=15, WEEKDAY(A1,2)<=5), "Payday", "Weekend - Adjust")
-```
-DAY tells you the calendar date; WEEKDAY tells you if it's a working day.
+| Function | Relationship |
+| --- | --- |
+| [DATE](DATE.md) | Builds the date that DAY reads, or changes one part of an existing date. |
+| [DAYS](DAYS.md) | Counts the days between two dates, rather than reading the day of one date. |
+| [EOMONTH](EOMONTH.md) | Returns the last day of a month, the usual companion for month-end tests. |
+| [MONTH](MONTH.md) | Reads the month number, the companion to the day number. |
+| [TODAY](TODAY.md) | Supplies the current date, the usual input for a current day of month. |
+| [WEEKDAY](WEEKDAY.md) | Returns the day of the week, which pairs with DAY for payroll and billing rules. |
+| [YEAR](YEAR.md) | Reads the year, completing the set of date part functions. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [DAY function](https://support.microsoft.com/en-us/office/day-function-8a7d1cbb-6c7d-4ba1-8ced-f8f2e75e8445)
-- **Google Sheets:** [DAY function](https://support.google.com/docs/answer/3093040)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 1.0 (1985) | One of the original functions |
-| Excel 2007+ | All subsequent | No changes to function behavior |
-| Excel for Mac | All versions | Same behavior as Windows version |
-| Google Sheets | Original launch (2006) | Functionally identical to Excel |
-| LibreOffice Calc | All versions | Compatible implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: DAY function](https://support.microsoft.com/en-us/excel/functions/day-function)
+- [Google Docs Editors Help: DAY](https://support.google.com/docs/answer/3093040)

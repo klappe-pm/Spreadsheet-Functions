@@ -1,26 +1,48 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Logical
+purpose:
+  - Function Relationships
+use-case:
+  - Choosing a Conditional Function
+  - Combining Logical Tests
+related:
+  - AND
+  - IF
+  - IFERROR
+  - IFNA
+  - IFS
+  - ISERR
+  - ISERROR
+  - ISNA
+  - LAMBDA
+  - NOT
+  - OR
+  - SWITCH
+  - XOR
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - conditional-logic
+  - error-handling
+  - logical
 ---
-# Spreadsheets-Functions-Logical Operators
+
+# Logical Operators
+
+This diagram shows 10 of the 19 Logical functions. ISERR, ISERROR and ISNA belong to Information and are listed under Error Handling.
 
 ```mermaid
 
 graph LR
-    Logical["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Logical</b><br/>────────────────<br/>Logical operations and conditions<br/><b>Total Functions:</b> 13</div>"]
+    Logical["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Logical</b><br/>────────────────<br/>Logical operations and conditions<br/><b>Total Functions:</b> 19</div>"]
     
     Logical --> AdvLogic["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Advanced Logic</b><br/>────────────────<br/>Complex logical functions<br/><b>Functions:</b> 6</div>"]
     Logical --> CondLogic["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Conditional Logic</b><br/>────────────────<br/>Basic conditional functions<br/><b>Functions:</b> 4</div>"]
@@ -29,17 +51,17 @@ graph LR
     %% Advanced Logic (6 functions)
     %% LAMBDA - Function 1
     AdvLogic --> LAMBDA["<div align='left' style='font-family: MonoLisa, monospace;'><b>LAMBDA</b><br/>────────────────<br/>Defines a custom reusable function with parameters</div>"]
-    LAMBDA --> LAMBDASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>LAMBDA(name, expression, [arguments])</div>"]
-    LAMBDA --> LAMBDAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=LAMBDA(x, x*2)(5) → 10</div>"]
+    LAMBDA --> LAMBDASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>LAMBDA([parameter1, parameter2, ...,] calculation)</div>"]
+    LAMBDA --> LAMBDAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=MAP(A2:A4, LAMBDA(x, x*2)) → doubled values</div>"]
     
     %% IFERROR - Function 2
     AdvLogic --> IFERROR["<div align='left' style='font-family: MonoLisa, monospace;'><b>IFERROR</b><br/>────────────────<br/>Returns a value if no error, another value if an error occurs</div>"]
-    IFERROR --> IFERRORSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IFERROR(value, [value_if_error])</div>"]
+    IFERROR --> IFERRORSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IFERROR(value, value_if_error)</div>"]
     IFERROR --> IFERROREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IFERROR(A1/B1, &quot;Error&quot;) → &quot;Error&quot;</div>"]
     
     %% IFNA - Function 3
     AdvLogic --> IFNA["<div align='left' style='font-family: MonoLisa, monospace;'><b>IFNA</b><br/>────────────────<br/>Returns a value if not #N/A, another value if #N/A</div>"]
-    IFNA --> IFNASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IFNA(value, [value_if_na])</div>"]
+    IFNA --> IFNASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IFNA(value, value_if_na)</div>"]
     IFNA --> IFNAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IFNA(VLOOKUP(A1,B1:C10,2,FALSE), &quot;Not Found&quot;) → &quot;Not Found&quot;</div>"]
     
     %% IFS - Function 4
@@ -65,7 +87,7 @@ graph LR
     
     %% IF - Function 8
     CondLogic --> IF["<div align='left' style='font-family: MonoLisa, monospace;'><b>IF</b><br/>────────────────<br/>Returns one value if a condition is true, another if false</div>"]
-    IF --> IFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IF(logical_expression, value_if_true, value_if_false)</div>"]
+    IF --> IFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IF(logical_test, value_if_true, [value_if_false])</div>"]
     IF --> IFEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IF(A1&gt;10, &quot;High&quot;, &quot;Low&quot;) → &quot;High&quot;</div>"]
     
     %% NOT - Function 9

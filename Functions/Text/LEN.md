@@ -1,420 +1,293 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- text
-subTopics:
-- text-length
-- character-counting
-- string-measurement
-- data-validation
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Text
+subcategory: Text Measurement
+purpose:
+  - Counting
+  - Data Validation
+use-case:
+  - Data Entry Validation
+  - Field Truncation Prevention
+  - Text Comparison Debugging
+related:
+  - CLEAN
+  - CODE
+  - LEFT
+  - LENB
+  - RIGHT
+  - SUBSTITUTE
+  - TRIM
+  - VALUE
+level: 1
+source:
+  - https://support.microsoft.com/en-us/excel/functions/len-function
+  - https://support.google.com/docs/answer/3094081
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Length
-- Character Count
-- String Length
-- Text Length
+  - Character Count
+  - String Length
+  - Text Length
 tags:
-- text
-- length
-- counting
-- validation
-- measurement
+  - counting
+  - excel
+  - length
+  - sheets
+  - validation
 ---
 
 # LEN
 
 ## Description
 
-**LEN** returns the number of characters in a text string, including spaces, punctuation, and special characters. It is the fundamental measurement function for text data, answering the simple but essential question: "How long is this text?" Whether validating data entry, calculating dynamic extraction parameters, or identifying anomalies in datasets, LEN provides the character count you need.
+**LEN** returns the number of characters in a text string. Spaces, punctuation, digits and nonprinting characters all count as one character each. Use it to check entry lengths, to find where a delimiter sits near the end of a string, or to detect hidden characters that make two values look alike but behave differently.
 
-The function takes a single argument (the text to measure) and returns an integer representing the total character count. Every character counts equally: letters, numbers, spaces, tabs, punctuation marks, and invisible characters like non-breaking spaces. This comprehensive counting is usually what you want, but it means LEN can surprise you when text contains hidden characters that inflate the count beyond what is visible.
+LEN returns a number, not text. A number passed to LEN is converted to its text form first, so `LEN(12345)` returns 5 and `LEN(123.45)` returns 6, because the decimal point counts as a character.
 
-**Key gotcha:** LEN counts everything, including characters you cannot see. If LEN returns a higher count than you expect for seemingly short text, investigate for trailing spaces, non-breaking spaces (character 160), line breaks, or other invisible characters. Use TRIM and CLEAN to sanitize text before measuring, or compare LEN(A1) with LEN(TRIM(CLEAN(A1))) to detect hidden character issues.
+The most common surprise is a higher count than expected. Trailing spaces, non-breaking spaces, line breaks and other invisible characters all add to the total. Compare `LEN(A1)` with `LEN(TRIM(CLEAN(A1)))` to see how many hidden characters are present.
 
-**Platform behavior:** Excel and Google Sheets implement LEN identically for standard text. Excel provides LENB for byte-counting with double-byte character sets, where a single visible character may occupy multiple bytes. Google Sheets has no LENB because it counts characters uniformly regardless of byte representation. For typical business data, both platforms return identical results.
+Excel also provides LENB, which counts bytes for double-byte languages. Microsoft documents LENB as deprecated, so use LEN for new work unless a byte count is required.
 
 ## Syntax
 
-> [!f(x)] LEN Syntax
->
-> ```
-> =LEN(text)
-> ```
+```excel
+=LEN(text)
+```
+
+<!-- Image 1: LEN Counting Characters. See Images/Text/LEN.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `text` | Yes | The text string whose length you want to find. Can be a literal string in quotes, a cell reference, or a formula that returns text. Numbers are automatically converted to text. |
+| --- | --- | --- |
+| `text` | Yes | The text whose characters are counted. A literal in quotes, a cell reference or a formula that returns text all work. A number is converted to its text form before it is counted. |
 
 ### Return Value
 
-Returns an integer representing the number of characters in the text string. Returns 0 for empty strings. Counts all characters including spaces and invisible characters.
+A whole number: the count of characters in `text`, including spaces and invisible characters. An empty string returns 0.
 
 ## Examples
 
-> [!f(x)] LEN Examples
+### Example 1: Counting a Word
 
-### Example 1: Basic Character Counting
-```
+```excel
 =LEN("Hello")
 ```
-**Result:** 5
 
-**Explanation:** Counts each character: H-e-l-l-o = 5 characters. The most straightforward use of LEN for simple text measurement.
+**Result:** `5`
 
----
+The letters H, e, l, l and o make five characters.
 
-### Example 2: Counting with Spaces
-```
+### Example 2: Counting Spaces
+
+```excel
 =LEN("Hello World")
 ```
-**Result:** 11
 
-**Explanation:** Includes the space between words: "Hello" (5) + space (1) + "World" (5) = 11. Spaces are valid characters and always counted.
+**Result:** `11`
 
----
+The five letters of Hello, the space, and the five letters of World make 11 characters.
 
 ### Example 3: Empty String
-```
+
+```excel
 =LEN("")
 ```
-**Result:** 0
 
-**Explanation:** An empty string has zero characters. Useful for detecting truly empty cells versus cells with spaces.
+**Result:** `0`
 
----
+An empty string has no characters. This helps distinguish a truly empty value from a cell that only looks empty.
 
-### Example 4: Cell Reference
+### Example 4: Length of a Cell
+
+```excel
+=LEN(A2)
 ```
-=LEN(A1)
-```
-Where A1 contains "Product Code"
 
-**Result:** 12
+Where A2 contains `Product Code`
 
-**Explanation:** Works with cell references just like literal text. Essential for dynamic length checking across data ranges.
+**Result:** `12`
 
----
+The word Product has 7 characters, the space adds 1, and Code adds 4.
 
-### Example 5: Numeric Value
-```
-=LEN(12345)
-```
-**Result:** 5
+### Example 5: Numbers Are Counted as Text
 
-**Explanation:** Numbers are converted to text before counting. The number 12345 becomes "12345" with 5 characters.
-
----
-
-### Example 6: Decimal Number
-```
+```excel
 =LEN(123.45)
 ```
-**Result:** 6
 
-**Explanation:** The decimal point counts as a character. 123.45 becomes "123.45" = 6 characters (including the period).
+**Result:** `6`
 
----
+The value is read as the text `123.45`, and the decimal point counts as a character.
 
-### Example 7: Detecting Hidden Spaces
-```
+### Example 6: Detecting a Trailing Space
+
+```excel
 =LEN("Hello ")
 ```
-**Result:** 6
 
-**Explanation:** The trailing space is counted. If A1 shows "Hello" but LEN(A1) returns 6, there is an invisible trailing space.
+**Result:** `6`
 
----
+The space after the word is counted. If a cell displays `Hello` but returns 6 here, it contains an invisible trailing space.
 
-### Example 8: Combining with TRIM to Find Extra Spaces
+### Example 7: Finding Extra Spaces
+
+```excel
+=LEN(A3) - LEN(TRIM(A3))
 ```
-=LEN(A1) - LEN(TRIM(A1))
+
+Where A3 contains `  Hello  World  `
+
+**Result:** `5`
+
+LEN counts 16 characters in the original. TRIM reduces the text to `Hello World`, which has 11 characters. The difference of 5 is the number of extra spaces removed.
+
+### Example 8: Counting Words Separated by Single Spaces
+
+```excel
+=LEN(A4) - LEN(SUBSTITUTE(A4, " ", "")) + 1
 ```
-Where A1 contains "  Hello  World  "
 
-**Result:** 6
+Where A4 contains `The quick brown fox`
 
-**Explanation:** LEN(A1) counts all 16 characters. TRIM(A1) becomes "Hello World" (11 chars). The difference (5) represents extra spaces removed. Note: TRIM only removes leading/trailing spaces and reduces internal multiple spaces to single spaces.
+**Result:** `4`
 
----
+The sentence has 19 characters. Removing the spaces leaves 16. The difference of 3 is the number of spaces, and adding 1 gives the number of words. The formula assumes single spaces between words.
 
-### Example 9: Using LEN with LEFT for Dynamic Extraction
+### Example 9: Counting a Specific Letter
+
+```excel
+=LEN(A5) - LEN(SUBSTITUTE(A5, "a", ""))
 ```
-=LEFT(A1, LEN(A1)-4)
+
+Where A5 contains `banana`
+
+**Result:** `3`
+
+Removing every lowercase a leaves 3 characters. The difference from the original length of 6 is the number of a characters. SUBSTITUTE is case-sensitive, so uppercase A is not counted here.
+
+### Example 10: Checking a Fixed-Length Code
+
+```excel
+=IF(LEN(A6) = 10, "Valid", "Invalid Length")
 ```
-Where A1 contains "Report2025"
 
-**Result:** "Report"
+Where A6 contains `PROD123456`
 
-**Explanation:** Calculates total length (10), subtracts 4, and extracts the first 6 characters. Dynamically removes the last 4 characters regardless of the prefix length.
+**Result:** `"Valid"`
 
----
+The code has ten characters, so it passes the length check.
 
-### Example 10: Using LEN with RIGHT for Dynamic Extraction
+## Story Problems
+
+### Problem 1: Checking a Text Message Limit
+
+A customer service team sends short order updates by text message. The carrier limit for one message in this workflow is 160 characters.
+
+| Message |
+| --- |
+| Your order ships Monday, thanks! |
+
+**Task:** Count the characters in the message in A2 and state whether it fits the limit.
+
+**Solution:**
+
+```excel
+=LEN(A2)
 ```
-=RIGHT(A1, LEN(A1)-FIND("-", A1))
+
+**Answer:** `32`. The message has 32 characters, well under the 160 character limit, so it fits.
+
+<!-- Image 2: Message Length Check. See Images/Text/LEN.md -->
+
+### Problem 2: Exact Length for a Password Field
+
+A system requires passwords of exactly 10 characters. A user typed `Blue Fox 7 ` with a trailing space, which is stored in B2.
+
+| Field | Entry |
+| --- | --- |
+| Password (B2) | Blue Fox 7  |
+
+**Task:** Count the characters in B2 to decide whether the entry meets the length rule.
+
+**Solution:**
+
+```excel
+=LEN(B2)
 ```
-Where A1 contains "SKU-12345"
 
-**Result:** "12345"
-
-**Explanation:** FIND returns position of hyphen (4). LEN returns total (9). 9-4 = 5 characters from the right. Extracts everything after the hyphen.
-
----
-
-### Example 11: Counting Words (Approximate)
-```
-=LEN(A1)-LEN(SUBSTITUTE(A1," ",""))+1
-```
-Where A1 contains "The quick brown fox"
-
-**Result:** 4
-
-**Explanation:** Counts spaces and adds 1 to get word count. LEN("The quick brown fox") = 19. LEN("Thequickbrownfox") = 16. 19-16+1 = 4 words. Assumes single spaces between words.
-
----
-
-### Example 12: Validating Fixed-Length Codes
-```
-=IF(LEN(A1)=10, "Valid", "Invalid Length")
-```
-Where A1 contains "PROD123456"
-
-**Result:** "Valid"
-
-**Explanation:** Validates that product codes are exactly 10 characters. A simple but effective data quality check for fixed-format identifiers.
-
----
-
-### Example 13: Finding Longest Entry in Range
-```
-=MAX(LEN(A1:A100))
-```
-**Result:** Length of longest text in range (as array formula in older Excel)
-
-**Explanation:** LEN applied to a range returns an array of lengths. MAX finds the largest. In Excel 365 and Sheets, works directly. Older Excel needs Ctrl+Shift+Enter.
-
----
-
-### Example 14: Counting Specific Character Occurrences
-```
-=LEN(A1)-LEN(SUBSTITUTE(A1, "a", ""))
-```
-Where A1 contains "banana"
-
-**Result:** 3
-
-**Explanation:** Original length (6) minus length without "a"s (3) = count of "a"s (3). Classic technique for counting character occurrences.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Extremely rare with LEN; typically from nested formula errors | Check formulas feeding into LEN for errors. |
-| `Unexpected high count` | Hidden characters (trailing spaces, non-breaking spaces, line breaks) | Use LEN(TRIM(CLEAN(A1))) to compare; clean source data. |
-| `Zero unexpected` | Cell appears to have content but is actually empty | Check for formulas returning ""; verify with =A1="" test. |
-| `Counting formulas, not values` | Using LEN on cell with formula shows result length, not formula length | This is correct behavior; LEN counts the displayed value, not the formula. |
-| `Different results between platforms` | Possible with LENB usage or regional number formatting | Standard LEN should match; check for LENB or locale-specific number formats. |
+**Answer:** `11`. The visible text has 10 characters, but the trailing space makes the total 11, so the entry fails the 10 character rule.
 
 ## Use Cases
 
-### [[Data Entry Validation]]
+### Data Entry Validation
 
-**Scenario:** A form collects Social Security Numbers which must be exactly 9 digits. Validate entries before processing.
+**Scenario:** An employee ID must be six digits. Entries that are too long, too short or contain letters are flagged before they are saved.
 
-**Implementation:**
-```
-=IF(AND(LEN(A2)=9, ISNUMBER(VALUE(A2))), "Valid", "Invalid SSN")
-```
-
-**Business Application:** Prevent processing errors and database corruption from malformed SSN entries. Catch mistakes at data entry rather than discovering them during downstream processing.
-
-**Technical Details:** LEN checks length, ISNUMBER(VALUE()) confirms all characters are numeric. Could also use regex in Sheets: `=REGEXMATCH(A2,"^\d{9}$")` for stricter validation.
-
----
-
-### [[Field Truncation Prevention]]
-
-**Scenario:** Data will be exported to a legacy system where the name field is limited to 50 characters. Identify records that will be truncated.
-
-**Implementation:**
-```
-=IF(LEN(A2)>50, "WILL TRUNCATE: " & LEN(A2) & " chars", "OK")
+```excel
+=IF(AND(LEN(A2) = 6, ISNUMBER(VALUE(A2))), "Valid", "Invalid")
 ```
 
-**Business Application:** Proactively identify data quality issues before export. Enables manual review and correction of long entries rather than silent truncation that causes data loss.
+**Why It Works:** LEN checks the length, and VALUE with ISNUMBER checks that the entry reads as a number. Combine both tests so that a six-letter entry is not accepted.
 
-**Technical Details:** Flag entries exceeding the limit and show their actual length. For automatic fixing, use `=LEFT(A2, 50)` to pre-truncate, but this may cause issues with names, so manual review is preferred.
+### Field Truncation Prevention
 
----
+**Scenario:** An export sends names to a legacy system whose name field holds 50 characters. Long names must be found before the export runs, so they can be shortened by a person.
 
-### [[Dynamic Column Widths]]
-
-**Scenario:** Generate a report where column widths should auto-adjust based on the longest content in each column.
-
-**Implementation:**
-```
-Longest Value: =MAX(LEN(A:A))
-Recommended Width: =MAX(LEN(A:A))*1.1
+```excel
+=IF(LEN(A2) > 50, "Will truncate: " & LEN(A2) & " characters", "OK")
 ```
 
-**Business Application:** Create professional reports with appropriately sized columns. Prevents data from being cut off while avoiding excessively wide columns that waste space.
+**Why It Works:** The formula reports the actual length of each long name. Manual review is safer than an automatic cut, because a shortened name can lose meaning.
 
-**Technical Details:** The 1.1 multiplier adds 10% padding for comfortable reading. For proportional fonts, you might need larger multipliers since characters have varying widths.
+### Text Comparison Debugging
 
----
+**Scenario:** Two codes look the same, but a lookup fails to match them. The team needs to find the hidden characters.
 
-### [[Text Comparison Debugging]]
-
-**Scenario:** Two values look identical but EXACT() says they differ, or VLOOKUP fails to find a match. Use LEN to diagnose hidden character issues.
-
-**Implementation:**
-```
-Value 1 Length: =LEN(A2)
-Value 2 Length: =LEN(B2)
-Clean Value 1: =LEN(TRIM(CLEAN(A2)))
-Clean Value 2: =LEN(TRIM(CLEAN(B2)))
-Hidden Chars in V1: =LEN(A2)-LEN(TRIM(CLEAN(A2)))
-Hidden Chars in V2: =LEN(B2)-LEN(TRIM(CLEAN(B2)))
+```excel
+=LEN(A2) - LEN(TRIM(CLEAN(A2)))
 ```
 
-**Business Application:** Diagnose mysterious matching failures in data reconciliation, lookup formulas, and duplicate detection. Hidden characters are a common cause of "the data looks right but nothing works" problems.
+**Why It Works:** TRIM removes extra spaces, and CLEAN removes nonprinting characters. A result above zero shows how many hidden characters are present in the cell. Use CODE on individual characters to identify the source.
 
-**Technical Details:** Compare raw LEN with cleaned LEN to detect hidden characters. CLEAN removes non-printable characters (ASCII 0-31). TRIM removes extra spaces. If difference is non-zero, investigate with CODE() to identify the offending characters.
+## Common Errors
+
+| Error | Cause | Fix |
+| --- | --- | --- |
+| Count is higher than the visible text | Trailing spaces, non-breaking spaces or line breaks are present. | Compare with `LEN(TRIM(CLEAN(A1)))` and clean the source data. |
+| Count is zero for a cell that looks filled | The cell is empty, or a formula returns an empty string. | Test with `A1 = ""` and check the formula that fills the cell. |
+| Count differs between platforms | Surrogate pairs in Unicode text, such as some emoji, can be counted differently. | Check the workbook compatibility setting, or test the characters in the target platform. |
+| Count is wrong for double-byte text | Expected a byte count. LEN counts characters. | Use LENB only when a byte count is required. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions (Excel 97 onward)
-- **LENB function:** Excel provides LENB for byte-counting in DBCS (double-byte character set) languages, returning byte count rather than character count
-- **Behavior with numbers:** Automatically converts numbers to their text representation
-- **Array behavior:** In Excel 365, LEN works directly on arrays; older versions may need Ctrl+Shift+Enter
-
-### Google Sheets
-- **Availability:** All versions
-- **No LENB equivalent:** Sheets counts characters uniformly regardless of byte representation
-- **Array formula support:** Works natively with ARRAYFORMULA and direct range references
-- **Behavior:** Identical to Excel for standard text operations
-
-### Key Difference Alert
-LENB in Excel returns the byte count, which differs from character count for languages using double-byte characters (Chinese, Japanese, Korean). In these languages, one visible character may be 2 bytes. Google Sheets has no LENB and counts all characters as single units regardless of their byte representation. For spreadsheets shared between platforms with DBCS content, replace LENB with LEN and verify results.
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available. | LENB is available for byte counts and is documented as deprecated. In Compatibility Version 2, surrogate pairs count as one character. |
+| Google Sheets | Available. | Counts every character, including spaces and nonprinting characters, as the help page states. |
 
 ## Tips and Best Practices
 
-1. **Use LEN to detect hidden characters:** When LEN returns more than expected, you have invisible characters. Compare LEN(A1) with LEN(TRIM(CLEAN(A1))) to quantify hidden content.
-
-2. **Combine with TRIM before length checks:** For robust validation, check LEN(TRIM(A1)) rather than LEN(A1) to ignore accidental leading/trailing spaces.
-
-3. **LEN + SUBSTITUTE for character counting:** Count occurrences of any character with `=LEN(A1)-LEN(SUBSTITUTE(A1,"x",""))` where "x" is the character to count.
-
-4. **Use LEN to calculate RIGHT parameters:** The pattern `=RIGHT(A1, LEN(A1)-FIND(...)` extracts everything after a found position.
-
-5. **Validate fixed-format codes:** Simple LEN checks catch many data entry errors: `=LEN(A1)=10` for 10-character codes.
-
-6. **Remember LEN counts all characters:** Including decimal points, commas, currency symbols, and spaces. A value of "$1,234.56" has LEN of 9.
-
-7. **LEN on empty cells returns 0:** Use this for conditional logic: `=IF(LEN(A1)=0, "Empty", "Has Content")`.
-
-8. **Debug matching issues with LEN:** When lookups fail unexpectedly, compare LEN of the search value and table values. Different lengths mean hidden character problems.
+- Use LEN to detect hidden characters when a value looks right but does not match.
+- Compare `LEN(A1)` with `LEN(TRIM(A1))` to find extra spaces without changing the source.
+- Use LEN with SUBSTITUTE to count a character or a word, and state the assumptions behind the count.
+- Use LEN in data validation rules for fixed-format codes, such as `=LEN(A1) = 10`.
+- Test LEN on empty cells, because an empty cell returns 0 and a formula that returns "" also returns 0.
 
 ## Related Functions
 
-### Similar Functions
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[LENB]] | Counts bytes rather than characters (Excel only) | When working with double-byte character sets and need byte count |
-| [[COUNTA]] | Counts non-empty cells | When counting cells with values, not character length |
-
-### Commonly Used Together
-
-**[[LEFT]]** - Extracts characters from the beginning of text
-
-*Combine with LEN to remove trailing characters:*
-```
-=LEFT(A1, LEN(A1)-4)
-```
-Removes the last 4 characters by extracting length minus 4 characters from the start.
-
----
-
-**[[RIGHT]]** - Extracts characters from the end of text
-
-*Combine with LEN for delimiter-based extraction:*
-```
-=RIGHT(A1, LEN(A1)-FIND("-", A1))
-```
-Extracts everything after the first hyphen. LEN provides total length; FIND provides delimiter position.
-
----
-
-**[[TRIM]]** - Removes extra spaces from text
-
-*Combine with LEN to detect extra spaces:*
-```
-=LEN(A1) - LEN(TRIM(A1))
-```
-Returns the number of extra space characters (leading, trailing, and extra internal spaces).
-
----
-
-**[[CLEAN]]** - Removes non-printable characters
-
-*Combine with LEN to detect hidden characters:*
-```
-=LEN(A1) - LEN(CLEAN(A1))
-```
-Returns the count of non-printable characters (ASCII 0-31) in the text.
-
----
-
-**[[SUBSTITUTE]]** - Replaces specific text within a string
-
-*Combine with LEN to count character occurrences:*
-```
-=LEN(A1) - LEN(SUBSTITUTE(A1, "@", ""))
-```
-Counts how many "@" characters appear in the text. Works for any character or substring.
-
----
-
-**[[FIND]]** - Locates position of a substring
-
-*Combine with LEN for RIGHT extraction:*
-```
-=RIGHT(A1, LEN(A1) - FIND(" ", A1))
-```
-Extracts everything after the first space (e.g., last name from "First Last").
-
----
-
-**[[IF]]** - Conditional logic
-
-*Combine with LEN for length validation:*
-```
-=IF(LEN(A1)=9, "Valid", "Invalid")
-```
-Validates that entries meet required length specifications.
+| Function | Relationship |
+| --- | --- |
+| [TRIM](TRIM.md) | Removes extra spaces before a length is measured. |
+| [CLEAN](CLEAN.md) | Removes nonprinting characters before a length is measured. |
+| [CODE](CODE.md) | Returns the code of one character, which helps identify hidden characters. |
+| [LEFT](LEFT.md) | Extracts a prefix whose length can be computed with LEN. |
+| [RIGHT](RIGHT.md) | Extracts a suffix whose length can be computed with LEN. |
+| [SUBSTITUTE](SUBSTITUTE.md) | Removes a character so that LEN can count the difference. |
+| [VALUE](VALUE.md) | Converts a text number to a value, often used with LEN in validation. |
+| [LENB](LENB.md) | Counts bytes instead of characters, for double-byte text. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [LEN, LENB functions](https://support.microsoft.com/en-us/office/len-lenb-functions-29236f94-cedc-429d-affd-b5e33d2c67cb)
-- **Google Sheets:** [LEN function](https://support.google.com/docs/answer/3094081)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 2.0 (1987) | Original function, one of the earliest text functions |
-| Excel 2007+ | All subsequent versions | No changes to core functionality |
-| Excel 365 | Continuous updates | Native array support without Ctrl+Shift+Enter |
-| Google Sheets | Original launch (2006) | Identical implementation to Excel |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: LEN function](https://support.microsoft.com/en-us/excel/functions/len-function)
+- [Google Docs Editors Help: LEN](https://support.google.com/docs/answer/3094081)

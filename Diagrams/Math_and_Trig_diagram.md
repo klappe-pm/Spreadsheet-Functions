@@ -1,3 +1,67 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Math & Trig
+purpose:
+  - Function Relationships
+use-case:
+  - Rounding Numbers
+  - Choosing a Trigonometric Function
+related:
+  - ABS
+  - ACOS
+  - ACOSH
+  - AGGREGATE
+  - ARABIC
+  - ASIN
+  - ASINH
+  - ATAN
+  - ATAN2
+  - ATANH
+  - BASE
+  - CEILING
+  - CEILING.MATH
+  - COS
+  - COSH
+  - COT
+  - COTH
+  - CSC
+  - CSCH
+  - DECIMAL
+  - DEGREES
+  - EVEN
+  - EXP
+  - FACT
+  - FACTDOUBLE
+  - FLOOR
+  - FLOOR.MATH
+  - GCD
+  - INT
+  - ISO.CEILING
+  - LCM
+  - LN
+  - LOG
+  - LOG10
+  - POWER
+  - ROUNDDOWN
+  - ROUNDUP
+  - SUM
+  - SUMIF
+  - SUMIFS
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - math
+  - trigonometry
+  - rounding
+---
+
 # Math & Trig Functions Relationship Diagram
 
 This diagram shows the relationships between functions in the Math & Trig category and their connections to commonly used functions.
@@ -5,78 +69,78 @@ This diagram shows the relationships between functions in the Math & Trig catego
 ```mermaid
 graph TD
     classDef MathTrig fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#000
-    COT["COT<br/>COT calculates mathematical and trigonometric values for sci..."]
-    PRODUCT["PRODUCT<br/>PRODUCT calculates mathematical and trigonometric values for..."]
-    SEC["SEC<br/>SEC calculates mathematical and trigonometric values for sci..."]
-    ARABIC["ARABIC<br/>ARABIC calculates mathematical and trigonometric values for ..."]
-    LOG10["LOG10<br/>LOG10 calculates mathematical and trigonometric values for s..."]
-    LCM["LCM<br/>LCM calculates mathematical and trigonometric values for sci..."]
-    RAND["RAND<br/>RAND calculates mathematical and trigonometric values for sc..."]
-    SUMIF["SUMIF<br/>SUMIF performs conditional calculations based on specified c..."]
-    MROUND["MROUND<br/>MROUND calculates mathematical and trigonometric values for ..."]
-    ROUND["ROUND<br/>ROUND rounds a number to a specified number of decimal place..."]
-    POWER["POWER<br/>POWER calculates mathematical and trigonometric values for s..."]
-    ATANH["ATANH<br/>ATANH calculates mathematical and trigonometric values for s..."]
-    BASE["BASE<br/>BASE calculates mathematical and trigonometric values for sc..."]
-    ACOS["ACOS<br/>ACOS calculates mathematical and trigonometric values for sc..."]
-    ATAN["ATAN<br/>ATAN calculates mathematical and trigonometric values for sc..."]
-    INT["INT<br/>INT calculates mathematical and trigonometric values for sci..."]
-    EXP["EXP<br/>EXP calculates mathematical and trigonometric values for sci..."]
-    MOD["MOD<br/>MOD calculates mathematical and trigonometric values for sci..."]
-    COTH["COTH<br/>COTH calculates mathematical and trigonometric values for sc..."]
-    CEILING_MATH["CEILING.MATH<br/>CEILING.MATH calculates mathematical and trigonometric value..."]
-    SIN["SIN<br/>SIN calculates mathematical and trigonometric values for sci..."]
-    RADIANS["RADIANS<br/>RADIANS calculates mathematical and trigonometric values for..."]
-    ODD["ODD<br/>ODD calculates mathematical and trigonometric values for sci..."]
-    SUMPRODUCT["SUMPRODUCT<br/>SUMPRODUCT calculates mathematical and trigonometric values ..."]
-    ROUNDDOWN["ROUNDDOWN<br/>ROUNDDOWN calculates mathematical and trigonometric values f..."]
-    SUM["SUM<br/>SUM adds all numbers in a range or list of arguments. This i..."]
-    SERIESSUM["SERIESSUM<br/>SERIESSUM calculates mathematical and trigonometric values f..."]
-    FACTDOUBLE["FACTDOUBLE<br/>FACTDOUBLE calculates mathematical and trigonometric values ..."]
-    ISO_CEILING["ISO.CEILING<br/>ISO.CEILING calculates mathematical and trigonometric values..."]
-    MMULT["MMULT<br/>MMULT calculates mathematical and trigonometric values for s..."]
-    SINH["SINH<br/>SINH calculates mathematical and trigonometric values for sc..."]
-    SIGN["SIGN<br/>SIGN calculates mathematical and trigonometric values for sc..."]
-    COSH["COSH<br/>COSH calculates mathematical and trigonometric values for sc..."]
-    SUMIFS["SUMIFS<br/>SUMIFS performs conditional calculations based on specified ..."]
-    SQRTPI["SQRTPI<br/>SQRTPI calculates mathematical and trigonometric values for ..."]
-    TANH["TANH<br/>TANH calculates mathematical and trigonometric values for sc..."]
-    EVEN["EVEN<br/>EVEN calculates mathematical and trigonometric values for sc..."]
-    LOG["LOG<br/>LOG calculates mathematical and trigonometric values for sci..."]
-    SQRT["SQRT<br/>SQRT returns the positive square root of a number. The numbe..."]
-    CEILING["CEILING<br/>CEILING calculates mathematical and trigonometric values for..."]
-    SECH["SECH<br/>SECH calculates mathematical and trigonometric values for sc..."]
-    SUBTOTAL["SUBTOTAL<br/>SUBTOTAL calculates mathematical and trigonometric values fo..."]
-    FLOOR_MATH["FLOOR.MATH<br/>FLOOR.MATH calculates mathematical and trigonometric values ..."]
-    RANDARRAY["RANDARRAY<br/>RANDARRAY calculates mathematical and trigonometric values f..."]
-    MDETERM["MDETERM<br/>MDETERM calculates mathematical and trigonometric values for..."]
-    QUOTIENT["QUOTIENT<br/>QUOTIENT calculates mathematical and trigonometric values fo..."]
-    TRUNC["TRUNC<br/>TRUNC calculates mathematical and trigonometric values for s..."]
-    ACOSH["ACOSH<br/>ACOSH calculates mathematical and trigonometric values for s..."]
-    ASINH["ASINH<br/>ASINH calculates mathematical and trigonometric values for s..."]
-    CSC["CSC<br/>CSC calculates mathematical and trigonometric values for sci..."]
-    ROMAN["ROMAN<br/>ROMAN calculates mathematical and trigonometric values for s..."]
-    SUMSQ["SUMSQ<br/>SUMSQ calculates mathematical and trigonometric values for s..."]
-    AGGREGATE["AGGREGATE<br/>AGGREGATE calculates mathematical and trigonometric values f..."]
-    FLOOR["FLOOR<br/>FLOOR calculates mathematical and trigonometric values for s..."]
-    DECIMAL["DECIMAL<br/>DECIMAL calculates mathematical and trigonometric values for..."]
-    MUNIT["MUNIT<br/>MUNIT calculates mathematical and trigonometric values for s..."]
-    ABS["ABS<br/>ABS calculates mathematical and trigonometric values for sci..."]
-    PI["PI<br/>PI calculates mathematical and trigonometric values for scie..."]
-    MINVERSE["MINVERSE<br/>MINVERSE calculates mathematical and trigonometric values fo..."]
-    MULTINOMIAL["MULTINOMIAL<br/>MULTINOMIAL calculates mathematical and trigonometric values..."]
-    RANDBETWEEN["RANDBETWEEN<br/>RANDBETWEEN calculates mathematical and trigonometric values..."]
-    SEQUENCE["SEQUENCE<br/>SEQUENCE calculates mathematical and trigonometric values fo..."]
-    DEGREES["DEGREES<br/>DEGREES calculates mathematical and trigonometric values for..."]
-    ASIN["ASIN<br/>ASIN calculates mathematical and trigonometric values for sc..."]
-    CSCH["CSCH<br/>CSCH calculates mathematical and trigonometric values for sc..."]
-    ROUNDUP["ROUNDUP<br/>ROUNDUP calculates mathematical and trigonometric values for..."]
-    LN["LN<br/>LN calculates mathematical and trigonometric values for scie..."]
-    TAN["TAN<br/>TAN calculates mathematical and trigonometric values for sci..."]
-    FACT["FACT<br/>FACT calculates mathematical and trigonometric values for sc..."]
-    COS["COS<br/>COS calculates mathematical and trigonometric values for sci..."]
-    ATAN2["ATAN2<br/>ATAN2 calculates mathematical and trigonometric values for s..."]
-    GCD["GCD<br/>GCD calculates mathematical and trigonometric values for sci..."]
+    COT["COT<br/>Returns the cotangent of an angle"]
+    PRODUCT["PRODUCT<br/>Multiplies its arguments"]
+    SEC["SEC<br/>Returns the secant of an angle"]
+    ARABIC["ARABIC<br/>Converts a Roman number to Arabic, as a number"]
+    LOG10["LOG10<br/>Returns the base-10 logarithm of a number"]
+    LCM["LCM<br/>Returns the least common multiple"]
+    RAND["RAND<br/>Returns a random number between 0 and 1"]
+    SUMIF["SUMIF<br/>Adds the cells that meet a single criterion"]
+    MROUND["MROUND<br/>Returns a number rounded to the desired multiple"]
+    ROUND["ROUND<br/>Rounds a number to a specified number of digits"]
+    POWER["POWER<br/>Returns a number raised to a power"]
+    ATANH["ATANH<br/>Returns the inverse hyperbolic tangent of a number"]
+    BASE["BASE<br/>Converts a number to text in the given base (radix)"]
+    ACOS["ACOS<br/>Returns the arccosine of a number"]
+    ATAN["ATAN<br/>Returns the arctangent of a number"]
+    INT["INT<br/>Rounds a number down to the nearest integer"]
+    EXP["EXP<br/>Returns e raised to the power of a given number"]
+    MOD["MOD<br/>Returns the remainder from division"]
+    COTH["COTH<br/>Returns the hyperbolic cotangent of a number"]
+    CEILING_MATH["CEILING.MATH<br/>Rounds a number up to the nearest integer or multiple"]
+    SIN["SIN<br/>Returns the sine of the given angle"]
+    RADIANS["RADIANS<br/>Converts degrees to radians"]
+    ODD["ODD<br/>Rounds a number up to the nearest odd integer"]
+    SUMPRODUCT["SUMPRODUCT<br/>Returns the sum of the products of corresponding array components"]
+    ROUNDDOWN["ROUNDDOWN<br/>Rounds a number down, toward zero"]
+    SUM["SUM<br/>Adds its arguments"]
+    SERIESSUM["SERIESSUM<br/>Returns the sum of a power series based on a formula"]
+    FACTDOUBLE["FACTDOUBLE<br/>Returns the double factorial of a number"]
+    ISO_CEILING["ISO.CEILING<br/>Rounds a number up to the nearest integer or multiple, ignoring sign"]
+    MMULT["MMULT<br/>Returns the matrix product of two arrays"]
+    SINH["SINH<br/>Returns the hyperbolic sine of a number"]
+    SIGN["SIGN<br/>Returns the sign of a number"]
+    COSH["COSH<br/>Returns the hyperbolic cosine of a number"]
+    SUMIFS["SUMIFS<br/>Adds the cells in a range that meet multiple criteria"]
+    SQRTPI["SQRTPI<br/>Returns the square root of a number multiplied by pi"]
+    TANH["TANH<br/>Returns the hyperbolic tangent of a number"]
+    EVEN["EVEN<br/>Rounds a number up to the nearest even integer"]
+    LOG["LOG<br/>Returns the logarithm of a number to a specified base"]
+    SQRT["SQRT<br/>Returns a positive square root"]
+    CEILING["CEILING<br/>Rounds a number up to the nearest multiple of significance"]
+    SECH["SECH<br/>Returns the hyperbolic secant of an angle"]
+    SUBTOTAL["SUBTOTAL<br/>Returns a subtotal in a list or database"]
+    FLOOR_MATH["FLOOR.MATH<br/>Rounds a number down to the nearest integer or multiple"]
+    RANDARRAY["RANDARRAY<br/>Returns an array of random numbers, optionally between set bounds"]
+    MDETERM["MDETERM<br/>Returns the matrix determinant of an array"]
+    QUOTIENT["QUOTIENT<br/>Returns the integer portion of a division"]
+    TRUNC["TRUNC<br/>Truncates a number to an integer"]
+    ACOSH["ACOSH<br/>Returns the inverse hyperbolic cosine of a number"]
+    ASINH["ASINH<br/>Returns the inverse hyperbolic sine of a number"]
+    CSC["CSC<br/>Returns the cosecant of an angle"]
+    ROMAN["ROMAN<br/>Converts an arabic numeral to roman, as text"]
+    SUMSQ["SUMSQ<br/>Returns the sum of the squares of the arguments"]
+    AGGREGATE["AGGREGATE<br/>Returns an aggregate in a list or database"]
+    FLOOR["FLOOR<br/>Rounds a number down, toward zero"]
+    DECIMAL["DECIMAL<br/>Converts text in a given base into a decimal number"]
+    MUNIT["MUNIT<br/>Returns the unit matrix or the specified dimension"]
+    ABS["ABS<br/>Returns the absolute value of a number"]
+    PI["PI<br/>Returns the value of pi"]
+    MINVERSE["MINVERSE<br/>Returns the matrix inverse of an array"]
+    MULTINOMIAL["MULTINOMIAL<br/>Returns the multinomial of a set of numbers"]
+    RANDBETWEEN["RANDBETWEEN<br/>Returns a random number between the numbers you specify"]
+    SEQUENCE["SEQUENCE<br/>Generates a list of sequential numbers in an array"]
+    DEGREES["DEGREES<br/>Converts radians to degrees"]
+    ASIN["ASIN<br/>Returns the arcsine of a number"]
+    CSCH["CSCH<br/>Returns the hyperbolic cosecant of an angle"]
+    ROUNDUP["ROUNDUP<br/>Rounds a number up, away from zero"]
+    LN["LN<br/>Returns the natural logarithm of a number"]
+    TAN["TAN<br/>Returns the tangent of a number"]
+    FACT["FACT<br/>Returns the factorial of a number"]
+    COS["COS<br/>Returns the cosine of a number"]
+    ATAN2["ATAN2<br/>Returns the arctangent from x- and y-coordinates"]
+    GCD["GCD<br/>Returns the greatest common divisor"]
     IF["IF<br/>External Function"]
     COT --> IF
     class IF external
@@ -1072,11 +1136,10 @@ graph TD
     classDef external fill:#f9f9f9,stroke:#666,stroke-width:1px,stroke-dasharray: 5 5
 ```
 
-
 ## Legend
 - **Solid arrows (→)**: "Commonly used with" relationships
 - **Dashed arrows (-.->)**: "Similar functions" relationships  
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 
-## Functions in this category: 72
+## Functions In This Category: 83

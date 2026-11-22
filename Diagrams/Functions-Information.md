@@ -1,26 +1,56 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Information
+purpose:
+  - Function Relationships
+use-case:
+  - Checking Data Types
+  - Detecting Errors
+  - Reading Cell and Sheet Details
+related:
+  - CELL
+  - ERROR.TYPE
+  - INFO
+  - ISBLANK
+  - ISERR
+  - ISERROR
+  - ISEVEN
+  - ISFORMULA
+  - ISLOGICAL
+  - ISNA
+  - ISNONTEXT
+  - ISNUMBER
+  - ISODD
+  - ISTEXT
+  - "N"
+  - NA
+  - SHEET
+  - SHEETS
+  - TYPE
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - data-types
+  - error-checking
+  - information
+  - reference-info
 ---
-# Spreadsheets-Functions-Information
+
+# Information Functions
+
+This diagram shows 19 of the 26 Information functions. ISDATE, ISEMAIL, ISOMITTED, ISREF, GET.CELL, GET.WORKBOOK and STOCKHISTORY are not shown.
 
 ```mermaid
 
 graph LR
-    Information["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Information</b><br/>────────────────<br/>Functions for checking values and cell information<br/><b>Total Functions:</b> 19</div>"]
+    Information["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Information</b><br/>────────────────<br/>Functions for checking values and cell information<br/><b>Total Functions:</b> 26</div>"]
     
     Information --> ErrorCheck["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Error Checking</b><br/>────────────────<br/>Functions for checking errors<br/><b>Functions:</b> 4</div>"]
     Information --> ErrorInfo["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Error Info</b><br/>────────────────<br/>Functions for error information<br/><b>Functions:</b> 1</div>"]

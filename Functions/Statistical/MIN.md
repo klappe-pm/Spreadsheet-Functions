@@ -1,382 +1,250 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- statistical
-subTopics:
-- aggregation
-- extremes
-- descriptive-statistics
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Statistical
+subcategory: Extremes
+purpose:
+  - Aggregation
+  - Statistical Analysis
+use-case:
+  - Earliest Order Date
+  - Lowest Shipping Quote
+  - Minimum Stock Check
+related:
+  - AGGREGATE
+  - MAX
+  - MINA
+  - MINIFS
+  - SMALL
+level: 1
+source:
+  - https://support.microsoft.com/en-us/excel/functions/min-function
+  - https://support.google.com/docs/answer/3094017
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Minimum
-- Smallest Value
-- Min Function
+  - Minimum Value
+  - Smallest Value
 tags:
-- minimum
-- aggregation
-- extremes
-- statistics
-- comparison
+  - aggregation
+  - excel
+  - extremes
+  - minimum
+  - sheets
 ---
 
 # MIN
 
 ## Description
 
-**MIN** returns the smallest numeric value from a set of numbers. It's the counterpart to MAX—give it a range or list of values, and it returns the single smallest number. From finding the lowest price to identifying the earliest date, MIN is fundamental to any analysis involving minimum thresholds, floor values, or worst-case scenarios.
+**MIN** returns the smallest number in a set of values. You can give it a range, several ranges, individual numbers, or a mix of them, and it returns the one value that is lower than all the others. Use it to find the lowest price, the earliest date, the smallest stock count, or the floor of a dataset.
 
-Like MAX, MIN ignores text values and empty cells within cell references. This makes it safe to use on ranges containing mixed data without preprocessing. The function scans through all provided values and returns only the single smallest one. For finding multiple small values (second smallest, third smallest), use the SMALL function instead.
+MIN reads only numbers from ranges and references. Text, logical values (TRUE and FALSE), and empty cells inside a range are skipped. Values typed straight into the argument list follow different rules: a logical value counts as 1 or 0, and a number stored as text, such as `"7"`, counts as a number. Text that cannot be read as a number typed into the list causes an error.
 
-**MIN returns 0 when given an empty range or all non-numeric values.** This is a critical gotcha—0 might look like a valid minimum when your range actually contained no numbers. In contexts where 0 is a plausible minimum, this can mask data issues. Consider wrapping with IF and COUNT to detect empty ranges: `=IF(COUNT(Range)>0, MIN(Range), "No data")`.
-
-**For conditional minimums, use MINIFS.** Standard MIN evaluates the entire range unconditionally. When you need "the smallest value WHERE condition is met" (like the minimum price in the Electronics category), you need MINIFS or a MIN/IF array formula combination.
+MIN returns 0 when no numbers are found. Because 0 can look like a real minimum, confirm that the range contains numbers with COUNT before you trust a 0. For the smallest value that meets a condition, use MINIFS. For the nth smallest value, use SMALL. When TRUE and FALSE values or numbers stored as text in a range must count, use MINA.
 
 ## Syntax
 
-> [!f(x)] MIN Syntax
->
-> ```
-> =MIN(number1, [number2], [number3], ...)
-> ```
+```excel
+=MIN(number1, [number2], ...)
+```
+
+<!-- Image 1: Range and Typed Arguments. See Images/Statistical/MIN.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `number1` | Yes | First number, cell reference, or range to evaluate. Can be a single value (42), a cell (A1), a range (A1:A100), or a named range (PriceData). |
-| `number2, number3, ...` | No | Additional numbers, cells, or ranges to include. Up to 255 arguments in Excel, practically unlimited in Google Sheets. Mix ranges with individual values as needed. |
+| --- | --- | --- |
+| `number1` | Yes | The first number, cell, range, or named range to evaluate, for example `12`, `B2`, or `B2:B8`. |
+| `number2, ...` | No | Up to 254 more numbers, cells, or ranges, for a total of 255 arguments in Excel. |
 
 ### Return Value
 
-Returns a single numeric value representing the smallest number among all arguments. Returns 0 if all arguments are empty, text, or logical values. Returns an error if any argument is an error value.
+A single number: the smallest numeric value among all arguments. It returns 0 when no argument contains a number. It returns an error when any argument is an error value, or when text that cannot be read as a number is typed directly into the list.
 
 ## Examples
 
-> [!f(x)] MIN Examples
+All examples use the store sales in `B2:B8` and the online sales in `C2:C8` below, unless the example says otherwise.
 
-### Example 1: Minimum of a Range
+| Day | Store Sales | Online Sales |
+| --- | --- | --- |
+| Mon | 420 | 300 |
+| Tue | 615 | 880 |
+| Wed | 380 | 1005 |
+| Thu | 915 | 150 |
+| Fri | 540 | 600 |
+| Sat | 705 | 700 |
+| Sun | 260 | 990 |
+
+### Example 1: Smallest Value in a Range
+
+```excel
+=MIN(B2:B8)
 ```
-=MIN(A1:A100)
-```
-**Result:** The smallest value in cells A1 through A100
 
-**Explanation:** The standard MIN pattern. Scans all 100 cells and returns the single smallest number. Text and blanks are ignored—only numeric values are compared.
+**Result:** `260`
 
----
+The lowest store sales figure is the Sunday value. Every other cell in the range is compared against it.
 
-### Example 2: Minimum of Listed Values
-```
+### Example 2: Smallest Value From Listed Numbers
+
+```excel
 =MIN(50, 12, 87, 3, 45)
 ```
-**Result:** 3
 
-**Explanation:** Direct value comparison. The function evaluates all five numbers and returns the smallest.
+**Result:** `3`
 
----
+The numbers in the list are compared directly, and 3 is the smallest.
 
-### Example 3: Minimum Across Multiple Ranges
+### Example 3: Smallest Value Across Two Ranges
+
+```excel
+=MIN(B2:B8, C2:C8)
 ```
-=MIN(A1:A50, C1:C50, E1:E50)
+
+**Result:** `150`
+
+The lowest online sale, on Thursday, is lower than every store sale in the table, so it becomes the result.
+
+### Example 4: Ignoring Text and Blank Cells
+
+Assume `D2:D6` holds `Late`, `88`, a blank cell, `91`, and `77`.
+
+```excel
+=MIN(D2:D6)
 ```
-**Result:** Smallest value across all three ranges
 
-**Explanation:** MIN accepts multiple range arguments. Finds the overall minimum across three non-contiguous columns—useful for consolidated analysis across departments or categories.
+**Result:** `77`
 
----
+The word `Late` and the blank cell are skipped, so the comparison uses only 88, 91, and 77.
 
-### Example 4: Minimum of Entire Column
+### Example 5: Earliest Date in a List
+
+Assume `F2:F5` holds the dates 3/14/2026, 1/9/2026, 2/20/2026, and 2/2/2026, formatted as dates.
+
+```excel
+=MIN(F2:F5)
 ```
-=MIN(B:B)
+
+**Result:** `1/9/2026`
+
+Excel and Google Sheets store dates as serial numbers, so the smallest date is the earliest one. Format the result cell as a date so it displays correctly.
+
+### Example 6: Empty Range Returns Zero
+
+Assume `G2:G4` is blank.
+
+```excel
+=MIN(G2:G4)
 ```
-**Result:** Smallest value in column B
 
-**Explanation:** Full-column reference includes all values. Be aware this includes row 1—if your header is a number (like a year), it might become the minimum. Use `=MIN(B2:B)` to skip headers.
+**Result:** `0`
 
----
+No numbers exist in the range, so MIN returns 0. Guard the formula with COUNT when a zero would be mistaken for a real minimum.
 
-### Example 5: Minimum with Mixed Arguments
+## Story Problems
+
+### Problem 1: Lowest Shipping Quote
+
+A small business requests a shipping quote from four carriers and records them in `A1:B5`.
+
+| Carrier | Quote |
+| --- | --- |
+| Ace | 14.50 |
+| Bolt | 11.75 |
+| Crest | 19.00 |
+| Dash | 12.40 |
+
+**Task:** Find the lowest quote so the business can book the cheapest carrier.
+
+**Solution:**
+
+```excel
+=MIN(B2:B5)
 ```
-=MIN(A1:A20, 0, B5, C1:C10)
+
+**Answer:** `11.75`, the quote from Bolt. The lowest value is found without checking each carrier by hand.
+
+<!-- Image 2: Lowest Value Result. See Images/Statistical/MIN.md -->
+
+### Problem 2: Smallest Stock Count
+
+A retailer counts units on hand at four warehouses in `A1:B5`.
+
+| Warehouse | Units |
+| --- | --- |
+| North | 48 |
+| South | 12 |
+| East | 30 |
+| West | 75 |
+
+**Task:** Find the lowest stock count so the buyer knows which warehouse needs a reorder first.
+
+**Solution:**
+
+```excel
+=MIN(B2:B5)
 ```
-**Result:** Smallest among range A1:A20, zero, cell B5, and range C1:C10
 
-**Explanation:** Including a literal 0 guarantees the result won't exceed 0. Useful when you want to cap values at zero (though MAX with 0 is more common for that).
-
----
-
-### Example 6: Handling Text in Range
-```
-=MIN(A1:A5) where A1:A5 contains [50, "Low", 30, "", 75]
-```
-**Result:** 30
-
-**Explanation:** MIN ignores "Low" (text) and the empty cell. Only compares 50, 30, and 75, returning 30. Safe for ranges with labels or missing data.
-
----
-
-### Example 7: Finding Earliest Date
-```
-=MIN(DateColumn)
-```
-**Result:** The earliest (smallest) date
-
-**Explanation:** Since dates are numbers internally (days since epoch), MIN finds the earliest date. Format the result cell as a date to see it properly.
-
----
-
-### Example 8: Minimum of Negative Numbers
-```
-=MIN(-5, -10, -3, -8)
-```
-**Result:** -10
-
-**Explanation:** MIN works correctly with negatives. -10 is the smallest because it's furthest from zero (most negative).
-
----
-
-### Example 9: Combining with MAX for Range Calculation
-```
-=MAX(A1:A10) - MIN(A1:A10)
-```
-**Result:** The range (difference between highest and lowest)
-
-**Explanation:** MAX minus MIN gives the spread of values—a basic measure of variability. Larger range indicates more variation in the data.
-
----
-
-### Example 10: Minimum with IF for Conditional Logic (Legacy)
-```
-=MIN(IF(A1:A100="Active", B1:B100))
-```
-(Enter with Ctrl+Shift+Enter in older Excel)
-
-**Result:** Smallest value in B where corresponding A equals "Active"
-
-**Explanation:** Pre-MINIFS approach for conditional minimum. Modern Excel/Sheets evaluate automatically; older versions need CSE entry. Use MINIFS for cleaner syntax.
-
----
-
-### Example 11: Minimum Across Sheets
-```
-=MIN(Jan!C:C, Feb!C:C, Mar!C:C)
-```
-**Result:** Smallest value across column C of three sheets
-
-**Explanation:** Cross-sheet references work within MIN. Useful for finding the lowest monthly figure, worst performance, etc., across time-based sheets.
-
----
-
-### Example 12: Empty Range Behavior
-```
-=MIN(D1:D10) where D1:D10 is empty or all text
-```
-**Result:** 0
-
-**Explanation:** When no numeric values exist, MIN returns 0—not an error. This can be misleading since 0 might look like a valid minimum. Use `=IF(COUNT(D1:D10)>0, MIN(D1:D10), "No data")` to handle gracefully.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `0 unexpected` | Range is empty or contains only text/blanks | Verify range contains numeric data. 0 from empty range is a common gotcha. |
-| `#VALUE!` | Direct text argument like `=MIN("text", 5)` | Only use numbers in direct arguments. Text in cell references is ignored, but direct text causes errors. |
-| `#REF!` | Referenced cells have been deleted | Check if any cells in your range have been removed. |
-| `#NAME?` | Misspelled function or undefined named range | Verify spelling. Check named range definitions. |
-| `Wrong date` | Dates stored as text don't compare | Ensure dates are actual date values. Use DATEVALUE to convert text dates. |
-| `Positive when expecting negative` | Range has no negative values | MIN returns the smallest value present. If all values are positive, the minimum is positive. |
+**Answer:** `12`, the count at the South warehouse. The South warehouse is the first to reorder.
 
 ## Use Cases
 
-### [[Price and Cost Analysis]]
+### Minimum Stock Check
 
-**Scenario:** Find the lowest price point, minimum cost, or floor value for budgeting and pricing decisions.
+**Scenario:** A warehouse manager wants to know whether any product has fallen below a safe level.
 
-**Implementation:**
-```
-=MIN(Products[Price])
-```
-With condition:
-```
-=MINIFS(Products[Price], Products[InStock], TRUE)
+```excel
+=IF(MIN(Inventory[OnHand])<ReorderLevel, "Reorder", "Stock OK")
 ```
 
-**Business Application:** Competitive pricing analysis, minimum viable pricing, cost floor identification, budget baseline establishment.
+**Why It Works:** MIN finds the lowest count across the table, and the IF test compares it with the reorder level. Use MINIFS to check one product line or location.
 
-**Technical Details:** Combine with conditional formatting to highlight minimum values. Use `=A1=MIN(A:A)` as a conditional format formula to mark the cell(s) containing the minimum.
+### Earliest Order Date
 
----
+**Scenario:** A support team needs the date of the oldest open ticket to meet a response target.
 
-### [[Date Tracking - Earliest Records]]
-
-**Scenario:** Find the earliest date in a dataset—first order, oldest record, start of a period.
-
-**Implementation:**
-```
-=MIN(Orders[OrderDate])
-```
-Formatted result shows: 1/15/2020
-
-**Business Application:** Customer tenure calculation, project timeline determination, data freshness assessment, historical analysis starting points.
-
-**Technical Details:** Subtract MIN from MAX to find the span of dates: `=MAX(Dates)-MIN(Dates)` gives days between earliest and latest records.
-
----
-
-### [[Performance Threshold Analysis]]
-
-**Scenario:** Identify minimum performance levels, worst-case scenarios, or floor values for risk assessment.
-
-**Implementation:**
-```
-=MIN(MonthlyRevenue)
-```
-Or for specific segment:
-```
-=MINIFS(Sales[Revenue], Sales[Region], "West")
+```excel
+=MIN(Tickets[OpenedOn])
 ```
 
-**Business Application:** Worst-case scenario planning, minimum acceptable performance identification, risk quantification, warranty reserve calculations.
+**Why It Works:** Dates are stored as numbers, so MIN returns the earliest date. Format the cell as a date so the result reads as a calendar day.
 
-**Technical Details:** Use MIN in conjunction with percentiles for robust analysis. The minimum might be an outlier; PERCENTILE(Range, 0.05) shows the 5th percentile which may be more representative of "low" values.
+## Common Errors
 
----
-
-### [[Inventory and Stock Management]]
-
-**Scenario:** Find minimum stock levels, lowest inventory counts, or shortest lead times.
-
-**Implementation:**
-```
-=MIN(Inventory[Quantity])
-```
-To find products below reorder point:
-```
-=IF(MIN(Inventory[Quantity]) < ReorderPoint, "Restock needed", "OK")
-```
-
-**Business Application:** Inventory monitoring, reorder point triggers, supply chain bottleneck identification, safety stock analysis.
-
-**Technical Details:** Combine with MINIFS for location-specific analysis: `=MINIFS(Stock, Warehouse, "Main")`. Consider SMALL for seeing the lowest few values, not just the absolute minimum.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `0` | The range is empty or holds only text. | Check the range with COUNT, or wrap the result in IF(COUNT(range)>0, MIN(range), "No data"). |
+| `#VALUE!` | Text that cannot be read as a number is typed directly into the argument list. | Put the text in a cell and reference it, or remove it from the list. |
+| Wrong result | A number stored as text inside the range is skipped. | Convert the cells to numbers, then recalculate. |
+| Wrong result | A full column reference includes a header that is a number, such as a year. | Start the range below the header, for example `B2:B`. |
+| `#REF!` | A referenced cell or range was deleted. | Restore the range or edit the formula to point to the new cells. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions (original function from Excel 1.0)
-- **Argument limit:** 255 arguments maximum
-- **Performance:** Highly optimized for large ranges
-- **Array context:** In Excel 365, MIN works within dynamic array formulas
-- **MINIFS:** Available in Excel 2019 and Microsoft 365
-
-### Google Sheets
-- **Availability:** All versions
-- **Argument limit:** Practically unlimited (30,000+ cells per argument)
-- **Performance:** Efficient for typical use; may slow on massive datasets
-- **MINIFS:** Fully supported
-- **Array behavior:** Works with ARRAYFORMULA for expanded results
-
-### Both Platforms
-- Text and empty cells in ranges are ignored
-- Returns 0 for empty/all-text ranges (not an error)
-- Errors propagate (one error cell causes MIN to error)
-- Dates are compared correctly (smaller date = earlier)
-- Logical values in cell references are ignored
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available in all listed versions, including Excel 2016, Excel 2019, Excel 2021, Excel 2024, and Microsoft 365 | Up to 255 arguments. Logical values and text in references are ignored. Use MINA to include them. |
+| Google Sheets | Available | The help page documents 30 arguments. Cells without numbers are ignored in ranges. Text typed directly as an argument returns `#VALUE!`. |
 
 ## Tips and Best Practices
 
-1. **Use MINIFS for conditional minimums:** `=MINIFS(Values, Category, "Active")` is cleaner and faster than `=MIN(IF(Category="Active", Values))` array formulas.
-
-2. **Handle the "0 for empty" behavior:** MIN returns 0 when ranges are empty or all text. Use `=IF(COUNT(Range)>0, MIN(Range), "No data")` to show meaningful results.
-
-3. **Combine with INDEX/MATCH to find the source:** `=INDEX(A:A, MATCH(MIN(B:B), B:B, 0))` returns the value from column A in the row where column B has its minimum.
-
-4. **For "bottom N" values, use SMALL:** MIN only returns the single smallest. `=SMALL(Range, 2)` returns the second smallest, `=SMALL(Range, 3)` the third, etc.
-
-5. **Watch out for zero vs. blank:** A cell with 0 is different from an empty cell. MIN treats actual zeros as valid minimums but ignores blanks. Know your data.
-
-6. **Be careful with full-column references:** `=MIN(A:A)` includes row 1. If your header could be a number, use `=MIN(A2:A)` in Sheets or `=MIN(A2:A1048576)` in Excel.
-
-7. **Use MINA if logical values matter:** Standard MIN ignores TRUE/FALSE in cell references. MINA treats TRUE as 1 and FALSE as 0, which can affect the minimum.
+- Use MINIFS when the smallest value must meet a condition, such as a category or a status.
+- Pair MIN with INDEX and MATCH to return the supplier or date that belongs to the lowest value.
+- Remove 0 from the range with a condition such as `">0"` in MINIFS when 0 means missing data.
+- Use a table reference such as `Inventory[OnHand]` so the formula grows with the data.
+- Check for numbers stored as text when MIN returns a larger value than expected.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[MAX]] | Returns largest value | When you need the maximum, not minimum |
-| [[SMALL]] | Returns nth smallest value | When you need second-smallest, third-smallest, etc. |
-| [[MINA]] | MIN including text and logical values | When TRUE/FALSE should be counted (as 1/0) |
-| [[MINIFS]] | Minimum with conditions | When you need minimum within a subset matching criteria |
-| [[AGGREGATE]] | Flexible aggregation with options | When you need to ignore errors or hidden rows |
-
-### Commonly Used Together
-
-**[[MAX]]** - Find the range of values
-
-*Calculate data range:*
-```
-=MAX(A1:A100) - MIN(A1:A100)
-```
-The difference shows the total spread of your data.
-
----
-
-**[[INDEX]]/[[MATCH]]** - Find what achieved the minimum
-
-*Return the name/ID associated with lowest value:*
-```
-=INDEX(Names, MATCH(MIN(Prices), Prices, 0))
-```
-Locates the row with the minimum and returns corresponding data.
-
----
-
-**[[IF]]** - Conditional logic with minimum
-
-*Compare values to minimum:*
-```
-=IF(A1=MIN(A:A), "Lowest", "Not lowest")
-```
-Identify which cell contains the minimum value.
-
----
-
-**[[AVERAGE]]** - Context for the minimum
-
-*Show how far min is from average:*
-```
-=AVERAGE(A:A) - MIN(A:A)
-```
-Measures how far below average the minimum falls.
-
----
-
-**[[MINIFS]]** - Conditional minimum
-
-*Minimum with criteria:*
-```
-=MINIFS(Prices, Category, "Electronics", InStock, TRUE)
-```
-Finds smallest value only among rows matching all criteria.
+| Function | Relationship |
+| --- | --- |
+| [MAX](MAX.md) | Returns the largest number in the same kind of range. |
+| [SMALL](SMALL.md) | Returns the nth smallest value, for a bottom three or bottom five list. |
+| [MINIFS](MINIFS.md) | Returns the smallest value that meets one or more conditions. |
+| [MINA](MINA.md) | Also counts TRUE and FALSE values and numbers stored as text in references. |
+| [AGGREGATE](../Math%20%26%20Trig/AGGREGATE.md) | Finds the minimum while ignoring errors or hidden rows. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [MIN function](https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a9ab-8f0f88e1b56f)
-- **Google Sheets:** [MIN function](https://support.google.com/docs/answer/3094017)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 1.0 (1985) | Original function |
-| Excel 2019/365 | 2019+ | MINIFS function added as companion |
-| Google Sheets | Original launch | Full compatibility with Excel |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: MIN function](https://support.microsoft.com/en-us/excel/functions/min-function)
+- [Google Docs Editors Help: MIN](https://support.google.com/docs/answer/3094017)

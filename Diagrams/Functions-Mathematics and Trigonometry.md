@@ -1,26 +1,50 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Math & Trig
+purpose:
+  - Function Relationships
+use-case:
+  - Rounding Numbers
+  - Summing Values With Conditions
+related:
+  - ABS
+  - CEILING
+  - CEILING.MATH
+  - FLOOR
+  - FLOOR.MATH
+  - INT
+  - MOD
+  - PRODUCT
+  - QUOTIENT
+  - ROUND
+  - ROUNDDOWN
+  - ROUNDUP
+  - SIGN
+  - SUM
+  - SUMIF
+  - SUMIFS
+  - SUMPRODUCT
+  - SUMSQ
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - math
+  - arithmetic
+  - rounding
 ---
 # Spreadsheets-Functions-Mathematics and Trigonometry
 
 ```mermaid
 
 graph LR
-    MathTrig["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Math & Trig</b><br/>────────────────<br/>Mathematical and trigonometric functions<br/><b>Total Functions:</b> 71</div>"]
+    MathTrig["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Math & Trig</b><br/>────────────────<br/>Mathematical and trigonometric functions<br/><b>Total Functions:</b> 83</div>"]
     
     MathTrig --> BasicArith["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Basic Arithmetic</b><br/>────────────────<br/>Fundamental math operations<br/><b>Functions:</b> 18</div>"]
     
@@ -37,7 +61,7 @@ graph LR
     
     %% CEILING - Function 3
     BasicArith --> CEILING["<div align='left' style='font-family: MonoLisa, monospace;'><b>CEILING</b><br/>────────────────<br/>Rounds a number up to the nearest multiple</div>"]
-    CEILING --> CEILINGSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>CEILING(number, [significance])</div>"]
+    CEILING --> CEILINGSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>CEILING(number, significance)</div>"]
     CEILING --> CEILINGEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=CEILING(2.3, 1) → 3</div>"]
     
     %% FLOOR.MATH - Function 4
@@ -47,7 +71,7 @@ graph LR
     
     %% FLOOR - Function 5
     BasicArith --> FLOOR["<div align='left' style='font-family: MonoLisa, monospace;'><b>FLOOR</b><br/>────────────────<br/>Rounds a number down to the nearest multiple</div>"]
-    FLOOR --> FLOORSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FLOOR(number, [significance])</div>"]
+    FLOOR --> FLOORSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FLOOR(number, significance)</div>"]
     FLOOR --> FLOOREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=FLOOR(2.7, 1) → 2</div>"]
     
     %% INT - Function 6
@@ -62,7 +86,7 @@ graph LR
     
     %% PRODUCT - Function 8
     BasicArith --> PRODUCT["<div align='left' style='font-family: MonoLisa, monospace;'><b>PRODUCT</b><br/>────────────────<br/>Multiplies a range of numbers</div>"]
-    PRODUCT --> PRODUCTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>PRODUCT(value1, [value2, …])</div>"]
+    PRODUCT --> PRODUCTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>PRODUCT(number1, [number2], …)</div>"]
     PRODUCT --> PRODUCTEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=PRODUCT(A1:A3) → 24</div>"]
     
     %% QUOTIENT - Function 9
@@ -72,17 +96,17 @@ graph LR
     
     %% ROUND - Function 10
     BasicArith --> ROUND["<div align='left' style='font-family: MonoLisa, monospace;'><b>ROUND</b><br/>────────────────<br/>Rounds a number to a specified number of digits</div>"]
-    ROUND --> ROUNDSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ROUND(number, [num_digits])</div>"]
+    ROUND --> ROUNDSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ROUND(number, num_digits)</div>"]
     ROUND --> ROUNDEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ROUND(2.345, 2) → 2.35</div>"]
     
     %% ROUNDDOWN - Function 11
     BasicArith --> ROUNDDOWN["<div align='left' style='font-family: MonoLisa, monospace;'><b>ROUNDDOWN</b><br/>────────────────<br/>Rounds a number down to a specified number of digits</div>"]
-    ROUNDDOWN --> ROUNDDOWNSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ROUNDDOWN(number, [num_digits])</div>"]
+    ROUNDDOWN --> ROUNDDOWNSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ROUNDDOWN(number, num_digits)</div>"]
     ROUNDDOWN --> ROUNDDOWNEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ROUNDDOWN(2.345, 2) → 2.34</div>"]
     
     %% ROUNDUP - Function 12
     BasicArith --> ROUNDUP["<div align='left' style='font-family: MonoLisa, monospace;'><b>ROUNDUP</b><br/>────────────────<br/>Rounds a number up to a specified number of digits</div>"]
-    ROUNDUP --> ROUNDUPSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ROUNDUP(number, [num_digits])</div>"]
+    ROUNDUP --> ROUNDUPSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ROUNDUP(number, num_digits)</div>"]
     ROUNDUP --> ROUNDUPEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ROUNDUP(2.345, 2) → 2.35</div>"]
     
     %% SIGN - Function 13
@@ -92,27 +116,27 @@ graph LR
     
     %% SUM - Function 14
     BasicArith --> SUM["<div align='left' style='font-family: MonoLisa, monospace;'><b>SUM</b><br/>────────────────<br/>Adds a range of numbers</div>"]
-    SUM --> SUMSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUM(value1, [value2, …])</div>"]
+    SUM --> SUMSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUM(number1, [number2], …)</div>"]
     SUM --> SUMEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SUM(A1:A5) → 50</div>"]
     
     %% SUMIF - Function 15
     BasicArith --> SUMIF["<div align='left' style='font-family: MonoLisa, monospace;'><b>SUMIF</b><br/>────────────────<br/>Adds numbers meeting a criterion</div>"]
-    SUMIF --> SUMIFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMIF(range, criterion, [sum_range])</div>"]
+    SUMIF --> SUMIFSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMIF(range, criteria, [sum_range])</div>"]
     SUMIF --> SUMIFEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SUMIF(A1:A5, &quot;&gt;10&quot;) → 25</div>"]
     
     %% SUMIFS - Function 16
     BasicArith --> SUMIFS["<div align='left' style='font-family: MonoLisa, monospace;'><b>SUMIFS</b><br/>────────────────<br/>Adds numbers meeting multiple criteria</div>"]
-    SUMIFS --> SUMIFSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMIFS(sum_range, criteria_range1, criterion1, [criteria_range2, criterion2, …])</div>"]
+    SUMIFS --> SUMIFSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], …)</div>"]
     SUMIFS --> SUMIFSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SUMIFS(B1:B5, A1:A5, &quot;&gt;5&quot;, C1:C5, &quot;Yes&quot;) → 30</div>"]
     
     %% SUMPRODUCT - Function 17
     BasicArith --> SUMPRODUCT["<div align='left' style='font-family: MonoLisa, monospace;'><b>SUMPRODUCT</b><br/>────────────────<br/>Multiplies corresponding arrays and sums the products</div>"]
-    SUMPRODUCT --> SUMPRODUCTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMPRODUCT(array1, [array2, …])</div>"]
+    SUMPRODUCT --> SUMPRODUCTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMPRODUCT(array1, [array2], [array3], …)</div>"]
     SUMPRODUCT --> SUMPRODUCTEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SUMPRODUCT(A1:A3, B1:B3) → 32</div>"]
     
     %% SUMSQ - Function 18
     BasicArith --> SUMSQ["<div align='left' style='font-family: MonoLisa, monospace;'><b>SUMSQ</b><br/>────────────────<br/>Sums the squares of numbers</div>"]
-    SUMSQ --> SUMSQSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMSQ(value1, [value2, …])</div>"]
+    SUMSQ --> SUMSQSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SUMSQ(number1, [number2], …)</div>"]
     SUMSQ --> SUMSQEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SUMSQ(A1:A3) → 14</div>"]
     
     %% Styling

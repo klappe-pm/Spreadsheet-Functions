@@ -1,3 +1,43 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Database
+purpose:
+  - Function Relationships
+use-case:
+  - Summarizing Records With Criteria
+  - Choosing a Database Function
+related:
+  - AVERAGE
+  - DAVERAGE
+  - DCOUNT
+  - DCOUNTA
+  - DGET
+  - DMAX
+  - DMIN
+  - DPRODUCT
+  - DSTDEV
+  - DSTDEVP
+  - DSUM
+  - DVAR
+  - DVARP
+  - IF
+  - IFERROR
+  - SUM
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - database
+  - aggregation
+  - criteria
+---
+
 # Database Functions Relationship Diagram
 
 This diagram shows the relationships between functions in the Database category and their connections to commonly used functions.
@@ -5,18 +45,18 @@ This diagram shows the relationships between functions in the Database category 
 ```mermaid
 graph TD
     classDef Database fill:#00D2D3,stroke:#333,stroke-width:2px,color:#000
-    DSTDEVP["DSTDEVP<br/>DSTDEVP performs database-style operations on structured dat..."]
-    DPRODUCT["DPRODUCT<br/>DPRODUCT performs database-style operations on structured da..."]
-    DCOUNT["DCOUNT<br/>DCOUNT performs database-style operations on structured data..."]
-    DCOUNTA["DCOUNTA<br/>DCOUNTA performs database-style operations on structured dat..."]
-    DAVERAGE["DAVERAGE<br/>DAVERAGE performs database-style operations on structured da..."]
-    DMAX["DMAX<br/>DMAX performs database-style operations on structured data r..."]
-    DVARP["DVARP<br/>DVARP performs database-style operations on structured data ..."]
-    DGET["DGET<br/>DGET performs database-style operations on structured data r..."]
-    DSUM["DSUM<br/>DSUM performs database-style operations on structured data r..."]
-    DSTDEV["DSTDEV<br/>DSTDEV performs database-style operations on structured data..."]
-    DMIN["DMIN<br/>DMIN performs database-style operations on structured data r..."]
-    DVAR["DVAR<br/>DVAR performs database-style operations on structured data r..."]
+    DSTDEVP["DSTDEVP<br/>Standard deviation of an entire population of matching records"]
+    DPRODUCT["DPRODUCT<br/>Multiplies field values in records that match criteria"]
+    DCOUNT["DCOUNT<br/>Counts numeric field values in records that match criteria"]
+    DCOUNTA["DCOUNTA<br/>Counts nonblank field values in records that match criteria"]
+    DAVERAGE["DAVERAGE<br/>Averages field values in records that match criteria"]
+    DMAX["DMAX<br/>Largest field value in records that match criteria"]
+    DVARP["DVARP<br/>Variance of an entire population of matching records"]
+    DGET["DGET<br/>Returns the single field value of the one matching record"]
+    DSUM["DSUM<br/>Adds field values in records that match criteria"]
+    DSTDEV["DSTDEV<br/>Estimates standard deviation from a sample of matching records"]
+    DMIN["DMIN<br/>Smallest field value in records that match criteria"]
+    DVAR["DVAR<br/>Estimates variance from a sample of matching records"]
     IF["IF<br/>External Function"]
     DSTDEVP --> IF
     class IF external
@@ -212,11 +252,10 @@ graph TD
     classDef external fill:#f9f9f9,stroke:#666,stroke-width:1px,stroke-dasharray: 5 5
 ```
 
-
 ## Legend
 - **Solid arrows (→)**: "Commonly used with" relationships
 - **Dashed arrows (-.->)**: "Similar functions" relationships  
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 
-## Functions in this category: 12
+## Functions In This Category: 13

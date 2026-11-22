@@ -1,36 +1,63 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Google-specific
+purpose:
+  - Function Relationships
+use-case:
+  - Choosing a Google Sheets Function
+  - Importing Data from the Web
+related:
+  - ARRAYFORMULA
+  - DETECTLANGUAGE
+  - FLATTEN
+  - GOOGLETRANSLATE
+  - IMAGE
+  - IMPORTDATA
+  - IMPORTHTML
+  - IMPORTRANGE
+  - IMPORTXML
+  - REGEXEXTRACT
+  - REGEXMATCH
+  - REGEXREPLACE
+  - SPLIT
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - google-sheets
+  - google-specific
 ---
-# Spreadsheets-Functions-Google-Specific-Complete
+
+# Google-Specific Functions Diagram
+
+This diagram groups 13 Google Sheets functions by use. Several of them have moved out of the Google-specific folder since the library was reorganized:
+
+- Web: IMPORTDATA, IMPORTHTML, IMPORTRANGE and IMPORTXML
+- Text: DETECTLANGUAGE, REGEXEXTRACT, REGEXMATCH, REGEXREPLACE and SPLIT
+- Lookup & Reference: IMAGE
+
+ARRAYFORMULA, FLATTEN and GOOGLETRANSLATE remain in the Google-specific folder. IMAGE, DETECTLANGUAGE, REGEXEXTRACT and REGEXREPLACE also exist in Excel, so they are not Google-only functions.
 
 ```mermaid
 
 graph LR
-    GoogleSpecific["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Google-Specific</b><br/>────────────────<br/>Google Sheets exclusive functions<br/><b>Total Functions:</b> 29</div>"]
+    GoogleSpecific["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Google-Specific</b><br/>────────────────<br/>Google-specific category functions<br/><b>Total Functions:</b> 29</div>"]
     
-    GoogleSpecific --> ArrayOperationsGoogle["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Array Operations</b><br/>────────────────<br/>Google array manipulation<br/><b>Functions:</b> 10</div>"]
+    GoogleSpecific --> ArrayOperationsGoogle["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Array Operations</b><br/>────────────────<br/>Google array manipulation<br/><b>Functions:</b> 3</div>"]
     
-    GoogleSpecific --> WebDataGoogle["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Web Data</b><br/>────────────────<br/>Web data import functions<br/><b>Functions:</b> 7</div>"]
+    GoogleSpecific --> WebDataGoogle["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Web Data</b><br/>────────────────<br/>Web data import functions<br/><b>Functions:</b> 4</div>"]
     
     GoogleSpecific --> TextProcessingGoogle["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Text Processing</b><br/>────────────────<br/>Google text functions<br/><b>Functions:</b> 3</div>"]
     
-    GoogleSpecific --> SingleFunctions["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Individual Functions</b><br/>────────────────<br/>Various specialized functions<br/><b>Functions:</b> 9</div>"]
+    GoogleSpecific --> SingleFunctions["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Individual Functions</b><br/>────────────────<br/>Various specialized functions<br/><b>Functions:</b> 3</div>"]
     
-    %% Array Operations Google Functions (10 functions)
+    %% Array Operations Google Functions (3 functions)
     ArrayOperationsGoogle --> ARRAYFORMULA["<div align='left' style='font-family: MonoLisa, monospace;'><b>ARRAYFORMULA</b><br/>────────────────<br/>Enables array formulas in non-array functions</div>"]
     ARRAYFORMULA --> ARRAYFORMULASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ARRAYFORMULA(array_formula)</div>"]
     ARRAYFORMULA --> ARRAYFORMULAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ARRAYFORMULA(A1:A10*B1:B10) → Array result</div>"]
@@ -43,7 +70,7 @@ graph LR
     SPLIT --> SPLITSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>SPLIT(text, delimiter, [split_by_each], [remove_empty_text])</div>"]
     SPLIT --> SPLITEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=SPLIT(&quot;apple,banana,cherry&quot;, &quot;,&quot;) → Array of text</div>"]
     
-    %% Web Data Google Functions (7 functions)
+    %% Web Data Google Functions (4 functions)
     WebDataGoogle --> IMPORTDATA["<div align='left' style='font-family: MonoLisa, monospace;'><b>IMPORTDATA</b><br/>────────────────<br/>Imports data from a given URL in CSV format</div>"]
     IMPORTDATA --> IMPORTDATASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IMPORTDATA(url)</div>"]
     IMPORTDATA --> IMPORTDATAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IMPORTDATA(&quot;http://example.com/data.csv&quot;) → CSV data</div>"]
@@ -52,7 +79,7 @@ graph LR
     IMPORTHTML --> IMPORTHTMLSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IMPORTHTML(url, query, index)</div>"]
     IMPORTHTML --> IMPORTHTMLEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IMPORTHTML(&quot;http://example.com&quot;, &quot;table&quot;, 1) → HTML table</div>"]
     
-    WebDataGoogle --> IMPORTXML["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>Imports data from structured data types including XML</div>"]
+    WebDataGoogle --> IMPORTXML["<div align='left' style='font-family: MonoLisa, monospace;'><b>IMPORTXML</b><br/>────────────────<br/>Imports data from structured data types including XML</div>"]
     IMPORTXML --> IMPORTXMLSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>IMPORTXML(url, xpath_query)</div>"]
     IMPORTXML --> IMPORTXMLEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=IMPORTXML(&quot;http://example.com&quot;, &quot;//title&quot;) → XML data</div>"]
     
@@ -73,13 +100,13 @@ graph LR
     REGEXREPLACE_GOOGLE --> REGEXREPLACEGOOGLESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>REGEXREPLACE(text, regular_expression, replacement)</div>"]
     REGEXREPLACE_GOOGLE --> REGEXREPLACEGOOGLEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=REGEXREPLACE(&quot;hello@gmail.com&quot;, &quot;@.+&quot;, &quot;@yahoo.com&quot;) → &quot;hello@yahoo.com&quot;</div>"]
     
-    %% Individual Functions (9 functions)
+    %% Individual Functions (3 functions)
     SingleFunctions --> GOOGLETRANSLATE["<div align='left' style='font-family: MonoLisa, monospace;'><b>GOOGLETRANSLATE</b><br/>────────────────<br/>Translates text from one language into another</div>"]
     GOOGLETRANSLATE --> GOOGLETRANSLATESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>GOOGLETRANSLATE(text, [source_language], [target_language])</div>"]
     GOOGLETRANSLATE --> GOOGLETRANSLATEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=GOOGLETRANSLATE(&quot;Hello&quot;, &quot;en&quot;, &quot;es&quot;) → &quot;Hola&quot;</div>"]
     
     SingleFunctions --> DETECTLANGUAGE["<div align='left' style='font-family: MonoLisa, monospace;'><b>DETECTLANGUAGE</b><br/>────────────────<br/>Identifies the language used in text</div>"]
-    DETECTLANGUAGE --> DETECTLANGUAGESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DETECTLANGUAGE(text_or_range)</div>"]
+    DETECTLANGUAGE --> DETECTLANGUAGESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DETECTLANGUAGE(text)</div>"]
     DETECTLANGUAGE --> DETECTLANGUAGEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=DETECTLANGUAGE(&quot;Bonjour&quot;) → &quot;fr&quot;</div>"]
     
     SingleFunctions --> IMAGE["<div align='left' style='font-family: MonoLisa, monospace;'><b>IMAGE</b><br/>────────────────<br/>Inserts an image into a cell</div>"]
@@ -139,5 +166,3 @@ graph LR
     style IMAGEEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

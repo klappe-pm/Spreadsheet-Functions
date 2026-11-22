@@ -1,372 +1,243 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- statistical
-subTopics:
-- conditional-aggregation
-- extremes
-- multiple-criteria
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Statistical
+subcategory: Conditional Extremes
+purpose:
+  - Aggregation
+  - Conditional Logic
+use-case:
+  - Best Sale by Region and Year
+  - Highest Price in a Category
+related:
+  - AVERAGEIFS
+  - COUNTIFS
+  - MAX
+  - MINIFS
+  - SUMIFS
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/functions/maxifs-function
+  - https://support.google.com/docs/answer/7013817
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Conditional Maximum
-- Maximum If Condition
-- Max With Criteria
+  - Conditional Maximum
+  - Maximum If Condition
 tags:
-- maximum
-- conditional
-- multi-criteria
-- filtering
-- extremes
-- AND-logic
+  - aggregation
+  - conditional
+  - excel
+  - maximum
+  - sheets
 ---
 
 # MAXIFS
 
 ## Description
 
-**MAXIFS** returns the maximum value from a range based on one or more conditions. It's the conditional version of MAX—instead of finding the largest value in an entire range, it finds the largest value only among rows that match all specified criteria. "What's the highest sale in the East region?" or "What's the maximum temperature on weekdays?"—these are MAXIFS questions.
+**MAXIFS** returns the largest value in one range, but only for the rows that meet one or more conditions. It answers questions such as "What was the highest sale in the East region?" or "What was the longest wait for a high priority ticket?" Without MAXIFS, the same answer needs MAX with an array formula, which is harder to read and maintain.
 
-The syntax follows the SUMIFS pattern: max_range comes first, followed by pairs of criteria_range and criteria. All criteria use AND logic—a value is only considered if its row matches every specified condition. This differs from MAX, which has no built-in filtering capability and simply returns the largest value regardless of any associated data.
+The first argument is the range that holds the values to compare. Each condition then takes a pair: a criteria range and a criterion. Every condition must be true for a row to count, so the conditions work as an AND test. A criterion can be a number, text, a cell reference, a comparison such as `">1000"`, or a wildcard pattern such as `"North*"`. Text matching is not case sensitive.
 
-**MAXIFS is relatively new, introduced in Excel 2019 and Microsoft 365.** Before MAXIFS, conditional maximums required array formulas: `=MAX(IF(criteria_range=criterion, max_range))` entered with Ctrl+Shift+Enter. MAXIFS eliminates this complexity with a clean, non-array syntax. Google Sheets has supported MAXIFS for longer, maintaining good cross-platform compatibility.
-
-**MAXIFS returns 0 when no values match the criteria.** This behavior can be surprising—you might expect an error or blank when nothing matches. In contexts where 0 could be a valid maximum (like temperatures), this ambiguity can cause confusion. Consider wrapping with IF and COUNTIFS to handle zero-match scenarios explicitly.
+MAXIFS returns 0 when no row meets every condition. A 0 can be a real maximum, so check the match count with COUNTIFS when a zero would be misleading. For OR logic, add separate MAXIFS results together with MAX. For the smallest matching value, use MINIFS. MAXIFS requires Excel 2019, Excel 2021, Excel 2024, or Microsoft 365 in Excel, so it does not work in Excel 2016 or earlier.
 
 ## Syntax
 
-> [!f(x)] MAXIFS Syntax
->
-> ```
-> =MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
-> ```
+```excel
+=MAXIFS(max_range, criteria_range1, criterion1, [criteria_range2, criterion2], ...)
+```
+
+<!-- Image 1: Max Range and Criteria Pairs. See Images/Statistical/MAXIFS.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `max_range` | Yes | The range of cells from which to find the maximum. Must contain numeric values. Same dimensions required as all criteria_ranges. |
-| `criteria_range1` | Yes | The first range to evaluate against criteria1. Must be the same size as max_range. Contains the values to test against the first criterion. |
-| `criteria1` | Yes | The condition for criteria_range1. Can be number, text, cell reference, expression with operators (">100", "<>N/A"), or wildcard pattern ("*Corp"). |
-| `criteria_range2, criteria2, ...` | No | Additional pairs of ranges and criteria. Each range must match max_range dimensions. Up to 126 additional pairs in Excel. |
+| --- | --- | --- |
+| `max_range` | Yes | The range of values to compare, such as `C2:C8`. Must contain numbers for the result to be meaningful. |
+| `criteria_range1` | Yes | The range tested against `criterion1`. It must be the same size and shape as `max_range`. |
+| `criterion1` | Yes | The test applied to `criteria_range1`, such as `"East"`, `">1000"`, or a cell reference. |
+| `criteria_range2, criterion2, ...` | No | Additional range and criterion pairs. Every row must meet all of them. Excel allows up to 126 pairs. |
 
 ### Return Value
 
-Returns a single numeric value representing the largest number in max_range where ALL corresponding criteria_range cells match their respective criteria. Returns 0 if no cells match all criteria. Returns an error if ranges have mismatched sizes or arguments are invalid.
+A single number: the largest value in `max_range` among rows that meet every condition. It returns 0 when no row meets all conditions. It returns `#VALUE!` when the ranges are not the same size.
 
 ## Examples
 
-> [!f(x)] MAXIFS Examples
+All examples use the sales list below in `A1:C8`, with the header in row 1.
 
-### Example 1: Maximum with One Condition
+| Region | Product | Sales |
+| --- | --- | --- |
+| East | Widgets | 1200 |
+| West | Gadgets | 850 |
+| East | Gadgets | 640 |
+| North | Widgets | 975 |
+| East | Widgets | 410 |
+| West | Widgets | 1530 |
+| East | Gadgets | 1010 |
+
+### Example 1: One Condition
+
+```excel
+=MAXIFS(C2:C8, A2:A8, "East")
 ```
-=MAXIFS(C2:C100, A2:A100, "East")
+
+**Result:** `1200`
+
+Only the four East rows are considered (1200, 640, 410, and 1010), and 1200 is the largest.
+
+### Example 2: Two Conditions
+
+```excel
+=MAXIFS(C2:C8, A2:A8, "East", B2:B8, "Gadgets")
 ```
-**Result:** Largest value in C where A equals "East"
 
-**Explanation:** The simplest MAXIFS pattern. Finds the highest value in column C, but only for rows where column A contains "East". All other rows are ignored.
+**Result:** `1010`
 
----
+Only rows that are both East and Gadgets qualify: 640 and 1010. The larger of the two is 1010.
 
-### Example 2: Maximum with Two Conditions
+<!-- Image 2: Two Conditions Filtering Rows. See Images/Statistical/MAXIFS.md -->
+
+### Example 3: Numeric Comparison
+
+```excel
+=MAXIFS(C2:C8, C2:C8, "<1000")
 ```
-=MAXIFS(D2:D500, A2:A500, "Electronics", B2:B500, "Online")
+
+**Result:** `975`
+
+The criteria range is the same as the values range. Sales below 1000 are 850, 640, 975, and 410, so 975 is the largest.
+
+### Example 4: Criterion From a Cell
+
+Assume cell `G1` contains `North`.
+
+```excel
+=MAXIFS(C2:C8, A2:A8, G1)
 ```
-**Result:** Largest value in D where A is "Electronics" AND B is "Online"
 
-**Explanation:** Both conditions must match. Finds the maximum sale for Electronics products sold through the Online channel.
+**Result:** `975`
 
----
+Changing the text in `G1` updates the result, which suits a report where users choose the region.
 
-### Example 3: Using Cell References as Criteria
+### Example 5: No Match Returns Zero
+
+```excel
+=MAXIFS(C2:C8, A2:A8, "South")
 ```
-=MAXIFS(Sales, Region, G1, Category, H1, Year, I1)
+
+**Result:** `0`
+
+No row has the region South, so the result is 0. Use COUNTIFS to confirm that matches exist before you show this value.
+
+## Story Problems
+
+### Problem 1: Best Month for Riverside
+
+A retail chain records monthly revenue for two stores in `A1:C7`.
+
+| Month | Store | Revenue |
+| --- | --- | --- |
+| Jan | Riverside | 18400 |
+| Jan | Hillcrest | 15200 |
+| Feb | Riverside | 21950 |
+| Feb | Hillcrest | 14800 |
+| Mar | Riverside | 19875 |
+| Mar | Hillcrest | 16300 |
+
+**Task:** Find the highest monthly revenue for the Riverside store.
+
+**Solution:**
+
+```excel
+=MAXIFS(C2:C7, B2:B7, "Riverside")
 ```
-**Result:** Maximum sale for region/category/year specified in G1, H1, I1
 
-**Explanation:** Dynamic criteria from cells enable interactive dashboards. Change the filter cells and the maximum updates automatically.
+**Answer:** `21950`, the February revenue at Riverside. The Hillcrest rows are excluded by the condition.
 
----
+### Problem 2: Longest Wait for High Priority Tickets
 
-### Example 4: Maximum with Numeric Comparison
+A help desk logs the wait time in minutes for each ticket in `A1:C7`.
+
+| Ticket | Priority | Wait |
+| --- | --- | --- |
+| T1 | High | 42 |
+| T2 | Low | 15 |
+| T3 | High | 67 |
+| T4 | Medium | 30 |
+| T5 | High | 55 |
+| T6 | Low | 90 |
+
+**Task:** Find the longest wait for any high priority ticket.
+
+**Solution:**
+
+```excel
+=MAXIFS(C2:C7, B2:B7, "High")
 ```
-=MAXIFS(C2:C200, B2:B200, ">=100", A2:A200, "Active")
-```
-**Result:** Largest value in C where B is at least 100 AND A is "Active"
 
-**Explanation:** Combines text equality ("Active") with numeric comparison (">=100"). Finds maximum among active accounts with balance of 100 or more.
+**Answer:** `67` minutes, from ticket T3. The 90-minute wait on T6 is a low priority ticket, so it is excluded.
 
----
-
-### Example 5: Maximum within Date Range
-```
-=MAXIFS(E2:E1000, D2:D1000, ">="&DATE(2025,1,1), D2:D1000, "<="&DATE(2025,12,31))
-```
-**Result:** Maximum value in E where dates in D fall within 2025
-
-**Explanation:** Apply the same criteria_range twice with different operators for date ranges. Finds the highest value during the specified year.
-
----
-
-### Example 6: Maximum with Dynamic Date Range
-```
-=MAXIFS(Sales, Dates, ">="&StartDate, Dates, "<="&EndDate, Status, "Completed")
-```
-**Result:** Maximum completed sale within date range from named cells
-
-**Explanation:** Combines date filtering with status filtering. User-defined date range from StartDate and EndDate cells.
-
----
-
-### Example 7: Maximum Using Wildcards
-```
-=MAXIFS(B2:B100, A2:A100, "*Corp*")
-```
-**Result:** Largest value in B where A contains "Corp" anywhere
-
-**Explanation:** Wildcards work in MAXIFS. Matches "ABC Corp", "BigCorp Inc", "Corporate Services", etc.
-
----
-
-### Example 8: Maximum Excluding Specific Values
-```
-=MAXIFS(D2:D300, C2:C300, "<>Cancelled", B2:B300, "<>Pending")
-```
-**Result:** Maximum in D excluding cancelled and pending items
-
-**Explanation:** Use `<>` to exclude values. Finds highest value among finalized transactions only.
-
----
-
-### Example 9: Maximum by Month (Current Month)
-```
-=MAXIFS(B2:B500, A2:A500, ">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1), A2:A500, "<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1))
-```
-**Result:** Maximum value in B for the current month
-
-**Explanation:** Dynamic month filtering. First date is start of current month, second is start of next month. Updates automatically.
-
----
-
-### Example 10: Maximum with Boolean Criteria
-```
-=MAXIFS(C2:C100, D2:D100, TRUE, A2:A100, "Premium")
-```
-**Result:** Maximum in C where D is TRUE (checked) AND A is "Premium"
-
-**Explanation:** TRUE/FALSE from checkboxes or logical formulas can be criteria. Finds maximum among checked Premium items.
-
----
-
-### Example 11: Maximum in Numeric Range
-```
-=MAXIFS(C2:C200, B2:B200, ">=50", B2:B200, "<=100")
-```
-**Result:** Maximum in C where B is between 50 and 100 inclusive
-
-**Explanation:** Use same range twice for "between" logic. Finds maximum among rows where the filter value falls within bounds.
-
----
-
-### Example 12: Maximum with Blank/Non-Blank Criteria
-```
-=MAXIFS(D2:D100, C2:C100, "<>", B2:B100, "Active")
-```
-**Result:** Maximum in D where C is not blank AND B is "Active"
-
-**Explanation:** `<>` alone matches any non-blank cell. Ensures C has a value while B equals "Active".
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Ranges have different sizes | All criteria_ranges must have exactly the same dimensions as max_range. Verify row counts match. |
-| `#NAME?` | Misspelled function, or function not available in your Excel version | MAXIFS requires Excel 2019 or later. Check spelling and Excel version. |
-| `0 unexpected` | No rows match all criteria | MAXIFS returns 0 when nothing matches. Use COUNTIFS to verify matches exist. |
-| `#REF!` | Referenced cells have been deleted | Check if any cells in your ranges have been removed. |
-| `Wrong result` | Criteria format mismatch | Text "100" won't match number 100. Check for hidden spaces or wrong data types. |
-| `Missing criteria pair` | Odd number of arguments after max_range | Criteria must come in pairs: range, criterion, range, criterion. |
+<!-- Image 3: Story Problem Result. See Images/Statistical/MAXIFS.md -->
 
 ## Use Cases
 
-### [[Top Performance by Category]]
+### Best Sale by Region and Year
 
-**Scenario:** Find the highest sales figure, best score, or peak performance within specific categories or segments.
+**Scenario:** A regional manager wants the largest single sale for the Northeast region in 2025.
 
-**Implementation:**
-```
-=MAXIFS(SalesData[Revenue], SalesData[Region], "Northeast", SalesData[Year], 2025)
-```
-
-**Business Application:** Identify top performers within segments, set regional benchmarks, understand peak performance by category. "What's our best month in the East region?"
-
-**Technical Details:** Combine with INDEX/MATCH to find WHO achieved the maximum, not just the value. Use COUNTIFS to verify the criteria actually match rows before relying on the MAXIFS result.
-
----
-
-### [[Peak Value Analysis with Time Constraints]]
-
-**Scenario:** Find maximum values within specific time periods for trend analysis and peak identification.
-
-**Implementation:**
-```
-=MAXIFS(Readings[Temperature], Readings[Date], ">="&FirstOfMonth, Readings[Date], "<="&LastOfMonth, Readings[Station], "Main")
+```excel
+=MAXIFS(Sales[Amount], Sales[Region], "Northeast", Sales[Year], 2025)
 ```
 
-**Business Application:** Peak demand identification for capacity planning, highest temperature/pressure readings for equipment limits, maximum traffic volumes for infrastructure design.
+**Why It Works:** Both conditions must match, so sales from other regions or years are ignored. Combine the result with INDEX and MATCH to find the rep who made the sale.
 
-**Technical Details:** Create a summary table with time periods and use MAXIFS to find peaks for each period. Compare peaks across periods for trend analysis.
+### Highest Price in a Category
 
----
+**Scenario:** A buyer wants the most expensive item in a product category that is still in stock.
 
-### [[Competitive Analysis - Best in Class]]
-
-**Scenario:** Identify the highest value among competitors, product lines, or market segments.
-
-**Implementation:**
-```
-=MAXIFS(Products[Price], Products[Category], "Premium", Products[Competitor], "<>OurBrand")
+```excel
+=MAXIFS(Catalog[Price], Catalog[Category], "Premium", Catalog[InStock], TRUE)
 ```
 
-**Business Application:** Competitive pricing analysis, market positioning, product gap identification. "What's the highest price our competitors charge in the Premium category?"
+**Why It Works:** The logical TRUE is accepted as a criterion, so only in-stock rows count. Use COUNTIFS with the same criteria to check that matches exist.
 
-**Technical Details:** Use exclusion criteria (`<>`) to compare against competition. Combine with MINIFS to see the range of competitor offerings.
+## Common Errors
 
----
-
-### [[Quality Control - Upper Limits]]
-
-**Scenario:** Find maximum measurements to verify they're within acceptable upper control limits.
-
-**Implementation:**
-```
-=MAXIFS(Measurements[Value], Measurements[BatchID], CurrentBatch, Measurements[TestType], "Pressure")
-```
-
-**Business Application:** Manufacturing quality control, process monitoring, compliance verification. Alert if maximum exceeds specification limits.
-
-**Technical Details:** Use with conditional formatting: `=MAXIFS(...)>UpperLimit` to highlight batches with out-of-spec readings. Combine with date criteria for time-bound quality reporting.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | The criteria ranges are not the same size as `max_range`. | Make every range cover the same rows, for example `C2:C8` and `A2:A8`. |
+| `0` | No row meets every condition. | Check the match count with COUNTIFS before you rely on the result. |
+| `#NAME?` | The function is not available in the version of Excel in use. | Use Excel 2019, Excel 2021, Excel 2024, or Microsoft 365, or use MAX with IF as an array formula. |
+| Wrong result | A number is stored as text, so `">1000"` or `1000` does not match it. | Convert the cells to numbers before calculating. |
+| Wrong result | Trailing spaces in the data prevent an exact text match. | Clean the data with TRIM, or use a wildcard such as `"East*"`. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** Excel 2019, Microsoft 365 (not available in Excel 2016 or earlier)
-- **Criteria pairs limit:** Up to 126 criteria_range/criteria pairs
-- **Performance:** Optimized for large datasets
-- **Legacy alternative:** `=MAX(IF(conditions, range))` as array formula (Ctrl+Shift+Enter)
-- **Wildcards:** Full support for `*`, `?`, and `~` escape
-
-### Google Sheets
-- **Availability:** All versions (has been available longer than in Excel)
-- **Criteria pairs limit:** Practically unlimited
-- **Performance:** Efficient for typical use; may slow on very large datasets
-- **Array behavior:** Works within ARRAYFORMULA context
-- **Wildcards:** Full support matching Excel behavior
-
-### Both Platforms
-- Max_range comes FIRST (same as SUMIFS)
-- All ranges must have identical dimensions
-- Uses AND logic exclusively (all criteria must match)
-- Case-insensitive text matching
-- Returns 0 when no matches found (not an error)
-- Empty cells in max_range are ignored (not treated as 0)
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Excel 2019, Excel 2021, Excel 2024, Microsoft 365, Excel for the web, and Office for iPhone | Up to 126 range and criterion pairs. Returns 0 when no row matches. |
+| Google Sheets | Available | The help page describes the same syntax and returns 0 when no row matches. It lists no version requirement. |
 
 ## Tips and Best Practices
 
-1. **Verify your Excel version:** MAXIFS is not available in Excel 2016 or earlier. Use `=MAX(IF(condition, range))` as an array formula for older versions.
-
-2. **Handle the "0 when nothing matches" behavior:** MAXIFS returns 0 when no rows match, which can be misleading. Use: `=IF(COUNTIFS(criteria_ranges, criteria)>0, MAXIFS(...), "No matches")`.
-
-3. **Use named ranges for readability:** `=MAXIFS(Sales, Region, "East", Year, 2025)` is clearer than `=MAXIFS(D2:D1000, A2:A1000, "East", C2:C1000, 2025)`.
-
-4. **Test criteria independently:** If MAXIFS returns unexpected results, use COUNTIFS with the same criteria to verify how many rows match.
-
-5. **For "top N within category," combine with LARGE:** MAXIFS gives only the single maximum. For second or third highest within a category, you need LARGE with FILTER: `=LARGE(FILTER(Range, Condition), 2)`.
-
-6. **Remember all criteria use AND logic:** For OR logic (max where A="East" OR A="West"), add separate MAXIFS: `=MAX(MAXIFS(...,"East"), MAXIFS(...,"West"))`.
-
-7. **Keep ranges aligned:** All criteria ranges must start and end on the same rows as max_range. Misaligned ranges cause #VALUE! errors.
+- Keep the value range and every criteria range the same size so the rows line up.
+- Put criteria in labeled cells and reference them, so users can change the question without editing the formula.
+- Check the match count with COUNTIFS whenever a 0 result could be a real value.
+- For the top N matches rather than the single largest, use FILTER with LARGE.
+- Use a table reference such as `Sales[Amount]` so new rows are included automatically.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[MAX]] | Maximum without conditions | When you want the overall maximum, no filtering needed |
-| [[MINIFS]] | Minimum with conditions | When you need the conditional minimum, not maximum |
-| [[SUMIFS]] | Sum with multiple conditions | When you need the total, not the largest value |
-| [[AVERAGEIFS]] | Average with conditions | When you need the mean, not the extreme |
-| [[LARGE]] | Nth largest value | When you need second, third, etc. largest (unconditional) |
-
-### Commonly Used Together
-
-**[[MINIFS]]** - Find both extremes
-
-*Get range within category:*
-```
-=MAXIFS(Values, Category, "A") - MINIFS(Values, Category, "A")
-```
-Shows the spread of values within a filtered subset.
-
----
-
-**[[COUNTIFS]]** - Verify matches exist
-
-*Handle zero-match scenarios:*
-```
-=IF(COUNTIFS(Region,"East",Year,2025)>0, MAXIFS(Sales,Region,"East",Year,2025), "No data")
-```
-Prevents misleading 0 results when criteria don't match any rows.
-
----
-
-**[[INDEX]]/[[MATCH]]** - Find what achieved the maximum
-
-*Return associated data:*
-```
-=INDEX(Names, MATCH(MAXIFS(Scores,Category,"A"), IF(Category="A",Scores), 0))
-```
-Locates the row with the conditional maximum.
-
----
-
-**[[FILTER]]** - Modern alternative
-
-*More flexible filtering:*
-```
-=MAX(FILTER(Values, (Region="East")*(Year=2025)))
-```
-FILTER with MAX offers more control, including OR logic with `+` instead of `*`.
-
----
-
-**[[SUMIFS]]** - Related conditional aggregation
-
-*Use together for weighted analysis:*
-```
-=MAXIFS(UnitPrice, Product, "Widget") vs. =SUMIFS(Revenue, Product, "Widget")
-```
-Compare peak price to total revenue for the same category.
+| Function | Relationship |
+| --- | --- |
+| [MAX](MAX.md) | Returns the largest value with no conditions. |
+| [MINIFS](MINIFS.md) | Returns the smallest value that meets the same kind of conditions. |
+| [COUNTIFS](COUNTIFS.md) | Counts the rows that meet the conditions, to confirm that matches exist. |
+| [AVERAGEIFS](AVERAGEIFS.md) | Averages the rows that meet the conditions. |
+| [SUMIFS](../Math%20%26%20Trig/SUMIFS.md) | Adds the values that meet the same kind of conditions. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [MAXIFS function](https://support.microsoft.com/en-us/office/maxifs-function-dfd611e6-da2c-488a-919b-9b6376b28883)
-- **Google Sheets:** [MAXIFS function](https://support.google.com/docs/answer/7013817)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel 2019 | 2019 | Initial release |
-| Microsoft 365 | Continuous | Available in all 365 versions |
-| Excel 2016 | Not available | Use MAX/IF array formula instead |
-| Google Sheets | ~2017 | Available before Excel implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: MAXIFS function](https://support.microsoft.com/en-us/excel/functions/maxifs-function)
+- [Google Docs Editors Help: MAXIFS](https://support.google.com/docs/answer/7013817)

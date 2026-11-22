@@ -1,24 +1,66 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Logical
+purpose:
+  - Function Relationships
+use-case:
+  - Building Conditional Formulas
+  - Handling Formula Errors
+related:
+  - AND
+  - AVERAGE
+  - COUNT
+  - FILTER
+  - IF
+  - IFERROR
+  - IFNA
+  - IFS
+  - ISERR
+  - ISERROR
+  - ISNA
+  - LAMBDA
+  - NOT
+  - OR
+  - SUM
+  - SUMIF
+  - SWITCH
+  - XOR
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - conditional-logic
+  - error-handling
+  - logical
+---
+
 # Logical Functions Relationship Diagram
 
-This diagram shows the relationships between functions in the Logical category and their connections to commonly used functions.
+This diagram shows the relationships between functions in the Logical category and their connections to commonly used functions. It shows 10 of the 19 Logical functions. FILTER, ISERR, ISERROR and ISNA belong to other categories.
 
 ```mermaid
 graph TD
     classDef Logical fill:#96CEB4,stroke:#333,stroke-width:2px,color:#000
-    FILTER["FILTER<br/>FILTER evaluates logical conditions and implements condition..."]
-    XOR["XOR<br/>XOR evaluates logical conditions and implements conditional ..."]
-    NOT["NOT<br/>NOT evaluates logical conditions and implements conditional ..."]
-    IF["IF<br/>IF performs a logical test and returns one value if true and..."]
-    AND["AND<br/>AND returns TRUE if all arguments are TRUE, and FALSE if any..."]
-    IFNA["IFNA<br/>IFNA evaluates logical conditions and implements conditional..."]
-    ISNA["ISNA<br/>ISNA evaluates logical conditions and implements conditional..."]
-    IFS["IFS<br/>IFS performs conditional calculations based on specified cri..."]
-    ISERR["ISERR<br/>ISERR evaluates logical conditions and implements conditiona..."]
-    ISERROR["ISERROR<br/>ISERROR evaluates logical conditions and implements conditio..."]
-    SWITCH["SWITCH<br/>SWITCH evaluates logical conditions and implements condition..."]
-    IFERROR["IFERROR<br/>IFERROR evaluates logical conditions and implements conditio..."]
-    LAMBDA["LAMBDA<br/>LAMBDA evaluates logical conditions and implements condition..."]
-    OR["OR<br/>OR returns TRUE if any argument is TRUE, and FALSE only if a..."]
+    FILTER["FILTER<br/>Returns the rows or columns that meet conditions"]
+    XOR["XOR<br/>Returns TRUE when an odd number of arguments are TRUE"]
+    NOT["NOT<br/>Reverses a logical value"]
+    IF["IF<br/>Returns one value if a test is TRUE, another if FALSE"]
+    AND["AND<br/>Returns TRUE only when all arguments are TRUE"]
+    IFNA["IFNA<br/>Returns a replacement value for the #N/A error"]
+    ISNA["ISNA<br/>Tests whether a value is the #N/A error"]
+    IFS["IFS<br/>Returns the value for the first condition that is TRUE"]
+    ISERR["ISERR<br/>Tests whether a value is an error other than #N/A"]
+    ISERROR["ISERROR<br/>Tests whether a value is any error, including #N/A"]
+    SWITCH["SWITCH<br/>Matches an expression against a list of values"]
+    IFERROR["IFERROR<br/>Returns a replacement value when a formula errors"]
+    LAMBDA["LAMBDA<br/>Packages a calculation into a reusable function"]
+    OR["OR<br/>Returns TRUE when at least one argument is TRUE"]
     FILTER --> IF
     SUM["SUM<br/>External Function"]
     FILTER --> SUM
@@ -152,11 +194,10 @@ graph TD
     classDef external fill:#f9f9f9,stroke:#666,stroke-width:1px,stroke-dasharray: 5 5
 ```
 
-
 ## Legend
 - **Solid arrows (→)**: "Commonly used with" relationships
-- **Dashed arrows (-.->)**: "Similar functions" relationships  
+- **Dashed arrows** (`-.->`): "Similar functions" relationships
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 
-## Functions in this category: 14
+## Functions in This Category: 19

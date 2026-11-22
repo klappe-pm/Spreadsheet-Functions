@@ -1,445 +1,273 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- statistical
-subTopics:
-- conditional-counting
-- criteria-matching
-- wildcard-patterns
-- data-filtering
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Statistical
+subcategory: Counting
+purpose:
+  - Conditional Logic
+  - Counting
+use-case:
+  - Overdue Invoice Counts
+  - Regional Order Counts
+  - Shift Attendance Tracking
+related:
+  - AVERAGEIF
+  - COUNT
+  - COUNTA
+  - COUNTBLANK
+  - COUNTIFS
+  - COUNTUNIQUE
+  - SUMIF
+  - SUMPRODUCT
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/get-started/use-the-countif-function-in-microsoft-excel
+  - https://support.google.com/docs/answer/3093480
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Count If
-- Conditional Count
-- Count With Criteria
-- Count Matching
+  - Conditional Count
+  - Count With Criteria
 tags:
-- statistical
-- counting
-- conditional
-- criteria
-- wildcards
-- pattern-matching
+  - counting
+  - criteria
+  - excel
+  - sheets
+  - wildcards
 ---
 
 # COUNTIF
 
 ## Description
 
-**COUNTIF** counts the number of cells in a range that meet a specified criterion. It is the conditional counting workhorse of spreadsheets, answering questions like: "How many orders are from California?" "How many scores are above 90?" "How many entries contain the word 'urgent'?" COUNTIF bridges the gap between simple counting (COUNT/COUNTA) and full database queries, providing powerful filtering without complex formulas.
+**COUNTIF** counts the cells in a range that meet one condition. Use it to answer questions such as "How many orders came from the East region?" or "How many invoices are more than 30 days late?" The condition, called the criteria, can be an exact value, a comparison such as `">50"`, a cell reference, or a text pattern that uses wildcards.
 
-The function accepts a single criterion that can include comparison operators (>, <, >=, <=, <>), exact matches, and wildcard characters (* and ?). This flexibility makes COUNTIF suitable for everything from simple category counts to pattern matching in text data. The criterion is always specified as a string, even for numeric comparisons - you write `">100"` not `>100`.
+COUNTIF accepts only one condition. When every condition must be true at the same time, use COUNTIFS. When you need the total of matching values rather than a count, use SUMIF.
 
-**Wildcard power:** COUNTIF supports two wildcards: `*` (asterisk) matches any sequence of characters, and `?` (question mark) matches exactly one character. To count cells starting with "A", use `"A*"`. To count 5-digit codes starting with "1", use `"1????"`. To find a literal asterisk or question mark, escape it with a tilde: `"~*"` matches an actual asterisk. Wildcards only work with text criteria, not numeric comparisons.
+Criteria are not case-sensitive in Excel or Google Sheets, so `"apples"` and `"APPLES"` match the same cells. Text criteria can include the wildcards `*` (any sequence of characters) and `?` (exactly one character). Wildcards only apply to text, so a numeric comparison such as `">10"` ignores them.
 
-**Platform behavior:** Excel and Google Sheets implement COUNTIF identically for standard use cases. Both support the same comparison operators and wildcards. The primary consideration is case sensitivity in text matching: both platforms treat text comparisons as case-insensitive ("APPLE" matches "apple"). For case-sensitive counting, you need to use SUMPRODUCT with EXACT.
+Excel and Google Sheets accept the same criteria syntax for normal use. Google's help page describes the criterion as a string when the range holds text, and as a number, numeric string, or number with an operator when the range holds numbers.
 
 ## Syntax
 
-> [!f(x)] COUNTIF Syntax
->
-> ```
-> =COUNTIF(range, criteria)
-> ```
+```excel
+=COUNTIF(range, criteria)
+```
+
+<!-- Image 1: COUNTIF Syntax Anatomy. See Images/Statistical/COUNTIF.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `range` | Yes | The range of cells to evaluate against the criteria. Must be a contiguous range reference. |
-| `criteria` | Yes | The condition that determines which cells to count. Can be a number, text, expression, cell reference, or wildcard pattern. Comparison operators must be enclosed in quotes with the value. |
+| --- | --- | --- |
+| `range` | Yes | The cells to test. Blank cells and text values are ignored when the criteria is numeric. Use a contiguous range such as `A2:A100`. |
+| `criteria` | Yes | The condition a cell must meet. It can be a number, text, an expression such as `">50"`, a cell reference, or a text pattern with wildcards. |
 
 ### Return Value
 
-Returns an integer representing the count of cells that meet the specified criterion. Returns 0 if no cells match. Never returns an error for valid range and criteria combinations.
+A whole number: the count of cells in `range` that meet `criteria`. It returns 0 when no cell matches. It returns `#VALUE!` when the range refers to a closed workbook.
 
 ## Examples
 
-> [!f(x)] COUNTIF Examples
+All examples use this order list in `A1:C8`, with headers in row 1.
+
+| Region | Units | Status |
+| --- | --- | --- |
+| East | 12 | Open |
+| West | 45 | Closed |
+| East | 30 | Closed |
+| North | 8 | Open |
+| West | 60 | Open |
+| East | 22 | Closed |
+| South | 15 | Open |
 
 ### Example 1: Exact Text Match
+
+```excel
+=COUNTIF(A2:A8, "East")
 ```
-=COUNTIF(A1:A10, "Apple")
+
+**Result:** `3`
+
+Rows 2, 4 and 7 contain East. The match ignores capitalization, so `"east"` would return the same count.
+
+### Example 2: Numeric Comparison
+
+```excel
+=COUNTIF(B2:B8, ">20")
 ```
-Where A1:A10 contains various fruit names
 
-**Result:** Count of cells containing exactly "Apple"
+**Result:** `4`
 
-**Explanation:** Counts cells that match "Apple" exactly (case-insensitive). "apple", "APPLE", and "Apple" all match. "Apples" or "Green Apple" do NOT match - only exact matches count.
+The units 45, 30, 60 and 22 are greater than 20. The operator and the number sit together inside the quotation marks.
 
----
+### Example 3: Cell Reference as the Threshold
 
-### Example 2: Numeric Comparison - Greater Than
+Cell `E2` holds `30`.
+
+```excel
+=COUNTIF(B2:B8, ">="&E2)
 ```
-=COUNTIF(B1:B100, ">50")
-```
-**Result:** Count of cells with values greater than 50
 
-**Explanation:** The comparison operator and value are combined in quotes. Counts all numeric values exceeding 50. Note: ">50" is text, but COUNTIF interprets it as a numeric comparison.
+**Result:** `3`
 
----
+The `&` operator joins the comparison symbol to the value in `E2`, so the formula reads `">=30"`. The units 45, 30 and 60 qualify. Change `E2` and the count updates.
 
-### Example 3: Numeric Comparison - Less Than or Equal
-```
-=COUNTIF(C1:C100, "<=100")
-```
-**Result:** Count of cells with values 100 or less
-
-**Explanation:** Combines <= operator with the value. Counts cells where the numeric value is 100 or below.
-
----
+<!-- Image 2: Wildcard Patterns in COUNTIF Criteria. See Images/Statistical/COUNTIF.md -->
 
 ### Example 4: Not Equal To
+
+```excel
+=COUNTIF(A2:A8, "<>East")
 ```
-=COUNTIF(A1:A50, "<>Pending")
+
+**Result:** `4`
+
+The `<>` operator counts every cell that does not equal East. Here that is the rows for West (2), North (1) and South (1).
+
+### Example 5: Wildcard That Ends With a Pattern
+
+```excel
+=COUNTIF(A2:A8, "*th")
 ```
-**Result:** Count of cells NOT containing "Pending"
 
-**Explanation:** The <> operator means "not equal to." Counts all cells except those containing exactly "Pending". Empty cells are also counted as not equal to "Pending".
+**Result:** `2`
 
----
+The asterisk matches any characters before `th`. North and South qualify.
 
-### Example 5: Cell Reference as Criteria
+### Example 6: Wildcard for an Exact Length
+
+```excel
+=COUNTIF(A2:A8, "?????")
 ```
-=COUNTIF(A1:A100, E1)
+
+**Result:** `2`
+
+Each question mark matches exactly one character, so the pattern finds five-letter values. North and South have five letters; East and West have four.
+
+## Story Problems
+
+### Problem 1: Overdue Invoices
+
+A small contractor lists invoice days past due in `A1:B9`.
+
+| Invoice | Days Late |
+| --- | --- |
+| INV-101 | 0 |
+| INV-102 | 45 |
+| INV-103 | 12 |
+| INV-104 | 31 |
+| INV-105 | 90 |
+| INV-106 | 5 |
+| INV-107 | 60 |
+| INV-108 | 30 |
+
+**Task:** Count the invoices that are more than 30 days late.
+
+**Solution:**
+
+```excel
+=COUNTIF(B2:B9, ">30")
 ```
-Where E1 contains "California"
 
-**Result:** Count of cells matching the value in E1
+**Answer:** `4`. Invoices 102 (45), 104 (31), 105 (90) and 107 (60) qualify. Invoice 108 is exactly 30, so it does not.
 
-**Explanation:** Instead of hardcoding criteria, reference a cell. Makes formulas dynamic - change E1 and the count updates. Useful for dropdown-driven dashboards.
+<!-- Image 3: Overdue Invoice Result. See Images/Statistical/COUNTIF.md -->
 
----
+### Problem 2: Shift Absence Log
 
-### Example 6: Wildcard - Starts With
+A shift supervisor records one status per employee in `A1:B9`.
+
+| Employee | Status |
+| --- | --- |
+| Ruiz | Present |
+| Chen | Absent (sick) |
+| Okafor | Absent (vacation) |
+| Patel | Present |
+| Lindqvist | Late |
+| Moreau | Absent (sick) |
+| Nakamura | Present |
+| Reyes | Absent (training) |
+
+**Task:** Count every absence, whatever the reason.
+
+**Solution:**
+
+```excel
+=COUNTIF(B2:B9, "Absent*")
 ```
-=COUNTIF(A1:A100, "A*")
-```
-**Result:** Count of cells starting with the letter "A"
 
-**Explanation:** The asterisk (*) matches any sequence of characters. "Apple", "Arizona", "A", and "A123" all match. Case-insensitive, so "apple" also matches.
-
----
-
-### Example 7: Wildcard - Ends With
-```
-=COUNTIF(A1:A100, "*ing")
-```
-**Result:** Count of cells ending with "ing"
-
-**Explanation:** Asterisk before the pattern matches anything followed by "ing". "Running", "Pending", "ing" all match. "Inger" does NOT match (pattern must be at the end).
-
----
-
-### Example 8: Wildcard - Contains
-```
-=COUNTIF(A1:A100, "*error*")
-```
-**Result:** Count of cells containing "error" anywhere
-
-**Explanation:** Asterisks on both sides match any text containing "error". "Error occurred", "No errors found", "error" all match. The most flexible wildcard pattern.
-
----
-
-### Example 9: Wildcard - Single Character (?)
-```
-=COUNTIF(A1:A100, "???-????")
-```
-**Result:** Count of cells matching format XXX-XXXX (like phone area code-number)
-
-**Explanation:** Each question mark matches exactly one character. Counts cells with exactly 3 characters, a hyphen, then exactly 4 characters.
-
----
-
-### Example 10: Counting Numbers in Text Column
-```
-=COUNTIF(A1:A100, ">0")
-```
-Where A1:A100 contains mixed text and numbers
-
-**Result:** Count of numeric values greater than 0
-
-**Explanation:** Numeric criteria applied to ranges with mixed content only match numeric cells. Text is ignored. Counts positive numbers only.
-
----
-
-### Example 11: Counting Blanks with COUNTIF
-```
-=COUNTIF(A1:A100, "")
-```
-**Result:** Count of empty cells
-
-**Explanation:** Empty string as criteria matches blank cells. Equivalent to COUNTBLANK for truly empty cells, but may differ for formula-generated empty strings.
-
----
-
-### Example 12: Dynamic Comparison with Cell Reference
-```
-=COUNTIF(A1:A100, ">"&B1)
-```
-Where B1 contains a threshold value like 50
-
-**Result:** Count of cells greater than the value in B1
-
-**Explanation:** Concatenate the operator with a cell reference using &. Creates dynamic thresholds that update when B1 changes. Essential for interactive dashboards.
-
----
-
-### Example 13: Escaping Wildcards
-```
-=COUNTIF(A1:A100, "~*")
-```
-**Result:** Count of cells containing a literal asterisk character
-
-**Explanation:** The tilde (~) escapes the wildcard meaning. Searches for actual asterisk characters. Use ~? for literal question marks.
-
----
-
-### Example 14: Date Comparison
-```
-=COUNTIF(A1:A100, ">="&DATE(2024,1,1))
-```
-**Result:** Count of dates on or after January 1, 2024
-
-**Explanation:** Dates are numbers internally. Concatenate operator with DATE function for date-based criteria. Counts all dates in 2024 and beyond.
-
----
-
-### Example 15: Counting Specific Number
-```
-=COUNTIF(A1:A100, 100)
-```
-**Result:** Count of cells containing exactly 100
-
-**Explanation:** For exact numeric matches, no quotes needed around the number. Counts cells with value 100 precisely.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `Returns 0 unexpectedly` | Text case mismatch when case matters | COUNTIF is case-insensitive. For case-sensitive: `=SUMPRODUCT((EXACT(A1:A100,"Apple"))*1)` |
-| `Returns 0 unexpectedly` | Criteria syntax wrong (e.g., >50 instead of ">50") | Comparison operators must be in quotes: `">50"` not `>50` |
-| `Wildcards not working` | Using wildcards with numeric comparisons | Wildcards only work with text. Cannot use `">10*"` for numbers. |
-| `Count includes partial matches` | Expected exact match but got wildcard behavior | Wildcards are automatic for text. For exact match of text with * or ?, escape with ~. |
-| `Wrong count with cell reference` | Cell reference contains leading/trailing spaces | TRIM the referenced cell: `=COUNTIF(A1:A100, TRIM(E1))` |
-| `#VALUE! error` | Range and criteria are swapped | Ensure range comes first, criteria second. |
+**Answer:** `4`. The entries for Chen, Okafor, Moreau and Reyes start with "Absent", and the wildcard matches each reason.
 
 ## Use Cases
 
-### [[Sales Territory Analysis]]
+### Flag Repeated Sign-Ups
 
-**Scenario:** A sales manager needs to count orders by region to allocate resources and set targets appropriately.
+**Scenario:** An event team collects sign-up emails in column A and needs to find addresses that appear more than once.
 
-**Implementation:**
-```
-California Orders: =COUNTIF(RegionColumn, "California")
-West Coast: =COUNTIF(RegionColumn, "California")+COUNTIF(RegionColumn, "Oregon")+COUNTIF(RegionColumn, "Washington")
-Alternative West Coast: =SUMPRODUCT(COUNTIF(RegionColumn, {"California","Oregon","Washington"}))
-Dynamic Count: =COUNTIF(RegionColumn, SelectedRegion)
+```excel
+=COUNTIF($A$2:$A$500, A2)>1
 ```
 
-**Business Application:** Provides instant visibility into regional distribution of sales activity. Supports territory planning and sales force allocation. Enables comparison of performance across regions.
+**Why It Works:** The formula compares each email with the full list and returns `TRUE` for repeats. Anchor the range with `$` signs so the reference stays fixed when you copy the formula down. Trim stray spaces first, because `"ana@example.com "` and `"ana@example.com"` do not match.
 
-**Technical Details:** For many regions, create a reference table and use SUMPRODUCT with COUNTIF array: `=SUMPRODUCT(COUNTIF(RegionColumn, RegionList))`. This counts all regions in the list with a single formula.
+### Count Orders for a Selected Region
 
----
+**Scenario:** A regional manager picks a region from a drop-down in `H2`, and the dashboard shows that region's order count.
 
-### [[Survey Response Categorization]]
-
-**Scenario:** After a customer satisfaction survey, categorize responses into satisfaction levels to generate summary statistics.
-
-**Implementation:**
-```
-Highly Satisfied (5): =COUNTIF(RatingColumn, 5)
-Satisfied (4): =COUNTIF(RatingColumn, 4)
-Neutral (3): =COUNTIF(RatingColumn, 3)
-Dissatisfied (1-2): =COUNTIF(RatingColumn, "<=2")
-Promoters: =COUNTIF(NPSColumn, ">=9")
-Detractors: =COUNTIF(NPSColumn, "<=6")
+```excel
+=COUNTIF(Orders[Region], H2)
 ```
 
-**Business Application:** Generates satisfaction distribution for reporting. Calculates Net Promoter Score components. Identifies trends in customer sentiment over time.
+**Why It Works:** The criteria is a cell reference, so the result changes when the drop-down changes. Using a table column such as `Orders[Region]` keeps the range sized to the data as rows are added.
 
-**Technical Details:** For rating scales, use COUNTIF for each level and calculate percentages. For NPS: Promoters (9-10), Passives (7-8), Detractors (0-6). NPS = % Promoters - % Detractors.
+### Count Scores at or Above a Pass Mark
 
----
+**Scenario:** A teacher keeps the pass mark in cell `F1` and wants the number of students who reach it.
 
-### [[Quality Control - Defect Tracking]]
-
-**Scenario:** Manufacturing quality team tracks defect types to prioritize improvement efforts using Pareto analysis.
-
-**Implementation:**
-```
-Scratch Defects: =COUNTIF(DefectType, "Scratch*")
-Dent Defects: =COUNTIF(DefectType, "*dent*")
-Paint Issues: =COUNTIF(DefectType, "Paint*")
-Critical Defects: =COUNTIF(SeverityColumn, "Critical")
-Above Threshold: =COUNTIF(MeasurementColumn, ">"&UpperLimit)
+```excel
+=COUNTIF(C2:C40, ">="&F1)
 ```
 
-**Business Application:** Identifies most frequent defect types for root cause analysis. Supports Pareto prioritization (fix the 20% of causes creating 80% of defects). Tracks defect rates against targets.
+**Why It Works:** Joining the operator to the cell keeps the threshold editable. The formula works for numbers only; the wildcard pattern rules do not apply.
 
-**Technical Details:** Wildcards handle variations in defect descriptions (e.g., "Scratch", "Scratched", "Light Scratch" all match "Scratch*"). Combine with date ranges for trend analysis over time periods.
+## Common Errors
 
----
-
-### [[HR - Employee Data Analysis]]
-
-**Scenario:** HR department analyzes workforce composition for compliance reporting and planning.
-
-**Implementation:**
-```
-Full-Time Employees: =COUNTIF(EmploymentType, "Full-Time")
-Remote Workers: =COUNTIF(WorkLocation, "*Remote*")
-Engineering Dept: =COUNTIF(Department, "Engineering")
-Managers: =COUNTIF(Title, "*Manager*")
-High Performers: =COUNTIF(Rating, ">=4")
-Tenure 5+ Years: =COUNTIF(StartDate, "<="&DATE(YEAR(TODAY())-5, MONTH(TODAY()), DAY(TODAY())))
-```
-
-**Business Application:** Generates headcount reports by category. Supports diversity reporting and compliance. Enables workforce planning and succession analysis.
-
-**Technical Details:** For complex categorizations, build helper columns with IF statements first, then COUNTIF the helper column. This separates logic from counting and makes formulas maintainable.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| Count of `0` or an unexpected total | The comparison operator is typed without quotation marks, as in `>50`. | Put the whole criteria in quotes: `">50"`. |
+| Count lower than expected | Cells contain leading or trailing spaces. | Clean the data with `TRIM`, or wrap the criteria cell in `TRIM` as in `=COUNTIF(A2:A100, TRIM(E1))`. |
+| Incorrect count for long text | The text in the range or the criteria is longer than 255 characters. | Shorten the text, or join it with `&` in smaller parts. |
+| Wildcard seems to do nothing | The wildcard is used with a numeric comparison. | Wildcards only match text. Use operators such as `">10"` for numbers. |
+| Count includes more rows than intended | `*` or `?` in the criteria matches more than expected. | Escape the literal character with a tilde: `"~*"` or `"~?"`. |
+| `#VALUE!` | The range refers to a workbook that is closed. | Open the source workbook, then recalculate. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions (Excel 2000 onward)
-- **Case sensitivity:** Case-INSENSITIVE for text comparisons
-- **Wildcards:** Full support for * and ? in text criteria
-- **Maximum characters in criteria:** 255 characters
-- **Array formula:** Not needed for basic COUNTIF; for counting multiple criteria in one formula, use SUMPRODUCT with COUNTIF array
-
-### Google Sheets
-- **Availability:** All versions since launch
-- **Case sensitivity:** Case-INSENSITIVE for text comparisons (same as Excel)
-- **Wildcards:** Full support for * and ? (same as Excel)
-- **Maximum characters:** Similar limits to Excel
-- **Array formula:** Native support for array operations without special entry
-
-### Key Difference Alert
-COUNTIF behaves identically in Excel and Google Sheets for standard use cases. The main considerations when moving between platforms:
-- Both are case-insensitive for text matching
-- Both support identical wildcard syntax
-- Date handling may differ if date formats are interpreted differently (use DATE function for reliability)
-- Very long criteria strings (>255 chars) may behave differently
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available | Text criteria are not case-sensitive and support `*` and `?`. COUNTIF cannot count by cell color; that needs a VBA user-defined function. |
+| Google Sheets | Available | Same criteria syntax. Accepts a numeric string or a number with an operator when the range holds numbers. |
 
 ## Tips and Best Practices
 
-1. **Quote your comparison operators:** Always write `">100"` not `>100`. The entire criterion including operator must be a string. For cell references: `">"&B1` concatenates the operator with the cell value.
-
-2. **Master wildcard patterns:**
-   - `"*text*"` = contains "text"
-   - `"text*"` = starts with "text"
-   - `"*text"` = ends with "text"
-   - `"???"` = exactly 3 characters
-   - `"A?B*"` = starts with A, any char, B, then anything
-
-3. **Use cell references for dynamic criteria:** Instead of `=COUNTIF(A:A, "California")`, use `=COUNTIF(A:A, F1)` where F1 contains the state. Makes dashboards interactive without formula changes.
-
-4. **Escape special characters with tilde:** To match literal * or ?, prefix with ~. `"~*"` matches an asterisk; `"~?"` matches a question mark.
-
-5. **For multiple criteria, consider COUNTIFS:** COUNTIF handles one criterion. For AND logic (A>10 AND B="Yes"), use COUNTIFS. For OR logic, sum multiple COUNTIFs or use SUMPRODUCT.
-
-6. **COUNTIF for data validation:** Count matching values to find duplicates: `=COUNTIF(A:A, A1)>1` returns TRUE if A1 has duplicates in column A.
-
-7. **Handle blanks explicitly:** Counting blanks with `=COUNTIF(range, "")` differs from counting non-blanks with `=COUNTIF(range, "<>")`. Be explicit about whether you want to include or exclude blanks.
-
-8. **Case-sensitive counting:** For case-sensitive matches, use SUMPRODUCT with EXACT: `=SUMPRODUCT((EXACT(A1:A100, "Apple"))*1)` counts only "Apple", not "apple" or "APPLE".
+- Put the operator and the value together inside quotation marks, and join a cell reference with `&`.
+- Use COUNTIFS when a second condition must also be true, and add separate COUNTIF results when either condition may be true.
+- Use `"<>"` to count non-blank cells and `""` to count blank cells, and say which one you mean in the sheet.
+- Use `~` before a wildcard to match a literal asterisk or question mark.
+- Keep criteria in cells rather than in the formula so people can change the question without editing it.
 
 ## Related Functions
 
-### Similar Functions
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[COUNTIFS]] | Counts cells meeting multiple criteria | When you need AND logic across multiple conditions |
-| [[SUMIF]] | Sums values meeting a criterion | When you need to sum (not count) conditional values |
-| [[AVERAGEIF]] | Averages values meeting a criterion | When you need conditional averaging |
-| [[COUNT]] | Counts numeric values | When you just need to count numbers, no condition |
-| [[COUNTA]] | Counts non-empty cells | When you need all non-empty cells, no condition |
-
-### Commonly Used Together
-
-**[[COUNTIFS]]** - Multiple criteria counting
-
-*Use together for complex logic:*
-```
-Either condition (OR): =COUNTIF(A:A,"Red")+COUNTIF(A:A,"Blue")
-Both conditions (AND): =COUNTIFS(A:A,"Red",B:B,">100")
-```
-COUNTIF for OR logic (sum individual counts); COUNTIFS for AND logic.
-
----
-
-**[[SUMIF]]** - Conditional sum
-
-*Combine for conditional ratios:*
-```
-=SUMIF(Region,"East",Sales)/COUNTIF(Region,"East")
-```
-Calculates average sales for East region using conditional sum and count.
-
----
-
-**[[IF]]** - Conditional logic
-
-*Create counting flags:*
-```
-=IF(COUNTIF(ProductList, A1)>0, "In Stock", "Not Available")
-```
-Uses COUNTIF to test existence and IF to display result.
-
----
-
-**[[SUMPRODUCT]]** - Array calculations
-
-*Case-sensitive or complex counting:*
-```
-=SUMPRODUCT((EXACT(A1:A100,"Apple"))*(B1:B100>50)*1)
-```
-Counts "Apple" (case-sensitive) where column B > 50.
-
----
-
-**[[UNIQUE]]** - Get unique values (Sheets/Excel 365)
-
-*Count distinct values:*
-```
-Unique items: =COUNTA(UNIQUE(A1:A100))
-Each unique: =COUNTIF(A:A, UniqueValue)
-```
-UNIQUE gets distinct values; COUNTIF counts each one.
-
----
-
-**[[VLOOKUP]] / [[INDEX/MATCH]]** - Lookup functions
-
-*Validate before lookup:*
-```
-=IF(COUNTIF(LookupRange, SearchValue)>0, VLOOKUP(...), "Not Found")
-```
-Check if value exists before attempting lookup to avoid #N/A.
+| Function | Relationship |
+| --- | --- |
+| [COUNTIFS](COUNTIFS.md) | Counts rows that meet several conditions at once. |
+| [SUMIF](../Math%20%26%20Trig/SUMIF.md) | Adds the values that meet one condition instead of counting them. |
+| [AVERAGEIF](AVERAGEIF.md) | Averages the values that meet one condition. |
+| [COUNT](COUNT.md) | Counts numeric values with no condition. |
+| [COUNTA](COUNTA.md) | Counts non-empty cells with no condition. |
+| [COUNTUNIQUE](../Math%20%26%20Trig/COUNTUNIQUE.md) | Counts distinct values in a range. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [COUNTIF function](https://support.microsoft.com/en-us/office/countif-function-e0de10c6-f885-4e71-abb4-1f464816df34)
-- **Google Sheets:** [COUNTIF function](https://support.google.com/docs/answer/3093480)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 2000 | Original introduction with full wildcard support |
-| Excel 2007 | COUNTIFS introduced | Multi-criteria version added |
-| Excel 2010+ | All subsequent versions | No changes to COUNTIF functionality |
-| Excel 365 | Continuous updates | Performance improvements for large datasets |
-| Google Sheets | Original launch (2006) | Full compatibility with Excel syntax |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: Use the COUNTIF function in Microsoft Excel](https://support.microsoft.com/en-us/excel/get-started/use-the-countif-function-in-microsoft-excel)
+- [Google Docs Editors Help: COUNTIF](https://support.google.com/docs/answer/3093480)

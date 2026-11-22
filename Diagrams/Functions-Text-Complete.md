@@ -1,32 +1,62 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Text
+purpose:
+  - Function Relationships
+use-case:
+  - Choosing a Text Function
+  - Searching and Replacing Text
+related:
+  - CHAR
+  - CODE
+  - CONCATENATE
+  - FIND
+  - LEFT
+  - LEN
+  - LOWER
+  - MID
+  - PROPER
+  - REGEXEXTRACT
+  - REGEXMATCH
+  - REGEXREPLACE
+  - REPLACE
+  - RIGHT
+  - SEARCH
+  - SUBSTITUTE
+  - TEXT
+  - TEXTJOIN
+  - TRIM
+  - UPPER
+  - VALUE
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - excel
+  - google-sheets
+  - text
 ---
-# Spreadsheets-Functions-Text-Complete
+
+# Text Functions Diagram
+
+This diagram shows 21 of the functions in the Text category, grouped by use.
 
 ```mermaid
 
 graph LR
-    Text["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Text</b><br/>────────────────<br/>Text manipulation and processing functions<br/><b>Total Functions:</b> 41</div>"]
+    Text["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Text</b><br/>────────────────<br/>Text manipulation and processing functions<br/><b>Total Functions:</b> 54</div>"]
     
-    Text --> Conversion["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Conversion</b><br/>────────────────<br/>Text conversion and formatting<br/><b>Functions:</b> 13</div>"]
+    Text --> Conversion["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Conversion</b><br/>────────────────<br/>Text conversion and formatting<br/><b>Functions:</b> 4</div>"]
     
-    Text --> StringManipulation["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>String Manipulation</b><br/>────────────────<br/>String processing and manipulation<br/><b>Functions:</b> 10</div>"]
+    Text --> StringManipulation["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>String Manipulation</b><br/>────────────────<br/>String processing and manipulation<br/><b>Functions:</b> 6</div>"]
     
-    Text --> Formatting["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Formatting</b><br/>────────────────<br/>Text formatting functions<br/><b>Functions:</b> 10</div>"]
+    Text --> Formatting["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Formatting</b><br/>────────────────<br/>Text formatting functions<br/><b>Functions:</b> 3</div>"]
     
     Text --> SearchReplace["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Search and Replace</b><br/>────────────────<br/>Text search and replacement<br/><b>Functions:</b> 4</div>"]
     
@@ -34,7 +64,7 @@ graph LR
     
     Text --> NewFunctions["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>New Functions</b><br/>────────────────<br/>Modern text functions<br/><b>Functions:</b> 1</div>"]
     
-    %% Conversion Functions (13 functions)
+    %% Conversion Functions (4 functions)
     Conversion --> CHAR["<div align='left' style='font-family: MonoLisa, monospace;'><b>CHAR</b><br/>────────────────<br/>Returns the character for a given number</div>"]
     CHAR --> CHARSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>CHAR(number)</div>"]
     CHAR --> CHAREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=CHAR(65) → &quot;A&quot;</div>"]
@@ -51,7 +81,7 @@ graph LR
     VALUE --> VALUESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>VALUE(text)</div>"]
     VALUE --> VALUEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=VALUE(&quot;$1,000&quot;) → 1000</div>"]
     
-    %% String Manipulation Functions (10 functions)
+    %% String Manipulation Functions (6 functions)
     StringManipulation --> CONCATENATE["<div align='left' style='font-family: MonoLisa, monospace;'><b>CONCATENATE</b><br/>────────────────<br/>Joins text strings into one text string</div>"]
     CONCATENATE --> CONCATENATESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>CONCATENATE(text1, [text2], ...)</div>"]
     CONCATENATE --> CONCATENATEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=CONCATENATE(&quot;Hello&quot;, &quot; &quot;, &quot;World&quot;) → &quot;Hello World&quot;</div>"]
@@ -76,7 +106,7 @@ graph LR
     TRIM --> TRIMSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>TRIM(text)</div>"]
     TRIM --> TRIMEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=TRIM(&quot;  Hello   World  &quot;) → &quot;Hello World&quot;</div>"]
     
-    %% Formatting Functions (10 functions)
+    %% Formatting Functions (3 functions)
     Formatting --> UPPER["<div align='left' style='font-family: MonoLisa, monospace;'><b>UPPER</b><br/>────────────────<br/>Converts text to uppercase</div>"]
     UPPER --> UPPERSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>UPPER(text)</div>"]
     UPPER --> UPPEREXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=UPPER(&quot;hello world&quot;) → &quot;HELLO WORLD&quot;</div>"]
@@ -91,7 +121,7 @@ graph LR
     
     %% Search and Replace Functions (4 functions)
     SearchReplace --> FIND["<div align='left' style='font-family: MonoLisa, monospace;'><b>FIND</b><br/>────────────────<br/>Finds one text value within another (case-sensitive)</div>"]
-    FIND --> FINDSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FIND(find_text, within_text, [start_num])</div>"]
+    FIND --> FINDSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FIND(search_for, text_to_search, [starting_at])</div>"]
     FIND --> FINDEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=FIND(&quot;World&quot;, &quot;Hello World&quot;) → 7</div>"]
     
     SearchReplace --> SEARCH["<div align='left' style='font-family: MonoLisa, monospace;'><b>SEARCH</b><br/>────────────────<br/>Finds one text value within another (case-insensitive)</div>"]
@@ -112,11 +142,11 @@ graph LR
     REGEXMATCH --> REGEXMATCHEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=REGEXMATCH(&quot;hello@gmail.com&quot;, &quot;.+@.+&quot;) → TRUE</div>"]
     
     Regex --> REGEXEXTRACT["<div align='left' style='font-family: MonoLisa, monospace;'><b>REGEXEXTRACT</b><br/>────────────────<br/>Extracts matching substrings according to a regular expression</div>"]
-    REGEXEXTRACT --> REGEXEXTRACTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>REGEXEXTRACT(text, regular_expression)</div>"]
+    REGEXEXTRACT --> REGEXEXTRACTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>REGEXEXTRACT(text, pattern, [return_mode], [case_sensitivity])</div>"]
     REGEXEXTRACT --> REGEXEXTRACTEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=REGEXEXTRACT(&quot;hello@gmail.com&quot;, &quot;@(.+)&quot;) → &quot;gmail.com&quot;</div>"]
     
     Regex --> REGEXREPLACE["<div align='left' style='font-family: MonoLisa, monospace;'><b>REGEXREPLACE</b><br/>────────────────<br/>Replaces part of a text string with different text using regex</div>"]
-    REGEXREPLACE --> REGEXREPLACESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>REGEXREPLACE(text, regular_expression, replacement)</div>"]
+    REGEXREPLACE --> REGEXREPLACESYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>REGEXREPLACE(text, pattern, replacement, [occurrence], [case_sensitivity])</div>"]
     REGEXREPLACE --> REGEXREPLACEEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=REGEXREPLACE(&quot;hello@gmail.com&quot;, &quot;@.+&quot;, &quot;@yahoo.com&quot;) → &quot;hello@yahoo.com&quot;</div>"]
     
     %% New Functions (1 function)
@@ -133,7 +163,7 @@ graph LR
     style Regex fill:#F0FFFF,stroke:#333,stroke-width:2px
     style NewFunctions fill:#F0FFFF,stroke:#333,stroke-width:2px
     
-    %% Functions alternate: odd=green, even=blue (global numbering 1-41)
+    %% Functions alternate: odd=green, even=blue (global numbering 1-21)
     style CHAR fill:#F0FFF0,stroke:#333,stroke-width:2px
     style CODE fill:#B9E9EB,stroke:#333,stroke-width:2px
     style TEXT fill:#F0FFF0,stroke:#333,stroke-width:2px
@@ -203,5 +233,3 @@ graph LR
     style TEXTJOINEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

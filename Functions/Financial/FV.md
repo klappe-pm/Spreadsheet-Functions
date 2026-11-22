@@ -1,423 +1,236 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- financial
-subTopics:
-- investment-analysis
-- time-value-of-money
-- retirement-planning
-- compound-growth
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Financial
+subcategory: Investment Returns
+purpose:
+  - Financial Modeling
+  - Investment Analysis
+use-case:
+  - Education Savings Projection
+  - Emergency Fund Growth
+  - Retirement Savings Projection
+related:
+  - FVSCHEDULE
+  - NPER
+  - PMT
+  - PV
+  - RATE
+level: 3
+source:
+  - https://support.microsoft.com/en-us/excel/functions/fv-function
+  - https://support.google.com/docs/answer/3093224
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Future Value
-- Compound Interest
-- Investment Growth
+  - Future Value
+  - Future Value of Savings
 tags:
-- financial-modeling
-- investment-analysis
-- retirement-planning
-- compound-interest
+  - compound-interest
+  - excel
+  - investment
+  - sheets
 ---
 
 # FV
 
 ## Description
 
-**FV (Future Value)** calculates what a series of regular payments or a lump sum will be worth at a future date, given a constant interest rate. This is one of the most empowering financial functions because it answers the question that drives all savings and investing: "How much will I have in the future?" Whether planning for retirement, saving for education, or projecting investment growth, FV reveals the power of compound interest and regular contributions over time.
+**FV** returns the future value of an investment that grows at a constant interest rate. It handles a lump sum, a series of regular payments, or both at once. A deposit of 250 a month into an account paying 5% a year grows to about 38,821 after ten years, and FV calculates that total in one step, without a table of monthly balances.
 
-The function embodies the **time value of money** principle--the concept that money today can earn returns and become more money tomorrow. FV works forward in time: given what you have now (present value), what you will add regularly (payments), and the rate of return, it calculates the accumulated total at the end. This is the opposite perspective from PV, which works backward from future amounts to present values. Understanding FV helps you visualize why starting to save early matters so much--the same contributions made 10 years earlier can result in dramatically higher final balances.
+The function follows a sign convention that trips up many users. Cash you pay out, such as a deposit, is entered as a negative number, and cash you receive, such as the final balance, comes back as a positive number. If you enter both the payments and the starting amount as positive numbers, the result is negative, which means the calculation has been set up as a loan rather than a savings plan.
 
-**Understanding sign conventions is essential:** In spreadsheet financial functions, cash flowing OUT of your pocket is negative, and cash flowing IN to you is positive. For a savings plan: the money you deposit (pmt) is negative because it leaves your pocket; any initial investment (pv) is also negative for the same reason; and the FV result is typically **positive** because it represents money you will receive in the future. However, if you are modeling a loan from the lender's perspective, signs flip--principal lent is negative (money out), and future value of repayments is positive (money back).
+Timing matters as well. By default, payments fall at the end of each period. Setting `type` to 1 moves them to the beginning of each period, which adds one period of growth to every payment. The rate and the number of periods must use the same time unit, so a monthly payment needs a monthly rate, obtained by dividing the annual rate by 12, and a number of periods counted in months.
 
-FV has been available since the earliest versions of both Excel and Google Sheets with identical behavior. The function assumes contributions occur at the **end** of each period by default (ordinary annuity), but you can specify beginning-of-period contributions (annuity due) using the optional type parameter--this makes a noticeable difference over long time periods. Critical reminder: the interest rate must match the payment period--for monthly contributions, use a monthly rate (annual rate divided by 12).
+FV is the forward-looking counterpart of [PV](PV.md), which discounts future amounts back to today. [PMT](PMT.md) solves for the payment needed to reach a target, [NPER](NPER.md) solves for the number of periods, and [RATE](RATE.md) solves for the rate. [FVSCHEDULE](FVSCHEDULE.md) applies a series of different rates when the rate changes over time.
 
 ## Syntax
 
-> [!f(x)] FV Syntax
->
-> ```
-> =FV(rate, nper, pmt, [pv], [type])
-> ```
+```excel
+=FV(rate, nper, pmt, [pv], [type])
+```
+
+<!-- Image 1: FV Cash Flow Signs. See Images/Financial/FV.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `rate` | Yes | The interest rate per period. For a 7% annual return with monthly contributions, use 0.07/12. Must be expressed as a decimal (0.07) or percentage (7%) divided by the number of periods per year. |
-| `nper` | Yes | The total number of payment periods. For 30 years of monthly contributions, use 30*12 = 360. Must match the rate period--if rate is monthly, nper must be in months. |
-| `pmt` | Yes | The payment made each period. Must be the same throughout. Enter as negative for money you pay out (savings deposits). Enter 0 if calculating growth of a lump sum only. |
-| `pv` | No | The present value--the lump sum you start with today. Enter as negative for money you are investing. Defaults to 0 if omitted (starting from nothing). |
-| `type` | No | When payments are made: 0 (or omitted) = end of period (ordinary annuity); 1 = beginning of period (annuity due). Beginning-of-period yields slightly higher FV because each payment has one extra period to grow. |
+| --- | --- | --- |
+| `rate` | Yes | The interest rate per period. For 5% a year paid monthly, use `0.05/12`. |
+| `nper` | Yes | The total number of payment periods. For 10 years of monthly payments, use `10*12` (120). |
+| `pmt` | Yes | The payment made each period, which stays the same for the whole term. Enter payments you make as negative numbers. If `pmt` is 0, the function calculates the growth of `pv` alone. |
+| `pv` | No | The present value, or the lump sum you start with. If omitted, it is 0. Enter a sum you invest as a negative number. |
+| `type` | No | When payments fall due. `0` or omitted means the end of each period. `1` means the beginning of each period. |
 
 ### Return Value
 
-Returns a single numeric value representing the future value. For savings/investments where you are depositing money (negative pmt and/or pv), the result is positive (money you will receive). The sign follows cash flow logic: positive = money coming to you.
+A single number giving the value of the investment at the end of the last period. A positive result means the money is owed to you, and a negative result means it is owed by you. When the deposits and the starting amount are both negative, the result is positive.
 
 ## Examples
 
-> [!f(x)] FV Examples
+### Example 1: Monthly Savings Plan
 
-### Example 1: Monthly Retirement Contributions
+```excel
+=FV(0.05/12, 120, -250)
 ```
-=FV(0.07/12, 360, -500, 0)
+
+**Result:** `38820.57`
+
+Saving 250 a month for 10 years at 5% a year, starting from zero, produces about 38,821. Total deposits are 30,000, so about 8,821 of the balance is interest.
+
+### Example 2: Lump Sum and Monthly Deposits Together
+
+```excel
+=FV(0.04, 10, -1000, -5000, 1)
 ```
-**Result:** `$610,003.10`
 
-**Explanation:** Calculates the future value of contributing $500 per month for 30 years at 7% annual return. The payment is negative because it represents money leaving your pocket each month. Starting from $0 (pv omitted defaults to 0), you will accumulate over $610,000. Total contributions: only $180,000. The remaining $430,000 is investment growth.
+**Result:** `19887.57`
 
----
+The starting amount of 5000 and the annual deposits of 1000 are both entered as negative numbers. The `1` in the last position means the deposits are made at the start of each year.
 
-### Example 2: Lump Sum Investment Growth
+### Example 3: Monthly Deposits With an Opening Balance
+
+```excel
+=FV(0.06/12, 60, -300, -2000, 0)
 ```
-=FV(0.08, 20, 0, -10000)
+
+**Result:** `23628.71`
+
+The opening balance of 2000 and the monthly deposits of 300 both grow for 60 months at 0.5% a month.
+
+### Example 4: Lump Sum Only
+
+```excel
+=FV(0.07, 20, 0, -10000)
 ```
-**Result:** `$46,609.57`
 
-**Explanation:** Calculates what a one-time $10,000 investment grows to in 20 years at 8% annual return. There are no periodic payments (pmt=0). The present value is negative because you are putting that money in. This demonstrates pure compound growth--$10,000 becomes nearly $47,000 with no additional contributions.
+**Result:** `38696.84`
 
----
+With no regular payments, the function shows how a single 10000 deposit grows at 7% for 20 years.
 
-### Example 3: Combining Lump Sum with Regular Contributions
+### Example 5: Reversing the Sign
+
+```excel
+=FV(0.05/12, 120, 250)
 ```
-=FV(0.06/12, 240, -400, -25000)
+
+**Result:** `-38820.57`
+
+Entering the payments as positive numbers reverses the sign of the result. This is the expected outcome when the same formula models a loan from the lender's point of view.
+
+<!-- Image 2: Savings Growth Over Time. See Images/Financial/FV.md -->
+
+## Story Problems
+
+### Problem 1: Building an Emergency Fund
+
+A family has 2000 in a savings account. It plans to deposit 250 a month for 8 years into an account paying 4.5% a year, compounded monthly. The family wants to know the balance at the end.
+
+| Input | Value |
+| --- | --- |
+| Annual rate | 0.045 |
+| Years | 8 |
+| Monthly deposit | 250 |
+| Opening balance | 2000 |
+
+**Task:** Put the annual rate in `B2`, the years in `B3`, the monthly deposit in `B4` and the opening balance in `B5`. Enter the deposit and opening balance as negative numbers in the formula, then find the balance after 96 months.
+
+**Solution:**
+
+```excel
+=FV(B2/12, B3*12, -B4, -B5)
 ```
-**Result:** `$308,621.69`
 
-**Explanation:** Starting with $25,000 and adding $400 monthly for 20 years at 6% annual return. Both pv (-25000) and pmt (-400) are negative because they represent money you invest. The initial lump sum grows while regular contributions add and compound. This models a typical 401(k) rollover plus ongoing contributions scenario.
+**Answer:** `31689.04`. The family deposits 24,000 plus the opening 2000, and about 5,689 of the balance is growth.
 
----
+### Problem 2: Annual Deposits at the Start of the Year
 
-### Example 4: Beginning-of-Period Contributions
+A couple deposits 2000 at the start of each year into an account paying 3% a year for 15 years. The couple wants the balance at the end of the 15th year.
+
+| Input | Value |
+| --- | --- |
+| Annual rate | 0.03 |
+| Years | 15 |
+| Annual deposit | 2000 |
+
+**Task:** Find the balance using the same input cells, with the deposits made at the start of each year.
+
+**Solution:**
+
+```excel
+=FV(B2, B3, -B4, 0, 1)
 ```
-=FV(0.07/12, 360, -500, 0, 1)
-```
-**Result:** `$613,561.78`
 
-**Explanation:** Same as Example 1, but with contributions at the beginning of each month (type=1) instead of the end. The difference is $3,558.68 more--because each payment gets one extra month to earn returns. For long-term savings, contributing early in each period (like on payday) yields noticeably better results.
-
----
-
-### Example 5: Child's Education Savings
-```
-=FV(0.05/12, 216, -300)
-```
-**Result:** `$97,568.08`
-
-**Explanation:** Saving $300 monthly for a child's education from birth to age 18 (216 months) at 5% annual return. Parents contributing $300/month put in $64,800 total but end up with nearly $100,000 due to 18 years of compounding. This shows why 529 plans work well even with modest contributions.
-
----
-
-### Example 6: Annual Bonus Investment
-```
-=FV(0.09, 25, -5000)
-```
-**Result:** `$423,504.48`
-
-**Explanation:** Investing a $5,000 annual bonus for 25 years at 9% annual return. Note: rate is annual (0.09), nper is years (25), and payment is yearly (-5000). No division needed because all periods are annual. Total invested: $125,000. Final value: $423,504.
-
----
-
-### Example 7: Compare Rates - Sensitivity Analysis
-```
-Conservative (5%): =FV(0.05/12, 360, -500) = $418,691.24
-Moderate (7%): =FV(0.07/12, 360, -500) = $610,003.10
-Aggressive (9%): =FV(0.09/12, 360, -500) = $902,768.68
-```
-**Result:** Higher rates dramatically increase final value
-
-**Explanation:** Same $500 monthly contribution over 30 years shows the exponential impact of return rates. The difference between 5% and 9% is nearly $500,000 on the same contributions. This analysis helps investors understand risk/reward trade-offs and why portfolio allocation matters.
-
----
-
-### Example 8: How Starting Early Matters
-```
-Start at 25, retire at 65: =FV(0.07/12, 480, -300) = $795,823.80
-Start at 35, retire at 65: =FV(0.07/12, 360, -300) = $366,001.86
-Start at 45, retire at 65: =FV(0.07/12, 240, -300) = $155,928.56
-```
-**Result:** Starting 10 years earlier more than doubles the outcome
-
-**Explanation:** Contributing $300/month at 7% shows the power of time. Starting at 25 produces more than double what starting at 35 produces, and more than 5x what starting at 45 produces. The total contributions differ ($144,000 vs $108,000 vs $72,000), but time-compounding dominates.
-
----
-
-### Example 9: Quarterly Contributions
-```
-=FV(0.08/4, 40, -2500, -10000)
-```
-**Result:** `$160,101.92`
-
-**Explanation:** Quarterly contributions of $2,500 for 10 years (40 quarters) at 8% annual rate, starting with $10,000. Rate is divided by 4 for quarterly. This models business profit sharing or periodic bonus investments.
-
----
-
-### Example 10: Zero Interest (Pure Savings)
-```
-=FV(0, 120, -1000)
-```
-**Result:** `$120,000.00`
-
-**Explanation:** With 0% interest, FV simply sums the contributions. 120 payments of $1,000 equals $120,000. This is useful for comparison--showing how much is "just savings" vs compound growth. It is also the correct formula for modeling non-interest-bearing accounts.
-
----
-
-### Example 11: Negative Future Value (Loan Payoff from Lender View)
-```
-=FV(0.06/12, 60, 500, -25000)
-```
-**Result:** `-$3,645.81`
-
-**Explanation:** From a lender's perspective: they gave out $25,000 (negative pv) and receive $500/month payments (positive pmt). The negative FV indicates the loan is not fully paid off--$3,645.81 still owed after 60 months. This validates that the payment would not fully amortize the loan in 5 years.
-
----
-
-### Example 12: Using Cell References for What-If Analysis
-```
-=FV(A1/12, A2*12, -A3, -A4, A5)
-```
-Where A1=0.08 (rate), A2=30 (years), A3=600 (monthly), A4=20000 (initial), A5=0 (type)
-
-**Result:** `$994,024.56`
-
-**Explanation:** Building FV with cell references enables interactive what-if analysis. Users can adjust any input and instantly see the future value change. This approach is essential for financial planning tools and retirement calculators.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Text values in parameters, or non-numeric inputs | Ensure all parameters are numbers. Check for hidden text formatting, spaces, or non-numeric characters. |
-| `#NUM!` | Impossible calculation (e.g., rate of -100%) | Verify rate is greater than -1. A rate of -100% or less creates division by zero internally. |
-| `Unexpectedly small result` | Rate entered as whole number instead of decimal | Use 0.08 for 8%, not 8. Alternatively, use 8% with the percent sign if your spreadsheet supports it. |
-| `Wrong future value` | Rate and nper period mismatch | If contributions are monthly, rate must be monthly (annual/12) and nper must be in months (years*12). |
-| `Negative FV when expecting positive` | Sign convention confusion | Remember: money you invest (pv, pmt) should be negative. If both inputs are positive, FV will be negative. |
-| `Result differs from online calculator` | Type parameter or rounding differences | Check if the calculator uses beginning-of-period. Also verify compounding frequency matches your formula. |
+**Answer:** `38313.76`. Because each deposit is made at the start of the year, it earns one extra year of interest compared with an end-of-year deposit.
 
 ## Use Cases
 
-### [[Retirement Savings Projection]]
+### Retirement Savings Projection
 
-**Scenario:** A 30-year-old employee wants to project their 401(k) balance at age 65, including employer match, and determine if they are on track for a $1,000,000 goal.
+**Scenario:** An employee estimates the balance of a retirement account at age 65 from current contributions and an expected return.
 
-**Implementation:**
-```
-Employee contribution: $500/month
-Employer match (50% up to 6%): $250/month
-Total monthly: $750
-Current balance: $45,000
-
-=FV(0.07/12, 420, -750, -45000)
-```
-**Result:** `$1,497,842.32`
-
-**Business Application:** HR departments and financial advisors use FV projections to help employees understand their retirement trajectory. Showing concrete numbers motivates higher contribution rates and earlier enrollment. Companies can demonstrate the value of employer matching programs by showing match impact on final balances.
-
-**Technical Details:** The 7% return assumption is a common long-term equity average; adjust for more conservative allocations. Real retirement planning must also consider inflation--this nominal FV should be adjusted by expected inflation (typically 2-3%) for purchasing power reality.
-
----
-
-### [[Education Savings - 529 Plan Projections]]
-
-**Scenario:** New parents want to save for their child's college education starting at birth, with a target of $150,000 by age 18.
-
-**Implementation:**
-```
-To find required monthly contribution:
-Target FV = $150,000
-nper = 18 * 12 = 216 months
-rate = 0.06 / 12 (6% annual return)
-
-Use PMT to solve backward:
-=PMT(0.06/12, 216, 0, 150000) = -$487.47/month
-
-Verify with FV:
-=FV(0.06/12, 216, -487.47) = $150,002.88
+```excel
+=FV(Return/12, YearsToRetire*12, -MonthlyContribution, -CurrentBalance)
 ```
 
-**Business Application:** Financial planners use FV to show parents the realistic savings requirements for education goals. Many parents underestimate college costs or overestimate how much their savings will grow. FV calculations provide a reality check and help establish appropriate savings rates early.
+**Why It Works:** Each input sits in a labeled cell, so the employee can test different returns and contribution levels without changing the formula.
 
-**Technical Details:** 529 plan returns vary by investment option. Use conservative estimates (4-5%) for shorter timeframes or when the child is closer to college age. Also factor in potential tuition inflation (historically 5-7% annually) when setting target amounts.
+### Education Savings Projection
 
----
+**Scenario:** A parent checks whether a monthly deposit will reach a college savings target by the time a child turns 18.
 
-### [[Business Capital Accumulation]]
-
-**Scenario:** A small business owner wants to build a $500,000 equipment replacement fund over 10 years by setting aside profits quarterly.
-
-**Implementation:**
-```
-Target: $500,000 in 10 years
-Assumed return: 4% (conservative, business savings)
-Quarterly periods: 40
-
-Required quarterly deposit:
-=PMT(0.04/4, 40, 0, 500000) = -$10,271.62
-
-With existing $50,000 seed fund:
-=PMT(0.04/4, 40, -50000, 500000) = -$8,738.05
-
-Current plan projection with $9,000/quarter deposits:
-=FV(0.04/4, 40, -9000, -50000) = $510,098.09
+```excel
+=FV(Rate/12, 18*12, -MonthlyDeposit)
 ```
 
-**Business Application:** Business owners use FV for capital planning, ensuring adequate reserves for major purchases, expansions, or economic downturns. Regular projections help CFOs adjust savings rates as business conditions change.
+**Why It Works:** Comparing the projected balance with the target shows whether the deposit is large enough, and PMT can then solve for the deposit that meets the target exactly.
 
-**Technical Details:** Business savings often earn lower returns than personal investments due to liquidity needs. Use conservative rates (3-5%) for funds that must be available. Consider tax implications--business investment income may be taxed differently than personal accounts.
+### Emergency Fund Growth
 
----
+**Scenario:** A household tracks how its emergency fund grows if it keeps saving at the current rate.
 
-### [[Emergency Fund Growth Tracking]]
-
-**Scenario:** An individual is building a 6-month emergency fund of $30,000 and wants to track projected completion date and final balance with continued savings.
-
-**Implementation:**
-```
-Current emergency fund: $12,000
-Monthly addition: $800
-Target: $30,000
-High-yield savings rate: 4.5%
-
-Months until target (using NPER):
-=NPER(0.045/12, -800, -12000, 30000) = 21.4 months
-
-If continue saving for 36 months total:
-=FV(0.045/12, 36, -800, -12000) = $42,714.65
+```excel
+=FV(SavingsRate/12, Months, -MonthlyAddition, -CurrentFund)
 ```
 
-**Business Application:** Personal finance apps and banking tools use FV to help customers visualize savings progress. Showing projected completion dates and "what if I keep going" scenarios encourages savings behavior. Banks use similar projections to market high-yield savings accounts.
+**Why It Works:** Projecting the fund at several horizons shows the balance at each point in time, which helps set realistic savings goals.
 
-**Technical Details:** Emergency funds should be in liquid accounts, limiting investment options. High-yield savings (4-5%), money market accounts, or short-term CDs are appropriate. FV at these modest rates still demonstrates value of consistent saving plus interest earnings versus pure cash stashing.
+## Common Errors
+
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | One of the arguments is text. | Enter every argument as a number. |
+| Result is negative when expecting a positive value | Deposits and the opening balance were entered as positive numbers. | Enter money you pay in as negative numbers. |
+| Result is far too small | The annual rate was used with monthly periods, or the rate was typed as 5 instead of 0.05. | Divide the annual rate by 12 for monthly periods and enter the rate as a decimal. |
+| Result is off by one period of growth | `type` does not match when the deposits are made, for example 0 is used for deposits made at the start of each period. | Set `type` to 1 for beginning-of-period payments and 0 for end-of-period payments. |
+| Result differs from an online calculator | The calculator assumes a different timing or compounding frequency. | Confirm the timing, rate period and compounding in both places. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions (Excel 97 through Excel 365 and beyond)
-- **Specific Behavior:** Standard 5-parameter function. Negative pmt/pv for investments, positive result for future value.
-- **Precision:** IEEE 754 double-precision floating point, accurate to 15 significant digits.
-
-### Google Sheets
-- **Availability:** All versions since launch
-- **Specific Behavior:** Functionally identical to Excel. Same parameter order, defaults, and sign conventions.
-- **Precision:** Same floating-point precision as Excel.
-
-### Both Platforms
-- Sign convention: Outflows (deposits, investments) are negative; inflows (future receipts) are positive
-- Rate and nper must use matching time periods
-- PV defaults to 0; Type defaults to 0
-- Compounding is per-period (matches rate frequency)
-- Use number formatting for currency display
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available in all versions listed on the Microsoft page | `pmt` is required, `pv` and `type` are optional. The Microsoft page does not list error conditions. |
+| Google Sheets | Available | The arguments are named `rate`, `number_of_periods`, `payment_amount`, `present_value` and `end_or_beginning`. `present_value` and `end_or_beginning` default to 0. The help page gives sample calls but no outputs. |
 
 ## Tips and Best Practices
 
-1. **Match your rate to your period:** For monthly contributions, divide annual rate by 12 and multiply years by 12. This is the most common error. Quarterly: divide by 4. Weekly: divide by 52. Mismatched periods produce wildly incorrect results.
-
-2. **Use negative numbers for money you invest:** Deposits and initial investments should be negative (money leaving you). The positive FV result then correctly represents money coming back to you. This consistency prevents sign confusion in complex models.
-
-3. **Compare with and without contributions:** Calculate FV with just the lump sum (pmt=0) and with just contributions (pv=0), then compare to the combined result. This shows the relative contribution of initial investment vs. ongoing savings to the final balance.
-
-4. **Always run multiple scenarios:** Investment returns are uncertain. Calculate FV at conservative (4-5%), moderate (6-7%), and optimistic (8-10%) rates. If your plan only works at optimistic rates, you need to increase contributions or adjust expectations.
-
-5. **Consider beginning-of-period contributions (type=1):** If you can contribute at the start of each month rather than the end, you gain extra compounding. Over 30 years, this can add tens of thousands of dollars with no additional contributions.
-
-6. **Account for inflation in long-term projections:** A future value of $1,000,000 in 30 years has less purchasing power than today. Divide by (1+inflation_rate)^years for real (inflation-adjusted) value. At 3% inflation, $1M in 30 years equals about $412,000 in today's dollars.
-
-7. **Use FV for goal-setting verification:** Once you calculate required contributions using PMT or NPER, verify with FV to confirm you reach your target. This cross-check catches input errors and builds confidence in your plan.
-
-8. **Document your assumptions:** Future value projections are only as good as their assumptions. Always record what rate you used and why, as well as whether the rate is nominal or real (inflation-adjusted). This helps when revisiting projections years later.
+- Match the rate and the number of periods: divide the annual rate by 12 and multiply the years by 12 for monthly deposits.
+- Enter money you put in as negative numbers so that the final balance is positive.
+- Compare the result with and without the opening balance to see how much of the total comes from each source.
+- Run several rates, such as 4%, 6% and 8%, before presenting a projection, because the outcome is sensitive to the rate.
+- Use [PMT](PMT.md) to find the deposit needed for a goal, then check it with FV.
+- Decide whether the projection is nominal or inflation-adjusted, and say so in the report.
 
 ## Related Functions
 
-### Similar Functions
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[PV]] | Present value of future cash flows | When you know the future amount and want to find today's equivalent value |
-| [[PMT]] | Payment per period | When you know the target FV and want to find required contributions |
-| [[NPER]] | Number of periods | When you know target FV and contribution, want to find time required |
-| [[RATE]] | Interest rate per period | When you know contributions, time, and target FV, want to find required return |
-| [[FVSCHEDULE]] | FV with variable interest rates | When your investment earns different rates in different periods |
-
-### Commonly Used Together
-
-**[[PMT]]** - Required Contribution Calculator
-
-*Combined with FV for goal-setting:*
-```
-Target future value: $500,000 in 25 years at 7%
-Required monthly: =PMT(0.07/12, 300, 0, 500000) = -$625.86
-
-Verify: =FV(0.07/12, 300, -625.86) = $500,000.09
-```
-Use PMT to find what you need to save, then FV to verify and explore what-if scenarios.
-
----
-
-**[[PV]]** - Present Value Comparison
-
-*Combined with FV for equivalence analysis:*
-```
-Future target: =FV(0.06/12, 240, -500) = $232,175.55
-Present equivalent: =PV(0.06, 20, 0, -232175.55) = $72,410.09
-```
-Determine: is a $232K future value worth more than a $72K lump sum today? At 6% over 20 years, they are equivalent.
-
----
-
-**[[NPV]]** - Net Present Value
-
-*Combined with FV for investment comparison:*
-```
-Option A: Contribute $500/month for 20 years = FV of $232K
-Option B: Invest $80,000 lump sum now
-Which is better? =NPV(0.06/20, {-500 for 240 periods}) vs -80000
-
-Or simpler: =PV(0.06/12, 240, -500) = $69,647
-Since $69,647 < $80,000, the lump sum is better (at 6%)
-```
-NPV and PV help compare options with different timing patterns.
-
----
-
-**[[IF]]** - Conditional Projections
-
-*Combined with FV for scenario analysis:*
-```
-=IF(B1="Conservative", FV(0.05/12, 360, -500),
-   IF(B1="Moderate", FV(0.07/12, 360, -500),
-   FV(0.09/12, 360, -500)))
-```
-Allow users to select assumptions and see projections update dynamically.
-
----
-
-**[[NPER]]** - Time to Goal
-
-*Combined with FV for planning flexibility:*
-```
-How long to reach $100,000 saving $400/month at 6%?
-=NPER(0.06/12, -400, 0, 100000) = 177.4 months (14.8 years)
-
-What balance after exactly 15 years?
-=FV(0.06/12, 180, -400) = $104,737.66
-```
-NPER finds time-to-goal; FV confirms or shows alternative endpoints.
+| Function | Relationship |
+| --- | --- |
+| [PV](PV.md) | Discounts a future amount or series of payments back to today. |
+| [PMT](PMT.md) | Calculates the regular payment needed to reach a target balance. |
+| [NPER](NPER.md) | Calculates how many periods are needed to reach a target balance. |
+| [RATE](RATE.md) | Calculates the rate needed to reach a target balance. |
+| [FVSCHEDULE](FVSCHEDULE.md) | Calculates future value when the interest rate changes from period to period. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [FV function](https://support.microsoft.com/en-us/office/fv-function-2eef9f44-a084-4c61-bdd8-4fe4bb1b71b3)
-- **Google Sheets:** [FV function](https://support.google.com/docs/answer/3093224)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 97 (1997) | Original implementation with all 5 parameters |
-| Excel 2007+ | All subsequent versions | No changes to function behavior |
-| Google Sheets | Original launch | Identical to Excel implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: FV function](https://support.microsoft.com/en-us/excel/functions/fv-function)
+- [Google Docs Editors Help: FV](https://support.google.com/docs/answer/3093224)

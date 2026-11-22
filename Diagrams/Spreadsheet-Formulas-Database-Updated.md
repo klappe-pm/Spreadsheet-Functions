@@ -1,25 +1,44 @@
 ---
-categories:
-- documentation
-subCategories:
-- diagrams
-topics:
-- function-relationships
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Database
+purpose:
+  - Function Relationships
+use-case:
+  - Summarizing Records With Criteria
+  - Choosing a Database Function
+related:
+  - DAVERAGE
+  - DCOUNT
+  - DCOUNTA
+  - DGET
+  - DMAX
+  - DMIN
+  - DPRODUCT
+  - DSTDEV
+  - DSTDEVP
+  - DSUM
+  - DVAR
+  - DVARP
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- mermaid
-- functions
+  - diagrams
+  - database
+  - aggregation
+  - criteria
 ---
 # Spreadsheet-Formulas-Database-Updated
 
 ```mermaid
 
 graph LR
-    Database["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Database</b><br/>────────────────<br/>Database functions for aggregating data based on criteria<br/><b>Total Functions:</b> 12</div>"] --> Aggregation["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Aggregation</b><br/>────────────────<br/>Functions for aggregating database entries<br/><b>Total Functions:</b> 12</div>"]
+    Database["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Database</b><br/>────────────────<br/>Database functions for aggregating data based on criteria<br/><b>Total Functions:</b> 13</div>"] --> Aggregation["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Aggregation</b><br/>────────────────<br/>Functions for aggregating database entries<br/><b>Total Functions:</b> 12</div>"]
     
     %% DAVERAGE - Function 1
     Aggregation --> DAVERAGE["<div align='left' style='font-family: MonoLisa, monospace;'><b>DAVERAGE</b><br/>────────────────<br/>Calculates the average of selected database entries matching criteria</div>"]
@@ -28,12 +47,12 @@ graph LR
     
     %% DCOUNT - Function 2
     Aggregation --> DCOUNT["<div align='left' style='font-family: MonoLisa, monospace;'><b>DCOUNT</b><br/>────────────────<br/>Counts numeric cells in a database matching criteria</div>"]
-    DCOUNT --> DCOUNTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DCOUNT(database, field, criteria)</div>"]
+    DCOUNT --> DCOUNTSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DCOUNT(database, [field], criteria)</div>"]
     DCOUNT --> DCOUNTEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=DCOUNT(A1:C10, &quot;Sales&quot;, E1:F2) → 3</div>"]
     
     %% DCOUNTA - Function 3
     Aggregation --> DCOUNTA["<div align='left' style='font-family: MonoLisa, monospace;'><b>DCOUNTA</b><br/>────────────────<br/>Counts non-empty cells in a database matching criteria</div>"]
-    DCOUNTA --> DCOUNTASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DCOUNTA(database, field, criteria)</div>"]
+    DCOUNTA --> DCOUNTASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>DCOUNTA(database, [field], criteria)</div>"]
     DCOUNTA --> DCOUNTAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=DCOUNTA(A1:C10, &quot;Name&quot;, E1:F2) → 4</div>"]
     
     %% DGET - Function 4
@@ -125,5 +144,3 @@ graph LR
     style DVARPEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

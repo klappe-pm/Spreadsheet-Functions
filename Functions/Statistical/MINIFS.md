@@ -1,374 +1,242 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- statistical
-subTopics:
-- conditional-aggregation
-- extremes
-- multiple-criteria
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Statistical
+subcategory: Conditional Extremes
+purpose:
+  - Aggregation
+  - Conditional Logic
+use-case:
+  - Cheapest Approved Quote
+  - Shortest Express Lead Time
+related:
+  - AVERAGEIFS
+  - COUNTIFS
+  - MAXIFS
+  - MIN
+  - SUMIFS
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/functions/minifs-function
+  - https://support.google.com/docs/answer/7014063
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Conditional Minimum
-- Minimum If Condition
-- Min With Criteria
+  - Conditional Minimum
+  - Minimum If Condition
 tags:
-- minimum
-- conditional
-- multi-criteria
-- filtering
-- extremes
-- AND-logic
+  - aggregation
+  - conditional
+  - excel
+  - minimum
+  - sheets
 ---
 
 # MINIFS
 
 ## Description
 
-**MINIFS** returns the minimum value from a range based on one or more conditions. It's the conditional version of MIN—instead of finding the smallest value in an entire range, it finds the smallest value only among rows that match all specified criteria. "What's the lowest price in the Electronics category?" or "What's the minimum lead time for Priority orders?"—these are MINIFS questions.
+**MINIFS** returns the smallest value in one range, but only for the rows that meet one or more conditions. It answers questions such as "What is the lowest quote from an approved vendor?" or "What is the shortest express lead time?" Without MINIFS, the same answer needs MIN with an array formula.
 
-The syntax mirrors MAXIFS and follows the SUMIFS pattern: min_range comes first, followed by pairs of criteria_range and criteria. All criteria use AND logic—a value is only considered if its row matches every specified condition. This differs from MIN, which has no built-in filtering and simply returns the smallest value from the entire range.
+The first argument is the range that holds the values to compare. Each condition then takes a pair: a criteria range and a criterion. Every condition must be true for a row to count, so the conditions work as an AND test. A criterion can be a number, text, a cell reference, a comparison such as `"<50"`, or a wildcard pattern such as `"Express*"`. Text matching is not case sensitive.
 
-**MINIFS is relatively new, introduced alongside MAXIFS in Excel 2019 and Microsoft 365.** Before MINIFS, conditional minimums required array formulas: `=MIN(IF(criteria_range=criterion, min_range))` entered with Ctrl+Shift+Enter. MINIFS provides a cleaner, non-array alternative. Google Sheets has supported MINIFS for longer, so cross-platform compatibility is generally good.
-
-**MINIFS returns 0 when no values match the criteria.** This behavior is particularly problematic for minimums—0 often looks like a valid small value when it actually indicates no matches. A "lowest price" of $0 probably means your criteria didn't match anything, not that something is free. Always validate with COUNTIFS or wrap with IF to handle zero-match scenarios.
+MINIFS returns 0 when no row meets every condition. For a minimum, a 0 is easy to misread as a real low value, so confirm that matches exist with COUNTIFS first. If zeros in the data mean missing values, add a condition such as `">0"` to the same range. For OR logic, combine separate MINIFS results with MIN. For the largest matching value, use MAXIFS. MINIFS requires Excel 2019, Excel 2021, Excel 2024, or Microsoft 365 in Excel, so it does not work in Excel 2016 or earlier.
 
 ## Syntax
 
-> [!f(x)] MINIFS Syntax
->
-> ```
-> =MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
-> ```
+```excel
+=MINIFS(min_range, criteria_range1, criterion1, [criteria_range2, criterion2], ...)
+```
+
+<!-- Image 1: Min Range and Criteria Pairs. See Images/Statistical/MINIFS.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `min_range` | Yes | The range of cells from which to find the minimum. Must contain numeric values. Same dimensions required as all criteria_ranges. |
-| `criteria_range1` | Yes | The first range to evaluate against criteria1. Must be the same size as min_range. Contains the values to test against the first criterion. |
-| `criteria1` | Yes | The condition for criteria_range1. Can be number, text, cell reference, expression with operators ("<50", "<>Cancelled"), or wildcard pattern ("*Ltd"). |
-| `criteria_range2, criteria2, ...` | No | Additional pairs of ranges and criteria. Each range must match min_range dimensions. Up to 126 additional pairs in Excel. |
+| --- | --- | --- |
+| `min_range` | Yes | The range of values to compare, such as `C2:C8`. Must contain numbers for the result to be meaningful. |
+| `criteria_range1` | Yes | The range tested against `criterion1`. It must be the same size and shape as `min_range`. |
+| `criterion1` | Yes | The test applied to `criteria_range1`, such as `"East"`, `"<1000"`, or a cell reference. |
+| `criteria_range2, criterion2, ...` | No | Additional range and criterion pairs. Every row must meet all of them. Excel allows up to 126 pairs. |
 
 ### Return Value
 
-Returns a single numeric value representing the smallest number in min_range where ALL corresponding criteria_range cells match their respective criteria. Returns 0 if no cells match all criteria. Returns an error if ranges have mismatched sizes or arguments are invalid.
+A single number: the smallest value in `min_range` among rows that meet every condition. It returns 0 when no row meets all conditions. It returns `#VALUE!` when the ranges are not the same size.
 
 ## Examples
 
-> [!f(x)] MINIFS Examples
+All examples use the sales list below in `A1:C8`, with the header in row 1.
 
-### Example 1: Minimum with One Condition
+| Region | Product | Sales |
+| --- | --- | --- |
+| East | Widgets | 1200 |
+| West | Gadgets | 850 |
+| East | Gadgets | 640 |
+| North | Widgets | 975 |
+| East | Widgets | 410 |
+| West | Widgets | 1530 |
+| East | Gadgets | 1010 |
+
+### Example 1: One Condition
+
+```excel
+=MINIFS(C2:C8, A2:A8, "East")
 ```
-=MINIFS(C2:C100, A2:A100, "Active")
+
+**Result:** `410`
+
+Only the four East rows are considered (1200, 640, 410, and 1010), and 410 is the smallest.
+
+### Example 2: Two Conditions
+
+```excel
+=MINIFS(C2:C8, A2:A8, "East", B2:B8, "Gadgets")
 ```
-**Result:** Smallest value in C where A equals "Active"
 
-**Explanation:** The simplest MINIFS pattern. Finds the lowest value in column C, but only for rows where column A contains "Active". Inactive rows are ignored.
+**Result:** `640`
 
----
+Only rows that are both East and Gadgets qualify: 640 and 1010. The smaller of the two is 640.
 
-### Example 2: Minimum with Two Conditions
+<!-- Image 2: Two Conditions Filtering Rows. See Images/Statistical/MINIFS.md -->
+
+### Example 3: Numeric Comparison
+
+```excel
+=MINIFS(C2:C8, C2:C8, ">1000")
 ```
-=MINIFS(D2:D500, A2:A500, "Electronics", B2:B500, "InStock")
+
+**Result:** `1010`
+
+The criteria range is the same as the values range. Sales above 1000 are 1200, 1530, and 1010, so 1010 is the smallest.
+
+### Example 4: Criterion From a Cell
+
+Assume cell `G1` contains `West`.
+
+```excel
+=MINIFS(C2:C8, A2:A8, G1)
 ```
-**Result:** Smallest value in D where A is "Electronics" AND B is "InStock"
 
-**Explanation:** Both conditions must match. Finds the minimum price for Electronics products currently in stock.
+**Result:** `850`
 
----
+The West rows hold 850 and 1530, so 850 is returned. Changing `G1` updates the result.
 
-### Example 3: Using Cell References as Criteria
+### Example 5: No Match Returns Zero
+
+```excel
+=MINIFS(C2:C8, A2:A8, "South")
 ```
-=MINIFS(Prices, Category, G1, Supplier, H1, Status, I1)
+
+**Result:** `0`
+
+No row has the region South, so the result is 0. A 0 here means no match, not a free item, so check the match count with COUNTIFS.
+
+## Story Problems
+
+### Problem 1: Cheapest Quote From an Approved Vendor
+
+A purchasing team records quotes from six vendors in `A1:C7`.
+
+| Vendor | Status | Quote |
+| --- | --- | --- |
+| Alpha | Approved | 540 |
+| Beta | Pending | 410 |
+| Gamma | Approved | 515 |
+| Delta | Approved | 585 |
+| Echo | Pending | 380 |
+| Foxtrot | Approved | 498 |
+
+**Task:** Find the lowest quote from a vendor whose status is Approved.
+
+**Solution:**
+
+```excel
+=MINIFS(C2:C7, B2:B7, "Approved")
 ```
-**Result:** Minimum price for category/supplier/status specified in G1, H1, I1
 
-**Explanation:** Dynamic criteria from cells. Change the filter cells and the minimum updates automatically. Essential for interactive price comparison tools.
+**Answer:** `498`, the quote from Foxtrot. The lower pending quotes from Beta and Echo are excluded by the condition.
 
----
+### Problem 2: Shortest Express Lead Time
 
-### Example 4: Minimum with Numeric Comparison
+A warehouse logs the lead time in days for five shipments in `A1:C6`.
+
+| Shipment | Service | Days |
+| --- | --- | --- |
+| S1 | Express | 2 |
+| S2 | Standard | 5 |
+| S3 | Express | 3 |
+| S4 | Standard | 1 |
+| S5 | Express | 4 |
+
+**Task:** Find the shortest lead time for any Express shipment.
+
+**Solution:**
+
+```excel
+=MINIFS(C2:C6, B2:B6, "Express")
 ```
-=MINIFS(C2:C200, B2:B200, ">=10", A2:A200, "Available")
-```
-**Result:** Smallest value in C where B is at least 10 AND A is "Available"
 
-**Explanation:** Combines text matching with numeric filtering. Finds the lowest price among available products with quantity of 10 or more.
+**Answer:** `2` days, from shipment S1. The one-day Standard shipment is excluded because it does not use the Express service.
 
----
-
-### Example 5: Minimum within Date Range
-```
-=MINIFS(E2:E1000, D2:D1000, ">="&DATE(2025,1,1), D2:D1000, "<="&DATE(2025,3,31))
-```
-**Result:** Minimum value in E where dates in D fall within Q1 2025
-
-**Explanation:** Apply the same criteria_range twice with different operators for date ranges. Finds the lowest value during the specified quarter.
-
----
-
-### Example 6: Minimum with Dynamic Date Range
-```
-=MINIFS(Prices, Dates, ">="&StartDate, Dates, "<="&EndDate, Vendor, "Preferred")
-```
-**Result:** Minimum preferred vendor price within date range
-
-**Explanation:** Combines date filtering with vendor filtering. StartDate and EndDate from named cells for user control.
-
----
-
-### Example 7: Minimum Using Wildcards
-```
-=MINIFS(B2:B100, A2:A100, "Express*")
-```
-**Result:** Smallest value in B where A starts with "Express"
-
-**Explanation:** Wildcards work in MINIFS. Matches "Express", "Express Shipping", "Express Premium", etc.
-
----
-
-### Example 8: Minimum Excluding Specific Values
-```
-=MINIFS(D2:D300, C2:C300, "<>Discontinued", B2:B300, "<>OutOfStock")
-```
-**Result:** Minimum in D excluding discontinued and out-of-stock items
-
-**Explanation:** Use `<>` to exclude values. Finds lowest price among currently available products only.
-
----
-
-### Example 9: Minimum by Month (Previous Month)
-```
-=MINIFS(B2:B500, A2:A500, ">="&EOMONTH(TODAY(),-2)+1, A2:A500, "<="&EOMONTH(TODAY(),-1))
-```
-**Result:** Minimum value in B for the previous month
-
-**Explanation:** Uses EOMONTH to calculate previous month boundaries. Finds the lowest value from last month's data.
-
----
-
-### Example 10: Minimum with Boolean Criteria
-```
-=MINIFS(C2:C100, D2:D100, TRUE, A2:A100, "Standard")
-```
-**Result:** Minimum in C where D is TRUE (checked) AND A is "Standard"
-
-**Explanation:** Checkbox TRUE/FALSE values work as criteria. Finds minimum among checked Standard items.
-
----
-
-### Example 11: Minimum in Numeric Range
-```
-=MINIFS(C2:C200, B2:B200, ">=1000", B2:B200, "<=5000")
-```
-**Result:** Minimum in C where B is between 1000 and 5000 inclusive
-
-**Explanation:** Use same range twice for "between" logic. Finds minimum among mid-range values only.
-
----
-
-### Example 12: Minimum Greater Than Zero
-```
-=MINIFS(B2:B100, B2:B100, ">0", A2:A100, "Active")
-```
-**Result:** Smallest positive value in B for Active items
-
-**Explanation:** Exclude zeros from consideration. Useful when 0 represents missing data rather than a valid value.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Ranges have different sizes | All criteria_ranges must have exactly the same dimensions as min_range. Verify row counts match. |
-| `#NAME?` | Misspelled function, or function not available in your Excel version | MINIFS requires Excel 2019 or later. Check spelling and Excel version. |
-| `0 unexpected` | No rows match all criteria | MINIFS returns 0 when nothing matches. This is especially misleading for minimums. Use COUNTIFS to verify. |
-| `#REF!` | Referenced cells have been deleted | Check if any cells in your ranges have been removed. |
-| `Wrong result` | Criteria format mismatch | Text "100" won't match number 100. Check data types and hidden spaces. |
-| `Negative when expecting positive` | Data contains negatives | MINIFS finds the actual minimum, including negatives. Add ">0" criterion if needed. |
+<!-- Image 3: Story Problem Result. See Images/Statistical/MINIFS.md -->
 
 ## Use Cases
 
-### [[Price Comparison and Lowest Cost Finding]]
+### Cheapest Approved Quote
 
-**Scenario:** Find the lowest price point within categories, vendors, or conditions for procurement decisions.
+**Scenario:** A procurement manager wants the lowest price for a part from suppliers who have passed approval.
 
-**Implementation:**
-```
-=MINIFS(Catalog[Price], Catalog[Category], "Laptops", Catalog[InStock], TRUE)
-```
-
-**Business Application:** Procurement optimization, competitive pricing analysis, budget planning. "What's the cheapest laptop we can order that's currently in stock?"
-
-**Technical Details:** Combine with INDEX/MATCH to find the product name, not just the price: identify what offers the best value. Add quality or rating criteria to avoid finding cheap but unsuitable options.
-
----
-
-### [[Lead Time and Delivery Analysis]]
-
-**Scenario:** Find minimum delivery times, shortest lead times, or fastest processing among filtered options.
-
-**Implementation:**
-```
-=MINIFS(Orders[DeliveryDays], Orders[Carrier], "Express", Orders[Destination], "International")
+```excel
+=MINIFS(Quotes[Price], Quotes[Part], "Bearing", Quotes[Approved], TRUE)
 ```
 
-**Business Application:** Supply chain optimization, customer promise management, service level determination. "What's the fastest we can deliver internationally with Express carriers?"
+**Why It Works:** Both conditions must match, so unapproved suppliers are excluded. Wrap the formula with COUNTIFS to show a message when no approved quote exists.
 
-**Technical Details:** Use date filtering to find recent minimums (lead times may have changed). Combine with MAXIFS to see the range of delivery times for capacity planning.
+### Shortest Express Lead Time
 
----
+**Scenario:** A customer service team needs the fastest delivery time offered to a specific destination.
 
-### [[Threshold and Floor Value Identification]]
-
-**Scenario:** Identify minimum acceptable values, floor prices, or baseline measurements within categories.
-
-**Implementation:**
-```
-=MINIFS(Bids[Amount], Bids[Status], "Approved", Bids[Vendor], VendorName)
+```excel
+=MINIFS(Orders[LeadDays], Orders[Carrier], "Express", Orders[Destination], "Chicago")
 ```
 
-**Business Application:** Bid analysis, price floor identification, baseline performance measurement. "What's the lowest approved bid from this vendor?"
+**Why It Works:** The formula returns the smallest lead time among Express orders to Chicago. Use MAXIFS with the same criteria to show the range of delivery times.
 
-**Technical Details:** Minimum values often represent floor constraints or worst-case scenarios. Document why certain minimums exist and whether they're outliers or systematic.
+## Common Errors
 
----
-
-### [[Earliest Date Within Categories]]
-
-**Scenario:** Find the earliest date (as minimum date serial number) among filtered records.
-
-**Implementation:**
-```
-=MINIFS(Orders[OrderDate], Orders[Customer], CustomerID, Orders[Status], "Completed")
-```
-
-**Business Application:** Customer first-order analysis, earliest occurrence identification, historical record lookup. "When was this customer's first completed order?"
-
-**Technical Details:** Dates are numbers, so MINIFS finds the earliest (smallest) date. Format the result as a date. Use for customer tenure, product launch dates, first occurrence tracking.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#VALUE!` | The criteria ranges are not the same size as `min_range`. | Make every range cover the same rows, for example `C2:C8` and `A2:A8`. |
+| `0` | No row meets every condition. | Check the match count with COUNTIFS. A 0 here usually means no match, not a real low value. |
+| `0` | Zeros in the data represent missing values. | Add a condition such as `">0"` to the same range. |
+| `#NAME?` | The function is not available in the version of Excel in use. | Use Excel 2019, Excel 2021, Excel 2024, or Microsoft 365, or use MIN with IF as an array formula. |
+| Wrong result | A number is stored as text, so the numeric criterion does not match it. | Convert the cells to numbers before calculating. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** Excel 2019, Microsoft 365 (not available in Excel 2016 or earlier)
-- **Criteria pairs limit:** Up to 126 criteria_range/criteria pairs
-- **Performance:** Optimized for large datasets
-- **Legacy alternative:** `=MIN(IF(conditions, range))` as array formula (Ctrl+Shift+Enter)
-- **Wildcards:** Full support for `*`, `?`, and `~` escape
-
-### Google Sheets
-- **Availability:** All versions (available before Excel implementation)
-- **Criteria pairs limit:** Practically unlimited
-- **Performance:** Efficient for typical use; may slow on very large datasets
-- **Array behavior:** Works within ARRAYFORMULA context
-- **Wildcards:** Full support matching Excel behavior
-
-### Both Platforms
-- Min_range comes FIRST (same as SUMIFS pattern)
-- All ranges must have identical dimensions
-- Uses AND logic exclusively (all criteria must match)
-- Case-insensitive text matching
-- Returns 0 when no matches found (not an error)
-- Empty cells in min_range are ignored (not treated as 0)
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Excel 2019, Excel 2021, Excel 2024, Microsoft 365, Excel for the web, and Office for iPhone | Up to 126 range and criterion pairs. Returns 0 when no row matches. |
+| Google Sheets | Available | The help page describes the same syntax and returns 0 when no row matches. It lists no version requirement. |
 
 ## Tips and Best Practices
 
-1. **Verify your Excel version:** MINIFS is not available in Excel 2016 or earlier. Use `=MIN(IF(condition, range))` as an array formula for older versions.
-
-2. **Handle the "0 when nothing matches" very carefully:** For minimums, 0 often looks valid. Always verify: `=IF(COUNTIFS(criteria_ranges, criteria)>0, MINIFS(...), "No matches")`.
-
-3. **Exclude zeros when they mean "no data":** If 0 represents missing information, add `min_range, ">0"` as an additional criterion: `=MINIFS(Prices, Prices, ">0", Category, "Electronics")`.
-
-4. **Use named ranges for readability:** `=MINIFS(LeadTime, Carrier, "Express", Region, "East")` is much clearer than cell reference notation.
-
-5. **Test criteria independently:** If MINIFS returns unexpected results, use COUNTIFS with the same criteria to verify how many rows match.
-
-6. **For "bottom N within category," combine with SMALL:** MINIFS gives only the single minimum. For second or third smallest within a category, use SMALL with FILTER: `=SMALL(FILTER(Range, Condition), 2)`.
-
-7. **Watch for data type mismatches:** Text "100" won't match number 100. Numbers stored as text are a common source of "why doesn't this match?" confusion.
-
-8. **Combine with MAXIFS for range analysis:** `MAXIFS(...) - MINIFS(...)` shows the spread within a category, useful for variability analysis.
+- Keep the value range and every criteria range the same size so the rows line up.
+- Put criteria in labeled cells and reference them, so users can change the question without editing the formula.
+- Exclude zeros with a condition such as `">0"` when zero means missing data.
+- Check the match count with COUNTIFS whenever a 0 result could be mistaken for a real value.
+- Use a table reference such as `Quotes[Price]` so new rows are included automatically.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[MIN]] | Minimum without conditions | When you want the overall minimum, no filtering needed |
-| [[MAXIFS]] | Maximum with conditions | When you need the conditional maximum, not minimum |
-| [[SUMIFS]] | Sum with multiple conditions | When you need the total, not the smallest value |
-| [[AVERAGEIFS]] | Average with conditions | When you need the mean, not the extreme |
-| [[SMALL]] | Nth smallest value | When you need second, third, etc. smallest (unconditional) |
-
-### Commonly Used Together
-
-**[[MAXIFS]]** - Find both extremes
-
-*Get range within category:*
-```
-=MAXIFS(Prices, Category, "A") - MINIFS(Prices, Category, "A")
-```
-Shows the price spread within a filtered category.
-
----
-
-**[[COUNTIFS]]** - Verify matches exist
-
-*Handle zero-match scenarios:*
-```
-=IF(COUNTIFS(Category,"Electronics",InStock,TRUE)>0, MINIFS(Price,Category,"Electronics",InStock,TRUE), "None available")
-```
-Critical for MINIFS since 0 return value is ambiguous.
-
----
-
-**[[INDEX]]/[[MATCH]]** - Find what achieved the minimum
-
-*Return associated data:*
-```
-=INDEX(Products, MATCH(MINIFS(Prices,Category,"A"), IF(Category="A",Prices), 0))
-```
-Locates the product with the conditional minimum price.
-
----
-
-**[[FILTER]]** - Modern alternative
-
-*More flexible filtering:*
-```
-=MIN(FILTER(Prices, (Category="Electronics")*(InStock=TRUE)))
-```
-FILTER with MIN offers more control, including OR logic with `+` instead of `*`.
-
----
-
-**[[AVERAGEIFS]]** - Context for the minimum
-
-*Compare minimum to average:*
-```
-=AVERAGEIFS(Prices, Category, "A") - MINIFS(Prices, Category, "A")
-```
-Shows how far below average the minimum falls within the category.
+| Function | Relationship |
+| --- | --- |
+| [MIN](MIN.md) | Returns the smallest value with no conditions. |
+| [MAXIFS](MAXIFS.md) | Returns the largest value that meets the same kind of conditions. |
+| [COUNTIFS](COUNTIFS.md) | Counts the rows that meet the conditions, to confirm that matches exist. |
+| [AVERAGEIFS](AVERAGEIFS.md) | Averages the rows that meet the conditions. |
+| [SUMIFS](../Math%20%26%20Trig/SUMIFS.md) | Adds the values that meet the same kind of conditions. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [MINIFS function](https://support.microsoft.com/en-us/office/minifs-function-6ca1ddaa-079b-4e74-80cc-72eef32e6599)
-- **Google Sheets:** [MINIFS function](https://support.google.com/docs/answer/7014761)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel 2019 | 2019 | Initial release alongside MAXIFS |
-| Microsoft 365 | Continuous | Available in all 365 versions |
-| Excel 2016 | Not available | Use MIN/IF array formula instead |
-| Google Sheets | ~2017 | Available before Excel implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: MINIFS function](https://support.microsoft.com/en-us/excel/functions/minifs-function)
+- [Google Docs Editors Help: MINIFS](https://support.google.com/docs/answer/7014063)

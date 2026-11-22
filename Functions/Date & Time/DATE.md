@@ -1,408 +1,247 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- date-time
-subTopics:
-- date-construction
-- date-serial-numbers
-- date-manipulation
-dateCreated: '2025-08-17'
-dateRevised: '2026-01-10'
+domain: Spreadsheet Functions
+category: Date & Time
+subcategory: Date Construction
+purpose:
+  - Data Cleaning
+  - Date Calculation
+use-case:
+  - Invoice Due Dates
+  - Monthly Reporting Periods
+  - Payment Schedules
+related:
+  - DATEVALUE
+  - DAY
+  - EDATE
+  - EOMONTH
+  - MONTH
+  - TIME
+  - TODAY
+  - YEAR
+level: 2
+source:
+  - https://support.microsoft.com/en-us/excel/functions/date-function
+  - https://support.google.com/docs/answer/3092969
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases:
-- Create Date
-- Build Date
-- Make Date
+  - Build Date
+  - Create Date
 tags:
-- date
-- date-construction
-- serial-number
-- date-arithmetic
+  - date
+  - date-construction
+  - excel
+  - serial-number
+  - sheets
 ---
 
 # DATE
 
 ## Description
 
-**DATE** constructs a date from three components: year, month, and day. It returns a serial number that Excel and Sheets display as a formatted date. This function is the fundamental building block for date manipulation—whenever you need to construct a specific date from numeric components, assemble a date from cell references, or manipulate individual date parts, DATE is your tool.
+**DATE** builds a date from three numbers: a year, a month and a day. It returns a serial number that Excel and Google Sheets display as a date. Use it when the year, month and day sit in separate cells, when you need to build a fixed date inside a formula, or when you need to change one part of an existing date.
 
-The real power of DATE lies in how it handles out-of-range values. If you specify month 14, DATE doesn't error—it returns February of the following year (month 12 + 2 = February). If you specify day 0, it returns the last day of the previous month. Day -1 gives you two days before the start of the month. This behavior enables elegant date arithmetic: adding months becomes DATE(YEAR(A1), MONTH(A1)+3, DAY(A1)); finding the last day of any month is DATE(year, month+1, 0). Understanding this overflow/underflow behavior unlocks advanced date manipulation without complex conditionals.
+DATE also accepts month and day values outside their normal ranges and rolls them into the correct date. A month of 14 returns February of the following year, and a day of 0 returns the last day of the previous month. This makes it easy to find month ends (`DATE(year, month + 1, 0)`) and to add months to a date without a lookup table.
 
-**Excel's serial number system explained:** Excel stores dates as sequential integers starting from January 1, 1900 (serial number 1). DATE(1900,1,1) returns 1, DATE(1900,1,2) returns 2, and so on. January 10, 2026 is serial number 46032, meaning 46,032 days have passed since Excel's epoch. This serial number system is why date arithmetic works: subtracting two dates gives the days between them; adding 30 to a date advances it 30 days. When you see a date displayed as "1/10/2026", the underlying value is just the number 46032.
-
-**Year handling varies by value range:** Two-digit years (0-99) are interpreted based on a cutoff: in Excel, years 0-29 become 2000-2029, and 30-99 become 1930-1999. DATE(25,6,15) returns June 15, 2025; DATE(85,6,15) returns June 15, 1985. However, this behavior can vary by version and settings, so always use four-digit years for clarity and consistency. Google Sheets handles two-digit years similarly but the cutoff year may differ.
+Years need care. Excel and Sheets treat a year from 0 to 1899 as an offset from 1900, so `DATE(25, 6, 15)` returns June 15, 1925, not 2025. Always enter four-digit years. If you need to move a date by whole months with end-of-month handling, EDATE and EOMONTH are clearer choices than DATE arithmetic.
 
 ## Syntax
 
-> [!f(x)] DATE Syntax
->
-> ```
-> =DATE(year, month, day)
-> ```
+```excel
+=DATE(year, month, day)
+```
+
+<!-- Image 1: Year, Month and Day Arguments. See Images/Date & Time/DATE.md -->
 
 ### Parameters
 
 | Parameter | Required | Description |
-|-----------|----------|-------------|
-| `year` | Yes | The year component. One to four digits. Two-digit years are interpreted based on system settings (typically: 0-29 = 2000-2029, 30-99 = 1930-1999). Four-digit years are used literally. |
-| `month` | Yes | The month component. Valid range is 1-12, but values outside this range roll over: 13 becomes January of next year, 0 becomes December of previous year, -1 becomes November of previous year. |
-| `day` | Yes | The day component. Valid range depends on month (1-28, 29, 30, or 31), but out-of-range values roll over: 32 in a 31-day month becomes the 1st of next month, 0 becomes the last day of previous month. |
+| --- | --- | --- |
+| `year` | Yes | The year. Values from 1900 to 9999 are used as the year. Values from 0 to 1899 have 1900 added to them, so 25 becomes 1925. |
+| `month` | Yes | The month. Normal values are 1 to 12. A value above 12 moves into the following year, and a value below 1 moves back into previous years. |
+| `day` | Yes | The day. Normal values are 1 to 31. A value above the length of the month moves into the next month, and a value of 0 or less moves back into the previous month. |
 
 ### Return Value
 
-Returns a serial number representing the specified date. In Excel's 1900 date system, January 1, 1900 = 1. The maximum date is December 31, 9999 (serial number 2958465). Negative serial numbers (dates before January 1, 1900) are not supported in standard Excel.
+A date serial number. In Excel's default 1900 date system, January 1, 1900 is serial 1, and January 10, 2026 is serial 46032. Excel returns `#NUM!` when the year is below 0 or 10000 or higher. Sheets returns `#NUM!` for the same year range and `#VALUE!` when an argument is text that cannot be read as a number.
 
 ## Examples
 
-> [!f(x)] DATE Examples
+### Example 1: Build a Specific Date
 
-### Example 1: Create a Specific Date
-```
+```excel
 =DATE(2026, 1, 10)
 ```
-**Result:** 1/10/2026 (serial number 46032)
 
-**Explanation:** The fundamental use case—constructing a date from year, month, and day components. The result is a true date value that can be used in calculations, comparisons, and formatting.
+**Result:** `1/10/2026` (serial number 46032)
 
----
+Each argument is a plain number, and the result is a true date that can be used in comparisons and calculations.
 
-### Example 2: Combine Values from Cells
+### Example 2: Build a Date From Cells
+
+```excel
+=DATE(A2, B2, C2)
 ```
-=DATE(A1, B1, C1)
+
+**Result:** With A2 set to 2027, B2 set to 5 and C2 set to 18, the result is May 18, 2027.
+
+Keep the year, month and day in separate columns when the source data is already split this way. DATE combines them into one value.
+
+### Example 3: Month Value Above 12
+
+```excel
+=DATE(2026, 14, 2)
 ```
-**Result:** Date constructed from year in A1, month in B1, day in C1
 
-**Explanation:** Essential for building dates from separate data fields. If your data source provides year, month, and day in separate columns, DATE combines them into a usable date value.
+**Result:** `2/2/2027`
 
----
+Month 14 is February of the following year, because 12 months from January 2026 reaches January 2027 and 2 more months reaches February 2027. The day stays at 2.
 
-### Example 3: First Day of a Month
-```
-=DATE(2026, 6, 1)
-```
-**Result:** 6/1/2026
+<!-- Image 2: Month Overflow Table. See Images/Date & Time/DATE.md -->
 
-**Explanation:** Simply specify 1 for the day parameter. This pattern is essential for monthly reporting periods, period-start calculations, and date range boundaries.
+### Example 4: Last Day of a Month
 
----
-
-### Example 4: Last Day of a Month (Day 0 Trick)
-```
+```excel
 =DATE(2026, 7, 0)
 ```
-**Result:** 6/30/2026 (last day of June)
 
-**Explanation:** Day 0 returns the last day of the previous month. DATE(year, month+1, 0) gives the last day of the specified month. This handles variable month lengths (28, 29, 30, 31 days) automatically.
+**Result:** `6/30/2026`
 
----
+A day of 0 returns the last day of the previous month. Using the next month number with a day of 0 gives the last day of any month, with leap years handled automatically.
 
-### Example 5: Last Day of February (Leap Year Aware)
+### Example 5: Add Months to a Date
+
+```excel
+=DATE(YEAR(A2), MONTH(A2) + 3, DAY(A2))
 ```
-=DATE(2024, 3, 0)
+
+**Result:** With A2 set to January 31, 2026, the result is May 1, 2026.
+
+April has only 30 days, so day 31 of April rolls forward to May 1. Use EDATE when you want the result to stop at the last day of the target month.
+
+### Example 6: Four-Digit Year Versus Two-Digit Year
+
+```excel
+=DATE(25, 6, 15)
 ```
-**Result:** 2/29/2024 (leap year)
 
+**Result:** `6/15/1925`
+
+The year 25 falls in the 0 to 1899 range, so 1900 is added to it. Enter `2025` instead to get June 15, 2025.
+
+## Story Problems
+
+### Problem 1: Quarterly Payment Schedule
+
+A small equipment lender sends payment reminders on dates built from a year, month and day column. The clerk entered the schedule in `A1:D5` without checking the day values.
+
+| Payment | Year | Month | Day |
+| --- | --- | --- | --- |
+| 1 | 2026 | 1 | 15 |
+| 2 | 2026 | 2 | 31 |
+| 3 | 2026 | 4 | 0 |
+| 4 | 2026 | 13 | 1 |
+
+**Task:** Build each reminder date in column E with DATE, then state the dates for payments 2 and 4.
+
+**Solution:**
+
+```excel
+=DATE(B2, C2, D2)
 ```
-=DATE(2025, 3, 0)
+
+**Answer:** Payment 2 is March 3, 2026, because February 2026 has 28 days and day 31 rolls 3 days past the end of the month. Payment 4 is January 1, 2027, because month 13 is January of the next year. Payment 3 is March 31, 2026, because day 0 of April is the last day of March.
+
+### Problem 2: Last Day of a Fiscal Quarter
+
+A finance team reports results by fiscal quarter. Each quarter ends on the last day of its third month. The analyst stores the year in `A2` and the quarter number in `B2`.
+
+| Fiscal Year | Quarter |
+| --- | --- |
+| 2026 | 3 |
+
+**Task:** Return the last day of the quarter with DATE, using the quarter number to find the month after the quarter ends.
+
+**Solution:**
+
+```excel
+=DATE(A2, B2 * 3 + 1, 0)
 ```
-**Result:** 2/28/2025 (non-leap year)
 
-**Explanation:** The day 0 trick automatically handles leap years. No conditional logic needed—DATE knows February 2024 has 29 days and February 2025 has 28.
-
----
-
-### Example 6: Add Months to a Date
-```
-=DATE(YEAR(A1), MONTH(A1)+3, DAY(A1))
-```
-**Result:** Date 3 months after the date in A1
-
-**Explanation:** Classic pattern for month addition. If A1 is January 15, adding 3 months gives April 15. Note: If adding months creates an invalid date (like March 31 + 1 month = April 31), the overflow creates May 1. Use EDATE for behavior that preserves end-of-month.
-
----
-
-### Example 7: Subtract Months from a Date
-```
-=DATE(YEAR(A1), MONTH(A1)-6, DAY(A1))
-```
-**Result:** Date 6 months before the date in A1
-
-**Explanation:** Negative month adjustments work correctly across year boundaries. If A1 is March 2026, subtracting 6 months correctly returns September 2025.
-
----
-
-### Example 8: First Day of Current Month
-```
-=DATE(YEAR(TODAY()), MONTH(TODAY()), 1)
-```
-**Result:** First day of the current month
-
-**Explanation:** Combines TODAY with DATE to get the start of the current month. Essential for monthly reports, period boundaries, and MTD calculations.
-
----
-
-### Example 9: Same Day Next Year
-```
-=DATE(YEAR(A1)+1, MONTH(A1), DAY(A1))
-```
-**Result:** Same calendar date one year later
-
-**Explanation:** Add 1 to the year component. Handles February 29 overflow: DATE(2024+1, 2, 29) = March 1, 2025 because Feb 29, 2025 doesn't exist.
-
----
-
-### Example 10: Anniversary Date (Current Year)
-```
-=DATE(YEAR(TODAY()), MONTH(A1), DAY(A1))
-```
-**Result:** The anniversary of the date in A1 occurring this year
-
-**Explanation:** Takes month and day from a historical date but applies the current year. Use for birthdays, contract anniversaries, and annual recurring events.
-
----
-
-### Example 11: Fiscal Year Start (July 1)
-```
-=DATE(YEAR(A1)-IF(MONTH(A1)<7,1,0), 7, 1)
-```
-**Result:** The start of the fiscal year containing the date in A1
-
-**Explanation:** For fiscal years starting July 1, dates before July belong to a fiscal year starting in the previous calendar year. The IF adjusts the year accordingly.
-
----
-
-### Example 12: Handle Text Inputs
-```
-=DATE(VALUE(LEFT(A1,4)), VALUE(MID(A1,5,2)), VALUE(RIGHT(A1,2)))
-```
-**Result:** Date from text "20260110" in A1
-
-**Explanation:** When dates are stored as text in YYYYMMDD format, extract substrings and convert to numbers for DATE. This is common when importing data from legacy systems.
-
----
-
-### Example 13: Rolling Quarter Start
-```
-=DATE(YEAR(TODAY()), (ROUNDUP(MONTH(TODAY())/3,0)-1)*3+1, 1)
-```
-**Result:** First day of the current quarter
-
-**Explanation:** Calculates which quarter we're in, then constructs the first month of that quarter. Q1 starts month 1, Q2 starts month 4, Q3 starts month 7, Q4 starts month 10.
-
----
-
-### Example 14: Nth Weekday of Month (e.g., 3rd Monday)
-```
-=DATE(2026, 1, 1) + 7*(3-1) + MOD(2-WEEKDAY(DATE(2026, 1, 1)), 7)
-```
-**Result:** 1/19/2026 (3rd Monday of January 2026)
-
-**Explanation:** Advanced formula for calculating dates like "Martin Luther King Day" (3rd Monday of January). The 2 represents Monday in WEEKDAY's default mode. Adjust the 3 for nth occurrence.
-
-## Common Errors
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `#VALUE!` | Non-numeric arguments | Ensure year, month, and day are numbers or cells containing numbers. Use VALUE() to convert text. |
-| `#NUM!` | Year is negative or result exceeds date limits | Year must be 0-9999; result must be between 1/1/1900 and 12/31/9999 |
-| `Unexpected year` | Two-digit year interpretation | Always use four-digit years to avoid ambiguity (2025 not 25) |
-| `Wrong month` | Misunderstanding overflow behavior | Remember that month 13 = January next year; month 0 = December previous year |
-| `Date displays as number` | Cell formatted as Number | Format cell as Date (right-click > Format Cells > Date) |
-| `Off by one day` | Confusing 1900 date system bug | Excel incorrectly considers 1900 a leap year; avoid dates before March 1, 1900 |
+**Answer:** September 30, 2026. Quarter 3 ends in month 9, so the formula asks for day 0 of month 10, which is September 30.
 
 ## Use Cases
 
-### [[Dynamic Reporting Period Construction]]
+### Monthly Reporting Period
 
-**Scenario:** Create a monthly report that automatically calculates the correct date range for any selected month and year, handling variable month lengths.
+**Scenario:** A finance team picks a year and a month in two input cells, then needs the first and last day of that period for a filtered report.
 
-**Implementation:**
-```
-=DATE(B2, C2, 1)                     (Period start - B2=year, C2=month)
-=DATE(B2, C2+1, 0)                   (Period end - last day of month)
-=DATE(B2-1, C2, 1)                   (Same period, prior year start)
-=DATE(B2-1, C2+1, 0)                 (Same period, prior year end)
+```excel
+=DATE(B2, C2, 1)
+=DATE(B2, C2 + 1, 0)
 ```
 
-**Business Application:** Finance teams can select any year/month combination and immediately get correct date ranges for data filtering, year-over-year comparisons, and report headers. No need to manually look up month lengths or remember leap years.
+**Why It Works:** The first formula returns day 1 of the selected month. The second returns the last day of the same month, so the report covers 28, 29, 30 or 31 days without any lookup table.
 
-**Technical Details:** The day 0 trick (DATE(year, month+1, 0)) is essential here—it automatically returns 28, 29, 30, or 31 depending on the month. February 2024 gets 29 days, February 2025 gets 28, without any conditional logic.
+### Payment Due Date Schedule
 
----
+**Scenario:** A billing system stores a start year, month and day for each invoice and needs a due date 30 days later.
 
-### [[Contract and Subscription Date Calculations]]
-
-**Scenario:** Calculate renewal dates, expiration warnings, and proration periods for contracts with various term lengths.
-
-**Implementation:**
-```
-=DATE(YEAR(B2)+D2, MONTH(B2), DAY(B2))           (End date: B2=start, D2=years)
-=DATE(YEAR(B2), MONTH(B2)+E2, DAY(B2))           (End date: E2=months)
-=DATE(YEAR(B2), MONTH(B2)+E2, DAY(B2))-1         (Last day of contract)
+```excel
+=DATE(YEAR(B2), MONTH(B2), DAY(B2)) + 30
 ```
 
-**Business Application:** Account management systems automatically calculate renewal dates for contracts of any length. Subscription platforms determine billing cycles. Legal teams track contract expirations without manual date calculations.
+**Why It Works:** DATE rebuilds the start date from its parts, and adding 30 moves it forward by days. This avoids overflow problems that come from adding to the month number.
 
-**Technical Details:** When adding months to the 31st of a month, DATE's overflow behavior may produce unexpected results (Jan 31 + 1 month = March 3 in non-leap years). For end-of-month handling, consider using EOMONTH or adding logic to cap the day at the last day of the result month.
+### Converting Text Dates
 
----
+**Scenario:** An export writes dates as text in the form `20260110`, and the analysis needs real date values.
 
-### [[Data Transformation and Cleansing]]
-
-**Scenario:** Convert dates stored as separate columns or in non-standard text formats into proper date values for analysis.
-
-**Implementation:**
-```
-=DATE(A2, B2, C2)                                                (Year/Month/Day columns)
-=DATE(VALUE(RIGHT(A2,4)), VALUE(LEFT(A2,2)), VALUE(MID(A2,4,2))) (MM/DD/YYYY text)
-=DATE(VALUE(LEFT(A2,4)), VALUE(MID(A2,6,2)), VALUE(RIGHT(A2,2))) (YYYYMMDD text)
+```excel
+=DATE(VALUE(LEFT(A2, 4)), VALUE(MID(A2, 5, 2)), VALUE(RIGHT(A2, 2)))
 ```
 
-**Business Application:** Data analysts can normalize date data from various source systems into a consistent format. ETL processes convert legacy system exports into analysis-ready date values. Database imports from systems with different date conventions become standardized.
+**Why It Works:** LEFT, MID and RIGHT split the text into parts, and VALUE converts each part to a number before DATE builds the date. Wrap the formula in IFERROR when some rows may be malformed.
 
-**Technical Details:** Always validate transformed dates. Use error checking like IFERROR(DATE(...), "Invalid") to catch malformed data. Consider DATEVALUE as an alternative for standard text date formats.
+## Common Errors
 
----
-
-### [[Payroll and HR Date Calculations]]
-
-**Scenario:** Calculate pay period boundaries, tenure milestones, and benefit eligibility dates based on hire dates.
-
-**Implementation:**
-```
-=DATE(YEAR(B2)+5, MONTH(B2), DAY(B2))            (5-year anniversary)
-=DATE(YEAR(B2), MONTH(B2)+3, 1)                  (Benefits eligibility: 1st of month after 90 days)
-=DATE(YEAR(NOW()), MONTH(B2), DAY(B2))           (This year's service anniversary)
-```
-
-**Business Application:** HR systems automatically flag upcoming service anniversaries for recognition programs. Payroll calculates correct benefit eligibility dates. Management reports show tenure distributions and milestone projections.
-
-**Technical Details:** For benefits that start "first of month after 90 days", combine DATE with date arithmetic: DATE(YEAR(hire+90), MONTH(hire+90)+1, 1) starts benefits on the first of the month following the 90-day wait.
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `#NUM!` | The year is below 0 or 10000 or higher. | Use a four-digit year between 1900 and 9999. |
+| `#VALUE!` | An argument is text that cannot be read as a number (Sheets). | Convert the text with VALUE or check that the source cell holds a number. |
+| Wrong year | A year from 0 to 1899 had 1900 added to it. | Enter the full four-digit year. |
+| Unexpected date | A month or day value rolled into another month. | Check the month and day inputs. Overflow is intentional for day 0 and month 13 tricks. |
+| `46032` displayed | The cell is formatted as a number, not a date. | Format the cell as a date. |
 
 ## Platform Differences
 
-### Microsoft Excel
-- **Availability:** All versions since Excel 1.0
-- **Date system:** Default 1900 system (January 1, 1900 = 1). Mac Excel historically used 1904 system by default
-- **Year handling:** Years 0-29 interpreted as 2000-2029; 30-99 as 1930-1999 (default behavior, may vary)
-- **Maximum date:** December 31, 9999 (serial 2958465)
-- **Minimum date:** January 1, 1900 (serial 1); dates before this return errors
-- **1900 leap year bug:** Excel incorrectly treats 1900 as a leap year, so DATE(1900,2,29) returns a "date" that never existed
-
-### Google Sheets
-- **Availability:** All versions
-- **Date system:** Uses epoch of December 30, 1899 (serial 0), compatible with Excel for dates after March 1, 1900
-- **Year handling:** Similar to Excel, but cutoff year may differ
-- **Maximum date:** Similar limits to Excel
-- **Minimum date:** Can handle dates before 1900 using negative serial numbers
-
-### Key Difference Alert
-The most notable difference is handling of dates before March 1, 1900. Excel has a deliberate bug (for Lotus 1-2-3 compatibility) treating 1900 as a leap year, so Excel's serial number for March 1, 1900 is 61 while the "correct" value would be 60. For practical purposes, this only matters when working with very old dates or calculating day counts spanning across February 1900. For dates after March 1, 1900, Excel and Sheets are fully compatible.
+| Platform | Availability | Notes |
+| --- | --- | --- |
+| Microsoft Excel | Available | Years 0 to 1899 add 1900. Years 1900 to 9999 are used as entered. Years below 0 or 10000 and higher return `#NUM!`. |
+| Google Sheets | Available | Same year rules and month and day rollover. Decimal arguments are truncated, and text arguments return `#VALUE!`. |
 
 ## Tips and Best Practices
 
-1. **Always use four-digit years:** DATE(25,1,1) might mean 2025 or 1925 depending on settings. DATE(2025,1,1) is unambiguous. Future-proof your spreadsheets.
-
-2. **Leverage overflow behavior intentionally:** DATE(2026, 13, 1) = January 1, 2027. DATE(2026, 1, 0) = December 31, 2025. This isn't a bug—it's a powerful feature for date arithmetic.
-
-3. **Use DATE for last-day-of-month:** DATE(year, month+1, 0) is more reliable than trying to remember month lengths. Works for any month, including February in leap years.
-
-4. **Combine with YEAR/MONTH/DAY for manipulation:** To change just the year of a date: DATE(new_year, MONTH(date), DAY(date)). This pattern is fundamental for date manipulation.
-
-5. **Validate imported dates:** When constructing dates from text or separate fields, add validation: =IF(AND(A1>=1, A1<=12), DATE(...), "Invalid month"). Catch data quality issues early.
-
-6. **Watch for day overflow at month ends:** Adding months to January 31 gives different results than you might expect—DATE(2026, 1+1, 31) = March 3, not February 28. Use EDATE for end-of-month-aware month addition.
-
-7. **Use DATE for dynamic ranges:** Build start/end dates programmatically for SUMIFS, COUNTIFS, and other functions with date criteria. DATE(year, quarter*3-2, 1) to DATE(year, quarter*3+1, 0) gives quarter boundaries.
-
-8. **Document date system assumptions:** If your workbook might be opened in Mac Excel or moved between platforms, add a note about which date system is expected.
+- Always enter four-digit years, because two-digit years are read differently from what most people expect.
+- Use `DATE(year, month + 1, 0)` for the last day of a month instead of counting days in each month.
+- Use EDATE or EOMONTH when you need end-of-month behavior for a month addition.
+- Validate imported parts before building the date, for example with a check that the month is from 1 to 12.
+- Use DATE rather than typed date text in formulas, because typed text depends on regional settings.
 
 ## Related Functions
 
-### Similar Functions
-
-| Function | Description | When to Use Instead |
-|----------|-------------|---------------------|
-| [[DATEVALUE]] | Converts text to date | When you have dates as text strings in standard formats |
-| [[TIME]] | Creates time from hour, minute, second | When constructing time values, not dates |
-| [[EDATE]] | Adds months to a date | When adding months and you want end-of-month awareness |
-
-### Commonly Used Together
-
-**[[YEAR]] / [[MONTH]] / [[DAY]]** - Extract and reconstruct
-
-*Modify individual components of a date:*
-```
-=DATE(YEAR(A1)+1, MONTH(A1), DAY(A1))     // Same date next year
-=DATE(YEAR(A1), MONTH(A1)+6, DAY(A1))     // Six months later
-=DATE(2026, MONTH(A1), DAY(A1))           // Same month/day in 2026
-```
-The fundamental pattern for date manipulation—extract, modify, reconstruct.
-
----
-
-**[[TODAY]]** - Current date reference
-
-*Build dates relative to today:*
-```
-=DATE(YEAR(TODAY()), 1, 1)          // January 1 of current year
-=DATE(YEAR(TODAY()), MONTH(TODAY()), 1)    // First of current month
-=DATE(YEAR(TODAY())+1, 1, 1)        // January 1 of next year
-```
-Essential for dynamic date ranges that adjust as time passes.
-
----
-
-**[[EOMONTH]]** - End of month
-
-*Compare with DATE's day 0 approach:*
-```
-=EOMONTH(DATE(2026, 6, 1), 0)       // June 30, 2026
-=DATE(2026, 7, 0)                   // June 30, 2026 (equivalent)
-=EOMONTH(A1, 3)                     // End of month, 3 months from A1
-```
-EOMONTH is often cleaner for end-of-month calculations, especially when adding months.
-
----
-
-**[[IF]]** - Conditional date construction
-
-*Build dates conditionally:*
-```
-=DATE(IF(MONTH(A1)<7, YEAR(A1), YEAR(A1)+1), 7, 1)   // Next July 1
-=DATE(B1, C1, IF(C1=2, 28, 30))                      // Last day approximation
-```
-Combine IF with DATE for complex date logic.
-
----
-
-**[[TEXT]]** - Format date output
-
-*Create formatted date strings:*
-```
-=TEXT(DATE(2026, 1, 10), "mmmm d, yyyy")     // "January 10, 2026"
-=TEXT(DATE(A1, B1, C1), "yyyy-mm-dd")        // "2026-01-10"
-```
-Convert DATE results to specific text formats for display or export.
+| Function | Relationship |
+| --- | --- |
+| [DATEVALUE](DATEVALUE.md) | Converts a date written as text, when the whole date is in one string. |
+| [DAY](DAY.md) | Extracts the day from a date, the reverse of one part of DATE. |
+| [EDATE](EDATE.md) | Adds whole months to a date, with end-of-month handling. |
+| [EOMONTH](EOMONTH.md) | Returns the last day of a month that is a set number of months away. |
+| [MONTH](MONTH.md) | Extracts the month number that DATE uses as input. |
+| [TIME](TIME.md) | Builds a time value from hour, minute and second parts. |
+| [TODAY](TODAY.md) | Supplies the current date, which DATE can then reshape. |
+| [YEAR](YEAR.md) | Extracts the year that DATE uses as input. |
 
 ## Official Documentation
 
-- **Microsoft Excel:** [DATE function](https://support.microsoft.com/en-us/office/date-function-e36c0c8c-4104-49da-ab83-82328b832349)
-- **Google Sheets:** [DATE function](https://support.google.com/docs/answer/3092969)
-
-## Version History
-
-| Platform | Version Introduced | Notes |
-|----------|-------------------|-------|
-| Excel | Excel 1.0 (1985) | One of the original functions |
-| Excel 2007+ | All subsequent | No changes to function behavior |
-| Excel for Mac | All versions | Historically used 1904 date system by default |
-| Google Sheets | Original launch (2006) | Functionally identical to Excel |
-| LibreOffice Calc | All versions | Compatible implementation |
-
----
-
-*Last updated: 2026-01-10*
+- [Microsoft Support: DATE function](https://support.microsoft.com/en-us/excel/functions/date-function)
+- [Google Docs Editors Help: DATE](https://support.google.com/docs/answer/3092969)

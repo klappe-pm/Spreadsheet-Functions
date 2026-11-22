@@ -46,7 +46,7 @@ Several diagrams overlap and some still group functions under the retired Dynami
 ## Cross-Category Diagrams
 
 - [Master Functions Overview](master_functions_overview.md): key relationships across all categories.
-- [Complete Functions Mind Map](complete_functions_mindmap.md): every category in one mind map.
+- [Complete Functions Mind Map](complete_functions_mindmap.md): the major categories in one mind map.
 - [Summary Table](Functions-Summary%20Table.md): function counts by category and subcategory.
 - [Dynamic Arrays](Dynamic_Arrays_diagram.md), [Dynamic Arrays Overview](Functions-Dynamic%20Arrays.md), [Array Functions](Functions-Arrays.md) and [Modern Excel](Functions-Modern%20Excel%20%28VIF%29.md): the array and lambda functions now filed in Lookup & Reference, Logical, Math & Trig and Text.
 - [Excel-specific](Excel-specific_diagram.md) and [Excel-specific Complete](Functions-Excel-Specific-Complete.md): functions once filed as Excel-only, most of which Google Sheets now supports.

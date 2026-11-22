@@ -82,5 +82,4 @@ graph LR
     style BITRSHIFTEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     style BITXOREXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
 
-
 ```

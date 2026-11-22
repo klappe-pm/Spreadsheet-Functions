@@ -194,11 +194,10 @@ graph TD
     classDef external fill:#f9f9f9,stroke:#666,stroke-width:1px,stroke-dasharray: 5 5
 ```
 
-
 ## Legend
 - **Solid arrows (→)**: "Commonly used with" relationships
 - **Dashed arrows** (`-.->`): "Similar functions" relationships
 - **Colored nodes**: Functions in this category
 - **Gray dashed nodes**: External functions from other categories
 
-## Functions in this category: 19
+## Functions in This Category: 19

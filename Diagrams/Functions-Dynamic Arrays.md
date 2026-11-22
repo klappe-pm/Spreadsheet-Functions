@@ -38,7 +38,6 @@ This diagram lists the core dynamic array functions. Each function now lives in 
 
 ```mermaid
 
-
 graph LR
     A["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Dynamic Arrays</b><br/>────────────────<br/>Functions that return results spilling into multiple cells<br/><b>Total Functions:</b> 5</div>"] --> B["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Array Functions</b><br/>────────────────<br/>Functions for dynamic array operations<br/><b>Total Functions:</b> 5</div>"]
 
@@ -89,6 +88,5 @@ graph LR
     style RANDARRAY fill:#F0FFF0,stroke:#333,stroke-width:2px
     style RANDARRAYSYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
     style RANDARRAYEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
-
 
 ```

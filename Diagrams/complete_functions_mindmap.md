@@ -1,6 +1,69 @@
-# Complete Excel/Google Sheets Functions Mind Map
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Overview
+purpose:
+  - Function Relationships
+use-case:
+  - Finding Related Functions
+  - Browsing the Function Library
+related:
+  - ABS
+  - ASIN
+  - AVERAGE
+  - BIN2DEC
+  - BITAND
+  - CEILING
+  - CELL
+  - CHAR
+  - CHISQ.DIST
+  - COMPLEX
+  - CONCATENATE
+  - DAVERAGE
+  - DB
+  - DEC2BIN
+  - DEGREES
+  - DGET
+  - EXP
+  - F.DIST
+  - FILTER
+  - HEX2DEC
+  - HOUR
+  - IF
+  - IFERROR
+  - IMPORTDATA
+  - IMPORTRANGE
+  - IMPOWER
+  - IMREAL
+  - IMSIN
+  - IMSUM
+  - ISBLANK
+  - ISREF
+  - MOD
+  - NORM.DIST
+  - NPV
+  - PMT
+  - SHEET
+  - SORT
+  - SUM
+  - TODAY
+  - XLOOKUP
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - excel
+  - google-sheets
+---
 
-This mind map shows the complete ecosystem of Excel and Google Sheets functions with their interconnections and relationships.
+# Excel and Google Sheets Functions Mind Map
+
+This mind map shows the Excel and Google Sheets functions in the library, grouped by category, with the functions that relate to each other. It does not show every function.
 
 ```mermaid
 mindmap
@@ -17,14 +80,12 @@ mindmap
           QUARTILE
         MODE
           FREQUENCY
-          HISTOGRAM
       Advanced Stats
         STDEV
           VAR
           COVAR
         CORREL
           PEARSON
-          SPEARMAN
         REGRESSION
           LINEST
           LOGEST
@@ -38,13 +99,13 @@ mindmap
         T.DIST
           T.INV
           T.TEST
-        CHI.DIST
-          CHI.INV
-          CHI.TEST
+        CHISQ.DIST
+          CHISQ.INV
+          CHISQ.TEST
         F.DIST
           F.INV
           F.TEST
-    
+
     Math & Trig
       Basic Math
         SUM
@@ -86,7 +147,7 @@ mindmap
         CEILING
           FLOOR
           TRUNC
-    
+
     Logical
       Core Logic
         IF
@@ -105,13 +166,13 @@ mindmap
           ISTEXT
           ISLOGICAL
         ISERR
-          ISEVENB
+          ISEVEN
           ISODD
       Advanced Logic
         XOR
         LAMBDA
         FILTER
-    
+
     Text
       Basic Text
         CONCATENATE
@@ -133,7 +194,6 @@ mindmap
           CLEAN
           EXACT
         SPLIT
-          REGEX
         VALUE
           TEXT
           DOLLAR
@@ -142,8 +202,7 @@ mindmap
           CODE
           UNICODE
         REPT
-        REVERSE
-    
+
     Lookup & Reference
       Basic Lookup
         VLOOKUP
@@ -165,10 +224,9 @@ mindmap
         FILTER
           QUERY
       Array Functions
-        ARRAY
-          SEQUENCE
-          RANDARRAY
-    
+        SEQUENCE
+        RANDARRAY
+
     Date & Time
       Basic Date
         TODAY
@@ -184,11 +242,8 @@ mindmap
       Date Calculations
         DATEDIF
           DAYS
-          WEEKS
-          MONTHS
         WORKDAY
           NETWORKDAYS
-          HOLIDAYS
         EDATE
           EOMONTH
       Time Functions
@@ -197,7 +252,7 @@ mindmap
         WEEKDAY
           WEEKNUM
           YEARFRAC
-    
+
     Financial
       Loan Calculations
         PMT
@@ -224,8 +279,7 @@ mindmap
           ACCRINT
         DURATION
           MDURATION
-          CONVEXITY
-    
+
     Engineering
       Number Systems
         DEC2BIN
@@ -280,7 +334,7 @@ mindmap
         DELTA
           GESTEP
         CONVERT
-    
+
     Database
       Database Functions
         DAVERAGE
@@ -293,9 +347,7 @@ mindmap
           DPRODUCT
           DSTDEV
           DVAR
-        DEXTRACT
-          QUERY
-    
+
     Information
       Cell Information
         CELL
@@ -320,7 +372,7 @@ mindmap
           ROWS
           COLUMN
           COLUMNS
-    
+
     Web
       Web Functions
         WEBSERVICE
@@ -329,8 +381,8 @@ mindmap
           IMPORTHTML
           IMPORTRANGE
           IMPORTXML
-    
-    Dynamic Arrays
+
+    Dynamic Array Functions
       Array Functions
         FILTER
           SORT
@@ -340,20 +392,19 @@ mindmap
           RANDARRAY
         XLOOKUP
           XMATCH
-    
-    Excel Specific
-      Excel Functions
+
+    Excel Functions
+      Core Excel Functions
         XLOOKUP
           XMATCH
         STOCKHISTORY
         FORMULATEXT
         AGGREGATE
         SUBTOTAL
-      Power Query
-        POWERQUERY
+      Web Access
         WEBSERVICE
-    
-    Google Specific
+
+    Google-Specific
       Google Functions
         ARRAYFORMULA
         QUERY
@@ -371,7 +422,7 @@ mindmap
           REGEXREPLACE
         SPLIT
         JOIN
-    
+
     Cube
       OLAP Functions
         CUBEKPIMEMBER
@@ -385,33 +436,35 @@ mindmap
 
 ## Mind Map Structure
 
-### Core Categories (15 Main Branches)
-1. **Statistical** - Data analysis and statistical calculations
-2. **Math & Trig** - Mathematical and trigonometric operations  
-3. **Logical** - Decision making and conditional logic
-4. **Text** - String manipulation and text processing
-5. **Lookup & Reference** - Data retrieval and array operations
-6. **Date & Time** - Temporal calculations and formatting
-7. **Financial** - Business and financial modeling
-8. **Engineering** - Technical and scientific calculations
-9. **Database** - Data filtering and aggregation
-10. **Information** - Cell and worksheet metadata
-11. **Web** - Internet data import and web services
-12. **Dynamic Arrays** - Modern array-based functions
-13. **Excel Specific** - Exclusive Excel features
-14. **Google Specific** - Exclusive Google Sheets features  
-15. **Cube** - OLAP and multidimensional data analysis
+### Top-Level Branches
+
+The map has 15 top-level branches. Thirteen match library categories. Dynamic Array Functions and Excel Functions group functions across categories. The Add-in & Automation category is not shown.
+
+1. **Statistical**: Data analysis and statistical calculations
+2. **Math & Trig**: Mathematical and trigonometric operations
+3. **Logical**: Decision making and conditional logic
+4. **Text**: String manipulation and text processing
+5. **Lookup & Reference**: Data retrieval and array operations
+6. **Date & Time**: Temporal calculations and formatting
+7. **Financial**: Business and financial modeling
+8. **Engineering**: Technical and scientific calculations
+9. **Database**: Data filtering and aggregation
+10. **Information**: Cell and worksheet metadata
+11. **Web**: Internet data import and web services
+12. **Cube**: OLAP and multidimensional data analysis
+13. **Google-Specific**: Google Sheets functions and their related functions
+14. **Dynamic Array Functions**: Functions that return arrays spilling into neighboring cells
+15. **Excel Functions**: Functions available in Excel, several of which also work in Google Sheets
 
 ### Key Relationships Shown
-- **Hierarchical Structure** - Functions grouped by logical relationships
-- **Cross-Category Connections** - How functions from different categories work together
-- **Functional Families** - Related functions that build on each other
-- **Platform Differences** - Excel vs Google Sheets specific implementations
 
-### Usage Notes
-- **533 Total Functions** represented across all categories
-- **Color coding** represents function categories in supported viewers
+- **Hierarchical Structure**: Functions grouped by logical relationships
+- **Cross-Category Connections**: How functions from different categories work together
+- **Functional Families**: Related functions that build on each other
+- **Platform Differences**: Excel and Google Sheets implementations
+
+## Usage Notes
+
+- **576 Total Functions** in the library, across 14 categories
 - **Indentation levels** show function relationships and dependencies
 - **Branching structure** illustrates how functions connect and relate to each other
-
-This mind map provides a complete overview of the Excel and Google Sheets function ecosystem, showing how all 533 documented functions relate to each other within their categories and across the entire platform.

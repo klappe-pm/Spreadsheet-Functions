@@ -1,26 +1,47 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Text
+purpose:
+  - Function Relationships
+use-case:
+  - Converting Text and Numbers
+related:
+  - ASC
+  - BAHTTEXT
+  - CHAR
+  - CLEAN
+  - CODE
+  - DOLLAR
+  - FIXED
+  - JIS
+  - NUMBERVALUE
+  - T
+  - UNICHAR
+  - UNICODE
+  - VALUE
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - excel
+  - google-sheets
+  - text
 ---
-# Spreadsheets-Functions-Text
+
+# Text Functions Diagram
+
+This diagram shows the Conversion functions from the Text category, with the syntax and an example for each function.
 
 ```mermaid
 
 graph LR
-    Text["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Text</b><br/>────────────────<br/>Text manipulation and formatting<br/><b>Total Functions:</b> 37</div>"]
+    Text["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Text</b><br/>────────────────<br/>Text manipulation and formatting<br/><b>Total Functions:</b> 54</div>"]
     
     Text --> Conversion["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Conversion</b><br/>────────────────<br/>Text and number conversions<br/><b>Functions:</b> 13</div>"]
     

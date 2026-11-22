@@ -145,5 +145,4 @@ graph LR
     style OCT2DECEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     style OCT2HEXEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
 
-
 ```

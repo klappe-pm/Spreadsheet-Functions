@@ -1,30 +1,56 @@
 ---
-categories:
-- spreadsheet-functions
-subCategories:
-- excel
-- sheets
-topics:
-- diagrams
-subTopics: []
-dateCreated: '2025-08-17'
-dateRevised: '2025-08-17'
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Lookup & Reference
+purpose:
+  - Function Relationships
+use-case:
+  - Choosing a Lookup Function
+  - Referencing Cells Dynamically
+related:
+  - ADDRESS
+  - AREAS
+  - CHOOSE
+  - FILTER
+  - GETPIVOTDATA
+  - HLOOKUP
+  - HYPERLINK
+  - INDEX
+  - INDIRECT
+  - LOOKUP
+  - MATCH
+  - OFFSET
+  - RTD
+  - TRANSPOSE
+  - VLOOKUP
+  - XLOOKUP
+  - XMATCH
+level: 3
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
 aliases: []
 tags:
-- diagrams
-- excel
-- sheets
+  - diagrams
+  - excel
+  - google-sheets
+  - lookup
 ---
-# Spreadsheets-Functions-Lookup-Reference-Complete
+
+# Lookup and Reference Functions Diagram
+
+This diagram shows 17 of the functions in the Lookup & Reference category, grouped into lookup functions and reference functions.
 
 ```mermaid
 
 graph LR
-    LookupRef["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Lookup & Reference</b><br/>────────────────<br/>Lookup and reference functions<br/><b>Total Functions:</b> 29</div>"]
+    LookupRef["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Lookup & Reference</b><br/>────────────────<br/>Lookup and reference functions<br/><b>Total Functions:</b> 41</div>"]
     
     LookupRef --> Lookup["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Lookup</b><br/>────────────────<br/>Data lookup functions<br/><b>Functions:</b> 8</div>"]
     
-    LookupRef --> Reference["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Reference</b><br/>────────────────<br/>Cell reference functions<br/><b>Functions:</b> 21</div>"]
+    LookupRef --> Reference["<div align='left' style='font-family: MonoLisa, monospace;'><b style='font-size: 1.1em;'>Reference</b><br/>────────────────<br/>Cell reference functions<br/><b>Functions:</b> 9</div>"]
     
     %% Lookup Functions (8 functions)
     Lookup --> VLOOKUP["<div align='left' style='font-family: MonoLisa, monospace;'><b>VLOOKUP</b><br/>────────────────<br/>Searches for a value in the first column of a table and returns a value in the same row from another column</div>"]
@@ -37,7 +63,7 @@ graph LR
     
     Lookup --> INDEX["<div align='left' style='font-family: MonoLisa, monospace;'><b>INDEX</b><br/>────────────────<br/>Returns a value or reference of the cell at the intersection of a particular row and column</div>"]
     INDEX --> INDEXSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>INDEX(array, row_num, [column_num])</div>"]
-    INDEX --> INDEXEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=INDEX(A1:C10, 5, 2) → B5</div>"]
+    INDEX --> INDEXEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=INDEX(A1:C10, 5, 2) → value in B5</div>"]
     
     Lookup --> MATCH["<div align='left' style='font-family: MonoLisa, monospace;'><b>MATCH</b><br/>────────────────<br/>Searches for a specified item in a range of cells and returns the relative position</div>"]
     MATCH --> MATCHSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>MATCH(lookup_value, lookup_array, [match_type])</div>"]
@@ -59,7 +85,7 @@ graph LR
     FILTER_LOOKUP --> FILTERLOOKUPSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>FILTER(array, include, [if_empty])</div>"]
     FILTER_LOOKUP --> FILTERLOOKUPEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=FILTER(A1:B10, A1:A10=&quot;Apple&quot;) → Filtered array</div>"]
     
-    %% Reference Functions (21 functions) - showing key functions
+    %% Reference Functions (9 functions)
     Reference --> ADDRESS["<div align='left' style='font-family: MonoLisa, monospace;'><b>ADDRESS</b><br/>────────────────<br/>Returns a reference as text to a single cell in a worksheet</div>"]
     ADDRESS --> ADDRESSSYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>ADDRESS(row_num, column_num, [abs_num], [a1], [sheet_text])</div>"]
     ADDRESS --> ADDRESSEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=ADDRESS(2, 3) → &quot;$C$2&quot;</div>"]
@@ -89,7 +115,7 @@ graph LR
     TRANSPOSE_REF --> TRANSPOSEREFEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=TRANSPOSE(A1:C3)</div>"]
     
     Reference --> GETPIVOTDATA["<div align='left' style='font-family: MonoLisa, monospace;'><b>GETPIVOTDATA</b><br/>────────────────<br/>Returns data stored in a PivotTable report</div>"]
-    GETPIVOTDATA --> GETPIVOTDATASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>GETPIVOTDATA(data_field, pivot_table, [field1, item1], ...)</div>"]
+    GETPIVOTDATA --> GETPIVOTDATASYNTAX["<div align='left' style='font-family: MonoLisa, monospace;'><b>Syntax</b><br/>────────────────<br/>GETPIVOTDATA(data_field, pivot_table, [field1, item1, field2, item2], ...)</div>"]
     GETPIVOTDATA --> GETPIVOTDATAEXAMPLE["<div align='left' style='font-family: MonoLisa, monospace;'><b>Example</b><br/>────────────────<br/>=GETPIVOTDATA(&quot;Sum of Sales&quot;, A3)</div>"]
     
     Reference --> RTD["<div align='left' style='font-family: MonoLisa, monospace;'><b>RTD</b><br/>────────────────<br/>Retrieves real-time data from a program that supports COM automation</div>"]
@@ -101,7 +127,7 @@ graph LR
     style Lookup fill:#F0FFFF,stroke:#333,stroke-width:2px
     style Reference fill:#F0FFFF,stroke:#333,stroke-width:2px
     
-    %% Functions alternate: odd=green, even=blue (global numbering 1-29)
+    %% Functions alternate: odd=green, even=blue (global numbering 1-17)
     style VLOOKUP fill:#F0FFF0,stroke:#333,stroke-width:2px
     style HLOOKUP fill:#B9E9EB,stroke:#333,stroke-width:2px
     style INDEX fill:#F0FFF0,stroke:#333,stroke-width:2px
@@ -159,5 +185,3 @@ graph LR
     style RTDEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
     
 ```
-
----

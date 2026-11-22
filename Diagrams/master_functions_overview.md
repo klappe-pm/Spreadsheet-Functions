@@ -1,6 +1,49 @@
+---
+domain: Spreadsheet Functions
+category: Diagrams
+subcategory: Overview
+purpose:
+  - Function Relationships
+use-case:
+  - Understanding Function Relationships
+related:
+  - ABS
+  - AND
+  - AVERAGE
+  - CONCATENATE
+  - COUNT
+  - IF
+  - INDEX
+  - LEFT
+  - MATCH
+  - MAX
+  - MEDIAN
+  - MIN
+  - OR
+  - PMT
+  - PV
+  - RIGHT
+  - ROUND
+  - STDEV
+  - SUM
+  - TODAY
+  - VLOOKUP
+level: 2
+source:
+  - https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+  - https://support.google.com/docs/table/25273
+date-created: 2025-08-17
+date-revised: 2026-11-22
+aliases: []
+tags:
+  - diagrams
+  - excel
+  - google-sheets
+---
+
 # Master Functions Relationship Overview
 
-This diagram shows the relationships between major Excel/Google Sheets functions across all categories.
+This diagram shows the relationships between major Excel and Google Sheets functions across all categories.
 
 ```mermaid
 graph TD
@@ -8,38 +51,37 @@ graph TD
     classDef Financial fill:#54A0FF,stroke:#333,stroke-width:2px,color:#000
     classDef Logical fill:#96CEB4,stroke:#333,stroke-width:2px,color:#000
     classDef Text fill:#45B7D1,stroke:#333,stroke-width:2px,color:#000
-    classDef DynamicArrays fill:#FD79A8,stroke:#333,stroke-width:2px,color:#000
     classDef Engineering fill:#FF9F43,stroke:#333,stroke-width:2px,color:#000
     classDef Cube fill:#E17055,stroke:#333,stroke-width:2px,color:#000
-    classDef Excel-specific fill:#6C5CE7,stroke:#333,stroke-width:2px,color:#000
-    classDef Google-specific fill:#A29BFE,stroke:#333,stroke-width:2px,color:#000
+    classDef ExcelSpecific fill:#6C5CE7,stroke:#333,stroke-width:2px,color:#000
+    classDef GoogleSpecific fill:#A29BFE,stroke:#333,stroke-width:2px,color:#000
     classDef Statistical fill:#FF6B6B,stroke:#333,stroke-width:2px,color:#000
     classDef Database fill:#00D2D3,stroke:#333,stroke-width:2px,color:#000
     classDef Web fill:#00B894,stroke:#333,stroke-width:2px,color:#000
     classDef DateTime fill:#FF9FF3,stroke:#333,stroke-width:2px,color:#000
     classDef Information fill:#5F27CD,stroke:#333,stroke-width:2px,color:#000
     classDef MathTrig fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#000
-    PV["PV<br/>PV calculates the present value of an in..."]
-    PMT["PMT<br/>PMT calculates the payment for a loan ba..."]
-    TODAY["TODAY<br/>TODAY returns the current date as a seri..."]
-    MATCH["MATCH<br/>MATCH searches for a value in a range an..."]
-    INDEX["INDEX<br/>INDEX returns the value at a specified r..."]
-    VLOOKUP["VLOOKUP<br/>VLOOKUP searches for a value in the firs..."]
-    IF["IF<br/>IF performs a logical test and returns o..."]
-    AND["AND<br/>AND returns TRUE if all arguments are TR..."]
-    OR["OR<br/>OR returns TRUE if any argument is TRUE,..."]
-    MEDIAN["MEDIAN<br/>MEDIAN performs statistical analysis and..."]
-    MIN["MIN<br/>MIN returns the smallest numeric value i..."]
-    COUNT["COUNT<br/>COUNT counts the number of cells in a ra..."]
-    AVERAGE["AVERAGE<br/>AVERAGE calculates the arithmetic mean o..."]
-    STDEV["STDEV<br/>STDEV performs statistical analysis and ..."]
-    MAX["MAX<br/>MAX returns the largest numeric value in..."]
-    LEFT["LEFT<br/>LEFT extracts a specified number of char..."]
-    CONCATENATE["CONCATENATE<br/>CONCATENATE joins multiple text strings ..."]
-    RIGHT["RIGHT<br/>RIGHT extracts a specified number of cha..."]
-    ROUND["ROUND<br/>ROUND rounds a number to a specified num..."]
-    SUM["SUM<br/>SUM adds all numbers in a range or list ..."]
-    ABS["ABS<br/>ABS calculates mathematical and trigonom..."]
+    PV["PV<br/>Calculates the present value of an investment"]
+    PMT["PMT<br/>Calculates the periodic payment for a loan"]
+    TODAY["TODAY<br/>Returns the current date as a serial number"]
+    MATCH["MATCH<br/>Returns the relative position of a value in a range"]
+    INDEX["INDEX<br/>Returns the value at a specified row and column position"]
+    VLOOKUP["VLOOKUP<br/>Searches the first column of a range and returns a matching row value"]
+    IF["IF<br/>Returns one value if a condition is TRUE, another if FALSE"]
+    AND["AND<br/>Returns TRUE if all arguments are TRUE"]
+    OR["OR<br/>Returns TRUE if any argument is TRUE"]
+    MEDIAN["MEDIAN<br/>Returns the middle value of a set of numbers"]
+    MIN["MIN<br/>Returns the smallest numeric value in a set of values"]
+    COUNT["COUNT<br/>Counts the cells in a range that contain numbers"]
+    AVERAGE["AVERAGE<br/>Returns the arithmetic mean of its numeric arguments"]
+    STDEV["STDEV<br/>Estimates standard deviation based on a sample"]
+    MAX["MAX<br/>Returns the largest numeric value in a set of values"]
+    LEFT["LEFT<br/>Returns a set number of characters from the start of text"]
+    CONCATENATE["CONCATENATE<br/>Joins multiple text strings into one string"]
+    RIGHT["RIGHT<br/>Returns a set number of characters from the end of text"]
+    ROUND["ROUND<br/>Rounds a number to a specified number of digits"]
+    SUM["SUM<br/>Adds all numbers in a range or list of values"]
+    ABS["ABS<br/>Returns the absolute value of a number"]
     SUM --> IF
     AVERAGE --> IF
     COUNT --> IF
@@ -77,19 +119,19 @@ graph TD
     class ABS MathTrig
 ```
 
-
 ## Legend
+
 - **Node colors represent categories:**
-  - 🔴 Statistical Functions
-  - 🔷 Math & Trig Functions
-  - 🔵 Text Functions
-  - 🟢 Logical Functions
-  - 🟡 Lookup & Reference Functions
-  - 🟣 Date & Time Functions
-  - And more...
+  - Statistical
+  - Math & Trig
+  - Text
+  - Logical
+  - Lookup & Reference
+  - Date & Time
+  - Financial
 
 ## Statistics
-- **Total Functions**: 533
-- **Categories**: 15
-- **Major Functions Shown**: 22 (most commonly used)
 
+- **Total Functions**: 576
+- **Categories**: 14
+- **Major Functions Shown**: 21

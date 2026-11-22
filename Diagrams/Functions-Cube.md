@@ -97,5 +97,4 @@ graph LR
     style CUBEMEMBERPROPERTYSYNTAX fill:#FFE4E1,stroke:#333,stroke-width:2px
     style CUBEMEMBERPROPERTYEXAMPLE fill:#E6E6FA,stroke:#333,stroke-width:2px
 
-
 ```

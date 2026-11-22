@@ -15,7 +15,7 @@ related:
   - SEARCHB
 level: 5
 source:
-  - https://support.microsoft.com/en-us/topic/c7912941-af2a-4bdf-a553-d0d89b0a0628
+  - https://support.microsoft.com/en-us/excel/text-functions-reference
   - https://support.google.com/docs/answer/3296009
 date-created: 2026-11-22
 date-revised: 2026-11-22
@@ -221,5 +221,5 @@ An export contains an email address that uses only Latin characters. The team ne
 
 ## Official Documentation
 
-- [Microsoft Support: FIND and FINDB functions](https://support.microsoft.com/en-us/topic/c7912941-af2a-4bdf-a553-d0d89b0a0628)
+- [Microsoft Support: Text functions reference (FIND, FINDB)](https://support.microsoft.com/en-us/excel/text-functions-reference)
 - [Google Docs Editors Help: FINDB](https://support.google.com/docs/answer/3296009)

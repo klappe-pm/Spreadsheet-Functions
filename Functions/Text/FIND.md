@@ -17,7 +17,7 @@ related:
   - SEARCH
 level: 2
 source:
-  - https://support.microsoft.com/en-us/topic/c7912941-af2a-4bdf-a553-d0d89b0a0628
+  - https://support.microsoft.com/en-us/excel/text-functions-reference
   - https://support.google.com/docs/answer/3094126
 date-created: 2025-08-17
 date-revised: 2026-11-22
@@ -232,5 +232,5 @@ A marketing list stores contact emails in A2. The team wants only the company do
 
 ## Official Documentation
 
-- [Microsoft Support: FIND and FINDB functions](https://support.microsoft.com/en-us/topic/c7912941-af2a-4bdf-a553-d0d89b0a0628)
+- [Microsoft Support: Text functions reference (FIND, FINDB)](https://support.microsoft.com/en-us/excel/text-functions-reference)
 - [Google Docs Editors Help: FIND](https://support.google.com/docs/answer/3094126)
